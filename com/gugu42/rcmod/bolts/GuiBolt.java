@@ -1,0 +1,72 @@
+package com.gugu42.rcmod.bolts;
+
+import org.lwjgl.opengl.GL11;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
+import net.minecraftforge.event.EventPriority;
+import net.minecraftforge.event.ForgeSubscribe;
+import cpw.mods.fml.relauncher.SideOnly;
+import cpw.mods.fml.relauncher.Side;
+
+@SideOnly(Side.CLIENT)
+public class GuiBolt extends Gui {
+	private Minecraft mc;
+	private static final ResourceLocation texturepath = new ResourceLocation("rcmod", "textures/gui/bolt.png");
+
+	public GuiBolt(Minecraft mc) {
+		super();
+		
+		this.mc = mc;
+	}
+
+
+	@ForgeSubscribe(priority = EventPriority.NORMAL)
+	public void onRenderExperienceBar(RenderGameOverlayEvent event) {
+
+		if (event.isCancelable() || event.type != ElementType.EXPERIENCE) {
+			return;
+		}
+
+
+		ExtendedPlayerBolt props = ExtendedPlayerBolt.get(this.mc.thePlayer);
+
+		if (props == null || props.getMaxBolts() == 0) {
+			return;
+		}
+
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		GL11.glDisable(GL11.GL_LIGHTING);
+		this.mc.getTextureManager().bindTexture(texturepath);
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
+		GL11.glDepthMask(false);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		GL11.glDisable(GL11.GL_ALPHA_TEST);
+		drawTexturedQuadFit(3, 5, 16, 16, 0);
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		GL11.glDepthMask(true);
+		
+		mc.fontRenderer.drawString("" + props.getCurrentBolt(), 20, 8, 2);
+
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		GL11.glDisable(GL11.GL_LIGHTING);
+
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public static void drawTexturedQuadFit(double x, double y, double width, double height, double zLevel){
+		Tessellator tessellator = Tessellator.instance;
+        tessellator.startDrawingQuads();
+        tessellator.addVertexWithUV(x + 0, y + height, zLevel, 0,1);
+        tessellator.addVertexWithUV(x + width, y + height, zLevel, 1, 1);
+        tessellator.addVertexWithUV(x + width, y + 0, zLevel, 1,0);
+        tessellator.addVertexWithUV(x + 0, y + 0, zLevel, 0, 0);
+        tessellator.draw();
+	}
+}

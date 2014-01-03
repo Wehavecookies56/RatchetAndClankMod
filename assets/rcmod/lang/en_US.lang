@@ -1,0 +1,7 @@
+tile.tntCrate.name=TNT Crate
+tile.crate.name=Bolt Crate
+
+item.bolt.name=Bolt
+item.omwr3000.name=OmniWrench 3000
+
+itemGroup.rcTab=Ratchet & Clank Mod
