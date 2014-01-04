@@ -1,7 +1,9 @@
 tile.tntCrate.name=TNT Crate
 tile.crate.name=Bolt Crate
+tile.vendor.name=Gadgetron Vendor
 
 item.bolt.name=Bolt
+item.blaster.name=Blaster
 item.omwr3000.name=OmniWrench 3000
 
 itemGroup.rcTab=Ratchet & Clank Mod
