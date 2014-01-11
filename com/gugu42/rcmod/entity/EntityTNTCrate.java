@@ -1,7 +1,8 @@
-package com.gugu42.rcmod;
+package com.gugu42.rcmod.entity;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
+import com.gugu42.rcmod.TNTCrateExplosion;
 
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import cpw.mods.fml.relauncher.Side;
@@ -93,7 +94,7 @@ public class EntityTNTCrate extends Entity implements IEntityAdditionalSpawnData
     {
         float f = 4.0F;
         TNTCrateExplosion explosion = new TNTCrateExplosion(this.worldObj, (Entity)null, this.posX, this.posY, this.posZ, f);
-        explosion.doExplosionA();
+        explosion.doExplosionA(false);
         explosion.doExplosionB(true);
     }
 

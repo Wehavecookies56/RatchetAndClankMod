@@ -1,4 +1,4 @@
-package com.gugu42.rcmod.weapons.ammo;
+package com.gugu42.rcmod.render;
 
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
@@ -10,6 +10,8 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+
+import com.gugu42.rcmod.entity.EntityBlasterAmmo;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

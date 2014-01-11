@@ -5,7 +5,7 @@ import java.util.Random;
 import com.gugu42.rcmod.BoltCommand;
 import com.gugu42.rcmod.CommonProxy;
 import com.gugu42.rcmod.RcMod;
-import com.gugu42.rcmod.weapons.ItemBlaster;
+import com.gugu42.rcmod.items.ItemBlaster;
 
 import cpw.mods.fml.common.ObfuscationReflectionHelper;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;

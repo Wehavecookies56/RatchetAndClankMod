@@ -1,10 +1,21 @@
 package com.gugu42.rcmod;
 
-import com.gugu42.rcmod.bolts.GuiBolt;
+import com.gugu42.rcmod.blocks.BlockCrate;
+import com.gugu42.rcmod.blocks.BlockTNTCrate;
+import com.gugu42.rcmod.blocks.BlockVendor;
 import com.gugu42.rcmod.bolts.RcEventHandler;
 import com.gugu42.rcmod.bolts.RcTickHandler;
-import com.gugu42.rcmod.weapons.ItemBlaster;
-import com.gugu42.rcmod.weapons.ammo.EntityBlasterAmmo;
+import com.gugu42.rcmod.entity.EntityBlasterAmmo;
+import com.gugu42.rcmod.entity.EntityBombGloveAmmo;
+import com.gugu42.rcmod.entity.EntityTNTCrate;
+import com.gugu42.rcmod.gui.GuiBolt;
+import com.gugu42.rcmod.items.ItemBlaster;
+import com.gugu42.rcmod.items.ItemBolt;
+import com.gugu42.rcmod.items.ItemBombGlove;
+import com.gugu42.rcmod.items.ItemOmniWrench3000;
+import com.gugu42.rcmod.network.GuiHandler;
+import com.gugu42.rcmod.network.RcPacketHandler;
+import com.gugu42.rcmod.tileentity.TileEntityVendor;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -12,7 +23,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.ForgeSubscribe;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -23,13 +33,14 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid = "rcmod", version = "0.1.5", name = "RcMod")
-@NetworkMod(clientSideRequired = true, serverSideRequired = true, channels = {"rcchannel"}, packetHandler = RcPacketHandler.class)
+@Mod(modid = "rcmod", version = "0.1.7", name = "RcMod")
+@NetworkMod(clientSideRequired = true, serverSideRequired = true, channels = {"RCMD|bolt", "RCMD|vend", "RCMD|refi"}, packetHandler = RcPacketHandler.class)
 public class RcMod {
 	@SidedProxy(clientSide = "com.gugu42.rcmod.ClientProxy", serverSide = "com.gugu42.rcmod.CommonProxy")
 	public static CommonProxy proxy;
@@ -45,7 +56,9 @@ public class RcMod {
 
 	public static Item omniwrench3000;
 	public static Item bolt;
+	
 	public static Item blaster;
+	public static Item bombGlove;
 	
 	public RcTickHandler rcTickHandler;
 
@@ -65,6 +78,10 @@ public class RcMod {
 		
 		EntityRegistry.registerGlobalEntityID(EntityBlasterAmmo.class, "blasterammo", EntityRegistry.findGlobalUniqueEntityId());
 		EntityRegistry.registerModEntity(EntityBlasterAmmo.class, "blasterammo", 52,
+				this, 256, 1, false);
+		
+		EntityRegistry.registerGlobalEntityID(EntityBombGloveAmmo.class, "bombgloveammo", EntityRegistry.findGlobalUniqueEntityId());
+		EntityRegistry.registerModEntity(EntityBombGloveAmmo.class, "bombgloveammo", 53,
 				this, 256, 1, false);
 
 		/* -----Blocks----- */
@@ -92,6 +109,9 @@ public class RcMod {
 		blaster = new ItemBlaster(3002).setUnlocalizedName("blaster").setTextureName("rcmod:blaster").setFull3D();
 		GameRegistry.registerItem(blaster, "blaster");
 		
+		bombGlove = new ItemBombGlove(3003).setUnlocalizedName("bombglove").setTextureName("rcmod:bombglove");
+		GameRegistry.registerItem(bombGlove, "bombglove");
+		
 		/* -----Other----- */
 		this.rcTickHandler = new RcTickHandler();
 		proxy.registerRenderInformation();
@@ -103,12 +123,13 @@ public class RcMod {
 
 	@EventHandler
 	public void PostInit(FMLPostInitializationEvent event) {
+		
+		NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
 		MinecraftForge.EVENT_BUS.register(new RcEventHandler());
 
 		if (FMLCommonHandler.instance().getEffectiveSide().isClient()) {
 			MinecraftForge.EVENT_BUS.register(new GuiBolt(Minecraft
 					.getMinecraft()));
-
 		}
 	}
 	

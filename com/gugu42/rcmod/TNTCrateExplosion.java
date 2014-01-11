@@ -11,6 +11,7 @@ import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentProtection;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
@@ -55,7 +56,7 @@ public class TNTCrateExplosion
     /**
      * Does the first part of the explosion (destroy blocks)
      */
-    public void doExplosionA()
+    public void doExplosionA(boolean doDamagePlayer)
     {
         float f = this.explosionSize;
         HashSet hashset = new HashSet();
@@ -113,6 +114,9 @@ public class TNTCrateExplosion
                 }
             }
         }
+        
+
+        this.worldObj.spawnParticle("largeexplode", this.explosionX, this.explosionY, this.explosionZ, 1.0D, 0.0D, 0.0D);
 
         this.affectedBlockPositions.addAll(hashset);
         this.explosionSize *= 2.0F;
@@ -144,16 +148,20 @@ public class TNTCrateExplosion
                     d2 /= d8;
                     double d9 = (double)this.worldObj.getBlockDensity(vec3, entity.boundingBox);
                     double d10 = (1.0D - d7) * d9;
-                    //entity.attackEntityFrom(DamageSource.magic, (float)((int)((d10 * d10 + d10) / 2.0D * 8.0D * (double)this.explosionSize + 1.0D)));
+                    if(!(entity instanceof EntityItem)){
+                    	entity.attackEntityFrom(DamageSource.setExplosionSource(this.TNT), (float)((int)((d10 * d10 + d10) / 2.0D * 8.0D * (double)this.explosionSize + 1.0D)));
+                    }
                     double d11 = EnchantmentProtection.func_92092_a(entity, d10);
                     entity.motionX += d0 * d11;
                     entity.motionY += d1 * d11;
                     entity.motionZ += d2 * d11;
+                    
 
-                    if (entity instanceof EntityPlayer)
+                    
+                    if (entity instanceof EntityPlayer && doDamagePlayer)
                     {
                         this.field_77288_k.put((EntityPlayer)entity, this.worldObj.getWorldVec3Pool().getVecFromPool(d0 * d10, d1 * d10, d2 * d10));
-                        entity.attackEntityFrom(DamageSource.magic, 6f);
+   
                     }
                 }
             }
@@ -169,14 +177,15 @@ public class TNTCrateExplosion
     {
         this.worldObj.playSoundEffect(this.explosionX, this.explosionY, this.explosionZ, "random.explode", 4.0F, (1.0F + (this.worldObj.rand.nextFloat() - this.worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
 
-        if (this.explosionSize >= 2.0F && this.isSmoking)
+        if ((this.explosionSize >= 2.0F) && (this.isSmoking))
         {
-            this.worldObj.spawnParticle("hugeexplosion", this.explosionX, this.explosionY, this.explosionZ, 1.0D, 0.0D, 0.0D);
+          this.worldObj.spawnParticle("hugeexplosion", this.explosionX, this.explosionY, this.explosionZ, 1.0D, 0.0D, 0.0D);
         }
         else
         {
-            this.worldObj.spawnParticle("largeexplode", this.explosionX, this.explosionY, this.explosionZ, 1.0D, 0.0D, 0.0D);
+          this.worldObj.spawnParticle("largeexplode", this.explosionX, this.explosionY, this.explosionZ, 1.0D, 0.0D, 0.0D);
         }
+        
 
         Iterator iterator;
         ChunkPosition chunkposition;

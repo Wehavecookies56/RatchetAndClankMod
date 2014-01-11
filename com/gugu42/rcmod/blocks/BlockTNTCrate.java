@@ -1,10 +1,12 @@
-package com.gugu42.rcmod;
+package com.gugu42.rcmod.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Random;
 
-import com.gugu42.rcmod.weapons.ammo.EntityBlasterAmmo;
+import com.gugu42.rcmod.RcMod;
+import com.gugu42.rcmod.entity.EntityBlasterAmmo;
+import com.gugu42.rcmod.entity.EntityTNTCrate;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -65,8 +67,6 @@ public class BlockTNTCrate extends Block {
 					(double) ((float) par2 + 0.5F),
 					(double) ((float) par3 + 0.5F),
 					(double) ((float) par4 + 0.5F));
-			entitytntcrate.fuse = par1World.rand
-					.nextInt(entitytntcrate.fuse / 4) + entitytntcrate.fuse / 8;
 			par1World.setBlockToAir(par2, par3, par4);
 			par1World.spawnEntityInWorld(entitytntcrate);
 		}
@@ -78,15 +78,11 @@ public class BlockTNTCrate extends Block {
 	 */
 	public void onBlockDestroyedByPlayer(World par1World, int par2, int par3,
 			int par4, int par5) {
-		// this.primeTnt(par1World, par2, par3, par4, par5,
-		// (EntityLivingBase)null);
 		if (!par1World.isRemote) {
 			EntityTNTCrate entitytntcrate = new EntityTNTCrate(par1World,
 					(double) ((float) par2 + 0.5F),
 					(double) ((float) par3 + 0.5F),
 					(double) ((float) par4 + 0.5F));
-			entitytntcrate.fuse = par1World.rand
-					.nextInt(entitytntcrate.fuse / 4) + entitytntcrate.fuse / 8;
 			par1World.setBlockToAir(par2, par3, par4);
 			par1World.spawnEntityInWorld(entitytntcrate);
 		}
@@ -101,8 +97,6 @@ public class BlockTNTCrate extends Block {
 					(double) ((float) par2 + 0.5F),
 					(double) ((float) par3 + 0.5F),
 					(double) ((float) par4 + 0.5F));
-			entitytntcrate.fuse = par1World.rand
-					.nextInt(entitytntcrate.fuse / 4) + entitytntcrate.fuse / 8;
 			par1World.setBlockToAir(par2, par3, par4);
 			par1World.spawnEntityInWorld(entitytntcrate);
 		}
@@ -133,10 +127,7 @@ public class BlockTNTCrate extends Block {
 	 */
 	public void onEntityCollidedWithBlock(World par1World, int par2, int par3,
 			int par4, Entity par5Entity) {
-		if (par5Entity instanceof EntityBlasterAmmo && !par1World.isRemote) {
-			this.primeTnt(par1World, par2, par3, par4, 1);
-			par1World.setBlockToAir(par2, par3, par4);
-		} else {
+		if (!par1World.isRemote) {
 			this.primeTnt(par1World, par2, par3, par4, 1);
 			par1World.setBlockToAir(par2, par3, par4);
 		}

@@ -1,27 +1,28 @@
-package com.gugu42.rcmod.weapons;
-
-import com.gugu42.rcmod.RcMod;
-import com.gugu42.rcmod.weapons.ammo.EntityBlasterAmmo;
+package com.gugu42.rcmod.items;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ItemBlaster extends Item {
+import com.gugu42.rcmod.RcMod;
+import com.gugu42.rcmod.entity.EntityBombGloveAmmo;
+
+public class ItemBombGlove extends ItemRcWeap {
 
 	public int ammo;
 	public int maxAmmo;
 	public int cooldown;
-
-	public ItemBlaster(int par1) {
+	
+	public ItemBombGlove(int par1) {
 		super(par1);
-		this.ammo = 100;
-		this.maxAmmo = 100;
-		this.cooldown = 0;
+		this.ammo = 40;
+		this.maxAmmo = 40;
+		this.ammoPrice = 5;
+		this.cooldown = 10;
 		this.setMaxDamage(maxAmmo);
+		this.maxStackSize = 1;
 		this.setCreativeTab(RcMod.rcTab);
 	}
 
@@ -29,11 +30,15 @@ public class ItemBlaster extends Item {
 			EntityPlayer par3EntityPlayer) {
 		if (maxAmmo - par1ItemStack.getItemDamage() > 0) {
 			if (!par2World.isRemote) {
-				EntityBlasterAmmo bullet = new EntityBlasterAmmo(
-						par2World, par3EntityPlayer, this, 0.1F, 1.0F, 1F, 0f,
-						0f);
-				par2World.spawnEntityInWorld(bullet);
-				par1ItemStack.damageItem(1, par3EntityPlayer);
+				if (cooldown <= 0) {
+					EntityBombGloveAmmo bomb = new EntityBombGloveAmmo(
+							par2World, par3EntityPlayer, this, 0.1F, 1.0F, 1F,
+							0f, 0f);
+					par2World.spawnEntityInWorld(bomb);
+					par1ItemStack.damageItem(1, par3EntityPlayer);
+					System.out.println(cooldown);
+					cooldown = 60;
+				}
 			}
 		}
 		return par1ItemStack;
@@ -49,6 +54,9 @@ public class ItemBlaster extends Item {
 
 	public void onUpdate(ItemStack stack, World w, Entity ent, int i,
 			boolean flag) {
+		if (cooldown > 0) {
+			cooldown--;
+		}
 
 	}
 

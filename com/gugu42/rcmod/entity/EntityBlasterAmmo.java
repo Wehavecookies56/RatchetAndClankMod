@@ -1,8 +1,9 @@
-package com.gugu42.rcmod.weapons.ammo;
+package com.gugu42.rcmod.entity;
 
 import java.util.List;
 
-import com.gugu42.rcmod.weapons.ItemBlaster;
+import com.gugu42.rcmod.RcMod;
+import com.gugu42.rcmod.items.ItemBlaster;
 
 import cpw.mods.fml.client.FMLClientHandler;
 
@@ -54,7 +55,7 @@ public class EntityBlasterAmmo extends Entity {
 			ItemBlaster gun, float f, float f1, float f2, float f3, float f4) {
 		this(world);
 		owner = entity;
-		damage = 4;
+		damage = 6;
 		float f5 = entity.rotationYaw;
 		float f6 = f5 * 0.01745329F;
 		double d = f * MathHelper.cos(f6) - f2 * MathHelper.sin(f6);
@@ -240,20 +241,20 @@ public class EntityBlasterAmmo extends Entity {
 					posY -= (motionY / (double) f2) * 0.05D;
 					posZ -= (motionZ / (double) f2) * 0.05D;
 					inGround = true;
-					if (inTile == Block.glass.blockID
-							|| inTile == Block.thinGlass.blockID) {
+					if (inTile == RcMod.crate.blockID
+							|| inTile == RcMod.tntCrate.blockID) {
 						Block block;
 
-						if (inTile == Block.glass.blockID) {
-							block = Block.glass;
+						if (inTile == RcMod.crate.blockID) {
+							block = RcMod.crate;
 						} else {
-							block = Block.thinGlass;
+							block = RcMod.tntCrate;
 						}
 
 						FMLClientHandler.instance().getClient().effectRenderer
 								.addBlockDestroyEffects(xTile, yTile, zTile,
 										block.blockID & 0xff,
-										Block.glass.blockID >> 8 & 0xff);
+										RcMod.crate.blockID >> 8 & 0xff);
 						FMLClientHandler.instance().getClient().sndManager
 								.playSound(
 										block.stepSound.getBreakSound(),
@@ -265,6 +266,7 @@ public class EntityBlasterAmmo extends Entity {
 						block.onBlockDestroyedByPlayer(worldObj, xTile, yTile,
 								zTile,
 								worldObj.getBlockMetadata(xTile, yTile, zTile));
+						block.dropBlockAsItem(worldObj, xTile, yTile, zTile, this.worldObj.getBlockMetadata(xTile, yTile, zTile), 0);
 						worldObj.setBlockToAir(xTile, yTile, zTile);
 					}
 				}

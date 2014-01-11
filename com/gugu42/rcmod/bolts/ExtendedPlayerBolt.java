@@ -73,7 +73,7 @@ public class ExtendedPlayerBolt implements IExtendedEntityProperties {
 			ex.printStackTrace();
 		}
 
-		Packet250CustomPayload packet = new Packet250CustomPayload("rcchannel",
+		Packet250CustomPayload packet = new Packet250CustomPayload("RCMD|bolt",
 				bos.toByteArray());
 
 		if (!player.worldObj.isRemote) {

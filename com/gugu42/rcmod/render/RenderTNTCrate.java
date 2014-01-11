@@ -1,4 +1,4 @@
-package com.gugu42.rcmod;
+package com.gugu42.rcmod.render;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -8,6 +8,9 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
+
+import com.gugu42.rcmod.RcMod;
+import com.gugu42.rcmod.entity.EntityTNTCrate;
 
 @SideOnly(Side.CLIENT)
 public class RenderTNTCrate extends Render

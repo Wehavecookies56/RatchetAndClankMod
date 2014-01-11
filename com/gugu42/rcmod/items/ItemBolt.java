@@ -1,4 +1,4 @@
-package com.gugu42.rcmod;
+package com.gugu42.rcmod.items;
 
 import net.minecraft.item.Item;
 

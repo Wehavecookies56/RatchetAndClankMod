@@ -1,4 +1,4 @@
-package com.gugu42.rcmod;
+package com.gugu42.rcmod.render;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;

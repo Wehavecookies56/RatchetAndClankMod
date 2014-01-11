@@ -1,6 +1,8 @@
-package com.gugu42.rcmod;
+package com.gugu42.rcmod.render;
 
 import java.util.HashMap;
+
+import com.gugu42.rcmod.ClientProxy;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;

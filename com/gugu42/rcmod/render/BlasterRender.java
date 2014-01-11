@@ -1,15 +1,8 @@
-package com.gugu42.rcmod;
+package com.gugu42.rcmod.render;
 
 import org.lwjgl.opengl.GL11;
 
-import com.gugu42.rcmod.weapons.ModelDualVipers;
-
-import cpw.mods.fml.common.ObfuscationReflectionHelper;
-
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.renderer.entity.RenderPlayer;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;

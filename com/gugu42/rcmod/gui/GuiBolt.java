@@ -1,8 +1,9 @@
-package com.gugu42.rcmod.bolts;
+package com.gugu42.rcmod.gui;
 
 import org.lwjgl.opengl.GL11;
 
 import com.gugu42.rcmod.RcMod;
+import com.gugu42.rcmod.bolts.ExtendedPlayerBolt;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
