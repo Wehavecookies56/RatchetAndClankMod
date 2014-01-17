@@ -5,10 +5,14 @@ import net.minecraftforge.client.MinecraftForgeClient;
 
 import com.gugu42.rcmod.entity.EntityBlasterAmmo;
 import com.gugu42.rcmod.entity.EntityBombGloveAmmo;
+import com.gugu42.rcmod.entity.EntityRYNOAmmo;
 import com.gugu42.rcmod.entity.EntityTNTCrate;
 import com.gugu42.rcmod.render.BlasterRender;
+import com.gugu42.rcmod.render.BombGloveRender;
+import com.gugu42.rcmod.render.RYNORender;
 import com.gugu42.rcmod.render.RenderBlasterAmmo;
 import com.gugu42.rcmod.render.RenderBombGloveAmmo;
+import com.gugu42.rcmod.render.RenderRYNOAmmo;
 import com.gugu42.rcmod.render.RenderTNTCrate;
 import com.gugu42.rcmod.render.TESRInventoryRenderer;
 import com.gugu42.rcmod.render.TileEntityVendorSpecialRenderer;
@@ -28,9 +32,13 @@ public class ClientProxy extends CommonProxy {
 				new RenderTNTCrate());
 		RenderingRegistry.registerEntityRenderingHandler(EntityBlasterAmmo.class,
 				new RenderBlasterAmmo(0.1f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityRYNOAmmo.class,
+				new RenderRYNOAmmo(0.1f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityBombGloveAmmo.class,
 				new RenderBombGloveAmmo(0.5f));
 		MinecraftForgeClient.registerItemRenderer(RcMod.blaster.itemID, new BlasterRender());
+		MinecraftForgeClient.registerItemRenderer(RcMod.bombGlove.itemID, new BombGloveRender());
+		MinecraftForgeClient.registerItemRenderer(RcMod.ryno.itemID, new RYNORender());
 		
 		renderInventoryTESRId = RenderingRegistry.getNextAvailableRenderId();
 		RenderingRegistry.registerBlockHandler(new TESRInventoryRenderer());

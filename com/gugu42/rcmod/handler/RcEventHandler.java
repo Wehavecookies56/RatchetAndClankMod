@@ -1,4 +1,4 @@
-package com.gugu42.rcmod.bolts;
+package com.gugu42.rcmod.handler;
 
 import java.util.Random;
 
@@ -6,14 +6,16 @@ import com.gugu42.rcmod.BoltCommand;
 import com.gugu42.rcmod.CommonProxy;
 import com.gugu42.rcmod.RcMod;
 import com.gugu42.rcmod.items.ItemBlaster;
+import com.gugu42.rcmod.items.ItemRcWeap;
 
 import cpw.mods.fml.common.ObfuscationReflectionHelper;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.RenderPlayer;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -42,6 +44,17 @@ public class RcEventHandler {
 			event.entity.registerExtendedProperties(
 					ExtendedPlayerBolt.EXT_PROP_NAME, new ExtendedPlayerBolt(
 							(EntityPlayer) event.entity));
+		}
+
+		if (event.entity instanceof EntityPlayer
+				&& ExtendedEntityLivingBaseTarget
+						.get((EntityPlayer) event.entity) == null) {
+			ExtendedEntityLivingBaseTarget
+					.register((EntityPlayer) event.entity);
+		}
+		if (event.entity instanceof EntityLivingBase) {
+			ExtendedEntityLivingBaseTarget
+					.register((EntityLivingBase) event.entity);
 		}
 
 	}
@@ -76,6 +89,12 @@ public class RcEventHandler {
 					.getExtendedProperties(ExtendedPlayerBolt.EXT_PROP_NAME)))
 					.sync();
 		}
+		
+		if (event.entity instanceof EntityLivingBase)
+		{
+		ExtendedEntityLivingBaseTarget props2 = ExtendedEntityLivingBaseTarget.get((EntityLivingBase) event.entity);
+		props2.setTargeted(false);
+		}
 	}
 
 	@ForgeSubscribe
@@ -89,21 +108,26 @@ public class RcEventHandler {
 		}
 	}
 
-
 	@SideOnly(Side.CLIENT)
 	@ForgeSubscribe
 	public void preRenderPlayer(RenderPlayerEvent.Pre event) {
 		EntityPlayer player = event.entityPlayer;
 		ItemStack is = player.getCurrentEquippedItem();
-		if ((is != null) && ((is.getItem() instanceof ItemBlaster))) {
-			ModelBiped modelMain = ObfuscationReflectionHelper.getPrivateValue(
-					RenderPlayer.class, event.renderer, 1);
-			ModelBiped modelArmorChestplate = ObfuscationReflectionHelper
-					.getPrivateValue(RenderPlayer.class, event.renderer, 2);
-			ModelBiped modelArmor = ObfuscationReflectionHelper
-					.getPrivateValue(RenderPlayer.class, event.renderer, 3);
-			modelMain.aimedBow = modelArmorChestplate.aimedBow = modelArmor.aimedBow = true;
+		if ((is != null) && ((is.getItem() instanceof ItemRcWeap))) {
+			ItemRcWeap itemInHand = (ItemRcWeap) is.getItem();
+			if (itemInHand.getHeldType() == 1) {
+				ModelBiped modelMain = ObfuscationReflectionHelper
+						.getPrivateValue(RenderPlayer.class, event.renderer, 1);
+				ModelBiped modelArmorChestplate = ObfuscationReflectionHelper
+						.getPrivateValue(RenderPlayer.class, event.renderer, 2);
+				ModelBiped modelArmor = ObfuscationReflectionHelper
+						.getPrivateValue(RenderPlayer.class, event.renderer, 3);
+				modelMain.aimedBow = modelArmorChestplate.aimedBow = modelArmor.aimedBow = true;
+				
+			}
 		}
 
-	}
+	} 
+	
+
 }

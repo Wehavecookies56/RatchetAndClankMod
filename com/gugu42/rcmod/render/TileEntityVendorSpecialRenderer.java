@@ -109,7 +109,7 @@ public class TileEntityVendorSpecialRenderer extends TileEntitySpecialRenderer i
         float f2 = (float)te.getWorldObj().getTotalWorldTime();
         byte b1 = 1;
         double d3 = (double)f2 * 0.025D * (1.0D - (double)(b1 & 1) * 2.5D);
-        GL11.glRotated(-d3 * 5 * 5, 0.0D, 1.0D, 0.0D);
+        GL11.glRotated(-d3 * 5 * 10, 0.0D, 1.0D, 0.0D);
         GL11.glScalef(0.046f, 0.046f, 0.046f);
         model5.renderAll();
         GL11.glPopMatrix();

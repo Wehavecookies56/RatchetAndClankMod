@@ -38,6 +38,7 @@ public class ItemBombGlove extends ItemRcWeap {
 					par1ItemStack.damageItem(1, par3EntityPlayer);
 					System.out.println(cooldown);
 					cooldown = 60;
+					par3EntityPlayer.swingItem();
 				}
 			}
 		}

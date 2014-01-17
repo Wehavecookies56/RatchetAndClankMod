@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import com.gugu42.rcmod.ContainerVendor;
 import com.gugu42.rcmod.RcMod;
-import com.gugu42.rcmod.bolts.ExtendedPlayerBolt;
+import com.gugu42.rcmod.handler.ExtendedPlayerBolt;
 import com.gugu42.rcmod.items.EnumRcWeapons;
 import com.gugu42.rcmod.items.ItemRcWeap;
 import com.gugu42.rcmod.tileentity.TileEntityVendor;

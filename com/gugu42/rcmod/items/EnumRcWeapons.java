@@ -6,8 +6,8 @@ import net.minecraft.item.Item;
 
 public enum EnumRcWeapons {
 	BLASTER(1000, RcMod.blaster, "Blaster", 1, 1 , new String[] {"The Blaster is a great", "all-purpose weapon", "Even though its range is limited,", "its high rate of fire makes it ideal", " for taking on tough enemies at ", "close and medium ranges"}),
-	BOMBGLOVE(1000, RcMod.bombGlove, "BombGlove", 1, 2, new String[] {"Bomb Glove! ", "Throw bombs at your enemies!", "BOOM!", "", "", ""});
-
+	BOMBGLOVE(1000, RcMod.bombGlove, "BombGlove", 1, 2, new String[] {"Bomb Glove! ", "Throw bombs at your enemies!", "BOOM!", "", "", ""}),
+	RYNO(150000, RcMod.ryno, "R.Y.N.O.", 1, 3, new String[] {"Rip ya ...", "A NEW ONE !", "The R.Y.NO. is the most powerful", "rocket launcher in the galaxy", "", "(It's in WIP)" });
 	
 	public int price;
 	public Item weapon;

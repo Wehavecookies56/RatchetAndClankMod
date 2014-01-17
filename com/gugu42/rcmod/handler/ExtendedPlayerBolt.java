@@ -1,4 +1,4 @@
-package com.gugu42.rcmod.bolts;
+package com.gugu42.rcmod.handler;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;

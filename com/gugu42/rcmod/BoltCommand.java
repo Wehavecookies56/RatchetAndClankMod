@@ -3,7 +3,7 @@ package com.gugu42.rcmod;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gugu42.rcmod.bolts.ExtendedPlayerBolt;
+import com.gugu42.rcmod.handler.ExtendedPlayerBolt;
 
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;

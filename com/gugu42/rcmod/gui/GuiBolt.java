@@ -3,7 +3,8 @@ package com.gugu42.rcmod.gui;
 import org.lwjgl.opengl.GL11;
 
 import com.gugu42.rcmod.RcMod;
-import com.gugu42.rcmod.bolts.ExtendedPlayerBolt;
+import com.gugu42.rcmod.handler.ExtendedPlayerBolt;
+import com.gugu42.rcmod.items.ItemRcWeap;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -66,7 +67,7 @@ public class GuiBolt extends Gui {
 		
 		
 		ItemStack itemInHand = this.mc.thePlayer.inventory.getCurrentItem();
-		if(itemInHand != null && itemInHand.itemID == RcMod.blaster.itemID){
+		if(itemInHand != null && itemInHand.getItem() instanceof ItemRcWeap){
 		mc.fontRenderer.drawString("Ammo : " + (itemInHand.getMaxDamage() - itemInHand.getItemDamage()) + "/" + itemInHand.getMaxDamage() , 200, 8, 2);
 		}
 

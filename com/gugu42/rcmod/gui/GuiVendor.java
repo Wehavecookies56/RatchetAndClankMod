@@ -7,8 +7,8 @@ import org.lwjgl.opengl.GL11;
 
 import com.gugu42.rcmod.ContainerVendor;
 import com.gugu42.rcmod.RcMod;
-import com.gugu42.rcmod.bolts.ExtendedPlayerBolt;
 import com.gugu42.rcmod.tileentity.TileEntityVendor;
+import com.gugu42.rcmod.handler.ExtendedPlayerBolt;
 import com.gugu42.rcmod.items.EnumRcWeapons;
 import com.gugu42.rcmod.items.ItemRcWeap;
 

@@ -3,16 +3,18 @@ package com.gugu42.rcmod;
 import com.gugu42.rcmod.blocks.BlockCrate;
 import com.gugu42.rcmod.blocks.BlockTNTCrate;
 import com.gugu42.rcmod.blocks.BlockVendor;
-import com.gugu42.rcmod.bolts.RcEventHandler;
-import com.gugu42.rcmod.bolts.RcTickHandler;
 import com.gugu42.rcmod.entity.EntityBlasterAmmo;
 import com.gugu42.rcmod.entity.EntityBombGloveAmmo;
+import com.gugu42.rcmod.entity.EntityRYNOAmmo;
 import com.gugu42.rcmod.entity.EntityTNTCrate;
 import com.gugu42.rcmod.gui.GuiBolt;
+import com.gugu42.rcmod.handler.RcEventHandler;
+import com.gugu42.rcmod.handler.RcTickHandler;
 import com.gugu42.rcmod.items.ItemBlaster;
 import com.gugu42.rcmod.items.ItemBolt;
 import com.gugu42.rcmod.items.ItemBombGlove;
 import com.gugu42.rcmod.items.ItemOmniWrench3000;
+import com.gugu42.rcmod.items.ItemRYNO;
 import com.gugu42.rcmod.network.GuiHandler;
 import com.gugu42.rcmod.network.RcPacketHandler;
 import com.gugu42.rcmod.tileentity.TileEntityVendor;
@@ -22,6 +24,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
@@ -48,8 +51,9 @@ public class RcMod {
 	@Instance("rcmod")
 	public static RcMod instance;
 
-	public static CreativeTabs rcTab;
-
+	public static RcCreativeTab rcTab;
+	public static RcCreativeTab rcWeapTab;
+	
 	public static Block tntCrate;
 	public static Block crate;
 	public static Block vendor;
@@ -57,14 +61,17 @@ public class RcMod {
 	public static Item omniwrench3000;
 	public static Item bolt;
 	
+	//Weapons - R&C 1
 	public static Item blaster;
 	public static Item bombGlove;
+	public static Item ryno;
 	
 	public RcTickHandler rcTickHandler;
 
 	@EventHandler
 	public void PreInit(FMLPreInitializationEvent event) {
-		rcTab = new CreativeTabs("rcTab");
+		rcTab = new RcCreativeTab("rcTab");
+		rcWeapTab = new RcCreativeTab("rcWeapTab");
 	}
 
 	@EventHandler
@@ -82,6 +89,10 @@ public class RcMod {
 		
 		EntityRegistry.registerGlobalEntityID(EntityBombGloveAmmo.class, "bombgloveammo", EntityRegistry.findGlobalUniqueEntityId());
 		EntityRegistry.registerModEntity(EntityBombGloveAmmo.class, "bombgloveammo", 53,
+				this, 256, 1, false);
+		
+		EntityRegistry.registerGlobalEntityID(EntityRYNOAmmo.class, "rynoammo", EntityRegistry.findGlobalUniqueEntityId());
+		EntityRegistry.registerModEntity(EntityRYNOAmmo.class, "rynoammo", 54,
 				this, 256, 1, false);
 
 		/* -----Blocks----- */
@@ -106,13 +117,19 @@ public class RcMod {
 		bolt = new ItemBolt(3001).setUnlocalizedName("bolt").setTextureName("rcmod:bolt");
 		GameRegistry.registerItem(bolt, "bolt");
 		
-		blaster = new ItemBlaster(3002).setUnlocalizedName("blaster").setTextureName("rcmod:blaster").setFull3D();
+		blaster = new ItemBlaster(3002).setUnlocalizedName("blaster").setTextureName("rcmod:blaster").setFull3D().setCreativeTab(rcWeapTab);
 		GameRegistry.registerItem(blaster, "blaster");
 		
-		bombGlove = new ItemBombGlove(3003).setUnlocalizedName("bombglove").setTextureName("rcmod:bombglove");
+		bombGlove = new ItemBombGlove(3003).setUnlocalizedName("bombglove").setTextureName("rcmod:bombglove").setFull3D().setCreativeTab(rcWeapTab);
 		GameRegistry.registerItem(bombGlove, "bombglove");
 		
+		ryno = new ItemRYNO(3004).setUnlocalizedName("ryno").setTextureName("rcmod:ryno").setFull3D().setCreativeTab(rcWeapTab);
+		GameRegistry.registerItem(ryno, "ryno");
+		
 		/* -----Other----- */
+		rcTab.setTabIconItem(bolt);
+		rcWeapTab.setTabIconItem(blaster);
+		
 		this.rcTickHandler = new RcTickHandler();
 		proxy.registerRenderInformation();
 		proxy.registerTileEntityRender();
