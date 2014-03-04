@@ -10,7 +10,8 @@ public enum EnumRcWeapons {
 	PYROCITOR(2500, RcItems.pyrocitor, "Pyrocitor", 1, 3, new String[] {"Pyrocitor!", "This fearsome weapon", "really shines at close range.", "", "Great for taking out", "those pesky small enemies."}),
 	RYNO(150000, RcItems.ryno, "R.Y.N.O.", 1, 4, new String[] {"Rip ya ...", "A NEW ONE !", "The R.Y.NO. is the most powerful", "rocket launcher in the galaxy", "", "(It's in WIP)" }),
 	
-	WALLOPER(7500, RcItems.walloper, "Walloper", 2, 1, new String[] {"Walloper !", "Punch people hard!", "", "", "", "" });
+	WALLOPER(7500, RcItems.walloper, "Walloper", 2, 1, new String[] {"Walloper !", "Punch people hard!", "", "", "", "" }),
+	VISIBOMB(15000, RcItems.visibombGun, "Visibomb Gun", 2, 2, new String[] {"Visibomb!", "Steer your missiles", "with deadly accuracy", "using the on-board video relay!", "", "(It's in WIP)"});
 	
 	public int price;
 	public Item weapon;

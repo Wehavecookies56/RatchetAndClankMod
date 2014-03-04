@@ -1,5 +1,8 @@
 package com.gugu42.rcmod.entity;
 
+import marvien.MainMarvien;
+import marvien.entity.EntityVisibombRocket;
+
 import com.gugu42.rcmod.RcMod;
 
 import cpw.mods.fml.common.registry.EntityRegistry;
@@ -15,8 +18,6 @@ public class RcEntities {
 				EntityRegistry.findGlobalUniqueEntityId());
 		EntityRegistry.registerModEntity(EntityTNTCrate.class, "tntcrate", 50,
 				RcMod.instance, 256, 1, false);
-
-
 	}
 	
 	public static void initRc1Entities(){
@@ -38,6 +39,11 @@ public class RcEntities {
 		EntityRegistry.registerGlobalEntityID(EntityPyrocitorAmmo.class, "pyrocitorammo",
 				EntityRegistry.findGlobalUniqueEntityId());
 		EntityRegistry.registerModEntity(EntityPyrocitorAmmo.class, "pyrocitorammo", 55,
+				RcMod.instance, 256, 1, false);
+		
+		EntityRegistry.registerGlobalEntityID(EntityVisibombAmmo.class,"visibombrocket", 
+				EntityRegistry.findGlobalUniqueEntityId());
+		EntityRegistry.registerModEntity(EntityVisibombAmmo.class,"visibombrocket", 56, 
 				RcMod.instance, 256, 1, false);
 	}
 	
