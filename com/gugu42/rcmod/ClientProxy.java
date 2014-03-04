@@ -11,6 +11,7 @@ import com.gugu42.rcmod.entity.EntityTNTCrate;
 import com.gugu42.rcmod.items.RcItems;
 import com.gugu42.rcmod.render.BlasterRender;
 import com.gugu42.rcmod.render.BombGloveRender;
+import com.gugu42.rcmod.render.OmniWrench3000Render;
 import com.gugu42.rcmod.render.PyrocitorRender;
 import com.gugu42.rcmod.render.RYNORender;
 import com.gugu42.rcmod.render.RenderBlasterAmmo;
@@ -49,6 +50,7 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForgeClient.registerItemRenderer(RcItems.ryno.itemID, new RYNORender());
 		MinecraftForgeClient.registerItemRenderer(RcItems.pyrocitor.itemID, new PyrocitorRender());
 		MinecraftForgeClient.registerItemRenderer(RcItems.walloper.itemID, new WalloperRender());
+		MinecraftForgeClient.registerItemRenderer(RcItems.omniwrench3000.itemID, new OmniWrench3000Render());
 		
 		renderInventoryTESRId = RenderingRegistry.getNextAvailableRenderId();
 		RenderingRegistry.registerBlockHandler(new TESRInventoryRenderer());
