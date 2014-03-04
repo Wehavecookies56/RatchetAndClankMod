@@ -4,8 +4,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.IItemRenderer.ItemRenderType;
-import net.minecraftforge.client.IItemRenderer.ItemRendererHelper;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
 
@@ -28,6 +26,8 @@ public class RYNORender implements IItemRenderer {
 		case EQUIPPED:
 			return true;
 		case EQUIPPED_FIRST_PERSON:
+			return true;
+		case ENTITY:
 			return true;
 		default:
 			return false;
@@ -66,6 +66,15 @@ public class RYNORender implements IItemRenderer {
 			GL11.glRotatef(0, 1.0f, 0.0f, 0.0f);
 			GL11.glRotatef(30, 0.0f, 0.0f, 1.0f);
 			GL11.glScalef(0.05f, 0.05f, 0.05f);
+			model1.renderAll();
+			GL11.glPopMatrix();
+			break;
+		}
+		case ENTITY: {
+			GL11.glPushMatrix();
+			Minecraft.getMinecraft().renderEngine.bindTexture(textureLocation);
+			GL11.glScalef(0.037f, 0.037f, 0.037f);
+			GL11.glTranslatef(-7f, 2f, 0.0f);
 			model1.renderAll();
 			GL11.glPopMatrix();
 			break;

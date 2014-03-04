@@ -53,9 +53,11 @@ public class BoltCommand implements ICommand {
 							+ amount + " while the maximum is "
 							+ props.getMaxBolts() + " !");
 				} else {
-					player.addChatMessage("You had " + props.getCurrentBolt() + " bolts. You now have " + amount + " bolts.");
+					player.addChatMessage("You had " + props.getCurrentBolt()
+							+ " bolts. You now have " + amount + " bolts.");
 					props.setCurrentBolt(amount);
 				}
+
 			}
 		}
 	}

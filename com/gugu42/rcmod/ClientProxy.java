@@ -5,18 +5,23 @@ import net.minecraftforge.client.MinecraftForgeClient;
 
 import com.gugu42.rcmod.entity.EntityBlasterAmmo;
 import com.gugu42.rcmod.entity.EntityBombGloveAmmo;
+import com.gugu42.rcmod.entity.EntityPyrocitorAmmo;
 import com.gugu42.rcmod.entity.EntityRYNOAmmo;
 import com.gugu42.rcmod.entity.EntityTNTCrate;
+import com.gugu42.rcmod.items.RcItems;
 import com.gugu42.rcmod.render.BlasterRender;
 import com.gugu42.rcmod.render.BombGloveRender;
+import com.gugu42.rcmod.render.PyrocitorRender;
 import com.gugu42.rcmod.render.RYNORender;
 import com.gugu42.rcmod.render.RenderBlasterAmmo;
 import com.gugu42.rcmod.render.RenderBombGloveAmmo;
+import com.gugu42.rcmod.render.RenderPyrocitorAmmo;
 import com.gugu42.rcmod.render.RenderRYNOAmmo;
 import com.gugu42.rcmod.render.RenderTNTCrate;
 import com.gugu42.rcmod.render.TESRInventoryRenderer;
-import com.gugu42.rcmod.render.TileEntityVendorSpecialRenderer;
 import com.gugu42.rcmod.render.TESRInventoryRenderer.TESRIndex;
+import com.gugu42.rcmod.render.TileEntityVendorSpecialRenderer;
+import com.gugu42.rcmod.render.WalloperRender;
 import com.gugu42.rcmod.tileentity.TileEntityVendor;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -36,9 +41,14 @@ public class ClientProxy extends CommonProxy {
 				new RenderRYNOAmmo(0.1f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityBombGloveAmmo.class,
 				new RenderBombGloveAmmo(0.5f));
-		MinecraftForgeClient.registerItemRenderer(RcMod.blaster.itemID, new BlasterRender());
-		MinecraftForgeClient.registerItemRenderer(RcMod.bombGlove.itemID, new BombGloveRender());
-		MinecraftForgeClient.registerItemRenderer(RcMod.ryno.itemID, new RYNORender());
+		RenderingRegistry.registerEntityRenderingHandler(EntityPyrocitorAmmo.class,
+				new RenderPyrocitorAmmo(0.5f));
+		
+		MinecraftForgeClient.registerItemRenderer(RcItems.blaster.itemID, new BlasterRender());
+		MinecraftForgeClient.registerItemRenderer(RcItems.bombGlove.itemID, new BombGloveRender());
+		MinecraftForgeClient.registerItemRenderer(RcItems.ryno.itemID, new RYNORender());
+		MinecraftForgeClient.registerItemRenderer(RcItems.pyrocitor.itemID, new PyrocitorRender());
+		MinecraftForgeClient.registerItemRenderer(RcItems.walloper.itemID, new WalloperRender());
 		
 		renderInventoryTESRId = RenderingRegistry.getNextAvailableRenderId();
 		RenderingRegistry.registerBlockHandler(new TESRInventoryRenderer());

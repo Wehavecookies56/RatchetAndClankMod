@@ -1,7 +1,5 @@
 package com.gugu42.rcmod.render;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -9,17 +7,17 @@ import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
 
-public class BlasterRender implements IItemRenderer {
+import org.lwjgl.opengl.GL11;
 
-//	protected ModelDualVipers model;
+public class PyrocitorRender implements IItemRenderer {
+
 	private IModelCustom model1;
-    public static final ResourceLocation textureLocation = new ResourceLocation("rcmod:models/Blaster0.png");
-/*	protected static final ResourceLocation texture = new ResourceLocation(
-			"rcmod:textures/items/dualvipersm.png");*/
+	public static final ResourceLocation textureLocation = new ResourceLocation(
+			"rcmod:models/Pyrocitor.png");
 
-	public BlasterRender() {
-		//model = new ModelDualVipers();
-		model1 = AdvancedModelLoader.loadModel("/assets/rcmod/models/Blaster0.obj");
+	public PyrocitorRender() {
+		model1 = AdvancedModelLoader
+				.loadModel("/assets/rcmod/models/Pyrocitor.obj");
 	}
 
 	@Override
@@ -49,13 +47,13 @@ public class BlasterRender implements IItemRenderer {
 		case EQUIPPED: {
 			GL11.glPushMatrix();
 			Minecraft.getMinecraft().renderEngine.bindTexture(textureLocation);
-			GL11.glTranslatef(0.5f, 0.12f, 0.0f);
-			GL11.glRotatef(85, 0.0f, 1.0f, 0.0f);
-			GL11.glRotatef(00, 0.0f, 0.0f, 1.0f);
-			GL11.glRotatef(-35, 1.0f, 0.0f, 0.0f);
-			GL11.glScalef(0.033f, 0.033f, 0.033f);
+			GL11.glTranslatef(0.62f, 0.21f, 0.03f);
+			GL11.glRotatef(-5, 0.0f, 1.0f, 0.0f);
+			GL11.glRotatef(220, 0.0f, 0.0f, 1.0f);
+	//		GL11.glRotatef(-35, 1.0f, 0.0f, 0.0f);
+			GL11.glScalef(-0.04f, -0.04f, -0.04f);
 			model1.renderAll();
-			
+
 			GL11.glTranslatef(-0.5F, 0.0F, 0.09F);
 			GL11.glPopMatrix();
 			break;
@@ -63,10 +61,11 @@ public class BlasterRender implements IItemRenderer {
 		case EQUIPPED_FIRST_PERSON: {
 			GL11.glPushMatrix();
 			Minecraft.getMinecraft().renderEngine.bindTexture(textureLocation);
-			GL11.glTranslatef(0.2f, 0.0f, 0.0f);
-			GL11.glRotatef(100, 0.0f, 1.0f, 0.0f);
-			GL11.glRotatef(-30, 1.0f, 0.0f, 0.0f);
-			GL11.glScalef(0.046f, 0.046f, 0.046f);
+			GL11.glTranslatef(0.1f, 0f, -0.1f);
+			GL11.glRotatef(00, 0.0f, 1.0f, 0.0f);
+			GL11.glRotatef(0, 1.0f, 0.0f, 0.0f);
+			GL11.glRotatef(30, 0.0f, 0.0f, 1.0f);
+			GL11.glScalef(0.05f, 0.05f, 0.05f);
 			model1.renderAll();
 			GL11.glPopMatrix();
 			break;
@@ -75,8 +74,7 @@ public class BlasterRender implements IItemRenderer {
 			GL11.glPushMatrix();
 			Minecraft.getMinecraft().renderEngine.bindTexture(textureLocation);
 			GL11.glScalef(0.04f, 0.04f, 0.04f);
-			GL11.glTranslatef(-10f, 5f, 0.0f);
-			GL11.glRotatef(90, 0.0f, 1.0f, 0.0f);
+			GL11.glTranslatef(-14f, 6f, 0.0f);
 			model1.renderAll();
 			GL11.glPopMatrix();
 			break;
@@ -86,5 +84,4 @@ public class BlasterRender implements IItemRenderer {
 		}
 
 	}
-
 }

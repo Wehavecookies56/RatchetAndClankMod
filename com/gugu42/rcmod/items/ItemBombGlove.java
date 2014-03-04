@@ -33,7 +33,7 @@ public class ItemBombGlove extends ItemRcWeap {
 				if (cooldown <= 0) {
 					EntityBombGloveAmmo bomb = new EntityBombGloveAmmo(
 							par2World, par3EntityPlayer, this, 0.1F, 1.0F, 1F,
-							0f, 0f);
+							0f, 0f, par3EntityPlayer);
 					par2World.spawnEntityInWorld(bomb);
 					par1ItemStack.damageItem(1, par3EntityPlayer);
 					System.out.println(cooldown);

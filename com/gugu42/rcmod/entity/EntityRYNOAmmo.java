@@ -2,8 +2,6 @@ package com.gugu42.rcmod.entity;
 
 import java.util.List;
 
-import com.gugu42.rcmod.handler.ExtendedEntityLivingBaseTarget;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,13 +17,20 @@ public class EntityRYNOAmmo extends EntityThrowable {
 	public boolean homing = true;
 	private int ticksAlive = 0;
 	protected EntityLiving target;
+	protected EntityPlayer shootingEntity;
 
 	public EntityRYNOAmmo(World par1World) {
 		super(par1World);
 	}
 
+	public EntityRYNOAmmo(World par1World, Entity par2Entity) {
+		super(par1World);
+
+	}
+
 	public EntityRYNOAmmo(World par1World, EntityPlayer par3EntityPlayer) {
 		super(par1World, par3EntityPlayer);
+		this.shootingEntity = par3EntityPlayer;
 	}
 
 	protected void entityInit() {
@@ -52,27 +57,25 @@ public class EntityRYNOAmmo extends EntityThrowable {
 		}
 		this.worldObj.spawnParticle("smoke", this.posX, this.posY, this.posZ,
 				0.0D, 0.0D, 0.0D);
+		this.worldObj.spawnParticle("flame", this.posX, this.posY, this.posZ,
+				0.0D, 0.0D, 0.0D);
 
-		if (this.homing) {
-			if ((this.target == null) || (this.target.velocityChanged)
-					|| (!this.target.canEntityBeSeen(this))) {
-				this.target = getNearestEntity();
-			}
+		if ((this.target == null) || (this.target.velocityChanged)
+				|| (!this.target.canEntityBeSeen(this))) {
+			this.target = getNearestEntity();
+		}
 
-			if (this.target != null) {
-
-				double d = this.target.boundingBox.minX
-						+ (this.target.boundingBox.maxX - this.target.boundingBox.minX)
-						/ 2.0D - this.posX;
-				double d1 = this.target.boundingBox.minY
-						+ (this.target.boundingBox.maxY - this.target.boundingBox.minY)
-						/ 2.0D - this.posY;
-				double d2 = this.target.boundingBox.minZ
-						+ (this.target.boundingBox.maxZ - this.target.boundingBox.minZ)
-						/ 2.0D - this.posZ;
-				setThrowableHeading(d, d1, d2, 0.9F, 0.0F);
-			}
-
+		if (this.target != null) {
+			double d = this.target.boundingBox.minX
+					+ (this.target.boundingBox.maxX - this.target.boundingBox.minX)
+					/ 2.0D - this.posX;
+			double d1 = this.target.boundingBox.minY
+					+ (this.target.boundingBox.maxY - this.target.boundingBox.minY)
+					/ 2.0D - this.posY;
+			double d2 = this.target.boundingBox.minZ
+					+ (this.target.boundingBox.maxZ - this.target.boundingBox.minZ)
+					/ 2.0D - this.posZ;
+			setThrowableHeading(d, d1, d2, 0.9F, 0.0F);
 		}
 
 		float f4 = 0.99F;
@@ -84,10 +87,6 @@ public class EntityRYNOAmmo extends EntityThrowable {
 			this.motionZ *= f4;
 			this.motionY -= f6;
 		}
-	}
-
-	public EntityLiving getActualTarget() {
-		return this.target;
 	}
 
 	private EntityLiving getTarget(double d, double d1, double d2, double d3) {
@@ -124,10 +123,16 @@ public class EntityRYNOAmmo extends EntityThrowable {
 
 	protected void onImpact(MovingObjectPosition movingobjectposition) {
 		if (movingobjectposition.entityHit != null) {
-			byte b0 = 6;
-			movingobjectposition.entityHit.attackEntityFrom(
-					DamageSource.causeThrownDamage(this, getThrower()), b0);
+			byte b0 = 20;
 
+			if (movingobjectposition.entityHit != this.getThrower())
+				movingobjectposition.entityHit
+						.attackEntityFrom(DamageSource
+								.causePlayerDamage(this.shootingEntity), b0);
+			movingobjectposition.entityHit.getEntityData().setInteger(
+					"missilesTargeting",
+					movingobjectposition.entityHit.getEntityData().getInteger(
+							"missilesTargeting") - 1);
 			if (!this.worldObj.isRemote) {
 				setDead();
 			}
@@ -169,7 +174,15 @@ public class EntityRYNOAmmo extends EntityThrowable {
 				if (((entity instanceof EntityLiving))
 						&& (((EntityLiving) entity).canEntityBeSeen(this))) {
 					target = (EntityLiving) entity;
-					return target;
+					if (target.getEntityData().getInteger("missilesTargeting") <= 2) {
+						target.getEntityData().setInteger(
+								"missilesTargeting",
+								target.getEntityData().getInteger(
+										"missilesTargeting") + 1);
+						// System.out.println("Target aquired ! "
+						// + target.getEntityName());
+						return target;
+					}
 				}
 			}
 		}

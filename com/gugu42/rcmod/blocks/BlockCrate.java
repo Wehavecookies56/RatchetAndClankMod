@@ -6,6 +6,8 @@ import com.gugu42.rcmod.RcMod;
 
 
 
+import com.gugu42.rcmod.items.RcItems;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -30,7 +32,7 @@ public class BlockCrate extends Block{
 
     public int idDropped(int par1, Random par2Random, int par3)
     {
-        return RcMod.bolt.itemID;
+        return RcItems.bolt.itemID;
     }
     
 	public void onEntityCollidedWithBlock(World par1World, int par2, int par3,

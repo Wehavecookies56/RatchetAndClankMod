@@ -1,19 +1,19 @@
 package com.gugu42.rcmod.items;
 
-import com.gugu42.rcmod.RcMod;
-import com.gugu42.rcmod.entity.EntityBlasterAmmo;
-
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
+import com.gugu42.rcmod.entity.EntityBlasterAmmo;
 
 public class ItemBlaster extends ItemRcWeap {
 
 	public int ammo;
 	public int maxAmmo;
 	public int cooldown;
+	
+	public boolean isInGold;
 
 	public ItemBlaster(int par1) {
 		super(par1);
@@ -24,6 +24,7 @@ public class ItemBlaster extends ItemRcWeap {
 		this.heldType = 1;
 		this.setMaxDamage(maxAmmo);
 		this.maxStackSize = 1;
+		this.isInGold = false;
 	}
 
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World,
@@ -31,8 +32,7 @@ public class ItemBlaster extends ItemRcWeap {
 		if (maxAmmo - par1ItemStack.getItemDamage() > 0) {
 			if (!par2World.isRemote) {
 				EntityBlasterAmmo bullet = new EntityBlasterAmmo(
-						par2World, par3EntityPlayer, this, 0.1F, 1.0F, 1F, 0f,
-						0f);
+						par2World, par3EntityPlayer);
 				par2World.spawnEntityInWorld(bullet);
 				par1ItemStack.damageItem(1, par3EntityPlayer);
 			}
@@ -46,11 +46,6 @@ public class ItemBlaster extends ItemRcWeap {
 
 	public float getStrVsBlock(ItemStack par1ItemStack, Block par2Block) {
 		return 0.0f;
-	}
-
-	public void onUpdate(ItemStack stack, World w, Entity ent, int i,
-			boolean flag) {
-
 	}
 
 	public void onPlayerStoppedUsing(ItemStack stack, World w,

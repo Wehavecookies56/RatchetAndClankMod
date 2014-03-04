@@ -1,12 +1,6 @@
 package com.gugu42.rcmod.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Random;
-
-import com.gugu42.rcmod.RcMod;
-import com.gugu42.rcmod.entity.EntityBlasterAmmo;
-import com.gugu42.rcmod.entity.EntityTNTCrate;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -17,6 +11,12 @@ import net.minecraft.item.Item;
 import net.minecraft.util.Icon;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+
+import com.gugu42.rcmod.RcMod;
+import com.gugu42.rcmod.entity.EntityTNTCrate;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockTNTCrate extends Block {
 	@SideOnly(Side.CLIENT)

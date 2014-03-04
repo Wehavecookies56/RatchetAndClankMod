@@ -1,0 +1,17 @@
+tile.tntCrate.name=Caisse explosive
+tile.crate.name=Caisse de boulons
+tile.vendor.name=Vendeur Gadgetron
+
+death.attack.rcweap=%1$s s'est fait tiré dessus jusqu'a la mort.
+death.attack.rcweap.player=%1$s s'est fait tiré dessus par %2$s.
+death.attack.rcweap.item=%1$s s'est fait tiré dessus par %2$s avec son %3$s
+
+item.bolt.name=Boulon
+item.blaster.name=Plasmo-Mitrail
+item.bombglove.name=Gant a bombes
+item.omwr3000.name=SuperClé 3000
+item.ryno.name=T.E.L.T.
+item.pyrocitor.name=Pyrolanceur
+
+itemGroup.rcTab=Ratchet & Clank Mod
+itemGroup.rcWeapTab=Ratchet & Clank Armes

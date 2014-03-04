@@ -2,11 +2,19 @@ tile.tntCrate.name=TNT Crate
 tile.crate.name=Bolt Crate
 tile.vendor.name=Gadgetron Vendor
 
+death.attack.rcweap=%1$s was shot to death.
+death.attack.rcweap.player=%1$s was shot to death by %2$s.
+death.attack.rcweap.item=%1$s was shot to death by %2$s using %3$s
+
 item.bolt.name=Bolt
 item.blaster.name=Blaster
 item.bombglove.name=Bomb Glove
 item.omwr3000.name=OmniWrench 3000
 item.ryno.name=R.Y.N.O.
+item.pyrocitor.name=Pyrocitor
+item.walloper.name=Walloper
+
+item.clankHeli.name=Clank (Helipack)
 
 itemGroup.rcTab=Ratchet & Clank Mod
 itemGroup.rcWeapTab=Ratchet & Clank Weapons

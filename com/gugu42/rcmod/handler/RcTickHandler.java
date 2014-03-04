@@ -3,13 +3,15 @@ package com.gugu42.rcmod.handler;
 import java.util.EnumSet;
 import java.util.List;
 
+import org.lwjgl.input.Keyboard;
+
 import com.gugu42.rcmod.RcMod;
+import com.gugu42.rcmod.items.RcItems;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
-
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 
@@ -36,6 +38,14 @@ public class RcTickHandler implements ITickHandler {
 				updateEntityItem((EntityItem) entities.get(i1));
 			}
 		}
+
+		if (canHelipack(player)) {
+			if ((!player.onGround) && (player.motionY < 0.0D)) {
+				player.motionY *= 0.7D;
+				player.fallDistance = 0.0F;
+			}
+		}
+		
 	}
 
 	@Override
@@ -48,12 +58,38 @@ public class RcTickHandler implements ITickHandler {
 		return "RatchetClank";
 	}
 
+
+	private boolean canHelipack(EntityPlayer player) {
+		if (player.motionY < 0.0f
+				&& player.inventory.armorItemInSlot(2) != null
+				&& player.inventory.armorItemInSlot(2).getItem() == RcMod.clankBackpack) {
+			if (player.getEntityData().getBoolean("clankJumped")) {
+				if (player.getEntityData().getInteger("clankCooldown") >= 1) {
+					if (player.onGround)
+						player.getEntityData().setInteger(
+								"clankCooldown",
+								player.getEntityData().getInteger(
+										"clankCooldown") - 1);
+					return true;
+				} else {
+					player.getEntityData().setBoolean("clankJumped", false);
+					player.getEntityData().setBoolean("doubleJumped", false);
+					return false;
+				}
+			}
+		} else {
+			return false;
+		}
+		return false;
+	}
+
 	private void updateEntityItem(EntityItem par1) {
 		double closeness = 16.0D;
 		EntityPlayer player = par1.worldObj.getClosestPlayerToEntity(par1,
 				closeness);
 
-		if ((player != null) && par1.getEntityItem().itemID == RcMod.bolt.itemID) {
+		if ((player != null)
+				&& par1.getEntityItem().itemID == RcItems.bolt.itemID) {
 			double var3 = (player.posX - par1.posX) / closeness;
 			double var5 = (player.posY + player.getEyeHeight() - par1.posY)
 					/ closeness;

@@ -1,11 +1,14 @@
 package com.gugu42.rcmod.entity;
 
 import java.util.List;
+
 import com.gugu42.rcmod.TNTCrateExplosion;
 import com.gugu42.rcmod.items.ItemBombGlove;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
@@ -27,6 +30,7 @@ public class EntityBombGloveAmmo extends Entity {
 	protected boolean minecraftServerDotJavaSpawned;
 	private int age;
 	private World worldObj;
+	private EntityPlayer thrower;
 
 	public EntityBombGloveAmmo(World par1World) {
 		super(par1World);
@@ -50,11 +54,12 @@ public class EntityBombGloveAmmo extends Entity {
 	}
 
 	public EntityBombGloveAmmo(World world, EntityLivingBase entity,
-			ItemBombGlove gun, float f, float f1, float f2, float f3, float f4) {
+			ItemBombGlove gun, float f, float f1, float f2, float f3, float f4, EntityPlayer thrower) {
 		this(world);
 		owner = entity;
 		this.worldObj = world;
 		damage = 6;
+		this.thrower = thrower;
 		float f5 = entity.rotationYaw;
 		float f6 = f5 * 0.01745329F;
 		double d = f * MathHelper.cos(f6) - f2 * MathHelper.sin(f6);
@@ -224,7 +229,7 @@ public class EntityBombGloveAmmo extends Entity {
 			if (movingobjectposition.entityHit != null
 					|| k != Block.tallGrass.blockID) {
 				if (movingobjectposition.entityHit != null) {
-					TNTCrateExplosion explo = new TNTCrateExplosion(this.worldObj, this, posX, posY, posZ, 3.0f);
+					TNTCrateExplosion explo = new TNTCrateExplosion(this.worldObj, this, posX, posY, posZ, 3.0f, thrower);
 					explo.doExplosionA(false);
 					explo.doExplosionB(true);
 				} else {
@@ -242,7 +247,7 @@ public class EntityBombGloveAmmo extends Entity {
 					posZ -= (motionZ / (double) f2) * 0.05D;
 					inGround = true;
 					if (inGround) {
-						TNTCrateExplosion explo = new TNTCrateExplosion(this.worldObj, this, posX, posY, posZ, 3.0f);
+						TNTCrateExplosion explo = new TNTCrateExplosion(this.worldObj, this, posX, posY, posZ, 3.0f, thrower);
 						explo.doExplosionA(false);
 						explo.doExplosionB(true);
 					}

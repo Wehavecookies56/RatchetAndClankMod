@@ -1,19 +1,8 @@
 package com.gugu42.rcmod.handler;
 
-import java.util.Random;
+import org.lwjgl.input.Keyboard;
 
-import com.gugu42.rcmod.BoltCommand;
-import com.gugu42.rcmod.CommonProxy;
-import com.gugu42.rcmod.RcMod;
-import com.gugu42.rcmod.items.ItemBlaster;
-import com.gugu42.rcmod.items.ItemRcWeap;
-
-import cpw.mods.fml.common.ObfuscationReflectionHelper;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,7 +13,18 @@ import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
+import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+
+import com.gugu42.rcmod.CommonProxy;
+import com.gugu42.rcmod.RcMod;
+import com.gugu42.rcmod.items.ItemRcWeap;
+import com.gugu42.rcmod.items.RcItems;
+
+import cpw.mods.fml.common.ObfuscationReflectionHelper;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class RcEventHandler {
 
@@ -57,6 +57,39 @@ public class RcEventHandler {
 					.register((EntityLivingBase) event.entity);
 		}
 
+		if (event.entity != null) {
+			event.entity.getEntityData().setInteger("missilesTargeting", 0);
+		}
+
+	}
+
+	@ForgeSubscribe
+	public void onLivingJumpEvent(LivingJumpEvent event) {
+		if (event.entity instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) event.entity;
+			if (player.inventory.armorItemInSlot(2) != null
+					&& player.inventory.armorItemInSlot(2).itemID == RcMod.clankBackpack.itemID
+					&& player.isSneaking()) {
+				event.entity.motionY += 0.3D;
+				event.entity.getEntityData().setBoolean("clankJumped", true);
+				event.entity.getEntityData().setInteger("clankCooldown", 2);
+			}
+
+			if (player.inventory.armorItemInSlot(2) != null
+					&& player.inventory.armorItemInSlot(2).itemID == RcMod.clankBackpack.itemID
+					&& player.isSprinting()) {
+				double x = Math.cos(Math
+						.toRadians(player.rotationYawHead + 90.0F)) * 0.05d;
+
+				double z = Math.sin(Math
+						.toRadians(player.rotationYawHead + 90.0F)) * 0.05d;
+
+				player.motionX += x;
+				player.motionZ += z;
+				event.entity.getEntityData().setBoolean("clankJumped", true);
+				event.entity.getEntityData().setInteger("clankCooldown", 2);
+			}
+		}
 	}
 
 	@ForgeSubscribe
@@ -89,11 +122,15 @@ public class RcEventHandler {
 					.getExtendedProperties(ExtendedPlayerBolt.EXT_PROP_NAME)))
 					.sync();
 		}
-		
-		if (event.entity instanceof EntityLivingBase)
-		{
-		ExtendedEntityLivingBaseTarget props2 = ExtendedEntityLivingBaseTarget.get((EntityLivingBase) event.entity);
-		props2.setTargeted(false);
+
+		if (event.entity instanceof EntityLivingBase) {
+			ExtendedEntityLivingBaseTarget props2 = ExtendedEntityLivingBaseTarget
+					.get((EntityLivingBase) event.entity);
+			props2.setTargeted(false);
+		}
+
+		if (event.entity != null) {
+			event.entity.getEntityData().setInteger("missilesTargeting", 0);
 		}
 	}
 
@@ -101,7 +138,7 @@ public class RcEventHandler {
 	public void onItemPickup(EntityItemPickupEvent event) {
 		ItemStack item = event.item.getEntityItem();
 		ExtendedPlayerBolt props = ExtendedPlayerBolt.get(event.entityPlayer);
-		if (item.itemID == RcMod.bolt.itemID) {
+		if (item.itemID == RcItems.bolt.itemID) {
 			props.addBolt(25);
 			event.item.setDead();
 			event.setCanceled(true);
@@ -123,11 +160,9 @@ public class RcEventHandler {
 				ModelBiped modelArmor = ObfuscationReflectionHelper
 						.getPrivateValue(RenderPlayer.class, event.renderer, 3);
 				modelMain.aimedBow = modelArmorChestplate.aimedBow = modelArmor.aimedBow = true;
-				
 			}
 		}
 
-	} 
-	
+	}
 
 }
