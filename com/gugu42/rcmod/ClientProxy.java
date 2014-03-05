@@ -1,8 +1,5 @@
 package com.gugu42.rcmod;
 
-
-import marvien.entity.EntityVisibombRocket;
-import marvien.renderers.VisibombRocketRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
 
 import com.gugu42.rcmod.entity.EntityBlasterAmmo;

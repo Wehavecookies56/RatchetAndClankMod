@@ -1,8 +1,6 @@
 package com.gugu42.rcmod.render;
 
 import org.lwjgl.opengl.GL11;
-
-import marvien.MainMarvien;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.item.ItemStack;
@@ -15,12 +13,12 @@ import net.minecraftforge.client.model.IModelCustom;
 
 public class VisibombRender implements IItemRenderer {
 
-	private IModelCustom flower;
-    private ResourceLocation flowerTexture;
+	private IModelCustom model1;
+    private ResourceLocation textureLocation;
    
 	public VisibombRender(){
-    	flower = AdvancedModelLoader.loadModel("/assets/rcmod/models/visibomb.obj");
-    	flowerTexture = new ResourceLocation("rcmod:models/visibomb.png");
+    	model1 = AdvancedModelLoader.loadModel("/assets/rcmod/models/visibomb.obj");
+    	textureLocation = new ResourceLocation("rcmod:models/visibomb.png");
     }
 	
 	@Override
@@ -62,8 +60,8 @@ public class VisibombRender implements IItemRenderer {
 				GL11.glScalef(0.5F, 0.5F, 0.5F);
 				GL11.glScalef(0.5F, 0.5F, 0.5F);
 				GL11.glRotatef(90F, 0.0F, 1.0F, 0.0F);
-				engine.bindTexture(flowerTexture);
-				if (flower != null) flower.renderAll();
+				engine.bindTexture(textureLocation);
+				if (model1 != null) model1.renderAll();
 				GL11.glPopMatrix();
 				break;
 			}
@@ -79,8 +77,8 @@ public class VisibombRender implements IItemRenderer {
 				GL11.glRotatef(45F, 0.0F, 1.0F, 0.0F);
 				GL11.glRotatef(-67.5F, 1.0F, 0.0F, 0.0F);
 				GL11.glRotatef(90F, 0.0F, 1.0F, 0.0F);
-				engine.bindTexture(flowerTexture);
-				if (flower != null) flower.renderAll();
+				engine.bindTexture(textureLocation);
+				if (model1 != null) model1.renderAll();
 				GL11.glPopMatrix();
 				break;
 			}
@@ -93,8 +91,8 @@ public class VisibombRender implements IItemRenderer {
 				GL11.glScalef(0.5F, 0.5F, 0.5F);
 				GL11.glScalef(0.5F, 0.5F, 0.5F);
 				GL11.glRotatef(45F, 0.0F, 1.0F, 0.0F);
-				engine.bindTexture(flowerTexture);
-				if (flower != null) flower.renderAll();
+				engine.bindTexture(textureLocation);
+				if (model1 != null) model1.renderAll();
 				GL11.glPopMatrix();
 				break;
 			}
