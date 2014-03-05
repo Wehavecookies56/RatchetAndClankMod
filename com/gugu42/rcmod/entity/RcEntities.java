@@ -1,8 +1,5 @@
 package com.gugu42.rcmod.entity;
 
-import marvien.MainMarvien;
-import marvien.entity.EntityVisibombRocket;
-
 import com.gugu42.rcmod.RcMod;
 
 import cpw.mods.fml.common.registry.EntityRegistry;
