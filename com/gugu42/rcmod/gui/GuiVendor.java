@@ -268,7 +268,6 @@ public class GuiVendor extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-
 		fontRenderer.drawString("Vendor", 8, 6, 4210752);
 
 		if (isMouseOverSlot(container.getSlot(1), par1, par2)) {
@@ -470,11 +469,13 @@ public class GuiVendor extends GuiContainer {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float par1, int par2,
 			int par3) {
+		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 		this.mc.renderEngine.bindTexture(texturepath);
 		int x = (width - xSize) / 2;
 		int y = (height - ySize) / 2;
 		this.drawTexturedQuadFit(x, y, 256, 256, 0);
+		GL11.glDisable(GL11.GL_BLEND);
 	}
 
 	public int getSlotClicked() {
