@@ -105,9 +105,10 @@ public class RcMod {
 		this.rcTickHandler = new RcTickHandler();
 		proxy.registerRenderInformation();
 		proxy.registerTileEntityRender();
+		RcRecipes.addRecipes();
 		TickRegistry.registerTickHandler(this.rcTickHandler, Side.SERVER);
 		TickRegistry.registerTickHandler(this.rcTickHandler, Side.CLIENT);
-
+		
 	}
 
 	@SideOnly(Side.CLIENT)

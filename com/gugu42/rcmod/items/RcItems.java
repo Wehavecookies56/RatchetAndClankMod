@@ -9,6 +9,7 @@ public class RcItems {
 	//All global mod items goes there
 	public static Item omniwrench3000;
 	public static Item bolt;
+	public static Item vendorCore;
 	
 	// All items from RC1 goes there
 	public static Item blaster;
@@ -63,6 +64,10 @@ public class RcItems {
 		bolt = new ItemBolt(3001).setUnlocalizedName("bolt").setTextureName(
 				"rcmod:bolt");
 		GameRegistry.registerItem(bolt, "bolt");
+		
+		vendorCore = new ItemVendorCore(3008).setUnlocalizedName(
+				"vendorCore").setTextureName("rcmod:vendorcore");
+		GameRegistry.registerItem(vendorCore, "vendorCore");
 	}
 
 }
