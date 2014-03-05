@@ -16,6 +16,7 @@ public class RcItems {
 	public static Item ryno;
 	public static Item pyrocitor;
 	public static Item walloper;
+	public static Item visibombGun;
 
 	public RcItems(){
 		
@@ -47,7 +48,11 @@ public class RcItems {
 				.setTextureName("rcmod:walloper")
 				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
 		GameRegistry.registerItem(walloper, "walloper");
-
+		
+		visibombGun = new ItemVisibombGun(3007).setUnlocalizedName("visibombGun")
+				.setTextureName("rcmod:visibombGun")
+				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
+		GameRegistry.registerItem(visibombGun, "visibombGun");
 	}
 	
 	public static void initModItems(){
