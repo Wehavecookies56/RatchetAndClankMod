@@ -14,6 +14,7 @@ import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 
@@ -93,6 +94,33 @@ public class RcEventHandler {
 	}
 
 	@ForgeSubscribe
+	public void onLivingFallEvent(LivingFallEvent event) {
+		EntityPlayer player = (EntityPlayer) event.entity;
+		if (player.inventory.armorItemInSlot(2) != null
+				&& player.inventory.armorItemInSlot(2).itemID == RcMod.clankBackpack.itemID)
+		{
+			event.setCanceled(true);
+		}
+	}
+	
+	@ForgeSubscribe
+	public void onLivingUpdateEvent(LivingUpdateEvent event) {
+		if (event.entity instanceof EntityPlayer)
+		{
+			EntityPlayer player = (EntityPlayer) event.entity;
+			if (player.inventory.armorItemInSlot(2) != null
+					&& player.inventory.armorItemInSlot(2).itemID == RcMod.clankBackpack.itemID)
+			{
+				if (player.fallDistance > 1.6F)
+				{
+					event.entity.getEntityData().setBoolean("clankJumped", true);
+					event.entity.getEntityData().setInteger("clankCooldown", 2);
+				}
+			}
+		}
+	}
+	
+	@ForgeSubscribe
 	public void onLivingDeathEvent(LivingDeathEvent event) {
 		if (!event.entity.worldObj.isRemote
 				&& event.entity instanceof EntityPlayer) {
@@ -103,6 +131,8 @@ public class RcEventHandler {
 			proxy.storeEntityData(((EntityPlayer) event.entity).username,
 					playerData);
 			ExtendedPlayerBolt.saveProxyData((EntityPlayer) event.entity);
+		} else {
+			
 		}
 	}
 
