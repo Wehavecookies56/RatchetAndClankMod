@@ -2,6 +2,7 @@ package com.gugu42.rcmod.render;
 
 import java.util.Random;
 
+import org.jglrxavpok.glutils.TessellatorModel;
 import org.lwjgl.opengl.GL11;
 
 import com.gugu42.rcmod.tileentity.TileEntityVendor;
@@ -43,9 +44,7 @@ public class TileEntityVendorSpecialRenderer extends TileEntitySpecialRenderer
 			"rcmod:models/Vendor3.png");
 
 	// G de Gadgetron
-	private IModelCustom model5;
-	public static final ResourceLocation textureLocation5 = new ResourceLocation(
-			"rcmod:models/Vendor4.png");
+	private TessellatorModel model5;
 
 	// Blaster
 	private IModelCustom modelBlaster;
@@ -62,8 +61,10 @@ public class TileEntityVendorSpecialRenderer extends TileEntitySpecialRenderer
 				.loadModel("/assets/rcmod/models/Vendor2.obj");
 		model4 = AdvancedModelLoader
 				.loadModel("/assets/rcmod/models/Vendor3.obj");
-		model5 = AdvancedModelLoader
-				.loadModel("/assets/rcmod/models/Vendor4.obj");
+		
+		model5 = new TessellatorModel("/assets/rcmod/models/Vendor4.obj");
+		model5.regenerateNormals();
+		
 		modelBlaster = AdvancedModelLoader
 				.loadModel("/assets/rcmod/models/Blaster0.obj");
 		this.setTileEntityRenderer(TileEntityRenderer.instance);
@@ -143,11 +144,10 @@ public class TileEntityVendorSpecialRenderer extends TileEntitySpecialRenderer
 		if (!vendor.isPlayerNear) {
 			GL11.glPushMatrix();
 			GL11.glTranslated(x + 0.5F, y - 0.4F, z + 0.5F);
-			this.bindTexture(textureLocation5);
 			GL11.glRotated(-d3 * 5 * 10, 0.0D, 1.0D, 0.0D);
 			GL11.glScalef(0.046f, 0.046f, 0.046f);
-			model5.renderAll();
-			GL11.glShadeModel(GL11.GL_SMOOTH); //This was to test something.
+			GL11.glShadeModel(GL11.GL_SMOOTH);
+			model5.render();
 			GL11.glPopMatrix();
 			vendor.setRenderCountdown(0);
 		} else {
