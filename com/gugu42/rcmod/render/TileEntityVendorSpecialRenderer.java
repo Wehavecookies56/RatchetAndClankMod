@@ -147,6 +147,7 @@ public class TileEntityVendorSpecialRenderer extends TileEntitySpecialRenderer
 			GL11.glRotated(-d3 * 5 * 10, 0.0D, 1.0D, 0.0D);
 			GL11.glScalef(0.046f, 0.046f, 0.046f);
 			model5.renderAll();
+			GL11.glShadeModel(GL11.GL_SMOOTH); //This was to test something.
 			GL11.glPopMatrix();
 			vendor.setRenderCountdown(0);
 		} else {

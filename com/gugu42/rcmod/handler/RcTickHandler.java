@@ -20,7 +20,13 @@ public class RcTickHandler implements ITickHandler {
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {
 		// TODO Auto-generated method stub
-
+		EntityPlayer player = (EntityPlayer) tickData[0];
+		if (canHelipack(player)) {
+			if ((!player.onGround) && (player.motionY < 0.0D)) {
+				player.motionY *= 0.7D;
+				player.fallDistance = 0.0F;
+			}
+		}
 	}
 
 	@Override
