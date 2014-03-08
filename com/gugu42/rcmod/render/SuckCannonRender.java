@@ -1,14 +1,11 @@
 package com.gugu42.rcmod.render;
 
-import org.jglrxavpok.glutils.TessellatorModel;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.IItemRenderer;
+
 import org.lwjgl.opengl.GL11;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.model.AdvancedModelLoader;
-import net.minecraftforge.client.model.IModelCustom;
+import com.gugu42.rcmod.utils.glutils.TessellatorModel;
 
 public class SuckCannonRender implements IItemRenderer {
 
@@ -71,7 +68,8 @@ public class SuckCannonRender implements IItemRenderer {
 		case ENTITY: {
 			GL11.glPushMatrix();
 			GL11.glScalef(0.04f, 0.04f, 0.04f);
-			GL11.glTranslatef(5.0f, 0f, 18.0f);
+			GL11.glTranslatef(0.0f, 0f, 12.0f);
+			GL11.glScalef(0.6f, 0.6f, 0.6f);
 			GL11.glRotatef(90, 0.0f, 1.0f, 0.0f);
 			GL11.glShadeModel(GL11.GL_SMOOTH);
 			model1.render();

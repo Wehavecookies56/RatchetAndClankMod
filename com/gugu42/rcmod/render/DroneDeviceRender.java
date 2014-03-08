@@ -1,12 +1,11 @@
 package com.gugu42.rcmod.render;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 
-import org.jglrxavpok.glutils.TessellatorModel;
 import org.lwjgl.opengl.GL11;
+
+import com.gugu42.rcmod.utils.glutils.TessellatorModel;
 
 public class DroneDeviceRender implements IItemRenderer {
 

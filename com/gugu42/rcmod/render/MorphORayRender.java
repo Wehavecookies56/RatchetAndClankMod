@@ -1,14 +1,11 @@
 package com.gugu42.rcmod.render;
 
-import org.jglrxavpok.glutils.TessellatorModel;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.IItemRenderer;
+
 import org.lwjgl.opengl.GL11;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.model.AdvancedModelLoader;
-import net.minecraftforge.client.model.IModelCustom;
+import com.gugu42.rcmod.utils.glutils.TessellatorModel;
 
 public class MorphORayRender implements IItemRenderer {
 
@@ -50,6 +47,7 @@ public class MorphORayRender implements IItemRenderer {
 			GL11.glRotatef(-65, 0.0f, 0.0f, 1.0f);
 			//GL11.glRotatef(-45, 1.0f, 0.0f, 0.0f);
 			GL11.glScalef(0.09f, 0.09f, 0.09f);
+
 			GL11.glShadeModel(GL11.GL_SMOOTH);
 			model1.render();
 			
@@ -71,7 +69,8 @@ public class MorphORayRender implements IItemRenderer {
 		case ENTITY: {
 			GL11.glPushMatrix();
 			GL11.glScalef(0.04f, 0.04f, 0.04f);
-			GL11.glTranslatef(4f, 0f, 0.0f);
+			GL11.glScalef(0.8f, 0.8f, 0.8f);
+			GL11.glTranslatef(0.0f, -2f, 4f);
 			GL11.glRotatef(90, 0.0f, 1.0f, 0.0f);
 			GL11.glShadeModel(GL11.GL_SMOOTH);
 			model1.render();

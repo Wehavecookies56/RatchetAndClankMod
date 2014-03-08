@@ -54,11 +54,12 @@ public class VisibombRender implements IItemRenderer {
 				TextureManager engine = Minecraft.getMinecraft().getTextureManager();
 				GL11.glPushMatrix();
 			//GL11.glTranslatef((float)x, (float)y, (float)z);
-				GL11.glTranslated(0.4F, 0.6F, 1F);
+				GL11.glTranslated(0.2F, 0.0F, 0.6F);
 				GL11.glScalef(0.5F, 0.5F, 0.5F);
 				GL11.glScalef(0.5F, 0.5F, 0.5F);
 				GL11.glScalef(0.5F, 0.5F, 0.5F);
 				GL11.glScalef(0.5F, 0.5F, 0.5F);
+				GL11.glScalef(0.6F, 0.7F, 0.6F);
 				GL11.glRotatef(90F, 0.0F, 1.0F, 0.0F);
 				engine.bindTexture(textureLocation);
 				if (model1 != null) model1.renderAll();

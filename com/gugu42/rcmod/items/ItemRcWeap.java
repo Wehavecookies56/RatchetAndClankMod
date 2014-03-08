@@ -13,6 +13,7 @@ public class ItemRcWeap extends Item{
 	protected int maxAmmo;
 	protected int heldType;
 	public boolean useAmmo;
+	public boolean useTargetingSystem;
 	
 
 
@@ -22,6 +23,7 @@ public class ItemRcWeap extends Item{
 		this.setMaxDamage(maxAmmo);
 		this.maxStackSize = 1;
 		this.useAmmo = true;
+		this.useTargetingSystem = false;
 	}
 
 	public int getPrice(){

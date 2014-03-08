@@ -9,6 +9,7 @@ import net.minecraft.world.World;
 public class EntityVisibombAmmo extends EntityThrowable
  {
 	private int ticksInAir;
+	private EntityLivingBase entityFiring;
 
 	public EntityVisibombAmmo(World par1World) {
 		super(par1World);
@@ -21,6 +22,7 @@ public class EntityVisibombAmmo extends EntityThrowable
 	public EntityVisibombAmmo(World par1World,
 			EntityLivingBase par2EntityLivingBase) {
 		super(par1World, par2EntityLivingBase);
+		this.entityFiring = par2EntityLivingBase; 
 	}
 
 	public EntityVisibombAmmo(World par1World, double par2, double par4,
@@ -56,7 +58,7 @@ public class EntityVisibombAmmo extends EntityThrowable
 		this.lastTickPosZ = this.posZ;
 		super.onUpdate();
 		++this.ticksInAir;
-
+		
 		if (this.ticksInAir == 150) {
 			this.setDead();
 		}

@@ -1,17 +1,11 @@
 package com.gugu42.rcmod.render;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.IItemRenderer.ItemRenderType;
-import net.minecraftforge.client.IItemRenderer.ItemRendererHelper;
-import net.minecraftforge.client.model.AdvancedModelLoader;
-import net.minecraftforge.client.model.IModelCustom;
 
-import org.jglrxavpok.glutils.TessellatorModel;
 import org.lwjgl.opengl.GL11;
+
+import com.gugu42.rcmod.utils.glutils.TessellatorModel;
 
 public class DevastatorRender implements IItemRenderer {
 
@@ -51,10 +45,11 @@ public class DevastatorRender implements IItemRenderer {
 		if (type == ItemRenderType.ENTITY) 
 		{
 			GL11.glPushMatrix();
-			GL11.glTranslated(0.3F, 0.0F, 0.5F);
+			GL11.glTranslated(0.0F, -0.1F, 0.4F);
 	        GL11.glScalef(0.09F, 0.09F, 0.09F);
 	        GL11.glScalef(0.5F, 0.5F, 0.5F);
 	        GL11.glScalef(0.79F, 0.79F, 0.79F);
+	        GL11.glScalef(0.7f, 0.7f, 0.7f);
 	        GL11.glRotatef(90F, 0.0F, 1.0F, 0.0F);
 	        GL11.glShadeModel(GL11.GL_SMOOTH);
 	        model1.render();
