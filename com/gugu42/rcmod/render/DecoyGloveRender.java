@@ -4,16 +4,18 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
+import net.minecraftforge.client.model.AdvancedModelLoader;
+import net.minecraftforge.client.model.IModelCustom;
 
 import org.jglrxavpok.glutils.TessellatorModel;
 import org.lwjgl.opengl.GL11;
 
-public class BombGloveRender implements IItemRenderer {
+public class DecoyGloveRender implements IItemRenderer {
 
 	private TessellatorModel model1;
     
-	public BombGloveRender() {
-		model1 = new TessellatorModel("/assets/rcmod/models/BombGlove.obj");
+	public DecoyGloveRender() {
+		model1 = new TessellatorModel("/assets/rcmod/models/DecoyGlove.obj");
 		model1.regenerateNormals();
 	}
 

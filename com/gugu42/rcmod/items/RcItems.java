@@ -18,6 +18,15 @@ public class RcItems {
 	public static Item pyrocitor;
 	public static Item walloper;
 	public static Item visibombGun;
+	public static Item decoyGlove;
+	public static Item devastator;
+	public static Item droneDevice;
+	public static Item gloveOfDoom;
+	public static Item mineGlove;
+	public static Item morphORay;
+	public static Item suckCannon;
+	public static Item taunter;
+	public static Item teslaClaw;
 
 	public RcItems(){
 		
@@ -54,6 +63,41 @@ public class RcItems {
 				.setTextureName("rcmod:visibombGun")
 				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
 		GameRegistry.registerItem(visibombGun, "visibombGun");
+		
+		decoyGlove = new ItemDecoyGlove(3009).setUnlocalizedName("decoyGlove")
+				.setTextureName("rcmod:decoyGlove")
+				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
+		
+		devastator = new ItemDevastator(3010).setUnlocalizedName("devastator")
+				.setTextureName("rcmod:devastator")
+				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
+		
+		droneDevice = new ItemDroneDevice(3011).setUnlocalizedName("droneDevice")
+				.setTextureName("rcmod:droneDevice")
+				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
+		gloveOfDoom = new ItemGloveOfDoom(3012).setUnlocalizedName("gloveOfDoom")
+				.setTextureName("rcmod:gloveOfDoom")
+				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
+		
+		mineGlove = new ItemMineGlove(3013).setUnlocalizedName("mineGlove")
+				.setTextureName("rcmod:mineGlove")
+				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
+		
+		morphORay = new ItemMorphORay(3014).setUnlocalizedName("morphORay")
+				.setTextureName("rcmod:morphORay")
+				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
+		
+		suckCannon = new ItemSuckCannon(3015).setUnlocalizedName("suckCannon")
+				.setTextureName("rcmod:suckCannon")
+				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
+		
+		taunter = new ItemTaunter(3016).setUnlocalizedName("taunter")
+				.setTextureName("rcmod:taunter")
+				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
+		
+		teslaClaw = new ItemTeslaClaw(3017).setUnlocalizedName("teslaClaw")
+				.setTextureName("rcmod:teslaClaw")
+				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
 	}
 	
 	public static void initModItems(){
