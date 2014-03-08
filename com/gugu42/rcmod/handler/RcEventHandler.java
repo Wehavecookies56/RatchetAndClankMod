@@ -95,31 +95,30 @@ public class RcEventHandler {
 
 	@ForgeSubscribe
 	public void onLivingFallEvent(LivingFallEvent event) {
-		EntityPlayer player = (EntityPlayer) event.entity;
-		if (player.inventory.armorItemInSlot(2) != null
-				&& player.inventory.armorItemInSlot(2).itemID == RcMod.clankBackpack.itemID)
-		{
-			event.setCanceled(true);
-		}
-	}
-	
-	@ForgeSubscribe
-	public void onLivingUpdateEvent(LivingUpdateEvent event) {
-		if (event.entity instanceof EntityPlayer)
-		{
+		if (event.entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.entity;
 			if (player.inventory.armorItemInSlot(2) != null
-					&& player.inventory.armorItemInSlot(2).itemID == RcMod.clankBackpack.itemID)
-			{
-				if (player.fallDistance > 1.6F)
-				{
-					event.entity.getEntityData().setBoolean("clankJumped", true);
+					&& player.inventory.armorItemInSlot(2).itemID == RcMod.clankBackpack.itemID) {
+				event.setCanceled(true);
+			}
+		}
+	}
+
+	@ForgeSubscribe
+	public void onLivingUpdateEvent(LivingUpdateEvent event) {
+		if (event.entity instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) event.entity;
+			if (player.inventory.armorItemInSlot(2) != null
+					&& player.inventory.armorItemInSlot(2).itemID == RcMod.clankBackpack.itemID) {
+				if (player.fallDistance > 1.6F) {
+					event.entity.getEntityData()
+							.setBoolean("clankJumped", true);
 					event.entity.getEntityData().setInteger("clankCooldown", 2);
 				}
 			}
 		}
 	}
-	
+
 	@ForgeSubscribe
 	public void onLivingDeathEvent(LivingDeathEvent event) {
 		if (!event.entity.worldObj.isRemote
@@ -132,7 +131,7 @@ public class RcEventHandler {
 					playerData);
 			ExtendedPlayerBolt.saveProxyData((EntityPlayer) event.entity);
 		} else {
-			
+
 		}
 	}
 
