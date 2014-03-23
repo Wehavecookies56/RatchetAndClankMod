@@ -1,5 +1,5 @@
-package com.gugu42.rcmod.utils.glutils;
 
+package com.gugu42.rcmod.utils.glutils;
 
 import java.util.ArrayList;
 import org.lwjgl.util.glu.*;

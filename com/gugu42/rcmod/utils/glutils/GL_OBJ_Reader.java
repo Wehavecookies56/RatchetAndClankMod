@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import org.jglrxavpok.glutils.*;
+
 /** 
  * Based on Object3D.java by Jeremy Adams (elias4444) august 2005
  *
@@ -387,4 +389,6 @@ public class GL_OBJ_Reader {
         }
     }
 }
+
+
 
