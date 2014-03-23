@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.PixelGrabber;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -17,8 +18,6 @@ import java.nio.ByteOrder;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
-
-import org.apache.commons.io.output.ByteArrayOutputStream;
 
 /**
  * Loads an image from file, stores pixels as ARGB int array, and RGBA
