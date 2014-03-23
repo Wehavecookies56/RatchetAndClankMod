@@ -41,34 +41,34 @@ public class GLShadowOnPlane {
     
     // color of shadow, typically black, with alpha
 	float[] shadowColor = new float[] {0f, 0f, 0f, .6f};
-
+	
 	// call back function to draw objects that will cast shadows
 	Method drawObjectMethod;
 	Object parentApp;
-
-
+	
+	
 	public GLShadowOnPlane(float[] lightPosition, float[] plane, float[] shadowcolor, GLUtils gl_application, Method objectDrawFunction) {
 		//shadowColor = shadowcolor;
 		drawObjectMethod = objectDrawFunction;
 		parentApp = gl_application;
-
+		
 		lightPos = lightPosition;
 		shadowPlane = plane;
-
+		
         float[] fShadowMatrixArray = new float[16];
         makeShadowMatrix(fShadowMatrixArray, lightPosition, plane);
 
         // convert the float array to a FloatBuffer
         fShadowMatrix = GLUtils.allocFloats(fShadowMatrixArray);
 	}
-
+	
     /**
      * draw the object that will be shadowed
      */
 	public void drawObject() {
 		GLUtils.invoke(parentApp, drawObjectMethod);
 	}
-
+	
 	/**
 	 * Draw the shadowed object from the lights point of view.  This will
 	 * create the right shape for a shadow.  To draw the object as a flat shape

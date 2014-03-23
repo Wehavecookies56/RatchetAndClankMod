@@ -13,7 +13,7 @@ import org.lwjgl.opengl.GL11;
  * materials. The entire mesh will be drawn as one group of triangles with one
  * texture.
  */
-public class GLModel
+public class GLModel extends Model
 {
 	// a default material to use if none is specified
 	public static GLMaterial defaultMtl = new GLMaterial();
@@ -24,12 +24,19 @@ public class GLModel
 	// !!!! this will be null. NEED to check this in OBJ_Reader and check
 	// renderGroups() (BROKEN!!!)
 	public GLMaterial[] groupMaterials; // holds material for each face group (1
+
+	private String id;
 										// group to 1 material)
 
 	public GLModel(String filename)
 	{
 		// load OBJ file
 		mesh = loadMesh(filename);
+	}
+	
+	public void renderGroups(String group)
+	{
+	    renderGroup(group);
 	}
 
 	/**
