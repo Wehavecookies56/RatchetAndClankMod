@@ -30,6 +30,8 @@ public class BlockVendor extends Block {
 		}
 		// code to open gui explained later
 		par5EntityPlayer.openGui(RcMod.instance, 0, par1World, x, y, z);
+		par1World.playSoundAtEntity(par5EntityPlayer, "rcmod:MenuOpen", 1.0F, 1.0F);
+		par1World.playSoundAtEntity(par5EntityPlayer, "rcmod:VendorSalesman.vendor_speech", 1.0F, 1.0F);
 		return true;
 	}
 

@@ -1,6 +1,7 @@
 package com.gugu42.rcmod;
 
 import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.common.MinecraftForge;
 
 import com.gugu42.rcmod.entity.EntityBlasterAmmo;
 import com.gugu42.rcmod.entity.EntityBombGloveAmmo;
@@ -8,6 +9,7 @@ import com.gugu42.rcmod.entity.EntityPyrocitorAmmo;
 import com.gugu42.rcmod.entity.EntityRYNOAmmo;
 import com.gugu42.rcmod.entity.EntityTNTCrate;
 import com.gugu42.rcmod.entity.EntityVisibombAmmo;
+import com.gugu42.rcmod.handler.RcSoundHandler;
 import com.gugu42.rcmod.items.RcItems;
 import com.gugu42.rcmod.render.*;
 import com.gugu42.rcmod.render.TESRInventoryRenderer.TESRIndex;
@@ -55,6 +57,7 @@ public class ClientProxy extends CommonProxy {
 		renderInventoryTESRId = RenderingRegistry.getNextAvailableRenderId();
 		RenderingRegistry.registerBlockHandler(new TESRInventoryRenderer());
 		TESRInventoryRenderer.blockByTESR.put(new TESRIndex(RcMod.vendor, 0), new TileEntityVendorSpecialRenderer());
+		MinecraftForge.EVENT_BUS.register(new RcSoundHandler());
 	}
 
 	@Override
