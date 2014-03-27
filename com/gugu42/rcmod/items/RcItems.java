@@ -10,6 +10,9 @@ public class RcItems {
 	public static Item omniwrench3000;
 	public static Item bolt;
 	public static Item vendorCore;
+	public static Item helipackHelice;
+	public static Item clankCore;
+	public static Item clank;
 	
 	// All items from RC1 goes there
 	public static Item blaster;
@@ -34,84 +37,93 @@ public class RcItems {
 	
 	public static void initRc1Items() {
 
-		blaster = new ItemBlaster(3002).setUnlocalizedName("blaster")
+		blaster = new ItemBlaster(RcMod.blasterID).setUnlocalizedName("blaster")
 				.setTextureName("rcmod:blaster").setFull3D()
 				.setCreativeTab(RcMod.rcWeapTab);
 		GameRegistry.registerItem(blaster, "blaster");
 
-		bombGlove = new ItemBombGlove(3003).setUnlocalizedName("bombglove")
+		bombGlove = new ItemBombGlove(RcMod.bombgloveID).setUnlocalizedName("bombglove")
 				.setTextureName("rcmod:bombglove").setFull3D()
 				.setCreativeTab(RcMod.rcWeapTab);
 		GameRegistry.registerItem(bombGlove, "bombglove");
 
-		ryno = new ItemRYNO(3004).setUnlocalizedName("ryno")
+		ryno = new ItemRYNO(RcMod.rynoID).setUnlocalizedName("ryno")
 				.setTextureName("rcmod:ryno").setFull3D()
 				.setCreativeTab(RcMod.rcWeapTab);
 		GameRegistry.registerItem(ryno, "ryno");
 
-		pyrocitor = new ItemPyrocitor(3005).setUnlocalizedName("pyrocitor")
+		pyrocitor = new ItemPyrocitor(RcMod.pyrocitorID).setUnlocalizedName("pyrocitor")
 				.setTextureName("rcmod:pyrocitor")
 				.setCreativeTab(RcMod.rcWeapTab);
 		GameRegistry.registerItem(pyrocitor, "pyrocitor");
 
-		walloper = new ItemWalloper(3006).setUnlocalizedName("walloper")
+		walloper = new ItemWalloper(RcMod.walloperID).setUnlocalizedName("walloper")
 				.setTextureName("rcmod:walloper")
 				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
 		GameRegistry.registerItem(walloper, "walloper");
 		
-		visibombGun = new ItemVisibombGun(3007).setUnlocalizedName("visibombGun")
+		visibombGun = new ItemVisibombGun(RcMod.visibombGunID).setUnlocalizedName("visibombGun")
 				.setTextureName("rcmod:visibombGun")
 				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
 		GameRegistry.registerItem(visibombGun, "visibombGun");
 		
-		decoyGlove = new ItemDecoyGlove(3009).setUnlocalizedName("decoyGlove")
+		decoyGlove = new ItemDecoyGlove(RcMod.decoyGloveID).setUnlocalizedName("decoyGlove")
 				.setTextureName("rcmod:decoyGlove")
 				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
 		
-		devastator = new ItemDevastator(3010).setUnlocalizedName("devastator")
+		devastator = new ItemDevastator(RcMod.devastatorID).setUnlocalizedName("devastator")
 				.setTextureName("rcmod:devastator")
 				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
 		
-		droneDevice = new ItemDroneDevice(3011).setUnlocalizedName("droneDevice")
+		droneDevice = new ItemDroneDevice(RcMod.droneDeviceID).setUnlocalizedName("droneDevice")
 				.setTextureName("rcmod:droneDevice")
 				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
-		gloveOfDoom = new ItemGloveOfDoom(3012).setUnlocalizedName("gloveOfDoom")
+		gloveOfDoom = new ItemGloveOfDoom(RcMod.gloveOfDoomID).setUnlocalizedName("gloveOfDoom")
 				.setTextureName("rcmod:gloveOfDoom")
 				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
 		
-		mineGlove = new ItemMineGlove(3013).setUnlocalizedName("mineGlove")
+		mineGlove = new ItemMineGlove(RcMod.mineGloveID).setUnlocalizedName("mineGlove")
 				.setTextureName("rcmod:mineGlove")
 				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
 		
-		morphORay = new ItemMorphORay(3014).setUnlocalizedName("morphORay")
+		morphORay = new ItemMorphORay(RcMod.morphORayID).setUnlocalizedName("morphORay")
 				.setTextureName("rcmod:morphORay")
 				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
 		
-		suckCannon = new ItemSuckCannon(3015).setUnlocalizedName("suckCannon")
+		suckCannon = new ItemSuckCannon(RcMod.suckCannonID).setUnlocalizedName("suckCannon")
 				.setTextureName("rcmod:suckCannon")
 				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
 		
-		taunter = new ItemTaunter(3016).setUnlocalizedName("taunter")
+		taunter = new ItemTaunter(RcMod.taunterID).setUnlocalizedName("taunter")
 				.setTextureName("rcmod:taunter")
 				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
 		
-		teslaClaw = new ItemTeslaClaw(3017).setUnlocalizedName("teslaClaw")
+		teslaClaw = new ItemTeslaClaw(RcMod.teslaClawID).setUnlocalizedName("teslaClaw")
 				.setTextureName("rcmod:teslaClaw")
 				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
 	}
 	
 	public static void initModItems(){
-		omniwrench3000 = new ItemOmniWrench3000(3000).setUnlocalizedName(
+		omniwrench3000 = new ItemOmniWrench3000(RcMod.wrench3000ID).setUnlocalizedName(
 				"omwr3000").setTextureName("rcmod:omniwrench3000");
 		GameRegistry.registerItem(omniwrench3000, "omwr3000");
 
-		bolt = new ItemBolt(3001).setUnlocalizedName("bolt").setTextureName(
+		bolt = new ItemBolt(RcMod.boltID).setUnlocalizedName("bolt").setTextureName(
 				"rcmod:bolt");
 		GameRegistry.registerItem(bolt, "bolt");
 		
-		vendorCore = new ItemVendorCore(3008).setUnlocalizedName(
+		vendorCore = new ItemVendorCore(RcMod.vendorCoreID).setUnlocalizedName(
 				"vendorCore").setTextureName("rcmod:vendorcore");
 		GameRegistry.registerItem(vendorCore, "vendorCore");
+		
+		clankCore = new ItemRcSimple(RcMod.clankCoreID).setUnlocalizedName("clankCore").setTextureName("rcmod:clankcore").setCreativeTab(RcMod.rcTab);
+		GameRegistry.registerItem(clankCore, "clankCore");
+		
+		clank = new ItemRcSimple(RcMod.clankID).setUnlocalizedName("clank").setTextureName("rcmod:clank").setCreativeTab(RcMod.rcTab);
+		GameRegistry.registerItem(clank, "clank");
+		
+		helipackHelice = new ItemRcSimple(RcMod.helipackHeliceID).setUnlocalizedName("helipackHelice").setTextureName("rcmod:helipackhelice").setCreativeTab(RcMod.rcTab);
+		GameRegistry.registerItem(helipackHelice, "helipackHelice");
 	}
 
 }

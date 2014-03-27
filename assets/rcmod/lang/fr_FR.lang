@@ -1,17 +1,35 @@
-tile.tntCrate.name=Caisse explosive
-tile.crate.name=Caisse de boulons
+tile.tntCrate.name=Caisse de TNT
+tile.crate.name=Caisse de Boulons
 tile.vendor.name=Vendeur Gadgetron
 
-death.attack.rcweap=%1$s s'est fait tiré dessus jusqu'a la mort.
-death.attack.rcweap.player=%1$s s'est fait tiré dessus par %2$s.
-death.attack.rcweap.item=%1$s s'est fait tiré dessus par %2$s avec son %3$s
+death.attack.rcweap=%1$s was shot to death.
+death.attack.rcweap.player=%1$s was shot to death by %2$s.
+death.attack.rcweap.item=%1$s was shot to death by %2$s using %3$s
 
 item.bolt.name=Boulon
 item.blaster.name=Plasmo-Mitrail
-item.bombglove.name=Gant a bombes
-item.omwr3000.name=SuperClé 3000
+item.bombglove.name=Gant a Bombe
+item.omwr3000.name=Super clé 3000
 item.ryno.name=T.E.L.T.
 item.pyrocitor.name=Pyrolanceur
+item.walloper.name=Repousseur
+item.visibombGun.name=Canon Visibombe
+item.decoyGlove.name=Gant a leurre
+item.devastator.name=Dévastateur
+item.droneDevice.name=Dronomatic
+item.gloveOfDoom.name=Gant a Ravageurs
+item.mineGlove.name=Gant a mines
+item.morphORay.name=Morpho-Rayon
+item.suckCannon.name=Aspiro-Cannon
+item.taunter.name=Attrape Nigaud
+item.teslaClaw.name=Griffeur Tesla
+
+item.vendorCore.name=Coeur du Vendeur
+item.clankCore.name=Coeur de Clank
+item.clank.name=Clank (Vide)
+item.helipackHelice.name=Helice d'Helipack
+
+item.clankHeli.name=Clank (Helipack)
 
 itemGroup.rcTab=Ratchet & Clank Mod
 itemGroup.rcWeapTab=Ratchet & Clank Armes

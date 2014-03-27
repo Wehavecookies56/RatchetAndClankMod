@@ -25,6 +25,9 @@ item.taunter.name=Taunter
 item.teslaClaw.name=Tesla Claw
 
 item.vendorCore.name=Vendor Core
+item.clankCore.name=Clank Core
+item.clank.name=Clank (Empty)
+item.helipackHelice.name=Helipack Helice
 
 item.clankHeli.name=Clank (Helipack)
 

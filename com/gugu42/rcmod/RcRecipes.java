@@ -35,5 +35,33 @@ public class RcRecipes
 			"XXX",
 			'X', new ItemStack(Item.dyePowder, 1, 14), 'Z', Item.diamond
 		});
+		
+		GameRegistry.addRecipe(new ItemStack(RcItems.clankCore, 1), new Object[]{
+			"GGG",
+			"GDG",
+			"GGG",
+			'G', new ItemStack(Item.dyePowder, 1, 10), 'D', Item.diamond
+		});
+		
+		GameRegistry.addRecipe(new ItemStack(RcItems.clank, 1), new Object[]{
+			"IRI",
+			"ICI",
+			"IBI",
+			'I', Item.ingotIron, 'R', Item.redstone, 'B', Block.blockRedstone, 'C', RcItems.clankCore
+		});
+		
+		GameRegistry.addRecipe(new ItemStack(RcItems.helipackHelice, 1), new Object[]{
+			" I ",
+			"IYI",
+			" I ",
+			'I', Item.ingotIron, 'Y', new ItemStack(Item.dyePowder, 1, 11)
+		});
+		
+		GameRegistry.addRecipe(new ItemStack(RcMod.clankBackpack, 1), new Object[]{
+			" H ",
+			" I ",
+			"HCH",
+			'I', Block.fenceIron, 'C', RcItems.clank, 'H', RcItems.helipackHelice
+		});
 	}
 }
