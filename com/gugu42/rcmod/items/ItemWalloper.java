@@ -43,9 +43,9 @@ public class ItemWalloper extends ItemRcWeap {
 		
 		if (f == 1.0F) {
 			if (!par2World.isRemote) {
-				TNTCrateExplosion explo = new TNTCrateExplosion(par2World, par3EntityPlayer, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, 1.0f, par3EntityPlayer);
+				TNTCrateExplosion explo = new TNTCrateExplosion(par2World, par3EntityPlayer, par3EntityPlayer.posX, par3EntityPlayer.posY, par3EntityPlayer.posZ, 2.0f, par3EntityPlayer);
 				explo.doExplosionA(true);
-				explo.doExplosionB(true);
+				explo.doExplosionB(true, false);
 			}
 		}
 	}

@@ -25,7 +25,7 @@ public class ClankBackpackRender extends ModelBiped {
 			modelManager.modelClankBackpack.renderAll();
 			GL11.glPopMatrix();
 		} else {
-			if (par1Entity.getEntityData().getInteger("clankCooldown") >= 1) {
+			if (par1Entity.getEntityData().getBoolean("clankJumped")) {
 				GL11.glPushMatrix();
 				GL11.glTranslated(0.0d, 0.7f, 0.13f);
 				GL11.glRotated(180, 0.0D, 0.0D, 1.0D);

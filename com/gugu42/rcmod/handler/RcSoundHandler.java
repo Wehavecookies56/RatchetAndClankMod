@@ -20,6 +20,9 @@ public class RcSoundHandler {
 		event.manager.addSound("rcmod:MenuVendorBuy.wav");
 		event.manager.addSound("rcmod:MenuVendorAmmoMaxedOut.wav");
 		event.manager.addSound("rcmod:MenuVendorExit.wav");
+		event.manager.addSound("rcmod:ExplosiveCrateCountdown.wav");
+		event.manager.addSound("rcmod:ExplosiveCrateExplosion.wav");
+		event.manager.addSound("rcmod:CrateWoodBreak.wav");
 	}
 	
 	

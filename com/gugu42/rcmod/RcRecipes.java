@@ -63,5 +63,11 @@ public class RcRecipes
 			"HCH",
 			'I', Block.fenceIron, 'C', RcItems.clank, 'H', RcItems.helipackHelice
 		});
+		GameRegistry.addRecipe(new ItemStack(RcMod.tntCrate, 4), new Object[]{
+			" T ",
+			"TYT",
+			" T ",
+			'T', Block.tnt, 'Y', new ItemStack(Item.dyePowder, 1, 11)
+		});
 	}
 }

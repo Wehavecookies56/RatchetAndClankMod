@@ -1,6 +1,7 @@
 package com.gugu42.rcmod;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.StepSound;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.EnumArmorMaterial;
@@ -64,6 +65,8 @@ public class RcMod {
 	public static Block tntCrate;
 	public static Block crate;
 	public static Block vendor;
+	
+	public static StepSound crateStepSound;
 
 	public static Item clankBackpack;
 	public EnumArmorMaterial EnumArmorMaterialClank = new EnumHelper()
@@ -121,12 +124,16 @@ public class RcMod {
 		RcEntities.initModEntities();
 		RcEntities.initRc1Entities();
 
+		/* -----Others before blocks ( stepsound )----- */
+		
+		crateStepSound = new RcCustomStepSound("CrateWoodBreak", 0.1f, 1.0f, Block.soundWoodFootstep, Block.soundWoodFootstep);
+		
 		/* -----Blocks----- */
 		tntCrate = new BlockTNTCrate(tntCrateID).setUnlocalizedName("tntCrate")
 				.setTextureName("rcmod:tntcrate");
 		GameRegistry.registerBlock(tntCrate, "tntCrate");
 		crate = new BlockCrate(crateID, Material.wood).setUnlocalizedName("crate")
-				.setTextureName("rcmod:crate").setHardness(0.0f);
+				.setTextureName("rcmod:crate").setHardness(0.0f).setStepSound(crateStepSound);
 		GameRegistry.registerBlock(crate, "crate");
 
 		vendor = new BlockVendor(vendorID, Material.iron)

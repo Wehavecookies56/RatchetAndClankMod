@@ -221,11 +221,18 @@ public class TNTCrateExplosion {
 	/**
 	 * Does the second part of the explosion (sound, particles, drop spawn)
 	 */
-	public void doExplosionB(boolean par1) {
-		this.worldObj.playSoundEffect(this.explosionX, this.explosionY,
-				this.explosionZ, "random.explode", 4.0F,
-				(1.0F + (this.worldObj.rand.nextFloat() - this.worldObj.rand
-						.nextFloat()) * 0.2F) * 0.7F);
+	public void doExplosionB(boolean par1, boolean par2) {
+		// this.worldObj.playSoundEffect(this.explosionX, this.explosionY,
+		// this.explosionZ, "random.explode", 4.0F,
+		// (1.0F + (this.worldObj.rand.nextFloat() - this.worldObj.rand
+		// .nextFloat()) * 0.2F) * 0.7F);
+		
+		
+		//par2 = Is TNT Crate ( explosion sound )
+		if (par2 == true)
+			this.worldObj.playSoundEffect(this.explosionX, this.explosionY,
+					this.explosionZ, "rcmod:ExplosiveCrateExplosion", 1.0f,
+					1.0f);
 
 		if ((this.explosionSize >= 2.0F) && (this.isSmoking)) {
 			this.worldObj.spawnParticle("hugeexplosion", this.explosionX,

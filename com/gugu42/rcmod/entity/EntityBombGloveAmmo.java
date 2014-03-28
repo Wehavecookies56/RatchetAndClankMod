@@ -231,7 +231,7 @@ public class EntityBombGloveAmmo extends Entity {
 				if (movingobjectposition.entityHit != null) {
 					TNTCrateExplosion explo = new TNTCrateExplosion(this.worldObj, this, posX, posY, posZ, 3.0f, thrower);
 					explo.doExplosionA(false);
-					explo.doExplosionB(true);
+					explo.doExplosionB(true, false);
 				} else {
 					xTile = movingobjectposition.blockX;
 					yTile = movingobjectposition.blockY;
@@ -249,7 +249,7 @@ public class EntityBombGloveAmmo extends Entity {
 					if (inGround) {
 						TNTCrateExplosion explo = new TNTCrateExplosion(this.worldObj, this, posX, posY, posZ, 3.0f, thrower);
 						explo.doExplosionA(false);
-						explo.doExplosionB(true);
+						explo.doExplosionB(true, false);
 					}
 				}
 				setEntityDead();

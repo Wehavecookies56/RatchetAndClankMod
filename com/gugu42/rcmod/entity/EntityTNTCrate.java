@@ -88,6 +88,17 @@ public class EntityTNTCrate extends Entity implements IEntityAdditionalSpawnData
         {
             this.worldObj.spawnParticle("smoke", this.posX, this.posY + 0.5D, this.posZ, 0.0D, 0.0D, 0.0D);
         }
+        
+        if(this.fuse == 20){
+        	this.worldObj.playSoundAtEntity(this, "rcmod:ExplosiveCrateCountdown", 1.0f, 1.0f);
+        }
+        if(this.fuse == 40){
+        	this.worldObj.playSoundAtEntity(this, "rcmod:ExplosiveCrateCountdown", 1.0f, 1.0f);
+        }
+        if(this.fuse == 60){
+        	this.worldObj.playSoundAtEntity(this, "rcmod:ExplosiveCrateCountdown", 1.0f, 1.0f);
+        }
+        
     }
 
     private void explode()
@@ -95,7 +106,7 @@ public class EntityTNTCrate extends Entity implements IEntityAdditionalSpawnData
         float f = 4.0F;
         TNTCrateExplosion explosion = new TNTCrateExplosion(this.worldObj, (Entity)null, this.posX, this.posY, this.posZ, f);
         explosion.doExplosionA(false);
-        explosion.doExplosionB(true);
+        explosion.doExplosionB(true, true);
     }
 
     protected void writeEntityToNBT(NBTTagCompound par1NBTTagCompound)
