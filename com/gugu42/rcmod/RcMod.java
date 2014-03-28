@@ -38,7 +38,7 @@ import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@Mod(modid = "rcmod", version = "0.2.6b", name = "RcMod")
+@Mod(modid = "rcmod", version = "0.3.0", name = "RcMod")
 @NetworkMod(clientSideRequired = true, serverSideRequired = true, channels = {
 		"RCMD|bolt", "RCMD|vend", "RCMD|refi" }, packetHandler = RcPacketHandler.class)
 public class RcMod {

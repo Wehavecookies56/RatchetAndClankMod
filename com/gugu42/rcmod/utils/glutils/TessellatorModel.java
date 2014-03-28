@@ -1,7 +1,8 @@
 package com.gugu42.rcmod.utils.glutils;
 
-import cpw.mods.fml.common.eventhandler.EventBus;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraftforge.event.EventBus;
+
 import com.gugu42.rcmod.utils.glutils.TessellatorModelEvent;
 import com.gugu42.rcmod.utils.glutils.TessellatorModelEvent.RenderGroupEvent;
 

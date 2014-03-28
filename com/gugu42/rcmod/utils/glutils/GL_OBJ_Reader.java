@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-import org.jglrxavpok.glutils.*;
+import com.gugu42.rcmod.utils.glutils.*;
 
 /** 
  * Based on Object3D.java by Jeremy Adams (elias4444) august 2005

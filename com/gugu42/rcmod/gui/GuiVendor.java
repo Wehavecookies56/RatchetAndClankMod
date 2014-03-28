@@ -2,6 +2,7 @@ package com.gugu42.rcmod.gui;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
+import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
 
@@ -9,6 +10,7 @@ import com.gugu42.rcmod.ContainerVendor;
 import com.gugu42.rcmod.RcMod;
 import com.gugu42.rcmod.tileentity.TileEntityVendor;
 import com.gugu42.rcmod.handler.ExtendedPlayerBolt;
+import com.gugu42.rcmod.handler.RcSoundHandler;
 import com.gugu42.rcmod.items.EnumRcWeapons;
 import com.gugu42.rcmod.items.ItemRcWeap;
 
@@ -62,6 +64,8 @@ public class GuiVendor extends GuiContainer {
 
 	private boolean isOverSlot4 = false;
 	private boolean hasSlot4BeenClicked = false;
+	
+	public int soundCooldown;
 
 	public GuiVendor(InventoryPlayer inventoryPlayer,
 			TileEntityVendor tileEntity, EntityPlayer player,
@@ -94,6 +98,8 @@ public class GuiVendor extends GuiContainer {
 		this.buttonList.add(this.pagePrevBtn = new GuiButton(4, posX + 62,
 				posY + 98, 16, 20, "<"));
 	}
+
+
 
 	public void updateScreen() {
 
@@ -189,6 +195,21 @@ public class GuiVendor extends GuiContainer {
 			this.cancelBtn.enabled = false;
 			this.container.putStackInSlot(2, null);
 		}
+
+		if (soundCooldown <= 30 * 20) {
+			soundCooldown++;
+		}
+
+		if (soundCooldown >= 30 * 20) {
+			soundCooldown = 0;
+			mc.sndManager.playSoundFX(
+					"rcmod:VendorSalesman.vendor_speech_wait", 1.0f, 1.0f);
+		}
+
+	}
+
+	public boolean doesGuiPauseGame() {
+		return false;
 	}
 
 	public boolean hasNextPage(int currentPage) {
@@ -210,31 +231,42 @@ public class GuiVendor extends GuiContainer {
 	public void actionPerformed(GuiButton button) {
 		switch (button.id) {
 		case 0:
+			this.soundCooldown = 0;
 			if (tileEntity.getStackInSlot(1) != null
 					&& tileEntity.getStackInSlot(1).getItem() instanceof ItemRcWeap) {
 				int damage = tileEntity.getStackInSlot(1).getItemDamage();
 				ExtendedPlayerBolt props = ExtendedPlayerBolt.get(player);
-				if (props.getCurrentBolt() > damage) {
-					ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
-					DataOutputStream dataoutputstream = new DataOutputStream(
-							bytearrayoutputstream);
-					try {
-						Packet.writeItemStack(tileEntity.getStackInSlot(1),
-								dataoutputstream);
-						PacketDispatcher
-								.sendPacketToServer(new Packet250CustomPayload(
-										"RCMD|refi", bytearrayoutputstream
-												.toByteArray()));
-					} catch (Exception exception) {
-						exception.printStackTrace();
+				if (damage > 0) {
+					if (props.getCurrentBolt() > damage) {
+						ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
+						DataOutputStream dataoutputstream = new DataOutputStream(
+								bytearrayoutputstream);
+						try {
+							Packet.writeItemStack(tileEntity.getStackInSlot(1),
+									dataoutputstream);
+							PacketDispatcher
+									.sendPacketToServer(new Packet250CustomPayload(
+											"RCMD|refi", bytearrayoutputstream
+													.toByteArray()));
+							mc.sndManager
+							.playSoundFX("rcmod:MenuVendorBuy", 1.0f, 1.0f);
+						} catch (Exception exception) {
+							exception.printStackTrace();
+						}
+					} else {
+						mc.sndManager
+						.playSoundFX("rcmod:MenuVendorAmmoMaxedOut", 1.0f, 1.0f);
 					}
+				} else {
+					mc.sndManager
+					.playSoundFX("rcmod:MenuVendorAmmoMaxedOut", 1.0f, 1.0f);
 				}
-
 			}
 			break;
 		case 1:
+			this.soundCooldown = 0;
 			ExtendedPlayerBolt props = ExtendedPlayerBolt.get(player);
-			if (props.getCurrentBolt() > 1000) {
+			if (props.getCurrentBolt() > 0) {
 				ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
 				DataOutputStream dataoutputstream = new DataOutputStream(
 						bytearrayoutputstream);
@@ -245,21 +277,26 @@ public class GuiVendor extends GuiContainer {
 							.sendPacketToServer(new Packet250CustomPayload(
 									"RCMD|vend", bytearrayoutputstream
 											.toByteArray()));
+					mc.sndManager
+							.playSoundFX("rcmod:MenuVendorBuy", 1.0f, 1.0f);
 				} catch (Exception exception) {
 					exception.printStackTrace();
 				}
 			}
 			break;
 		case 2:
+			this.soundCooldown = 0;
 			this.hasSlot1BeenClicked = false;
 			this.hasSlot2BeenClicked = false;
 			this.hasSlot3BeenClicked = false;
 			this.hasSlot4BeenClicked = false;
 			break;
 		case 3:
+			this.soundCooldown = 0;
 			this.weapPage += 1;
 			break;
 		case 4:
+			this.soundCooldown = 0;
 			this.weapPage -= 1;
 			break;
 		default:
@@ -491,6 +528,11 @@ public class GuiVendor extends GuiContainer {
 		} else {
 			return 0;
 		}
+	}
+	
+	public void onGuiClosed() {
+		mc.sndManager.playSoundFX("rcmod:MenuVendorExit", 1.0f, 1.0f);
+		
 	}
 
 	@SideOnly(Side.CLIENT)

@@ -1,6 +1,8 @@
 package com.gugu42.rcmod.utils.glutils;
 
-import cpw.mods.fml.common.eventhandler.Event;
+import net.minecraftforge.event.Event;
+
+//import cpw.mods.fml.common.eventhandler.Event;
 
 public class TessellatorModelEvent extends Event
 {
