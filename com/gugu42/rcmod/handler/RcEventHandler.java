@@ -169,6 +169,7 @@ public class RcEventHandler {
 		ExtendedPlayerBolt props = ExtendedPlayerBolt.get(event.entityPlayer);
 		if (item.itemID == RcItems.bolt.itemID) {
 			props.addBolt(25);
+			event.entityPlayer.worldObj.playSoundAtEntity(event.entityPlayer, "rcmod:BoltCollect", 0.3f, 1.0f);
 			event.item.setDead();
 			event.setCanceled(true);
 		}

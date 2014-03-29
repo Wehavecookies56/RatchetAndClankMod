@@ -478,21 +478,53 @@ public class GuiVendor extends GuiContainer {
 			hasSlot2BeenClicked = false;
 			hasSlot3BeenClicked = false;
 			hasSlot4BeenClicked = false;
+			mc.sndManager
+			.playSoundFX("rcmod:MenuSelect", 1.0f, 1.0f);
+			Random random = new Random();
+			int randomInt = random.nextInt(9);
+			if(randomInt == 5){
+				mc.sndManager
+				.playSoundFX("rcmod:VendorSalesman.vendor_speech_weapClicked", 1.0f, 1.0f);
+			}
 		} else if (isOverSlot2) {
 			hasSlot1BeenClicked = false;
 			hasSlot2BeenClicked = true;
 			hasSlot3BeenClicked = false;
 			hasSlot4BeenClicked = false;
+			mc.sndManager
+			.playSoundFX("rcmod:MenuSelect", 1.0f, 1.0f);
+			Random random = new Random();
+			int randomInt = random.nextInt(9);
+			if(randomInt == 5){
+				mc.sndManager
+				.playSoundFX("rcmod:VendorSalesman.vendor_speech_weapClicked", 1.0f, 1.0f);
+			}
 		} else if (isOverSlot3) {
 			hasSlot1BeenClicked = false;
 			hasSlot2BeenClicked = false;
 			hasSlot3BeenClicked = true;
 			hasSlot4BeenClicked = false;
+			mc.sndManager
+			.playSoundFX("rcmod:MenuSelect", 1.0f, 1.0f);
+			Random random = new Random();
+			int randomInt = random.nextInt(9);
+			if(randomInt == 5){
+				mc.sndManager
+				.playSoundFX("rcmod:VendorSalesman.vendor_speech_weapClicked", 1.0f, 1.0f);
+			}
 		} else if (isOverSlot4) {
 			hasSlot1BeenClicked = false;
 			hasSlot2BeenClicked = false;
 			hasSlot3BeenClicked = false;
 			hasSlot4BeenClicked = true;
+			mc.sndManager
+			.playSoundFX("rcmod:MenuSelect", 1.0f, 1.0f);
+			Random random = new Random();
+			int randomInt = random.nextInt(9);
+			if(randomInt == 5){
+				mc.sndManager
+				.playSoundFX("rcmod:VendorSalesman.vendor_speech_weapClicked", 1.0f, 1.0f);
+			}
 		} else {
 			super.mouseClicked(par1, par2, par3);
 		}
@@ -531,8 +563,8 @@ public class GuiVendor extends GuiContainer {
 	}
 	
 	public void onGuiClosed() {
+		super.onGuiClosed();
 		mc.sndManager.playSoundFX("rcmod:MenuVendorExit", 1.0f, 1.0f);
-		
 	}
 
 	@SideOnly(Side.CLIENT)

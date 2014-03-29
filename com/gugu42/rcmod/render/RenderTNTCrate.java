@@ -28,31 +28,31 @@ public class RenderTNTCrate extends Render
         GL11.glTranslatef((float)par2, (float)par4, (float)par6);
         float f2;
 
-        if ((float)par1EntityTNTCrate.fuse - par9 + 1.0F < 10.0F)
-        {
-            f2 = 1.0F - ((float)par1EntityTNTCrate.fuse - par9 + 1.0F) / 10.0F;
-
-            if (f2 < 0.0F)
-            {
-                f2 = 0.0F;
-            }
-
-            if (f2 > 1.0F)
-            {
-                f2 = 1.0F;
-            }
-
-            f2 *= f2;
-            f2 *= f2;
-            float f3 = 1.0F + f2 * 0.3F;
-            GL11.glScalef(f3, f3, f3);
-        }
+//        if ((float)par1EntityTNTCrate.fuse - par9 + 1.0F < 10.0F)
+//        {
+//            f2 = 1.0F - ((float)par1EntityTNTCrate.fuse - par9 + 1.0F) / 10.0F;
+//
+//            if (f2 < 0.0F)
+//            {
+//                f2 = 0.0F;
+//            }
+//
+//            if (f2 > 1.0F)
+//            {
+//                f2 = 1.0F;
+//            }
+//
+//            f2 *= f2;
+//            f2 *= f2;
+//            float f3 = 1.0F + f2 * 0.3F;
+//            GL11.glScalef(f3, f3, f3);
+//        }
 
         f2 = (1.0F - ((float)par1EntityTNTCrate.fuse - par9 + 1.0F) / 100.0F) * 0.8F;
         this.bindEntityTexture(par1EntityTNTCrate);
         this.blockRenderer.renderBlockAsItem(RcMod.tntCrate, 0, par1EntityTNTCrate.getBrightness(par9));
 
-        if (par1EntityTNTCrate.fuse / 5 % 2 == 0)
+        if (par1EntityTNTCrate.fuse / 10 % 2 == 0)
         {
             GL11.glDisable(GL11.GL_TEXTURE_2D);
             GL11.glDisable(GL11.GL_LIGHTING);
@@ -65,7 +65,7 @@ public class RenderTNTCrate extends Render
             GL11.glEnable(GL11.GL_LIGHTING);
             GL11.glEnable(GL11.GL_TEXTURE_2D);
         }
-
+        
         GL11.glPopMatrix();
     }
 

@@ -30,7 +30,7 @@ public class EntityTNTCrate extends Entity implements IEntityAdditionalSpawnData
         this(par1World);
         this.setPosition(par2, par4, par6);
         //this.motionX = (double)(-((float)Math.sin((double)f)) * 0.02F);
-        this.motionY = 0.20000000298023224D;
+//        this.motionY = 0.20000000298023224D;
         //this.motionZ = (double)(-((float)Math.cos((double)f)) * 0.02F);
         this.fuse = 80;
         this.prevPosX = par2;

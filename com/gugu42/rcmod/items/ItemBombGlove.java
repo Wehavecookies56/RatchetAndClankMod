@@ -28,6 +28,7 @@ public class ItemBombGlove extends ItemRcWeap {
 
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World,
 			EntityPlayer par3EntityPlayer) {
+		super.onItemRightClick(par1ItemStack, par2World, par3EntityPlayer);
 		if (maxAmmo - par1ItemStack.getItemDamage() > 0) {
 			if (!par2World.isRemote) {
 				if (cooldown <= 0) {

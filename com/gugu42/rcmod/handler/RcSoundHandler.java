@@ -23,6 +23,18 @@ public class RcSoundHandler {
 		event.manager.addSound("rcmod:ExplosiveCrateCountdown.wav");
 		event.manager.addSound("rcmod:ExplosiveCrateExplosion.wav");
 		event.manager.addSound("rcmod:CrateWoodBreak.wav");
+		event.manager.addSound("rcmod:BoltCollect1.wav");
+		event.manager.addSound("rcmod:BoltCollect2.wav");
+		event.manager.addSound("rcmod:BoltCollect3.wav");
+		event.manager.addSound("rcmod:VendorSalesman/vendor_speech_weapClicked1.wav");
+		event.manager.addSound("rcmod:VendorSalesman/vendor_speech_weapClicked2.wav");
+		event.manager.addSound("rcmod:MenuSelect.wav");
+		event.manager.addSound("rcmod:AmmoEmpty.wav");
+		event.manager.addSound("rcmod:TaunterSound1.wav");
+		event.manager.addSound("rcmod:TaunterSound2.wav");
+		event.manager.addSound("rcmod:TaunterSound3.wav");
+		event.manager.addSound("rcmod:TaunterSound4.wav");
+		event.manager.addSound("rcmod:TaunterSound5.wav");
 	}
 	
 	
