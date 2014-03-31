@@ -3,19 +3,16 @@ package com.gugu42.rcmod.handler;
 import java.util.EnumSet;
 import java.util.List;
 
-import org.lwjgl.input.Keyboard;
-
-import com.gugu42.rcmod.RcMod;
-import com.gugu42.rcmod.items.ItemRcWeap;
-import com.gugu42.rcmod.items.RcItems;
-
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.EnumMovingObjectType;
-import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+
+import com.gugu42.rcmod.RcMod;
+import com.gugu42.rcmod.entity.EntityPyrocitorAmmo;
+import com.gugu42.rcmod.items.ItemPyrocitor;
+import com.gugu42.rcmod.items.RcItems;
+
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 

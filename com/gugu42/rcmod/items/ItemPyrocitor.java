@@ -7,9 +7,11 @@ import net.minecraft.world.World;
 
 import com.gugu42.rcmod.entity.EntityPyrocitorAmmo;
 
-public class ItemPyrocitor extends ItemRcWeap {
+public class ItemPyrocitor extends ItemRcWeap
+{
 
-	public ItemPyrocitor(int par1) {
+	public ItemPyrocitor(int par1)
+	{
 		super(par1);
 		this.setFull3D();
 		this.ammoPrice = 1;
@@ -18,31 +20,40 @@ public class ItemPyrocitor extends ItemRcWeap {
 		this.setMaxDamage(maxAmmo);
 	}
 
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World,
-			EntityPlayer par3EntityPlayer) {
-		if (maxAmmo - par1ItemStack.getItemDamage() > 0) {
-			if (!par2World.isRemote) {
-				EntityPyrocitorAmmo flame = new EntityPyrocitorAmmo(par2World,
-						par3EntityPlayer);
-				par2World.spawnEntityInWorld(flame);
-				EntityPyrocitorAmmo flame2 = new EntityPyrocitorAmmo(par2World,
-						par3EntityPlayer);
-				par2World.spawnEntityInWorld(flame2);
-				par1ItemStack.damageItem(1, par3EntityPlayer);
+	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) 
+	{
+		if (maxAmmo - par1ItemStack.getItemDamage() > 0)
+		{
+			if (!par2World.isRemote) 
+			{
+				int nbr = par3EntityPlayer.getRNG().nextInt(100)+100;
+				float f = 4.5f;
+				for(int i = 0;i<nbr;i++)
+				{
+					EntityPyrocitorAmmo flame = new EntityPyrocitorAmmo(par3EntityPlayer.worldObj,
+							par3EntityPlayer,par3EntityPlayer.getRNG().nextFloat()*f*2-f);
+					par3EntityPlayer.worldObj.spawnEntityInWorld(flame);
+					EntityPyrocitorAmmo flame2 = new EntityPyrocitorAmmo(par3EntityPlayer.worldObj,
+							par3EntityPlayer,par3EntityPlayer.getRNG().nextFloat()*f*2-f);
+					par3EntityPlayer.worldObj.spawnEntityInWorld(flame2);
+				}
+					par1ItemStack.damageItem(1, par3EntityPlayer);
 			}
 		}
 		return par1ItemStack;
 	}
 
-	public boolean canHarvestBlock(Block par1Block) {
+	public boolean canHarvestBlock(Block par1Block)
+	{
 		return false;
 	}
 
-	public float getStrVsBlock(ItemStack par1ItemStack, Block par2Block) {
+	public float getStrVsBlock(ItemStack par1ItemStack, Block par2Block) 
+	{
 		return 0.0f;
 	}
 
-	public void onPlayerStoppedUsing(ItemStack stack, World w,
-			EntityPlayer player, int i) {
+	public void onPlayerStoppedUsing(ItemStack stack, World w, EntityPlayer player, int i) 
+	{
 	}
 }
