@@ -33,9 +33,9 @@ public class ItemPyrocitor extends ItemRcWeap
 					EntityPyrocitorAmmo flame = new EntityPyrocitorAmmo(par3EntityPlayer.worldObj,
 							par3EntityPlayer,par3EntityPlayer.getRNG().nextFloat()*f*2-f);
 					par3EntityPlayer.worldObj.spawnEntityInWorld(flame);
-					EntityPyrocitorAmmo flame2 = new EntityPyrocitorAmmo(par3EntityPlayer.worldObj,
-							par3EntityPlayer,par3EntityPlayer.getRNG().nextFloat()*f*2-f);
-					par3EntityPlayer.worldObj.spawnEntityInWorld(flame2);
+//					EntityPyrocitorAmmo flame2 = new EntityPyrocitorAmmo(par3EntityPlayer.worldObj,
+//							par3EntityPlayer,par3EntityPlayer.getRNG().nextFloat()*f*2-f);
+//					par3EntityPlayer.worldObj.spawnEntityInWorld(flame2);
 				}
 					par1ItemStack.damageItem(1, par3EntityPlayer);
 			}

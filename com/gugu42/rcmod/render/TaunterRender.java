@@ -42,7 +42,7 @@ public class TaunterRender implements IItemRenderer {
 		switch (type) {
 		case EQUIPPED: {
 			GL11.glPushMatrix();
-			GL11.glTranslatef(0.8f, 0.2f, 0.8f);
+			GL11.glTranslatef(1.3f, 1.0f, 1.2f);
 			GL11.glRotatef(135, 0.0f, 1.0f, 0.0f);
 			GL11.glRotatef(-65, 0.0f, 0.0f, 1.0f);
 			//GL11.glRotatef(-45, 1.0f, 0.0f, 0.0f);
@@ -56,7 +56,7 @@ public class TaunterRender implements IItemRenderer {
 		}
 		case EQUIPPED_FIRST_PERSON: {
 			GL11.glPushMatrix();
-			GL11.glTranslatef(0.9f, 0.25f, 0.9f);
+			GL11.glTranslatef(0.5f, 0.15f, 1.1f);
 			GL11.glRotatef(35, 0.0f, 1.0f, 0.0f);
 			//GL11.glRotatef(-10, 0.0f, 0.0f, 1.0f);
 			GL11.glScalef(0.09f, 0.09f, 0.09f);
