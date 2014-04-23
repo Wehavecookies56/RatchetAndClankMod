@@ -1,11 +1,12 @@
 package com.gugu42.rcmod.handler;
 
-import org.lwjgl.input.Keyboard;
-
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.client.event.RenderPlayerEvent;
@@ -20,8 +21,10 @@ import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 
 import com.gugu42.rcmod.CommonProxy;
 import com.gugu42.rcmod.RcMod;
+import com.gugu42.rcmod.entity.EntityVisibombAmmo;
 import com.gugu42.rcmod.items.ItemRcWeap;
 import com.gugu42.rcmod.items.RcItems;
+import com.gugu42.rcmod.testing.EntityVisibombCamera;
 
 import cpw.mods.fml.common.ObfuscationReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
@@ -158,6 +161,20 @@ public class RcEventHandler {
 			props2.setTargeted(false);
 		}
 
+		EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
+
+		if (event.entity instanceof EntityVisibombAmmo) {
+			EntityVisibombAmmo arrow = (EntityVisibombAmmo) event.entity;
+			EntityPlayer arrowShooter = arrow.worldObj
+					.getClosestPlayerToEntity(arrow, 10);
+			if (arrowShooter == null)
+				return;
+
+			if (player.getDisplayName().equals(arrowShooter.getDisplayName())) {
+				EntityVisibombCamera.getInstance().startCam(arrow, true);
+			}
+		}
+
 		if (event.entity != null) {
 			event.entity.getEntityData().setInteger("missilesTargeting", 0);
 		}
@@ -169,7 +186,8 @@ public class RcEventHandler {
 		ExtendedPlayerBolt props = ExtendedPlayerBolt.get(event.entityPlayer);
 		if (item.itemID == RcItems.bolt.itemID) {
 			props.addBolt(25);
-			event.entityPlayer.worldObj.playSoundAtEntity(event.entityPlayer, "rcmod:BoltCollect", 0.3f, 1.0f);
+			event.entityPlayer.worldObj.playSoundAtEntity(event.entityPlayer,
+					"rcmod:BoltCollect", 0.3f, 1.0f);
 			event.item.setDead();
 			event.setCanceled(true);
 		}

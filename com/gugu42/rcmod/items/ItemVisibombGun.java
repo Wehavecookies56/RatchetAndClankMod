@@ -31,7 +31,6 @@ public class ItemVisibombGun extends ItemRcWeap
 					EntityVisibombAmmo rocket = new EntityVisibombAmmo(par2World, par3EntityPlayer);
 					par2World.spawnEntityInWorld(rocket);
 					par1ItemStack.damageItem(1, par3EntityPlayer);
-					System.out.println(cooldown);
 					cooldown = 120;
 					par3EntityPlayer.swingItem();
 				}

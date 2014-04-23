@@ -17,6 +17,7 @@ public class EntityVisibombAmmo extends EntityThrowable
 		this.motionX *= speed;
 		this.motionY *= speed;
 		this.motionZ *= speed;
+		this.setThrowableHeading(this.motionX, this.motionY, this.motionZ, this.func_70182_d(), 1.0F);
 	}
 
 	public EntityVisibombAmmo(World par1World,
@@ -42,10 +43,14 @@ public class EntityVisibombAmmo extends EntityThrowable
 			this.worldObj.spawnParticle("snowballpoof", this.posX, this.posY,
 					this.posZ, 0.0D, 0.0D, 0.0D);
 			this.setDead();
+		} else {
+			this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ,
+					0.0F, true);
+			this.setDead();
 		}
-		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ,
-				0.0F, true);
-		this.setDead();
+//		this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ,
+//				0.0F, true);
+//		this.setDead();
 	}
 
 	protected float getGravityVelocity() {
