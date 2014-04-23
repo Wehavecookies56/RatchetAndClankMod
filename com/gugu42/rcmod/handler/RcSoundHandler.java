@@ -35,6 +35,7 @@ public class RcSoundHandler {
 		event.manager.addSound("rcmod:TaunterSound3.wav");
 		event.manager.addSound("rcmod:TaunterSound4.wav");
 		event.manager.addSound("rcmod:TaunterSound5.wav");
+		event.manager.addSound("rcmod:BombGloveExplosion1.wav");
 	}
 	
 	

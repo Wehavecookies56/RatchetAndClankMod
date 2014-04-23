@@ -232,6 +232,7 @@ public class EntityBombGloveAmmo extends Entity {
 					TNTCrateExplosion explo = new TNTCrateExplosion(this.worldObj, this, posX, posY, posZ, 3.0f, thrower);
 					explo.doExplosionA(false);
 					explo.doExplosionB(true, false);
+					this.worldObj.playSoundAtEntity(this, "rcmod:BombGloveExplosion", 10.0f, 1.0f);
 				} else {
 					xTile = movingobjectposition.blockX;
 					yTile = movingobjectposition.blockY;
@@ -250,6 +251,7 @@ public class EntityBombGloveAmmo extends Entity {
 						TNTCrateExplosion explo = new TNTCrateExplosion(this.worldObj, this, posX, posY, posZ, 3.0f, thrower);
 						explo.doExplosionA(false);
 						explo.doExplosionB(true, false);
+						this.worldObj.playSoundAtEntity(this, "rcmod:BombGloveExplosion", 10.0f, 1.0f);
 					}
 				}
 				setEntityDead();
