@@ -33,10 +33,12 @@ public class ItemOmniWrench3000 extends Item {
 
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World,
 			EntityPlayer par3EntityPlayer) {
-		if (par3EntityPlayer.isSneaking()) {
-			par2World.spawnEntityInWorld(new EntityWrenchThrown(par2World,
-					par3EntityPlayer));
-			removeItem(par3EntityPlayer, par1ItemStack);
+		if (!par2World.isRemote) {
+			if (par3EntityPlayer.isSneaking()) {
+				par2World.spawnEntityInWorld(new EntityWrenchThrown(par2World,
+						par3EntityPlayer));
+				removeItem(par3EntityPlayer, par1ItemStack);
+			}
 		}
 		return par1ItemStack;
 	}
@@ -45,17 +47,13 @@ public class ItemOmniWrench3000 extends Item {
 	public boolean isFull3D() {
 		return true;
 	}
-	
-	
+
 	public void removeItem(EntityPlayer ep, ItemStack removeitem) {
 		IInventory inv = ep.inventory;
-		for(int i=0; i < inv.getSizeInventory(); i++)
-		{
-			if(inv.getStackInSlot(i) != null)
-			{
+		for (int i = 0; i < inv.getSizeInventory(); i++) {
+			if (inv.getStackInSlot(i) != null) {
 				ItemStack j = inv.getStackInSlot(i);
-				if(j.getItem() != null && j.getItem() == removeitem.getItem())
-				{
+				if (j.getItem() != null && j.getItem() == removeitem.getItem()) {
 					inv.setInventorySlotContents(i, null);
 				}
 			}
