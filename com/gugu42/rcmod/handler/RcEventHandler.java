@@ -21,7 +21,7 @@ import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 
 import com.gugu42.rcmod.CommonProxy;
 import com.gugu42.rcmod.RcMod;
-import com.gugu42.rcmod.entity.EntityVisibombAmmo;
+import com.gugu42.rcmod.entity.projectiles.EntityVisibombAmmo;
 import com.gugu42.rcmod.items.ItemRcWeap;
 import com.gugu42.rcmod.items.RcItems;
 import com.gugu42.rcmod.testing.EntityVisibombCamera;

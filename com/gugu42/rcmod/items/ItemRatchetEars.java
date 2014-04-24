@@ -9,16 +9,17 @@ import net.minecraft.item.ItemStack;
 
 import com.gugu42.rcmod.RcMod;
 import com.gugu42.rcmod.render.ClankBackpackRender;
+import com.gugu42.rcmod.render.RenderRatchetEars_Armor;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemClankBackpack extends ItemArmor {
+public class ItemRatchetEars extends ItemArmor {
 
 	@SideOnly(Side.CLIENT)
-	public ClankBackpackRender model;
+	public RenderRatchetEars_Armor model;
 	
-	public ItemClankBackpack(int par1, EnumArmorMaterial par2EnumArmorMaterial,
+	public ItemRatchetEars(int par1, EnumArmorMaterial par2EnumArmorMaterial,
 			int par3, int par4) {
 		super(par1, par2EnumArmorMaterial, par3, par4);
 		
@@ -28,13 +29,13 @@ public class ItemClankBackpack extends ItemArmor {
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, int slot,
 			String type) {
-		return "rcmod:models/ClankBackpack.png";
+		return "rcmod:models/Ratchet_ears.png";
 	}
 	
 	@SideOnly(Side.CLIENT)
 	public void initModel(){
 		if(model == null){
-			model = new ClankBackpackRender();
+			model = new RenderRatchetEars_Armor();
 		}
 	}
 	

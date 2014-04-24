@@ -18,6 +18,7 @@ import com.gugu42.rcmod.gui.GuiBolt;
 import com.gugu42.rcmod.handler.RcEventHandler;
 import com.gugu42.rcmod.handler.RcTickHandler;
 import com.gugu42.rcmod.items.ItemClankBackpack;
+import com.gugu42.rcmod.items.ItemRatchetEars;
 import com.gugu42.rcmod.items.RcItems;
 import com.gugu42.rcmod.network.GuiHandler;
 import com.gugu42.rcmod.network.RcPacketHandler;
@@ -55,7 +56,7 @@ public class RcMod {
 	public static int tntCrateID, crateID, vendorID;
 	
 	//global items ID
-	public static int wrench3000ID, vendorCoreID, clankBackpackID, boltID, clankCoreID, clankID, helipackHeliceID;
+	public static int wrench3000ID, vendorCoreID, clankBackpackID, boltID, clankCoreID, clankID, helipackHeliceID, ratchetEarsID;
 	
 	
 	//R&C1 weapons id
@@ -69,6 +70,8 @@ public class RcMod {
 	public static StepSound crateStepSound;
 
 	public static Item clankBackpack;
+	public static Item ratchetEars;
+	
 	public EnumArmorMaterial EnumArmorMaterialClank = new EnumHelper()
 			.addArmorMaterial("Clank", 0, new int[] { 0, 0, 0, 0 }, 0);
 
@@ -111,7 +114,8 @@ public class RcMod {
 		taunterID = config.getItem("taunter", 3016).getInt();
 		teslaClawID = config.getItem("teslaClaw", 3017).getInt();
 		
-		
+		ratchetEarsID = config.getItem("ratchetEars", 3021).getInt(); 
+		//Add your items after this
 		
 		config.save();
 	}
@@ -152,7 +156,10 @@ public class RcMod {
 		clankBackpack = new ItemClankBackpack(3050, EnumArmorMaterialClank, 1,
 				1).setUnlocalizedName("clankHeli").setTextureName(
 				"rcmod:clankheli");
-
+		GameRegistry.registerItem(clankBackpack, "clankHeli");
+//		ratchetEars = new ItemRatchetEars(ratchetEarsID, EnumArmorMaterialClank, 1, 0).setUnlocalizedName("ratchetEars").setTextureName("rcmod:ratchetears");
+//		GameRegistry.registerItem(ratchetEars, "ratchetEars");
+		
 		/* -----Other----- */
 		if (event.getSide() == Side.CLIENT)
 			setCreativeTabsIcon();

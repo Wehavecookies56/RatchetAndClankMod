@@ -36,6 +36,8 @@ public class RcModelManager {
 	public IModelCustom modelClankHeli2;
 	public final ResourceLocation textureLocationClankHeli = new ResourceLocation(
 			"rcmod:models/Heli.png");
+	
+	
 
 	public RcModelManager() {
 		modelBombGlove = AdvancedModelLoader

@@ -4,7 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import com.gugu42.rcmod.entity.EntityVisibombAmmo;
+import com.gugu42.rcmod.entity.projectiles.EntityVisibombAmmo;
 import com.gugu42.rcmod.testing.TargetingSystem;
 
 public class ItemDevastator extends ItemRcWeap{

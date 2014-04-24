@@ -5,7 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import com.gugu42.rcmod.entity.EntityBlasterAmmo;
+import com.gugu42.rcmod.entity.projectiles.EntityBlasterAmmo;
 
 public class ItemBlaster extends ItemRcWeap {
 

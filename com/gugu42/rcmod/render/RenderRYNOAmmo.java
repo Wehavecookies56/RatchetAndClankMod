@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import com.gugu42.rcmod.entity.EntityRYNOAmmo;
+import com.gugu42.rcmod.entity.projectiles.EntityRYNOAmmo;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

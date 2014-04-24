@@ -9,7 +9,8 @@ import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
 
 import org.lwjgl.opengl.GL11;
-import com.gugu42.rcmod.entity.EntityBombGloveAmmo;
+
+import com.gugu42.rcmod.entity.projectiles.EntityBombGloveAmmo;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

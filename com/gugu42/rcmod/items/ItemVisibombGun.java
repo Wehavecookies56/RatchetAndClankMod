@@ -1,8 +1,8 @@
 package com.gugu42.rcmod.items;
 
-import com.gugu42.rcmod.entity.EntityBombGloveAmmo;
-import com.gugu42.rcmod.entity.EntityRYNOAmmo;
-import com.gugu42.rcmod.entity.EntityVisibombAmmo;
+import com.gugu42.rcmod.entity.projectiles.EntityBombGloveAmmo;
+import com.gugu42.rcmod.entity.projectiles.EntityRYNOAmmo;
+import com.gugu42.rcmod.entity.projectiles.EntityVisibombAmmo;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;

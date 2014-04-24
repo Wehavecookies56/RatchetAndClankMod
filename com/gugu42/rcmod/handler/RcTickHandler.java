@@ -9,7 +9,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import com.gugu42.rcmod.RcMod;
-import com.gugu42.rcmod.entity.EntityPyrocitorAmmo;
+import com.gugu42.rcmod.entity.projectiles.EntityPyrocitorAmmo;
 import com.gugu42.rcmod.items.ItemPyrocitor;
 import com.gugu42.rcmod.items.RcItems;
 

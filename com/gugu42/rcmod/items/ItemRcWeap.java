@@ -1,6 +1,6 @@
 package com.gugu42.rcmod.items;
 
-import com.gugu42.rcmod.entity.EntityBlasterAmmo;
+import com.gugu42.rcmod.entity.projectiles.EntityBlasterAmmo;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;

@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import com.gugu42.rcmod.RcMod;
-import com.gugu42.rcmod.entity.EntityBombGloveAmmo;
+import com.gugu42.rcmod.entity.projectiles.EntityBombGloveAmmo;
 
 public class ItemBombGlove extends ItemRcWeap {
 

@@ -1,4 +1,4 @@
-package com.gugu42.rcmod.entity;
+package com.gugu42.rcmod.entity.projectiles;
 
 import java.util.List;
 

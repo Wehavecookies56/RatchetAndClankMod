@@ -2,7 +2,7 @@ package com.gugu42.rcmod.render;
 
 import org.lwjgl.opengl.GL11;
 
-import com.gugu42.rcmod.entity.EntityVisibombAmmo;
+import com.gugu42.rcmod.entity.projectiles.EntityVisibombAmmo;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.Render;

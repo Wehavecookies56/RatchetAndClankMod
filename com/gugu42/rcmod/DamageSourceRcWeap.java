@@ -9,8 +9,8 @@ import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.StatCollector;
 
-import com.gugu42.rcmod.entity.EntityBlasterAmmo;
-import com.gugu42.rcmod.entity.EntityRYNOAmmo;
+import com.gugu42.rcmod.entity.projectiles.EntityBlasterAmmo;
+import com.gugu42.rcmod.entity.projectiles.EntityRYNOAmmo;
 
 public class DamageSourceRcWeap extends EntityDamageSource {
 	
