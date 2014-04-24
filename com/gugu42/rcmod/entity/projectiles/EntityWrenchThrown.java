@@ -10,17 +10,21 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
-public class EntityWrenchThrown extends EntityThrowable implements IThrowableEntity {
+public class EntityWrenchThrown extends EntityThrowable implements
+		IThrowableEntity {
 
 	public EntityPlayer owner;
 	private boolean isReturningToOwner;
-	private int maxTicksBeforeReturn = 20;
+	private int maxTicksBeforeReturn = 10;
 	private int ticksLived;
+
+	private ItemStack originalItemThrown;
 
 	public EntityWrenchThrown(World par1World) {
 		super(par1World);
@@ -36,6 +40,15 @@ public class EntityWrenchThrown extends EntityThrowable implements IThrowableEnt
 		this.owner = (EntityPlayer) par2EntityLivingBase;
 	}
 
+	public EntityWrenchThrown(World par1World, EntityPlayer par2EntityPlayer,
+			ItemStack par3ItemStack) {
+		super(par1World, (EntityLivingBase) par2EntityPlayer);
+		this.isReturningToOwner = false;
+		this.ticksLived = 0;
+		this.owner = (EntityPlayer) par2EntityPlayer;
+		this.originalItemThrown = par3ItemStack;
+	}
+
 	@Override
 	protected void onImpact(MovingObjectPosition mop) {
 		if (ticksLived <= 1) {
@@ -43,10 +56,24 @@ public class EntityWrenchThrown extends EntityThrowable implements IThrowableEnt
 		} else {
 			if (mop.entityHit != null && mop.entityHit == owner) {
 				this.setDead();
-				worldObj.spawnEntityInWorld(new EntityItem(worldObj, posX,
-						posY, posZ, new ItemStack(RcItems.omniwrench3000, 1)));
-			} else if (worldObj.getBlockId(mop.blockX, mop.blockY, mop.blockZ) == RcMod.crateID || worldObj.getBlockId(mop.blockX, mop.blockY, mop.blockZ) == RcMod.tntCrateID) {
-				//Continue
+				if (!owner.capabilities.isCreativeMode) {
+					if (originalItemThrown != null) {
+						originalItemThrown.stackSize += 1;
+						System.out.println(originalItemThrown.toString());
+						if (!owner.inventory
+								.addItemStackToInventory(originalItemThrown)) {
+							worldObj.spawnEntityInWorld(new EntityItem(
+									worldObj, posX, posY, posZ,
+									originalItemThrown));
+							System.out.println("Dropped on the ground ! ");
+						} else {
+							System.out.println("Added to the inventory !");
+						}
+					}
+				}
+			} else if (worldObj.getBlockId(mop.blockX, mop.blockY, mop.blockZ) == RcMod.crateID
+					|| worldObj.getBlockId(mop.blockX, mop.blockY, mop.blockZ) == RcMod.tntCrateID) {
+				// Continue
 			} else {
 				this.setReturningToOwner(true);
 			}
@@ -56,22 +83,28 @@ public class EntityWrenchThrown extends EntityThrowable implements IThrowableEnt
 	public void onUpdate() {
 		super.onUpdate();
 		ticksLived++;
-		if (ticksLived == maxTicksBeforeReturn) {
-			this.setReturningToOwner(true);
-		}
-		if (this.isReturningToOwner()) {
-			returnToOwner();
+		if (owner == null || owner.isDead) {
+			this.setDead();
 		}
 
+		if (ticksLived >= maxTicksBeforeReturn) {
+			this.setReturningToOwner(true);
+		}
+		if (isReturningToOwner) {
+			returnToOwner();
+
+		}
 		if (ticksLived == (maxTicksBeforeReturn * 2) + 2) {
 			this.setDead();
 		}
 
 		destroyBoltCrates();
 		destroyTNTCrates();
+
 	}
 
 	protected void returnToOwner() {
+
 		if (owner == null) {
 			this.setDead();
 		} else {
@@ -80,6 +113,7 @@ public class EntityWrenchThrown extends EntityThrowable implements IThrowableEnt
 			double newZ = owner.posZ - this.posZ;
 			setThrowableHeading(newX, newY, newZ, this.func_70182_d(), 0.0F);
 		}
+
 	}
 
 	public boolean isReturningToOwner() {
@@ -123,7 +157,7 @@ public class EntityWrenchThrown extends EntityThrowable implements IThrowableEnt
 
 	@Override
 	public void setThrower(Entity entity) {
-		
+
 	}
 
 }

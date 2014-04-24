@@ -33,13 +33,12 @@ public class ItemOmniWrench3000 extends Item {
 
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World,
 			EntityPlayer par3EntityPlayer) {
-		if (!par2World.isRemote) {
-			if (par3EntityPlayer.isSneaking()) {
-				par2World.spawnEntityInWorld(new EntityWrenchThrown(par2World,
-						par3EntityPlayer));
-				removeItem(par3EntityPlayer, par1ItemStack);
-			}
+		if (par3EntityPlayer.isSneaking()) {
+			par2World.spawnEntityInWorld(new EntityWrenchThrown(par2World,
+					par3EntityPlayer, par1ItemStack));
+			--par1ItemStack.stackSize;
 		}
+
 		return par1ItemStack;
 	}
 
