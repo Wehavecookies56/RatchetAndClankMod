@@ -5,6 +5,7 @@ import com.gugu42.rcmod.entity.projectiles.EntityWrenchThrown;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -62,5 +63,13 @@ public class ItemOmniWrench3000 extends ItemRcWeap {
 				}
 			}
 		}
+	}
+	
+	public boolean canHarvestBlock(Block par1Block) {
+		return true;
+	}
+
+	public float getStrVsBlock(ItemStack par1ItemStack, Block par2Block) {
+		return 1.0f;
 	}
 }

@@ -161,7 +161,7 @@ public class RcEventHandler {
 			props2.setTargeted(false);
 		}
 
-		EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
+		// EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
 
 		if (event.entity instanceof EntityVisibombAmmo) {
 			EntityVisibombAmmo arrow = (EntityVisibombAmmo) event.entity;
@@ -170,9 +170,8 @@ public class RcEventHandler {
 			if (arrowShooter == null)
 				return;
 
-			if (player.getDisplayName().equals(arrowShooter.getDisplayName())) {
-				EntityVisibombCamera.getInstance().startCam(arrow, true);
-			}
+			EntityVisibombCamera.getInstance().startCam(arrow, true);
+
 		}
 
 		if (event.entity != null) {
