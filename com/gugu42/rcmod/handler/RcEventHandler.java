@@ -6,7 +6,6 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -217,12 +216,17 @@ public class RcEventHandler {
 	@SideOnly(Side.CLIENT)
 	@ForgeSubscribe
 	public void renderGameOverlay(RenderGameOverlayEvent event) {
-	    if(Minecraft.getMinecraft().thePlayer == null || Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem() == null)
-	        return;
+		if (Minecraft.getMinecraft().thePlayer == null
+				|| Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem() == null)
+			return;
 		if (Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem()
-				.getItem() == RcItems.pyrocitor) {
-			if (event.type == RenderGameOverlayEvent.ElementType.CROSSHAIRS) {
-				event.setCanceled(true);
+				.getItem() instanceof ItemRcWeap) {
+			ItemRcWeap item = (ItemRcWeap) Minecraft.getMinecraft().thePlayer
+					.getCurrentEquippedItem().getItem();
+			if (item.hasCrosshair || item.hideCrosshair) {
+				if (event.type == RenderGameOverlayEvent.ElementType.CROSSHAIRS) {
+					event.setCanceled(true);
+				}
 			}
 		}
 	}

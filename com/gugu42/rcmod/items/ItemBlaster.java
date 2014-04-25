@@ -20,11 +20,15 @@ public class ItemBlaster extends ItemRcWeap {
 		this.ammo = 250;
 		this.maxAmmo = 250;
 		this.ammoPrice = 1;
+		this.weaponName = "blaster";
 		this.cooldown = 0;
 		this.heldType = 1;
 		this.setMaxDamage(maxAmmo);
 		this.maxStackSize = 1;
 		this.isInGold = false;
+		this.hasCrosshair = true;
+		this.hasAmmoImage = true;
+//		this.crosshairPath = "textures/gui/blasterCrosshair.png";
 	}
 
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World,

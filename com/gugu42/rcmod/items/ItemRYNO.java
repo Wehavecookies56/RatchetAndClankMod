@@ -19,6 +19,8 @@ public class ItemRYNO extends ItemRcWeap {
 		super(par1);
 		this.ammoPrice = 20;
 		this.maxAmmo = 50;
+		this.weaponName = "ryno";
+		this.hasAmmoImage = true;
 		this.heldType = 1;
 		this.setMaxDamage(maxAmmo);
 	}

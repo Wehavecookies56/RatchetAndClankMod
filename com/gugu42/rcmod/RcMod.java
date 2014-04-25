@@ -59,7 +59,7 @@ public class RcMod {
 	
 	
 	//R&C1 weapons id
-	public static int blasterID, bombgloveID, rynoID, pyrocitorID, walloperID, visibombGunID, decoyGloveID, devastatorID, droneDeviceID, gloveOfDoomID, mineGloveID, morphORayID, suckCannonID, taunterID, teslaClawID;
+	public static int blasterID, bombgloveID, rynoID, pyrocitorID, walloperID, visibombGunID, decoyGloveID, devastatorID, droneDeviceID, gloveOfDoomID, mineGloveID, morphORayID, suckCannonID, taunterID, teslaClawID, DUMMY_pyrocitorFlameID;
 	
 	
 	public static Block tntCrate;
@@ -114,7 +114,10 @@ public class RcMod {
 		teslaClawID = config.getItem("teslaClaw", 3017).getInt();
 		
 		ratchetEarsID = config.getItem("ratchetEars", 3021).getInt(); 
+		
+		DUMMY_pyrocitorFlameID = config.getItem("DUMMY_pyrocitorFlame", 3022).getInt();
 		//Add your items after this
+		
 		
 		config.save();
 	}

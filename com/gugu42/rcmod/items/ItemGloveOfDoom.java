@@ -4,7 +4,8 @@ public class ItemGloveOfDoom extends ItemRcWeap{
 
 	public ItemGloveOfDoom(int par1) {
 		super(par1);
-		// TODO Auto-generated constructor stub
+		this.weaponName = "gloveOfDoom";
+		this.hasAmmoImage = true;
 	}
 
 }

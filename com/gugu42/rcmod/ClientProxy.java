@@ -1,12 +1,8 @@
 package com.gugu42.rcmod;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.EntityFX;
-import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 
-import com.gugu42.rcmod.entity.EntityPyrocitorFlameFX;
 import com.gugu42.rcmod.entity.EntityTNTCrate;
 import com.gugu42.rcmod.entity.projectiles.EntityBlasterAmmo;
 import com.gugu42.rcmod.entity.projectiles.EntityBombGloveAmmo;
@@ -44,11 +40,8 @@ import com.gugu42.rcmod.render.VisibombRender;
 import com.gugu42.rcmod.render.WalloperRender;
 import com.gugu42.rcmod.tileentity.TileEntityVendor;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ClientProxy extends CommonProxy {
 
@@ -117,13 +110,5 @@ public class ClientProxy extends CommonProxy {
 				new TileEntityVendorSpecialRenderer());
 	}
 
-	@SideOnly(Side.CLIENT)
-	public static void spawnPyrocitorParticle(World world, double x, double y,
-			double z, double xVel, double yVel, double zVel) {
-		EntityPyrocitorFlameFX fx = new EntityPyrocitorFlameFX(
-				Minecraft.getMinecraft().theWorld, x, y, z, xVel, yVel, zVel);
-		FMLClientHandler.instance().getClient().effectRenderer
-				.addEffect((EntityFX) fx);
-	}
 
 }

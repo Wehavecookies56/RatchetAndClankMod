@@ -1,7 +1,5 @@
 package com.gugu42.rcmod.items;
 
-import com.gugu42.rcmod.entity.projectiles.EntityBlasterAmmo;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,8 +14,23 @@ public class ItemRcWeap extends Item{
 	protected int heldType;
 	public boolean useAmmo;
 	public boolean useTargetingSystem;
+	
+	public String weaponName;
+	
+	/**
+	 * Used to say that the item uses its own crosshair. No need to use hideCrossair if using this.
+	 */
 	public boolean hasCrosshair;
 	public String crosshairPath;
+	
+	/**
+	 * Used to hide the vanilla crosshair, without using a crosshair ( Pyrocitor )
+	 */
+	public boolean hideCrosshair;
+	
+	
+	public boolean hasAmmoImage;
+	public String ammoTexturePath;
 	
 
 
@@ -28,6 +41,9 @@ public class ItemRcWeap extends Item{
 		this.maxStackSize = 1;
 		this.useAmmo = true;
 		this.useTargetingSystem = false;
+		this.hasCrosshair = false;
+		this.hideCrosshair = false;
+		this.hasAmmoImage = false;
 	}
 
 	public int getPrice(){
@@ -49,6 +65,22 @@ public class ItemRcWeap extends Item{
 
 	public void onPlayerStoppedUsing(ItemStack stack, World w,
 			EntityPlayer player, int i) {
+	}
+	
+	public String getAmmoImageTexturePath(){
+		if(this.hasAmmoImage){
+			return "textures/gui/ammoImage/ammoImage_" + this.weaponName + ".png";
+		} else {
+			return null;
+		}
+	}
+	
+	public String getCrosshairImagePath(){
+		if(this.hasCrosshair){
+			 return "textures/gui/crosshair/crosshair_" + this.weaponName + ".png";
+		} else {
+			return null;
+		}
 	}
 	
 	/**

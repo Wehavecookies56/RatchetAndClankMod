@@ -85,10 +85,6 @@ public class EntityPyrocitorAmmo extends EntityThrowable {
 		lifeTime++;
 		// this.worldObj.spawnParticle("flame", this.posX, this.posY, this.posZ,
 		// 0.0D, 0.0D, 0.0D);
-		if(lifeTime >= 1){
-		ClientProxy.spawnPyrocitorParticle(this.worldObj, this.posX, this.posY,
-				this.posZ, 0.0D, 0.0D, 0.0D);
-		}
 		double MAX_DISTANCE = 3;
 		if (Math.sqrt(Math.pow(posX - startX, 2) + Math.pow(posY - startY, 2)
 				+ Math.pow(posZ - startZ, 2)) > MAX_DISTANCE * 2

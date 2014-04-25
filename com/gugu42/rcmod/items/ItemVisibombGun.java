@@ -19,6 +19,8 @@ public class ItemVisibombGun extends ItemRcWeap
 		super(par1);
 		this.ammoPrice = 100;
 		this.maxAmmo = 20;
+		this.weaponName = "visibomb";
+		this.hasAmmoImage = true;
 		this.heldType = 1;
 		this.setMaxDamage(maxAmmo);
 	}

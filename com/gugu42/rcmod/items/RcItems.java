@@ -13,6 +13,7 @@ public class RcItems {
 	public static Item helipackHelice;
 	public static Item clankCore;
 	public static Item clank;
+	public static Item DUMMY_pyrocitorFlame;
 	
 	// All items from RC1 goes there
 	public static Item blaster;
@@ -124,6 +125,9 @@ public class RcItems {
 		
 		helipackHelice = new ItemRcSimple(RcMod.helipackHeliceID).setUnlocalizedName("helipackHelice").setTextureName("rcmod:helipackhelice").setCreativeTab(RcMod.rcTab);
 		GameRegistry.registerItem(helipackHelice, "helipackHelice");
+		
+		DUMMY_pyrocitorFlame = new ItemRcSimple(RcMod.DUMMY_pyrocitorFlameID).setTextureName("rcmod:pyrocitorFlame").setCreativeTab(RcMod.rcTab);
+		GameRegistry.registerItem(DUMMY_pyrocitorFlame, "DUMMY_pyrocitorFlame");
 	}
 
 }

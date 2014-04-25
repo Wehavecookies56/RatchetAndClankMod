@@ -4,7 +4,8 @@ public class ItemTeslaClaw extends ItemRcWeap{
 
 	public ItemTeslaClaw(int par1) {
 		super(par1);
-		// TODO Auto-generated constructor stub
+		this.weaponName = "teslaClaw";
+		this.hasAmmoImage = true;
 	}
 
 }

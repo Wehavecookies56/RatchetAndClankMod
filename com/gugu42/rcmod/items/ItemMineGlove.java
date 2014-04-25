@@ -4,7 +4,8 @@ public class ItemMineGlove extends ItemRcWeap{
 
 	public ItemMineGlove(int par1) {
 		super(par1);
-		// TODO Auto-generated constructor stub
+		this.weaponName = "mineGlove";
+		this.hasAmmoImage = true;
 	}
 
 }

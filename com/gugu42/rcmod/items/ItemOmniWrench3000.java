@@ -14,11 +14,15 @@ import net.minecraft.item.ItemTool;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-public class ItemOmniWrench3000 extends Item {
+public class ItemOmniWrench3000 extends ItemRcWeap {
 
 	public ItemOmniWrench3000(int par1) {
 		super(par1);
 		this.maxStackSize = 1;
+		this.weaponName = "wrench";
+		this.useAmmo = false;
+		this.hasCrosshair = true;
+//		this.crosshairPath = "textures/gui/wrenchCrosshair.png";
 		this.setCreativeTab(RcMod.rcTab);
 	}
 
@@ -36,6 +40,7 @@ public class ItemOmniWrench3000 extends Item {
 		if (par3EntityPlayer.isSneaking()) {
 			par2World.spawnEntityInWorld(new EntityWrenchThrown(par2World,
 					par3EntityPlayer, par1ItemStack));
+			par3EntityPlayer.swingItem();
 			--par1ItemStack.stackSize;
 		}
 

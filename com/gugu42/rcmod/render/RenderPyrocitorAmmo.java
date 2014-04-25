@@ -1,11 +1,10 @@
 package com.gugu42.rcmod.render;
 
-import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.Icon;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -34,12 +33,13 @@ public class RenderPyrocitorAmmo extends Render
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         float f2 = this.field_77002_a;
         GL11.glScalef(f2 / 1.0F, f2 / 1.0F, f2 / 1.0F);
-        Icon icon = Block.fire.getFireIcon(0);
+//        Icon icon = RcItems.DUMMY_pyrocitorFlame.getIcon(new ItemStack(RcItems.DUMMY_pyrocitorFlame), 0);
+        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("rcmod:textures/items/pyrocitorFlame_noAnim.png"));
         Tessellator tessellator = Tessellator.instance;
-        float f3 = icon.getMinU();
-        float f4 = icon.getMaxU();
-        float f5 = icon.getMinV();
-        float f6 = icon.getMaxV();
+        float f3 = 0;
+        float f4 = 1;
+        float f5 = 0;
+        float f6 = 1;
         float f7 = 1.0F;
         float f8 = 0.5F;
         float f9 = 0.25F;

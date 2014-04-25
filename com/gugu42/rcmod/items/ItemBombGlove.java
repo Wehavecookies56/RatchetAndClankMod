@@ -19,6 +19,8 @@ public class ItemBombGlove extends ItemRcWeap {
 		super(par1);
 		this.ammo = 40;
 		this.maxAmmo = 40;
+		this.weaponName = "bombGlove";
+		this.hasAmmoImage = true;
 		this.ammoPrice = 5;
 		this.cooldown = 10;
 		this.setMaxDamage(maxAmmo);

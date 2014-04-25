@@ -15,11 +15,13 @@ public class ItemPyrocitor extends ItemRcWeap
 		super(par1);
 		this.setFull3D();
 		this.ammoPrice = 1;
+		this.weaponName = "pyrocitor";
 		this.maxAmmo = 240;
 		this.heldType = 1;
 		this.setMaxDamage(maxAmmo);
-		this.hasCrosshair = true;
-		this.crosshairPath = "textures/gui/pyrocitorCrosshair.png";
+		this.hideCrosshair = true;
+		this.hasAmmoImage = true;
+//		this.ammoTexturePath = "textures/gui/ammoImage_pyrocitor.png";
 	}
 
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) 
