@@ -16,6 +16,8 @@ public class ItemRcWeap extends Item{
 	protected int heldType;
 	public boolean useAmmo;
 	public boolean useTargetingSystem;
+	public boolean hasCrosshair;
+	public String crosshairPath;
 	
 
 

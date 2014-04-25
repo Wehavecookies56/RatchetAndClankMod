@@ -43,6 +43,7 @@ public class GuiBolt extends Gui {
 			return;
 		}
 
+		GL11.glPushMatrix();
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		GL11.glDisable(GL11.GL_LIGHTING);
 		this.mc.getTextureManager().bindTexture(texturepath);
@@ -55,7 +56,7 @@ public class GuiBolt extends Gui {
 		drawTexturedQuadFit(3, 5, 16, 16, 0);
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glDepthMask(true);
-
+		GL11.glPopMatrix();
 		int color = 0;
 		if (this.mc.thePlayer.worldObj.getWorldTime() > 13000) {
 			color = 16777045;
@@ -73,11 +74,34 @@ public class GuiBolt extends Gui {
 								+ (itemInHand.getMaxDamage() - itemInHand
 										.getItemDamage()) + "/"
 								+ itemInHand.getMaxDamage(), 200, 8, color);
+				
+				mc.fontRenderer.drawString(
+						"crosshair : "
+								+ weap.hasCrosshair + "path :"+ weap.crosshairPath , 200, 20, color);
+			}
+			
+			if(weap.hasCrosshair){		
+				GL11.glPushMatrix();
+				GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+				GL11.glDisable(GL11.GL_LIGHTING);
+				this.mc.getTextureManager().bindTexture(new ResourceLocation(
+			"rcmod", weap.crosshairPath));
+				GL11.glEnable(GL11.GL_BLEND);
+				GL11.glDisable(GL11.GL_DEPTH_TEST);
+				GL11.glDepthMask(false);
+				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+				GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+				GL11.glDisable(GL11.GL_ALPHA_TEST);
+				drawTexturedQuadFit(this.mc.displayWidth / 2, this.mc.displayHeight / 2, 16, 16, 0);
+				GL11.glEnable(GL11.GL_DEPTH_TEST);
+				GL11.glDepthMask(true);
+				GL11.glPopMatrix();
+				
 			}
 		}
 
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		GL11.glDisable(GL11.GL_LIGHTING);
+//		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+//		GL11.glDisable(GL11.GL_LIGHTING);
 
 	}
 

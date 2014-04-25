@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
@@ -211,6 +212,17 @@ public class RcEventHandler {
 			}
 		}
 
+	}
+
+	@SideOnly(Side.CLIENT)
+	@ForgeSubscribe
+	public void renderGameOverlay(RenderGameOverlayEvent event) {
+		if (Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem()
+				.getItem() == RcItems.pyrocitor) {
+			if (event.type == RenderGameOverlayEvent.ElementType.CROSSHAIRS) {
+				event.setCanceled(true);
+			}
+		}
 	}
 
 }
