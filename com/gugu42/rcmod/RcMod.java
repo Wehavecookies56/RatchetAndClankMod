@@ -1,15 +1,5 @@
 package com.gugu42.rcmod;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.StepSound;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.EnumArmorMaterial;
-import net.minecraft.item.Item;
-import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.EnumHelper;
-import net.minecraftforge.common.MinecraftForge;
-
 import com.gugu42.rcmod.blocks.BlockCrate;
 import com.gugu42.rcmod.blocks.BlockTNTCrate;
 import com.gugu42.rcmod.blocks.BlockVendor;
@@ -39,6 +29,15 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
+import net.minecraft.block.StepSound;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
+import net.minecraft.item.EnumArmorMaterial;
+import net.minecraft.item.Item;
+import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.EnumHelper;
+import net.minecraftforge.common.MinecraftForge;
 
 @Mod(modid = "rcmod", version = "0.3.0", name = "RcMod")
 @NetworkMod(clientSideRequired = true, serverSideRequired = true, channels = {
@@ -49,7 +48,7 @@ public class RcMod {
 
 	@Instance("rcmod")
 	public static RcMod instance;
-
+	
 	public static RcCreativeTab rcTab;
 	public static RcCreativeTab rcWeapTab;
 
@@ -72,7 +71,7 @@ public class RcMod {
 	public static Item clankBackpack;
 	public static Item ratchetEars;
 	
-	public EnumArmorMaterial EnumArmorMaterialClank = new EnumHelper()
+	public EnumArmorMaterial EnumArmorMaterialClank = EnumHelper
 			.addArmorMaterial("Clank", 0, new int[] { 0, 0, 0, 0 }, 0);
 
 	public RcTickHandler rcTickHandler;
@@ -157,8 +156,8 @@ public class RcMod {
 				1).setUnlocalizedName("clankHeli").setTextureName(
 				"rcmod:clankheli");
 		GameRegistry.registerItem(clankBackpack, "clankHeli");
-//		ratchetEars = new ItemRatchetEars(ratchetEarsID, EnumArmorMaterialClank, 1, 0).setUnlocalizedName("ratchetEars").setTextureName("rcmod:ratchetears");
-//		GameRegistry.registerItem(ratchetEars, "ratchetEars");
+		ratchetEars = new ItemRatchetEars(ratchetEarsID, EnumArmorMaterialClank, 1, 0).setUnlocalizedName("ratchetEars").setTextureName("rcmod:ratchetears");
+		GameRegistry.registerItem(ratchetEars, "ratchetEars");
 		
 		/* -----Other----- */
 		if (event.getSide() == Side.CLIENT)

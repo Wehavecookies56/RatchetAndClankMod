@@ -17,7 +17,12 @@ public class EntityVisibombCamera extends EntityLiving {
 	private boolean hideGUI;
 	private float fovSetting;
 	private int thirdPersonView;
-
+    private long startedReturningTime;
+    private double oldPosX;
+    private double oldPosY;
+    private double oldPosZ;
+    
+    private static final long maxReturnTime = 500;
 	private static final int positionSmoother = 5;
 	private static final int rotationSmoother = 5;
 
@@ -113,20 +118,30 @@ public class EntityVisibombCamera extends EntityLiving {
 		yaw = MathHelper.normalize(yaw);
 		pitch = MathHelper.normalize(pitch);
 
-		setPosition(x, y, z);
+		if(this.isReturning)
+		{
+		    double t = ((double)System.currentTimeMillis()-(double)startedReturningTime)/(double)maxReturnTime;
+            x = (t)*target.posX + (1.0-t)*oldPosX;
+            y = (t)*target.posY + (1.0-t)*oldPosY;
+            z = (t)*target.posZ + (1.0-t)*oldPosZ;
+		}
+		setPosition(x, y-target.getEyeHeight(), z);
 		setRotation(yaw, pitch);
 	}
 
 	private void setIsReturning() {
-		double oldPosX = posX;
-		double oldPosY = posY;
-		double oldPosZ = posZ;
+		oldPosX = posX;
+		oldPosY = posY;
+		oldPosZ = posZ;
 		float oldYaw = rotationYaw;
 		float oldPitch = rotationPitch;
 		startCam(Minecraft.getMinecraft().thePlayer, false, 20);
 		setPosition(oldPosX, oldPosY, oldPosZ);
 		setRotation(oldYaw, oldPitch);
+		startedReturningTime = System.currentTimeMillis();
 		isReturning = true;
+		EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
+        target = player;
 	}
 
 	@Override
@@ -137,7 +152,10 @@ public class EntityVisibombCamera extends EntityLiving {
 			return;
 
 		if (target.isDead && target instanceof EntityVisibombAmmo)
-			target.isDead = false;
+		{
+//		    target.isDead = false;
+//		    setIsReturning();
+		}
 
 		/*
 		 * if (!isReturning) { // if (target !=
@@ -148,26 +166,33 @@ public class EntityVisibombCamera extends EntityLiving {
 			if (target != Minecraft.getMinecraft().thePlayer) {
 				setIsReturning();
 			} else {
-				stopCam();
-				return;
+				if(Minecraft.getMinecraft().thePlayer.getDistanceSqToEntity(this) <= 2)
+				    stopCam();
 			}
 		} else if (target.isDead) {
-			stopCam();
+		    setIsReturning();
+//			stopCam();
 			return;
 		} else {
 			--maxLife;
 		}
 
-		if (isReturning) {
+		if (isReturning) 
+		{
 			EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
-			if (Math.abs(posX - player.posX) < 1
-					&& Math.abs(posY - player.posY) < 1
-					&& Math.abs(posZ - player.posZ) < 1) {
-				isReturning = false;
-				stopCam();
+//			if (Math.abs(posX - player.posX) < 1
+//					&& Math.abs(posY - player.posY) < 1
+//					&& Math.abs(posZ - player.posZ) < 1) {
+//				isReturning = false;
+//				stopCam();
+//			}
+			if(System.currentTimeMillis()-startedReturningTime > maxReturnTime)
+			{
+			    stopCam();
 			}
+			
 		}
-
+		
 		doCameraMove();
 
 		motionX = motionY = motionZ = 0;

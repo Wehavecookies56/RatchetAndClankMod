@@ -217,6 +217,8 @@ public class RcEventHandler {
 	@SideOnly(Side.CLIENT)
 	@ForgeSubscribe
 	public void renderGameOverlay(RenderGameOverlayEvent event) {
+	    if(Minecraft.getMinecraft().thePlayer == null || Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem() == null)
+	        return;
 		if (Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem()
 				.getItem() == RcItems.pyrocitor) {
 			if (event.type == RenderGameOverlayEvent.ElementType.CROSSHAIRS) {
