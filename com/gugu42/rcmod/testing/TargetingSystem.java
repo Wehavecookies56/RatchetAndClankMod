@@ -33,7 +33,7 @@ public class TargetingSystem {
 		}
 	}
 
-	public static EntityLiving target(World world, Entity player, double reach) {
+	public static Entity target(World world, Entity player, double reach) {
 		MovingObjectPosition mop = getMovingObjectPositionFromEntity(world,
 				player, false, reach);
 		if (mop != null) {
@@ -41,7 +41,7 @@ public class TargetingSystem {
 				Entity entityHit = mop.entityHit;
 				Vec3 hitVec = mop.hitVec;
 				System.out.println(mop.entityHit.toString());
-				return (EntityLiving) mop.entityHit;
+				return mop.entityHit;
 			} else if (mop.typeOfHit == EnumMovingObjectType.TILE) {
 				int blockX = mop.blockX;
 				int blockY = mop.blockY;
@@ -83,5 +83,4 @@ public class TargetingSystem {
 				(double) f8 * reach);
 		return par1World.rayTraceBlocks_do_do(vec3, vec31, par3, !par3);
 	}
-
 }

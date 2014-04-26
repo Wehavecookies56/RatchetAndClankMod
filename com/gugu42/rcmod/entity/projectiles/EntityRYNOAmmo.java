@@ -61,7 +61,7 @@ public class EntityRYNOAmmo extends EntityThrowable {
 				0.0D, 0.0D, 0.0D);
 
 		if ((this.target == null) || (this.target.velocityChanged)
-				|| (!this.target.canEntityBeSeen(this))) {
+				|| (!this.target.canEntityBeSeen(this)) || this.target.isDead) {
 			this.target = getNearestEntity();
 		}
 
@@ -174,7 +174,7 @@ public class EntityRYNOAmmo extends EntityThrowable {
 				if (((entity instanceof EntityLiving))
 						&& (((EntityLiving) entity).canEntityBeSeen(this))) {
 					target = (EntityLiving) entity;
-					if (target.getEntityData().getInteger("missilesTargeting") <= 2) {
+					if (target.getEntityData().getInteger("missilesTargeting") < 1) {
 						target.getEntityData().setInteger(
 								"missilesTargeting",
 								target.getEntityData().getInteger(
