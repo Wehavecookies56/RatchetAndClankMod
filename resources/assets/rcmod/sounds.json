@@ -1,0 +1,85 @@
+{
+    "vendor.speech.wait": {
+        "category": "block",
+        "sounds": [
+            "VendorSalesman/vendor_speech_wait1",
+            "VendorSalesman/vendor_speech_wait2"
+        ]
+    },
+    "vendor.speech.weapClicked": {
+        "category": "block",
+        "sounds": [
+            "VendorSalesman/vendor_speech_weapClicked1",
+            "VendorSalesman/vendor_speech_weapClicked2"
+        ]
+    },
+    "tntcrate.countdown": {
+        "category": "block",
+        "sounds": [
+            "ExplosiveCrateCountdown"
+        ]
+    },
+    "tntcrate.explosion": {
+        "category": "block",
+        "sounds": [
+            "ExplosiveCrateExplosion"
+        ]
+    },
+    "MenuOpen": {
+        "category": "block",
+        "sounds": [
+            "MenuOpen"
+        ]
+    },
+    "vendor.buy": {
+        "category": "block",
+        "sounds": [
+            "MenuVendorBuy"
+        ]
+    },
+    "vendor.maxAmmo": {
+        "category": "block",
+        "sounds": [
+            "MenuVendorAmmoMaxedOut"
+        ]
+    },
+    "vendor.exit": {
+        "category": "block",
+        "sounds": [
+            "MenuVendorExit"
+        ]
+    },
+    "MenuSelect": {
+        "category": "block",
+        "sounds": [
+            "MenuSelect"
+        ]
+    },
+    "BoltCollect": {
+        "category": "block",
+        "sounds": [
+            "BoltCollect1",
+            "BoltCollect2",
+            "BoltCollect3"
+        ]
+    },
+    "TaunterSound": {
+        "category": "block",
+        "sounds": [
+            "TaunterSound1",
+            "TaunterSound2",
+            "TaunterSound3",
+            "TaunterSound4",
+            "TaunterSound5"
+        ]
+    },
+    "recordmetropolis": {
+        "category": "record",
+        "sounds": [
+            {
+                "name": "recordMetropolis",
+                "stream": true
+            }
+        ]
+    }
+}
