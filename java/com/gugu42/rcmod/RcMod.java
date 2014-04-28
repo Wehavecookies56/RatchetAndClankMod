@@ -158,7 +158,7 @@ public class RcMod {
 			MinecraftForge.EVENT_BUS.register(new GuiBolt(Minecraft
 					.getMinecraft()));
 		}
-	}
+	} 
 
 	@EventHandler
 	public void serverLoad(FMLServerStartingEvent event) {

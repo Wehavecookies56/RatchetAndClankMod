@@ -2,6 +2,7 @@ package com.gugu42.rcmod.entity.projectiles;
 
 import java.util.List;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
@@ -60,9 +61,13 @@ public class EntityRYNOAmmo extends EntityThrowable {
 		this.worldObj.spawnParticle("flame", this.posX, this.posY, this.posZ,
 				0.0D, 0.0D, 0.0D);
 
-		if ((this.target == null) || (this.target.velocityChanged)
-				|| (!this.target.canEntityBeSeen(this)) || this.target.isDead) {
-			this.target = getNearestEntity();
+		if ((this.target == null)
+				|| (this.target.velocityChanged)
+				|| (!this.target.canEntityBeSeen(this))
+				|| this.target.isDead
+				|| this.target.getEntityData().getInteger("missilesTargeting") != this.hashCode()) {
+
+			this.target = this.getNearestEntity();
 		}
 
 		if (this.target != null) {
@@ -75,7 +80,7 @@ public class EntityRYNOAmmo extends EntityThrowable {
 			double d2 = this.target.boundingBox.minZ
 					+ (this.target.boundingBox.maxZ - this.target.boundingBox.minZ)
 					/ 2.0D - this.posZ;
-			setThrowableHeading(d, d1, d2, 0.9F, 0.0F);
+			this.setThrowableHeading(d, d1, d2, 0.9F, 0.0F);
 		}
 
 		float f4 = 0.99F;
@@ -129,10 +134,11 @@ public class EntityRYNOAmmo extends EntityThrowable {
 				movingobjectposition.entityHit
 						.attackEntityFrom(DamageSource
 								.causePlayerDamage(this.shootingEntity), b0);
-			movingobjectposition.entityHit.getEntityData().setInteger(
-					"missilesTargeting",
-					movingobjectposition.entityHit.getEntityData().getInteger(
-							"missilesTargeting") - 1);
+			if (movingobjectposition.entityHit.getEntityData().getInteger(
+					"missilesTargeting") != 0) {
+				movingobjectposition.entityHit.getEntityData().setInteger(
+						"missilesTargeting", 0);
+			}
 			if (!this.worldObj.isRemote) {
 				setDead();
 			}
@@ -155,7 +161,7 @@ public class EntityRYNOAmmo extends EntityThrowable {
 
 	private EntityLiving getNearestEntity() {
 		EntityLiving target = null;
-		float explosionSize = 5.0F;
+		float explosionSize = 10.0F;
 		explosionSize *= 2.0F;
 		int i = MathHelper.floor_double(this.posX - explosionSize - 1.0D);
 		int j = MathHelper.floor_double(this.posX + explosionSize + 1.0D);
@@ -174,13 +180,9 @@ public class EntityRYNOAmmo extends EntityThrowable {
 				if (((entity instanceof EntityLiving))
 						&& (((EntityLiving) entity).canEntityBeSeen(this))) {
 					target = (EntityLiving) entity;
-					if (target.getEntityData().getInteger("missilesTargeting") < 1) {
-						target.getEntityData().setInteger(
-								"missilesTargeting",
-								target.getEntityData().getInteger(
-										"missilesTargeting") + 1);
-						// System.out.println("Target aquired ! "
-						// + target.getEntityName());
+					if (target.getEntityData().getInteger("missilesTargeting") == 0) {
+						target.getEntityData().setInteger("missilesTargeting",
+								this.hashCode());
 						return target;
 					}
 				}

@@ -9,6 +9,8 @@ import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
 
 public class EntityBlasterAmmo extends EntityThrowable {
+	
+	
 	public EntityBlasterAmmo(World par1World) {
 		super(par1World);
 	}
