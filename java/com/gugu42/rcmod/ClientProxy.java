@@ -49,74 +49,74 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 
 public class ClientProxy extends CommonProxy {
 
-	public static int renderInventoryTESRId;
+    public static int renderInventoryTESRId;
 
-	@Override
-	public void registerRenderInformation() {
-		RenderingRegistry.registerEntityRenderingHandler(EntityTNTCrate.class,
-				new RenderTNTCrate());
-		RenderingRegistry.registerEntityRenderingHandler(
-				EntityBlasterAmmo.class, new RenderBlasterAmmo(0.1f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityRYNOAmmo.class,
-				new RenderRYNOAmmo(0.1f));
-		RenderingRegistry.registerEntityRenderingHandler(
-				EntityBombGloveAmmo.class, new RenderBombGloveAmmo(0.5f));
-		RenderingRegistry.registerEntityRenderingHandler(
-				EntityPyrocitorAmmo.class, new RenderPyrocitorAmmo(0.5f));
-		RenderingRegistry.registerEntityRenderingHandler(
-				EntityVisibombAmmo.class, new RenderVisibombAmmo(0.1F));
-		RenderingRegistry.registerEntityRenderingHandler(
-				EntityWrenchThrown.class, new RenderThrownWrench(0.1F));
-		RenderingRegistry.registerEntityRenderingHandler(
-				EntityMineGloveAmmo.class, new RenderMineGloveAmmo(0.5f));
-		RenderingRegistry.registerEntityRenderingHandler(
-				EntityDecoyGloveAmmo.class, new RenderDecoyGloveAmmo(0.5f));
+    @Override
+    public void registerRenderInformation() {
+        RenderingRegistry.registerEntityRenderingHandler(EntityTNTCrate.class,
+                new RenderTNTCrate());
+        RenderingRegistry.registerEntityRenderingHandler(
+                EntityBlasterAmmo.class, new RenderBlasterAmmo(0.1f));
+        RenderingRegistry.registerEntityRenderingHandler(EntityRYNOAmmo.class,
+                new RenderRYNOAmmo(0.1f));
+        RenderingRegistry.registerEntityRenderingHandler(
+                EntityBombGloveAmmo.class, new RenderBombGloveAmmo(0.5f));
+        RenderingRegistry.registerEntityRenderingHandler(
+                EntityPyrocitorAmmo.class, new RenderPyrocitorAmmo(0.5f));
+        RenderingRegistry.registerEntityRenderingHandler(
+                EntityVisibombAmmo.class, new RenderVisibombAmmo(0.1F));
+        RenderingRegistry.registerEntityRenderingHandler(
+                EntityWrenchThrown.class, new RenderThrownWrench(0.1F));
+        RenderingRegistry.registerEntityRenderingHandler(
+                EntityMineGloveAmmo.class, new RenderMineGloveAmmo(0.5f));
+        RenderingRegistry.registerEntityRenderingHandler(
+                EntityDecoyGloveAmmo.class, new RenderDecoyGloveAmmo(0.5f));
 
-		MinecraftForgeClient.registerItemRenderer(RcItems.blaster,
-				new BlasterRender());
-		MinecraftForgeClient.registerItemRenderer(RcItems.bombGlove,
-				new BombGloveRender());
-		MinecraftForgeClient.registerItemRenderer(RcItems.ryno,
-				new RYNORender());
-		MinecraftForgeClient.registerItemRenderer(RcItems.pyrocitor,
-				new PyrocitorRender());
-		MinecraftForgeClient.registerItemRenderer(RcItems.walloper,
-				new WalloperRender());
-		MinecraftForgeClient.registerItemRenderer(
-				RcItems.omniwrench3000, new OmniWrench3000Render());
-		MinecraftForgeClient.registerItemRenderer(RcItems.visibombGun,
-				new VisibombRender());
-		MinecraftForgeClient.registerItemRenderer(RcItems.decoyGlove,
-				new DecoyGloveRender());
-		MinecraftForgeClient.registerItemRenderer(RcItems.devastator,
-				new DevastatorRender());
-		MinecraftForgeClient.registerItemRenderer(RcItems.droneDevice,
-				new DroneDeviceRender());
-		MinecraftForgeClient.registerItemRenderer(RcItems.gloveOfDoom,
-				new GloveOfDoomRender());
-		MinecraftForgeClient.registerItemRenderer(RcItems.mineGlove,
-				new MineGloveRender());
-		MinecraftForgeClient.registerItemRenderer(RcItems.morphORay,
-				new MorphORayRender());
-		MinecraftForgeClient.registerItemRenderer(RcItems.suckCannon,
-				new SuckCannonRender());
-		MinecraftForgeClient.registerItemRenderer(RcItems.taunter,
-				new TaunterRender());
-		MinecraftForgeClient.registerItemRenderer(RcItems.teslaClaw,
-				new TeslaClawRender());
+        MinecraftForgeClient.registerItemRenderer(RcItems.blaster,
+                new BlasterRender());
+        MinecraftForgeClient.registerItemRenderer(RcItems.bombGlove,
+                new BombGloveRender());
+        MinecraftForgeClient.registerItemRenderer(RcItems.ryno,
+                new RYNORender());
+        MinecraftForgeClient.registerItemRenderer(RcItems.pyrocitor,
+                new PyrocitorRender());
+        MinecraftForgeClient.registerItemRenderer(RcItems.walloper,
+                new WalloperRender());
+        MinecraftForgeClient.registerItemRenderer(
+                RcItems.omniwrench3000, new OmniWrench3000Render());
+        MinecraftForgeClient.registerItemRenderer(RcItems.visibombGun,
+                new VisibombRender());
+        MinecraftForgeClient.registerItemRenderer(RcItems.decoyGlove,
+                new DecoyGloveRender());
+        MinecraftForgeClient.registerItemRenderer(RcItems.devastator,
+                new DevastatorRender());
+        MinecraftForgeClient.registerItemRenderer(RcItems.droneDevice,
+                new DroneDeviceRender());
+        MinecraftForgeClient.registerItemRenderer(RcItems.gloveOfDoom,
+                new GloveOfDoomRender());
+        MinecraftForgeClient.registerItemRenderer(RcItems.mineGlove,
+                new MineGloveRender());
+        MinecraftForgeClient.registerItemRenderer(RcItems.morphORay,
+                new MorphORayRender());
+        MinecraftForgeClient.registerItemRenderer(RcItems.suckCannon,
+                new SuckCannonRender());
+        MinecraftForgeClient.registerItemRenderer(RcItems.taunter,
+                new TaunterRender());
+        MinecraftForgeClient.registerItemRenderer(RcItems.teslaClaw,
+                new TeslaClawRender());
 
-		renderInventoryTESRId = RenderingRegistry.getNextAvailableRenderId();
-		RenderingRegistry.registerBlockHandler(new TESRInventoryRenderer());
-		TESRInventoryRenderer.blockByTESR.put(new TESRIndex(RcMod.vendor, 0),
-				new TileEntityVendorSpecialRenderer());
-		MinecraftForge.EVENT_BUS.register(new RcSoundHandler());
-	}
+        renderInventoryTESRId = RenderingRegistry.getNextAvailableRenderId();
+        RenderingRegistry.registerBlockHandler(new TESRInventoryRenderer());
+        TESRInventoryRenderer.blockByTESR.put(new TESRIndex(RcMod.vendor, 0),
+                new TileEntityVendorSpecialRenderer());
+        MinecraftForge.EVENT_BUS.register(new RcSoundHandler());
+    }
 
-	@Override
-	public void registerTileEntityRender() {
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityVendor.class,
-				new TileEntityVendorSpecialRenderer());
-	}
+    @Override
+    public void registerTileEntityRender() {
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityVendor.class,
+                new TileEntityVendorSpecialRenderer());
+    }
 
 
 }

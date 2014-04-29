@@ -92,13 +92,13 @@ public class EntityTNTCrate extends Entity implements IEntityAdditionalSpawnData
         }
         
         if(this.fuse == 20){
-        	this.worldObj.playSoundAtEntity(this, "rcmod:tntcrate.countdown", 1.0f, 1.0f);
+            this.worldObj.playSoundAtEntity(this, "rcmod:tntcrate.countdown", 1.0f, 1.0f);
         }
         if(this.fuse == 40){
-        	this.worldObj.playSoundAtEntity(this, "rcmod:tntcrate.countdown", 1.0f, 1.0f);
+            this.worldObj.playSoundAtEntity(this, "rcmod:tntcrate.countdown", 1.0f, 1.0f);
         }
         if(this.fuse == 60){
-        	this.worldObj.playSoundAtEntity(this, "rcmod:tntcrate.countdown", 1.0f, 1.0f);
+            this.worldObj.playSoundAtEntity(this, "rcmod:tntcrate.countdown", 1.0f, 1.0f);
         }
         
     }
@@ -107,7 +107,7 @@ public class EntityTNTCrate extends Entity implements IEntityAdditionalSpawnData
     {
         float f = 4.0F;
         TNTCrateExplosion explosion = new TNTCrateExplosion(this.worldObj, (Entity)null, this.posX, this.posY, this.posZ, f);
-        explosion.doExplosionA(false);
+        explosion.doExplosionA(true);
         explosion.doExplosionB(true, true);
     }
 
@@ -135,15 +135,15 @@ public class EntityTNTCrate extends Entity implements IEntityAdditionalSpawnData
         return this.tntPlacedBy;
     }
 
-	@Override
-	public void writeSpawnData(ByteBuf buffer) {
-		 buffer.writeInt(this.fuse);
-		
-	}
+    @Override
+    public void writeSpawnData(ByteBuf buffer) {
+         buffer.writeInt(this.fuse);
+        
+    }
 
-	@Override
-	public void readSpawnData(ByteBuf additionalData) {
-		
-		this.fuse = additionalData.readInt();
-	}
+    @Override
+    public void readSpawnData(ByteBuf additionalData) {
+        
+        this.fuse = additionalData.readInt();
+    }
 }
