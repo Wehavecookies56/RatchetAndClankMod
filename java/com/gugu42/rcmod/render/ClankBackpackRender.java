@@ -26,15 +26,15 @@ public class ClankBackpackRender extends ModelBiped {
 			angle = 22.5;
 			rotation = 0.35f;
 		}
-		if (par1Entity.onGround) {
-			GL11.glPushMatrix();
-			GL11.glTranslated(0.0d, 0.7f, rotation);
-			GL11.glRotated(180, 0.0D, 0.0D, 1.0D);
-			GL11.glRotated(angle, -y, 0.0D, 0.0D);
-			GL11.glScalef(0.045f, 0.045f, 0.045f);
-			modelManager.modelClankBackpack.renderAll();
-			GL11.glPopMatrix();
-		} else {
+//		if (par1Entity.onGround) {
+//			GL11.glPushMatrix();
+//			GL11.glTranslated(0.0d, 0.7f, rotation);
+//			GL11.glRotated(180, 0.0D, 0.0D, 1.0D);
+//			GL11.glRotated(angle, -y, 0.0D, 0.0D);
+//			GL11.glScalef(0.045f, 0.045f, 0.045f);
+//			modelManager.modelClankBackpack.renderAll();
+//			GL11.glPopMatrix();
+//		} else {
 			if (par1Entity.getEntityData().getBoolean("clankJumped")) {
 				GL11.glPushMatrix();
 				GL11.glTranslated(0.0d, 0.7f, rotation);
@@ -94,6 +94,6 @@ public class ClankBackpackRender extends ModelBiped {
 				modelManager.modelClankBackpack.renderAll();
 				GL11.glPopMatrix();
 			}
-		}
+//		}
 	}
 }

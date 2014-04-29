@@ -19,24 +19,21 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockTNTCrate extends Block {
-	@SideOnly(Side.CLIENT)
-	private IIcon blockTop;
-	@SideOnly(Side.CLIENT)
-	private IIcon blockBottom;
+    @SideOnly(Side.CLIENT)
+    private IIcon blockIconTop;
+    @SideOnly(Side.CLIENT)
+    private IIcon blockIconBottom;
 
 	public BlockTNTCrate(Material material) {
 		super(material);
 		this.setCreativeTab(RcMod.rcTab);
 	}
 
-	@SideOnly(Side.CLIENT)
-	/**
-	 * From the specified side and block metadata retrieves the blocks texture. Args: side, metadata
-	 */
-	public IIcon getIcon(int par1, int par2) {
-		return par1 == 0 ? this.blockBottom : (par1 == 1 ? this.blockTop
-				: this.blockIcon);
-	}
+    @SideOnly(Side.CLIENT)
+    public IIcon getIcon(int p_149691_1_, int p_149691_2_)
+    {
+        return p_149691_1_ == 0 ? this.blockIconBottom : (p_149691_1_ == 1 ? this.blockIconTop : this.blockIcon);
+    }
 
 	/**
 	 * Called whenever the block is added into the world. Args: world, x, y, z
@@ -145,10 +142,17 @@ public class BlockTNTCrate extends Block {
 		return false;
 	}
 
+//	@SideOnly(Side.CLIENT)
+//	public void registerIcons(IIconRegister par1IconRegister) {
+//		this.blockIcon = par1IconRegister.registerIcon(this.getTextureName());
+//		this.blockTop = this.blockBottom = par1IconRegister.registerIcon(this.getTextureName() + "top");
+//	}
+
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister par1IconRegister) {
-		this.blockIcon = par1IconRegister.registerIcon(this.getTextureName());
-		this.blockTop = par1IconRegister.registerIcon("tntcratetop");
-		this.blockBottom = par1IconRegister.registerIcon("tntcratetop");
-	}
+    public void registerBlockIcons(IIconRegister iiconregister)
+    {
+        this.blockIcon = iiconregister.registerIcon(this.getTextureName());
+        this.blockIconTop = iiconregister.registerIcon(this.getTextureName() + "top");
+        this.blockIconBottom = iiconregister.registerIcon(this.getTextureName() + "top");
+    }
 }

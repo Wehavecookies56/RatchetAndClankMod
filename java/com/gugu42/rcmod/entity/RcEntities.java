@@ -3,6 +3,7 @@ package com.gugu42.rcmod.entity;
 import com.gugu42.rcmod.RcMod;
 import com.gugu42.rcmod.entity.projectiles.EntityBlasterAmmo;
 import com.gugu42.rcmod.entity.projectiles.EntityBombGloveAmmo;
+import com.gugu42.rcmod.entity.projectiles.EntityDecoyGloveAmmo;
 import com.gugu42.rcmod.entity.projectiles.EntityMineGloveAmmo;
 import com.gugu42.rcmod.entity.projectiles.EntityPyrocitorAmmo;
 import com.gugu42.rcmod.entity.projectiles.EntityRYNOAmmo;
@@ -59,6 +60,11 @@ public class RcEntities {
 				"minegloveammo", EntityRegistry.findGlobalUniqueEntityId());
 		EntityRegistry.registerModEntity(EntityMineGloveAmmo.class,
 				"minegloveammo", 58, RcMod.instance, 256, 1, false);
+		
+		EntityRegistry.registerGlobalEntityID(EntityDecoyGloveAmmo.class,
+				"decoygloveammo", EntityRegistry.findGlobalUniqueEntityId());
+		EntityRegistry.registerModEntity(EntityDecoyGloveAmmo.class,
+				"decoygloveammo", 59, RcMod.instance, 256, 1, false);
 	}
 
 }
