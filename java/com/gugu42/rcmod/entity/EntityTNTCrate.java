@@ -107,7 +107,7 @@ public class EntityTNTCrate extends Entity implements IEntityAdditionalSpawnData
     {
         float f = 4.0F;
         TNTCrateExplosion explosion = new TNTCrateExplosion(this.worldObj, (Entity)null, this.posX, this.posY, this.posZ, f);
-        explosion.doExplosionA(true);
+        explosion.doExplosionA(false);
         explosion.doExplosionB(true, true);
     }
 

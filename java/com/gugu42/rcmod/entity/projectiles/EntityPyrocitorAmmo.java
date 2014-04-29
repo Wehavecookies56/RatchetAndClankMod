@@ -39,7 +39,8 @@ public class EntityPyrocitorAmmo extends EntityThrowable {
 	public EntityPyrocitorAmmo(World par1World, EntityPlayer par2EntityLiving,
 			float random) {
 		super(par1World, par2EntityLiving);
-		this.setSize(0.25F, 0.25F);
+		float size = 0.25f;
+		this.setSize(size, size);
 		this.setLocationAndAngles(par2EntityLiving.posX, par2EntityLiving.posY
 				+ (double) par2EntityLiving.getEyeHeight(),
 				par2EntityLiving.posZ, par2EntityLiving.rotationYaw,

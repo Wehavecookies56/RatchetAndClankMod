@@ -24,6 +24,8 @@ import com.gugu42.rcmod.items.ItemRcWeap;
 import com.gugu42.rcmod.items.RcItems;
 import com.gugu42.rcmod.testing.EntityVisibombCamera;
 
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ObfuscationReflectionHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
@@ -165,11 +167,13 @@ public class RcEventHandler {
 		if (event.entity instanceof EntityVisibombAmmo) {
 			EntityVisibombAmmo arrow = (EntityVisibombAmmo) event.entity;
 			EntityPlayer arrowShooter = arrow.worldObj
-					.getClosestPlayerToEntity(arrow, 10);
+					.getClosestPlayerToEntity(arrow, 2);
 			if (arrowShooter == null)
 				return;
-
-			EntityVisibombCamera.getInstance().startCam(arrow, true);
+			if(event.world.isRemote && isEntityForThisClient(arrow, arrowShooter))
+			{
+			    EntityVisibombCamera.getInstance().startCam(arrow, true);
+			}
 
 		}
 
@@ -178,7 +182,20 @@ public class RcEventHandler {
 		}
 	}
 
-	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	private boolean isEntityForThisClient(EntityVisibombAmmo arrow, EntityPlayer arrowShooter)
+    {
+	    if(arrowShooter == FMLClientHandler.instance().getClientPlayerEntity())
+	    {
+	        return true;
+	    }
+	    return false;
+//	    if(arrow.getFiringEntityID() == -1)
+//	        System.out.println("-1!!");
+//        return arrow.getFiringEntityID() == FMLClientHandler.instance().getClientPlayerEntity().getEntityId();
+    }
+
+    @SubscribeEvent
 	public void onItemPickup(EntityItemPickupEvent event) {
 		ItemStack item = event.item.getEntityItem();
 		ExtendedPlayerBolt props = ExtendedPlayerBolt.get(event.entityPlayer);

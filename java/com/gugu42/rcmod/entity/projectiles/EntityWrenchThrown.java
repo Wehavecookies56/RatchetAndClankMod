@@ -13,6 +13,7 @@ import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -31,6 +32,7 @@ public class EntityWrenchThrown extends EntityThrowable implements
 		super(par1World);
 		this.isReturningToOwner = false;
 		this.ticksLived = 0;
+		
 	}
 
 	public EntityWrenchThrown(World par1World,
@@ -53,7 +55,6 @@ public class EntityWrenchThrown extends EntityThrowable implements
 	@Override
 	protected void onImpact(MovingObjectPosition mop) {
 		if (ticksLived <= 1) {
-
 		} else {
 			if (mop.entityHit != null && mop.entityHit == owner) {
 				this.setDead();
@@ -75,7 +76,12 @@ public class EntityWrenchThrown extends EntityThrowable implements
 			} else if (worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ) != null && worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ) == RcMod.crate
 					|| worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ) == RcMod.tntCrate) {
 				// Continue
-			} else {
+			}
+			else if(mop.entityHit != null)
+			{
+			    mop.entityHit.attackEntityFrom(DamageSource.causePlayerDamage(owner), 5f);
+			}
+		    else {
 				this.setReturningToOwner(true);
 			}
 		}
@@ -83,6 +89,11 @@ public class EntityWrenchThrown extends EntityThrowable implements
 
 	public void onUpdate() {
 		super.onUpdate();
+		if (ticksLived <= 1) 
+		{
+		    if(owner == null)
+		        owner = worldObj.getClosestPlayer(posX, posY, posZ, 2);
+		}
 		ticksLived++;
 		if (owner == null || owner.isDead) {
 			this.setDead();
@@ -99,8 +110,11 @@ public class EntityWrenchThrown extends EntityThrowable implements
 			this.setDead();
 		}
 
-		destroyBoltCrates();
-		destroyTNTCrates();
+		if(!worldObj.isRemote)
+		{
+    		destroyBoltCrates();
+    		destroyTNTCrates();
+		}
 
 	}
 

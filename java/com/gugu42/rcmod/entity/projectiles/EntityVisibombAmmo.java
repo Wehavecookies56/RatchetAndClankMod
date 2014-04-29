@@ -2,6 +2,7 @@ package com.gugu42.rcmod.entity.projectiles;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -10,6 +11,7 @@ public class EntityVisibombAmmo extends EntityThrowable
  {
 	private int ticksInAir;
 	private EntityLivingBase entityFiring;
+    private int entityFiringID = -1;
 
 	public EntityVisibombAmmo(World par1World) {
 		super(par1World);
@@ -24,6 +26,7 @@ public class EntityVisibombAmmo extends EntityThrowable
 			EntityLivingBase par2EntityLivingBase) {
 		super(par1World, par2EntityLivingBase);
 		this.entityFiring = par2EntityLivingBase; 
+		this.entityFiringID = entityFiring.getEntityId();
 	}
 
 	public EntityVisibombAmmo(World par1World, double par2, double par4,
@@ -68,4 +71,21 @@ public class EntityVisibombAmmo extends EntityThrowable
 			this.setDead();
 		}
 	}
+	
+	public void readFromNBT(NBTTagCompound nbt)
+    {
+        super.readFromNBT(nbt);
+//        entityFiringID = nbt.getInteger("entityFiringID");
+    }
+	
+	public void writeToNBT(NBTTagCompound nbt)
+	{
+	    super.writeToNBT(nbt);
+//	    nbt.setInteger("entityFiringID", entityFiringID);
+	}
+
+  /*  public int getFiringEntityID()
+    {
+        return entityFiringID;
+    }*/
 }

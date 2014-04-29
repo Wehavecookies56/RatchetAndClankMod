@@ -125,7 +125,7 @@ public class EntityVisibombCamera extends EntityLiving {
             y = (t)*target.posY + (1.0-t)*oldPosY;
             z = (t)*target.posZ + (1.0-t)*oldPosZ;
 		}
-		setPosition(x, y-target.getEyeHeight(), z);
+		setPosition(x, y+target.getEyeHeight(), z);
 		setRotation(yaw, pitch);
 	}
 

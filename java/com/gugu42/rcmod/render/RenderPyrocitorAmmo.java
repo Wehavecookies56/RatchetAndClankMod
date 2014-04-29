@@ -19,6 +19,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class RenderPyrocitorAmmo extends Render
 {
     private float field_77002_a;
+    private long last;
+    private float frame;
 
     public RenderPyrocitorAmmo(float par1)
     {
@@ -34,8 +36,16 @@ public class RenderPyrocitorAmmo extends Render
         float f2 = this.field_77002_a;
         GL11.glScalef(f2 / 1.0F, f2 / 1.0F, f2 / 1.0F);
 //        Icon icon = RcItems.DUMMY_pyrocitorFlame.getIcon(new ItemStack(RcItems.DUMMY_pyrocitorFlame), 0);
-        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("rcmod:textures/items/pyrocitorFlame_noAnim.png"));
+        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("rcmod:textures/items/pyrocitorFlame.png"));
         Tessellator tessellator = Tessellator.instance;
+        long deltaT = System.currentTimeMillis()-last;
+        last = System.currentTimeMillis();
+        float ratio = (deltaT/(1000/60));
+        frame += 0.75f*ratio;
+        if(frame >= 8f)
+        {
+            frame= 0;
+        }
         float f3 = 0;
         float f4 = 1;
         float f5 = 0;
@@ -43,14 +53,18 @@ public class RenderPyrocitorAmmo extends Render
         float f7 = 1.0F;
         float f8 = 0.5F;
         float f9 = 0.25F;
+        float minU = 0f;
+        float minV = 1f/8f*(int)frame;
+        float maxU = 1f;
+        float maxV = 1f/8f+minV;
         GL11.glRotatef(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
         GL11.glRotatef(-this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
-        tessellator.addVertexWithUV((double)(0.0F - f8), (double)(0.0F - f9), 0.0D, (double)f3, (double)f6);
-        tessellator.addVertexWithUV((double)(f7 - f8), (double)(0.0F - f9), 0.0D, (double)f4, (double)f6);
-        tessellator.addVertexWithUV((double)(f7 - f8), (double)(1.0F - f9), 0.0D, (double)f4, (double)f5);
-        tessellator.addVertexWithUV((double)(0.0F - f8), (double)(1.0F - f9), 0.0D, (double)f3, (double)f5);
+        tessellator.addVertexWithUV((double)(0.0F - f8), (double)(0.0F - f9), 0.0D, minU,minV);
+        tessellator.addVertexWithUV((double)(f7 - f8), (double)(0.0F - f9), 0.0D, maxU,minV);
+        tessellator.addVertexWithUV((double)(f7 - f8), (double)(1.0F - f9), 0.0D, maxU,maxV);
+        tessellator.addVertexWithUV((double)(0.0F - f8), (double)(1.0F - f9), 0.0D, minU, maxV);
         tessellator.draw();
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         GL11.glPopMatrix();
