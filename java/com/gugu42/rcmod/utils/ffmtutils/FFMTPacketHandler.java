@@ -14,12 +14,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.network.INetHandler;
-import net.minecraft.network.NetHandlerPlayServer;
-
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
 import com.google.common.reflect.ClassPath.ClassInfo;
@@ -32,6 +26,11 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.network.INetHandler;
+import net.minecraft.network.NetHandlerPlayServer;
 
 @ChannelHandler.Sharable
 public class FFMTPacketHandler extends
@@ -42,23 +41,23 @@ public class FFMTPacketHandler extends
 	private boolean isPostInitialised = false;
 
 	public FFMTPacketHandler(String packetsPackage) {
-		try {
-			ImmutableSet<ClassInfo> set = ClassPath.from(
-					ClassLoader.getSystemClassLoader())
-					.getTopLevelClassesRecursive(packetsPackage);
-			Iterator<ClassInfo> it = set.iterator();
-			while (it.hasNext()) {
-				ClassInfo info = it.next();
-				Class<?> c = Class.forName(info.getName());
-				if (isInstanceof(c, AbstractPacket.class)) {
-					registerPacket((Class<? extends AbstractPacket>) c);
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+	    try {
+            ImmutableSet<ClassInfo> set = ClassPath.from(
+                    FFMTPacketHandler.class.getClassLoader())
+                    .getTopLevelClassesRecursive(packetsPackage);
+            Iterator<ClassInfo> it = set.iterator();
+            while (it.hasNext()) {
+                ClassInfo info = it.next();
+                Class<?> c = Class.forName(info.getName());
+                if (isInstanceof(c, AbstractPacket.class)) {
+                    registerPacket((Class<? extends AbstractPacket>) c);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 	}
 
 	private static boolean isInstanceof(Class<?> c1, Class<?> c) {
