@@ -1,22 +1,25 @@
 package com.gugu42.rcmod;
 
-import org.apache.logging.log4j.Logger;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraft.stats.Achievement;
+import net.minecraftforge.common.AchievementPage;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.util.EnumHelper;
+
+import org.apache.logging.log4j.Logger;
 
 import com.gugu42.rcmod.blocks.BlockCrate;
 import com.gugu42.rcmod.blocks.BlockTNTCrate;
 import com.gugu42.rcmod.blocks.BlockVendor;
 import com.gugu42.rcmod.entity.RcEntities;
 import com.gugu42.rcmod.gui.GuiBolt;
+import com.gugu42.rcmod.handler.RcAchievementEventHandler;
 import com.gugu42.rcmod.handler.RcEventHandler;
 import com.gugu42.rcmod.handler.RcTickHandler;
 import com.gugu42.rcmod.items.ItemClankBackpack;
@@ -40,7 +43,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@Mod(modid = "rcmod", version = "0.4.0", name = "RcMod")
+@Mod(modid = "rcmod", version = "0.4.4", name = "RcMod")
 public class RcMod {
 	@SidedProxy(clientSide = "com.gugu42.rcmod.ClientProxy", serverSide = "com.gugu42.rcmod.CommonProxy")
 	public static CommonProxy proxy;
@@ -73,6 +76,10 @@ public class RcMod {
 	 */
 	public static final FFMTPacketHandler rcModPacketHandler = new FFMTPacketHandler("com.gugu42.rcmod.network.packets");
 
+	public static AchievementPage rcAchievementPage;
+	
+	public static Achievement achievement_VendorCraft, achievement_HelipackCraft;
+	
 	@EventHandler
 	public void PreInit(FMLPreInitializationEvent event) {
 		rcTab = new RcCreativeTab("rcTab");
@@ -92,6 +99,10 @@ public class RcMod {
 		rcModPacketHandler.initialise("RCMD|bolt");
 		rcModPacketHandler.initialise("RCMD|vend");
 		rcModPacketHandler.initialise("RCMD|refill");
+		
+//		rcModPacketHandler.registerPacket(PacketBolts.class);
+//		rcModPacketHandler.registerPacket(PacketVend.class);
+//		rcModPacketHandler.registerPacket(PacketRefill.class);
 		
 		/* -----Entity----- */
 
@@ -131,6 +142,13 @@ public class RcMod {
 		GameRegistry.registerItem(ratchetEars, "ratchetEars");
 		
 		/* -----Other----- */
+
+		achievement_VendorCraft = new Achievement("achievement.vendor", "vendor", 0, -1, this.vendor, (Achievement)null).registerStat().setSpecial();
+		achievement_HelipackCraft = new Achievement("achievement.helipack", "helipack", 0, 1, this.clankBackpack, achievement_VendorCraft).registerStat();
+		
+		rcAchievementPage = new AchievementPage("Ratchet & Clank Mod", achievement_VendorCraft, achievement_HelipackCraft);
+		AchievementPage.registerAchievementPage(rcAchievementPage);
+		
 		if (event.getSide() == Side.CLIENT)
 			setCreativeTabsIcon();
 
@@ -153,6 +171,7 @@ public class RcMod {
 	public void PostInit(FMLPostInitializationEvent event) {
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 		MinecraftForge.EVENT_BUS.register(new RcEventHandler());
+		FMLCommonHandler.instance().bus().register(new RcAchievementEventHandler());
 
 		if (FMLCommonHandler.instance().getEffectiveSide().isClient()) {
 			MinecraftForge.EVENT_BUS.register(new GuiBolt(Minecraft

@@ -92,7 +92,7 @@ public class EntityDecoyGloveAmmo extends EntityThrowable implements IProjectile
 			//Attract entities
 		}
 		
-		if(tickSinceActive >= 120 * 20){
+		if(tickSinceActive >= 90 * 20){
 			this.explode();
 			this.setDead();
 		}

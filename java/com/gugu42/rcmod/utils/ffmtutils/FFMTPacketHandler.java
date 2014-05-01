@@ -85,7 +85,7 @@ public class FFMTPacketHandler extends
 			return false;
 	}
 
-	private boolean registerPacket(Class<? extends AbstractPacket> clazz) {
+	public boolean registerPacket(Class<? extends AbstractPacket> clazz) {
 		if (this.packets.size() > 256) {
 			RcMod.rcLogger.error("packets size > 256");
 			return false;

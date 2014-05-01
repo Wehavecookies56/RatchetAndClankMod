@@ -67,6 +67,7 @@ public class RcTickHandler {
 					if ((!player.onGround) && (player.motionY < 0.0D)) {
 						player.motionY *= 0.7D;
 						player.fallDistance = 0.0F;
+						player.getCurrentArmor(2).setItemDamage(1);
 					}
 				}
 			}
@@ -94,11 +95,14 @@ public class RcTickHandler {
 				&& player.inventory.armorItemInSlot(2).getItem() == RcMod.clankBackpack) {
 			if (player.getEntityData().getBoolean("clankJumped")) {
 				if (player.getEntityData().getInteger("clankCooldown") >= 1) {
-					if (player.onGround)
+					if (player.onGround) {
 						player.getEntityData().setInteger(
 								"clankCooldown",
 								player.getEntityData().getInteger(
 										"clankCooldown") - 1);
+						player.getCurrentArmor(2).setItemDamage(0);
+					}
+					
 					return true;
 				} else {
 					player.getEntityData().setBoolean("clankJumped", false);

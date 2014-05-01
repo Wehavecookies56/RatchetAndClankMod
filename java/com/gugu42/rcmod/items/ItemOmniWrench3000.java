@@ -23,7 +23,7 @@ public class ItemOmniWrench3000 extends ItemRcWeap {
 		this.weaponName = "wrench";
 		this.useAmmo = false;
 		this.hasCrosshair = true;
-//		this.crosshairPath = "textures/gui/wrenchCrosshair.png";
+		// this.crosshairPath = "textures/gui/wrenchCrosshair.png";
 		this.setCreativeTab(RcMod.rcTab);
 	}
 
@@ -38,11 +38,13 @@ public class ItemOmniWrench3000 extends ItemRcWeap {
 
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World,
 			EntityPlayer par3EntityPlayer) {
-		if (par3EntityPlayer.isSneaking()) {
-			par2World.spawnEntityInWorld(new EntityWrenchThrown(par2World,
-					par3EntityPlayer, par1ItemStack));
-			par3EntityPlayer.swingItem();
-			--par1ItemStack.stackSize;
+		if (!par2World.isRemote) {
+			if (par3EntityPlayer.isSneaking()) {
+				par2World.spawnEntityInWorld(new EntityWrenchThrown(par2World,
+						par3EntityPlayer, par1ItemStack));
+				par3EntityPlayer.swingItem();
+				--par1ItemStack.stackSize;
+			}
 		}
 
 		return par1ItemStack;
@@ -64,7 +66,7 @@ public class ItemOmniWrench3000 extends ItemRcWeap {
 			}
 		}
 	}
-	
+
 	public boolean canHarvestBlock(Block par1Block) {
 		return true;
 	}

@@ -5,6 +5,8 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -28,6 +30,7 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ObfuscationReflectionHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -102,7 +105,7 @@ public class RcEventHandler {
 		if (event.entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.entity;
 			if (player.inventory.armorItemInSlot(2) != null
-					&& player.inventory.armorItemInSlot(2).getItem()== RcMod.clankBackpack) {
+					&& player.inventory.armorItemInSlot(2).getItem() == RcMod.clankBackpack) {
 				event.setCanceled(true);
 			}
 		}
@@ -131,8 +134,8 @@ public class RcEventHandler {
 			((ExtendedPlayerBolt) (event.entity
 					.getExtendedProperties(ExtendedPlayerBolt.EXT_PROP_NAME)))
 					.saveNBTData(playerData);
-			proxy.storeEntityData(((EntityPlayer) event.entity).getDisplayName(),
-					playerData);
+			proxy.storeEntityData(
+					((EntityPlayer) event.entity).getDisplayName(), playerData);
 			ExtendedPlayerBolt.saveProxyData((EntityPlayer) event.entity);
 		} else {
 
@@ -144,7 +147,8 @@ public class RcEventHandler {
 		if (!event.entity.worldObj.isRemote
 				&& event.entity instanceof EntityPlayer) {
 			NBTTagCompound playerData = proxy
-					.getEntityData(((EntityPlayer) event.entity).getDisplayName());
+					.getEntityData(((EntityPlayer) event.entity)
+							.getDisplayName());
 			if (playerData != null) {
 				((ExtendedPlayerBolt) (event.entity
 						.getExtendedProperties(ExtendedPlayerBolt.EXT_PROP_NAME)))
@@ -170,9 +174,9 @@ public class RcEventHandler {
 					.getClosestPlayerToEntity(arrow, 2);
 			if (arrowShooter == null)
 				return;
-			if(event.world.isRemote && isEntityForThisClient(arrow, arrowShooter))
-			{
-			    EntityVisibombCamera.getInstance().startCam(arrow, true);
+			if (event.world.isRemote
+					&& isEntityForThisClient(arrow, arrowShooter)) {
+				EntityVisibombCamera.getInstance().startCam(arrow, true);
 			}
 
 		}
@@ -183,19 +187,19 @@ public class RcEventHandler {
 	}
 
 	@SideOnly(Side.CLIENT)
-	private boolean isEntityForThisClient(EntityVisibombAmmo arrow, EntityPlayer arrowShooter)
-    {
-	    if(arrowShooter == FMLClientHandler.instance().getClientPlayerEntity())
-	    {
-	        return true;
-	    }
-	    return false;
-//	    if(arrow.getFiringEntityID() == -1)
-//	        System.out.println("-1!!");
-//        return arrow.getFiringEntityID() == FMLClientHandler.instance().getClientPlayerEntity().getEntityId();
-    }
+	private boolean isEntityForThisClient(EntityVisibombAmmo arrow,
+			EntityPlayer arrowShooter) {
+		if (arrowShooter == FMLClientHandler.instance().getClientPlayerEntity()) {
+			return true;
+		}
+		return false;
+		// if(arrow.getFiringEntityID() == -1)
+		// System.out.println("-1!!");
+		// return arrow.getFiringEntityID() ==
+		// FMLClientHandler.instance().getClientPlayerEntity().getEntityId();
+	}
 
-    @SubscribeEvent
+	@SubscribeEvent
 	public void onItemPickup(EntityItemPickupEvent event) {
 		ItemStack item = event.item.getEntityItem();
 		ExtendedPlayerBolt props = ExtendedPlayerBolt.get(event.entityPlayer);
@@ -245,5 +249,7 @@ public class RcEventHandler {
 			}
 		}
 	}
+
+
 
 }

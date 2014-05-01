@@ -89,7 +89,7 @@ public class EntityWrenchThrown extends EntityThrowable implements
 
 	public void onUpdate() {
 		super.onUpdate();
-		if (ticksLived <= 1) 
+		if (ticksLived <= 2) 
 		{
 		    if(owner == null)
 		        owner = worldObj.getClosestPlayer(posX, posY, posZ, 2);
@@ -106,7 +106,18 @@ public class EntityWrenchThrown extends EntityThrowable implements
 			returnToOwner();
 
 		}
-		if (ticksLived == (maxTicksBeforeReturn * 2) + 2) {
+		if (ticksLived >= 22) {
+			if (!owner.capabilities.isCreativeMode) {
+				if (originalItemThrown != null) {
+					originalItemThrown.stackSize += 1;
+					if (!owner.inventory
+							.addItemStackToInventory(originalItemThrown)) {
+						worldObj.spawnEntityInWorld(new EntityItem(
+								worldObj, posX, posY, posZ,
+								originalItemThrown));
+					}
+				}
+			}
 			this.setDead();
 		}
 

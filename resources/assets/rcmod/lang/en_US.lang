@@ -28,8 +28,17 @@ item.vendorCore.name=Vendor Core
 item.clankCore.name=Clank Core
 item.clank.name=Clank (Empty)
 item.helipackHelice.name=Helipack Helice
+item.clankHeli.helipack.name=Clank (Helipack)
+item.clankHeli.helipack-deployed.name=Clank (Helipack)
 
 item.clankHeli.name=Clank (Helipack)
+
+achievement.vendor=Becoming a Lombax
+achievement.vendor.desc=You crafted a Vendor !
+
+achievement.helipack=A great duo
+achievement.helipack.desc=You crafted an Helipack !
+
 
 item.ratchetEars.name=Ratchet's Ears
 item.metropolisRecord.name=R&C Mod - Music disc

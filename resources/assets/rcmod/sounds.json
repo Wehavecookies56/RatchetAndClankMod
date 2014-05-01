@@ -81,5 +81,11 @@
                 "stream": true
             }
         ]
+    },
+	"achievement": {
+        "category": "block",
+        "sounds": [
+            "achievement"
+        ]
     }
 }
