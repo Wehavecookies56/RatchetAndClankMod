@@ -1,4 +1,4 @@
-package com.gugu42.rcmod.render;
+package com.gugu42.rcmod.render.armor;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
@@ -6,6 +6,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 
 import org.lwjgl.opengl.GL11;
+
+import com.gugu42.rcmod.render.RcModelManager;
 
 public class ClankBackpackRender extends ModelBiped {
 

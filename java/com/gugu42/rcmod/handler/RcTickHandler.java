@@ -70,6 +70,14 @@ public class RcTickHandler {
 						player.getCurrentArmor(2).setItemDamage(1);
 					}
 				}
+				
+				if(canThrusterpack(player)){
+					if((!player.onGround) && (player.motionY < 0.0D)){
+						player.motionY *= 0.7D;
+						player.motionY *= 0.7D;
+						player.fallDistance = 0.0F;
+					}
+				}
 			}
 		}
 	}
@@ -101,6 +109,32 @@ public class RcTickHandler {
 								player.getEntityData().getInteger(
 										"clankCooldown") - 1);
 						player.getCurrentArmor(2).setItemDamage(0);
+					}
+					
+					return true;
+				} else {
+					player.getEntityData().setBoolean("clankJumped", false);
+					player.getEntityData().setBoolean("doubleJumped", false);
+					return false;
+				}
+			}
+		} else {
+			return false;
+		}
+		return false;
+	}
+	
+	private boolean canThrusterpack(EntityPlayer player) {
+		if (player.motionY < 0.0f
+				&& player.inventory.armorItemInSlot(2) != null
+				&& player.inventory.armorItemInSlot(2).getItem() == RcMod.thrusterPack) {
+			if (player.getEntityData().getBoolean("clankJumped")) {
+				if (player.getEntityData().getInteger("clankCooldown") >= 1) {
+					if (player.onGround) {
+						player.getEntityData().setInteger(
+								"clankCooldown",
+								player.getEntityData().getInteger(
+										"clankCooldown") - 1);
 					}
 					
 					return true;

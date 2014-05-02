@@ -7,7 +7,7 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 
 import com.gugu42.rcmod.RcMod;
-import com.gugu42.rcmod.render.RenderRatchetEars_Armor;
+import com.gugu42.rcmod.render.armor.RenderRatchetEars_Armor;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

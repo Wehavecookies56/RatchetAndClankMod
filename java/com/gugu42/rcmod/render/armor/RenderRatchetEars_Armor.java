@@ -1,4 +1,4 @@
-package com.gugu42.rcmod.render;
+package com.gugu42.rcmod.render.armor;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;

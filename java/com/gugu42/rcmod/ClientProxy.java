@@ -39,6 +39,7 @@ import com.gugu42.rcmod.render.TESRInventoryRenderer;
 import com.gugu42.rcmod.render.TESRInventoryRenderer.TESRIndex;
 import com.gugu42.rcmod.render.TaunterRender;
 import com.gugu42.rcmod.render.TeslaClawRender;
+import com.gugu42.rcmod.render.TileEntityShipSpecialRenderer;
 import com.gugu42.rcmod.render.TileEntityVendorSpecialRenderer;
 import com.gugu42.rcmod.render.VisibombRender;
 import com.gugu42.rcmod.render.WalloperRender;
@@ -109,6 +110,8 @@ public class ClientProxy extends CommonProxy {
         RenderingRegistry.registerBlockHandler(new TESRInventoryRenderer());
         TESRInventoryRenderer.blockByTESR.put(new TESRIndex(RcMod.vendor, 0),
                 new TileEntityVendorSpecialRenderer());
+        TESRInventoryRenderer.blockByTESR.put(new TESRIndex(RcMod.ship, 0),
+                new TileEntityShipSpecialRenderer());
         MinecraftForge.EVENT_BUS.register(new RcSoundHandler());
     }
 

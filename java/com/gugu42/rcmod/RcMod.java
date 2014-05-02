@@ -15,6 +15,7 @@ import net.minecraftforge.common.util.EnumHelper;
 import org.apache.logging.log4j.Logger;
 
 import com.gugu42.rcmod.blocks.BlockCrate;
+import com.gugu42.rcmod.blocks.BlockShip;
 import com.gugu42.rcmod.blocks.BlockTNTCrate;
 import com.gugu42.rcmod.blocks.BlockVendor;
 import com.gugu42.rcmod.entity.RcEntities;
@@ -24,8 +25,10 @@ import com.gugu42.rcmod.handler.RcEventHandler;
 import com.gugu42.rcmod.handler.RcTickHandler;
 import com.gugu42.rcmod.items.ItemClankBackpack;
 import com.gugu42.rcmod.items.ItemRatchetEars;
+import com.gugu42.rcmod.items.ItemThrusterPack;
 import com.gugu42.rcmod.items.RcItems;
 import com.gugu42.rcmod.network.GuiHandler;
+import com.gugu42.rcmod.tileentity.TileEntityShip;
 import com.gugu42.rcmod.tileentity.TileEntityVendor;
 import com.gugu42.rcmod.utils.ffmtutils.FFMTPacketHandler;
 
@@ -60,11 +63,13 @@ public class RcMod {
 	public static Block tntCrate;
 	public static Block crate;
 	public static Block vendor;
+	public static Block ship;
 	
 	public static SoundType crateStepSound;
 
 	public static Item clankBackpack;
 	public static Item ratchetEars;
+	public static Item thrusterPack;
 	
 	public ArmorMaterial EnumArmorMaterialClank = EnumHelper
 			.addArmorMaterial("Clank", 0, new int[] { 0, 0, 0, 0 }, 0);
@@ -125,8 +130,12 @@ public class RcMod {
 				.setBlockName("vendor").setBlockTextureName("rcmod:vendor")
 				.setHardness(10.0f);
 		GameRegistry.registerBlock(vendor, "vendor");
+		
+		ship = new BlockShip(Material.iron).setBlockName("ship").setBlockTextureName("rcmod:ship").setHardness(5.0f);
+//		GameRegistry.registerBlock(ship, "ship");
 
 		GameRegistry.registerTileEntity(TileEntityVendor.class, "vendor");
+//		GameRegistry.registerTileEntity(TileEntityShip.class, "ship");
 
 		/* -----Items----- */
 
@@ -140,6 +149,8 @@ public class RcMod {
 		GameRegistry.registerItem(clankBackpack, "clankHeli");
 		ratchetEars = new ItemRatchetEars(EnumArmorMaterialClank, 1, 0).setUnlocalizedName("ratchetEars").setTextureName("rcmod:ratchetears");
 		GameRegistry.registerItem(ratchetEars, "ratchetEars");
+		thrusterPack = new ItemThrusterPack(EnumArmorMaterialClank, 1, 1).setUnlocalizedName("thrusterpack").setTextureName("rcmod:thrusterpack");
+		GameRegistry.registerItem(thrusterPack, "thrusterpack");
 		
 		/* -----Other----- */
 

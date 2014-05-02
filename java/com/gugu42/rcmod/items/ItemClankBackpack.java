@@ -14,7 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
 import com.gugu42.rcmod.RcMod;
-import com.gugu42.rcmod.render.ClankBackpackRender;
+import com.gugu42.rcmod.render.armor.ClankBackpackRender;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

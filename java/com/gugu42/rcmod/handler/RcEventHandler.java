@@ -76,26 +76,36 @@ public class RcEventHandler {
 		if (event.entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.entity;
 			if (player.inventory.armorItemInSlot(2) != null
-					&& player.inventory.armorItemInSlot(2).getItem() == RcMod.clankBackpack
 					&& player.isSneaking()) {
-				event.entity.motionY += 0.3D;
-				event.entity.getEntityData().setBoolean("clankJumped", true);
-				event.entity.getEntityData().setInteger("clankCooldown", 2);
+				if (player.inventory.armorItemInSlot(2).getItem() == RcMod.thrusterPack
+						|| player.inventory.armorItemInSlot(2).getItem() == RcMod.clankBackpack) {
+					if(player.inventory.armorItemInSlot(2).getItem() == RcMod.clankBackpack)
+					event.entity.motionY += 0.3D;
+					else
+						event.entity.motionY += 0.35D;
+					event.entity.getEntityData()
+							.setBoolean("clankJumped", true);
+					event.entity.getEntityData().setInteger("clankCooldown", 2);
+				}
 			}
 
 			if (player.inventory.armorItemInSlot(2) != null
-					&& player.inventory.armorItemInSlot(2).getItem() == RcMod.clankBackpack
 					&& player.isSprinting()) {
-				double x = Math.cos(Math
-						.toRadians(player.rotationYawHead + 90.0F)) * 0.05d;
+				if (player.inventory.armorItemInSlot(2).getItem() == RcMod.thrusterPack
+						|| player.inventory.armorItemInSlot(2).getItem() == RcMod.clankBackpack) {
+					double x = Math.cos(Math
+							.toRadians(player.rotationYawHead + 90.0F)) * 0.15d;
 
-				double z = Math.sin(Math
-						.toRadians(player.rotationYawHead + 90.0F)) * 0.05d;
+					double z = Math.sin(Math
+							.toRadians(player.rotationYawHead + 90.0F)) * 0.15d;
 
-				player.motionX += x;
-				player.motionZ += z;
-				event.entity.getEntityData().setBoolean("clankJumped", true);
-				event.entity.getEntityData().setInteger("clankCooldown", 2);
+					player.motionX += x;
+					player.motionZ += z;
+					event.entity.getEntityData()
+							.setBoolean("clankJumped", true);
+					event.entity.getEntityData().setInteger("clankCooldown", 2);
+
+				}
 			}
 		}
 	}
@@ -105,7 +115,8 @@ public class RcEventHandler {
 		if (event.entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.entity;
 			if (player.inventory.armorItemInSlot(2) != null
-					&& player.inventory.armorItemInSlot(2).getItem() == RcMod.clankBackpack) {
+					&& player.inventory.armorItemInSlot(2).getItem() == RcMod.clankBackpack
+					|| player.inventory.armorItemInSlot(2) != null && player.inventory.armorItemInSlot(2).getItem() == RcMod.thrusterPack) {
 				event.setCanceled(true);
 			}
 		}
@@ -116,7 +127,8 @@ public class RcEventHandler {
 		if (event.entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.entity;
 			if (player.inventory.armorItemInSlot(2) != null
-					&& player.inventory.armorItemInSlot(2).getItem() == RcMod.clankBackpack) {
+					&& player.inventory.armorItemInSlot(2).getItem() == RcMod.clankBackpack
+					|| player.inventory.armorItemInSlot(2) != null && player.inventory.armorItemInSlot(2).getItem() == RcMod.thrusterPack) {
 				if (player.fallDistance > 1.6F) {
 					event.entity.getEntityData()
 							.setBoolean("clankJumped", true);
@@ -249,7 +261,5 @@ public class RcEventHandler {
 			}
 		}
 	}
-
-
 
 }
