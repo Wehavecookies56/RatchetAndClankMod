@@ -19,12 +19,16 @@ public class EntityVisibombAmmo extends EntityThrowable
 		this.motionX *= speed;
 		this.motionY *= speed;
 		this.motionZ *= speed;
-		this.setThrowableHeading(this.motionX, this.motionY, this.motionZ, this.func_70182_d(), 1.0F);
+		this.setThrowableHeading(this.motionX, this.motionY, this.motionZ, 0.0001f, 0.05F);
 	}
 
 	public EntityVisibombAmmo(World par1World,
 			EntityLivingBase par2EntityLivingBase) {
 		super(par1World, par2EntityLivingBase);
+		double speed = 0.5;
+        this.motionX *= speed;
+        this.motionY *= speed;
+        this.motionZ *= speed;
 		this.entityFiring = par2EntityLivingBase; 
 		this.entityFiringID = entityFiring.getEntityId();
 	}

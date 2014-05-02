@@ -1,13 +1,24 @@
 package com.gugu42.rcmod.testing;
 
+import com.gugu42.rcmod.RcMod;
 import com.gugu42.rcmod.entity.projectiles.EntityVisibombAmmo;
 
+import cpw.mods.fml.common.ObfuscationReflectionHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.renderer.EntityRenderer;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.shader.ShaderGroup;
+import net.minecraft.client.util.JsonException;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 
+/**
+ * TODO: Add controls, hint: Mouse.getDX/getDY might be useful 
+ *
+ */
 public class EntityVisibombCamera extends EntityLiving {
 	private static EntityVisibombCamera instance;
 	private Entity target;
@@ -25,7 +36,9 @@ public class EntityVisibombCamera extends EntityLiving {
     private static final long maxReturnTime = 500;
 	private static final int positionSmoother = 5;
 	private static final int rotationSmoother = 5;
-
+    private static final ResourceLocation shaderLocation = new ResourceLocation("rcmod", "shaders/post/visibomb.json");
+    
+    
 	private EntityVisibombCamera() {
 		super(null);
 
@@ -56,7 +69,6 @@ public class EntityVisibombCamera extends EntityLiving {
 			int despawnDelay) {
 		Minecraft mc = Minecraft.getMinecraft();
 		stopCam();
-
 		hideGUI = mc.gameSettings.hideGUI;
 		fovSetting = mc.gameSettings.fovSetting;
 		thirdPersonView = mc.gameSettings.thirdPersonView;
@@ -77,11 +89,34 @@ public class EntityVisibombCamera extends EntityLiving {
 
 		setPosition(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ);
 		setRotation(mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch);
-
+		activateGreenScreenShader();
 		doCameraMove();
 	}
 
-	public void stopCam() {
+	private void activateGreenScreenShader()
+    {
+	    if(OpenGlHelper.shadersSupported)
+	    {
+    	    ShaderGroup theShaderGroup;
+            try
+            {
+                theShaderGroup = new ShaderGroup(RcMod.rcResourceManager, Minecraft.getMinecraft().getFramebuffer(), shaderLocation);
+                theShaderGroup.createBindFramebuffers(Minecraft.getMinecraft().displayWidth, Minecraft.getMinecraft().displayHeight);
+                ObfuscationReflectionHelper.setPrivateValue(EntityRenderer.class, Minecraft.getMinecraft().entityRenderer, theShaderGroup, 42);
+            }
+            catch (JsonException e)
+            {
+                e.printStackTrace();
+            }
+	    }
+    }
+	
+	private void desactivateGreenScreenShader()
+    {
+        Minecraft.getMinecraft().entityRenderer.deactivateShader();
+    }
+
+    public void stopCam() {
 		Minecraft mc = Minecraft.getMinecraft();
 		if (worldObj != null)
 			worldObj.removeEntity(this);
@@ -128,6 +163,26 @@ public class EntityVisibombCamera extends EntityLiving {
 		setPosition(x, y+target.getEyeHeight(), z);
 		setRotation(yaw, pitch);
 	}
+	
+	public void setThrowableHeading(double par1, double par3, double par5, float par7, float par8)
+    {
+        float f2 = net.minecraft.util.MathHelper.sqrt_double(par1 * par1 + par3 * par3 + par5 * par5);
+        par1 /= (double)f2;
+        par3 /= (double)f2;
+        par5 /= (double)f2;
+        par1 += this.rand.nextGaussian() * 0.007499999832361937D * (double)par8;
+        par3 += this.rand.nextGaussian() * 0.007499999832361937D * (double)par8;
+        par5 += this.rand.nextGaussian() * 0.007499999832361937D * (double)par8;
+        par1 *= (double)par7;
+        par3 *= (double)par7;
+        par5 *= (double)par7;
+        this.motionX = par1;
+        this.motionY = par3;
+        this.motionZ = par5;
+        float f3 = net.minecraft.util.MathHelper.sqrt_double(par1 * par1 + par5 * par5);
+        this.prevRotationYaw = this.rotationYaw = (float)(Math.atan2(par1, par5) * 180.0D / Math.PI);
+        this.prevRotationPitch = this.rotationPitch = (float)(Math.atan2(par3, (double)f3) * 180.0D / Math.PI);
+    }
 
 	private void setIsReturning() {
 		oldPosX = posX;
@@ -142,6 +197,7 @@ public class EntityVisibombCamera extends EntityLiving {
 		isReturning = true;
 		EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
         target = player;
+        desactivateGreenScreenShader();
 	}
 
 	@Override

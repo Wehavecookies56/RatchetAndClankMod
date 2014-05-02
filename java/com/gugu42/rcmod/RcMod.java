@@ -1,19 +1,5 @@
 package com.gugu42.rcmod;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
-import net.minecraft.stats.Achievement;
-import net.minecraftforge.common.AchievementPage;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.common.util.EnumHelper;
-
-import org.apache.logging.log4j.Logger;
-
 import com.gugu42.rcmod.blocks.BlockCrate;
 import com.gugu42.rcmod.blocks.BlockShip;
 import com.gugu42.rcmod.blocks.BlockTNTCrate;
@@ -28,8 +14,8 @@ import com.gugu42.rcmod.items.ItemRatchetEars;
 import com.gugu42.rcmod.items.ItemThrusterPack;
 import com.gugu42.rcmod.items.RcItems;
 import com.gugu42.rcmod.network.GuiHandler;
-import com.gugu42.rcmod.tileentity.TileEntityShip;
 import com.gugu42.rcmod.tileentity.TileEntityVendor;
+import com.gugu42.rcmod.utils.RcSimpleResourceManager;
 import com.gugu42.rcmod.utils.ffmtutils.FFMTPacketHandler;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -45,8 +31,22 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
+import net.minecraft.block.Block.SoundType;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.IResourceManager;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraft.stats.Achievement;
+import net.minecraftforge.common.AchievementPage;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.util.EnumHelper;
 
-@Mod(modid = "rcmod", version = "0.4.4", name = "RcMod")
+import org.apache.logging.log4j.Logger;
+
+@Mod(modid = RcMod.MODID, version = "0.4.4", name = "RcMod")
 public class RcMod {
 	@SidedProxy(clientSide = "com.gugu42.rcmod.ClientProxy", serverSide = "com.gugu42.rcmod.CommonProxy")
 	public static CommonProxy proxy;
@@ -81,9 +81,12 @@ public class RcMod {
 	 */
 	public static final FFMTPacketHandler rcModPacketHandler = new FFMTPacketHandler("com.gugu42.rcmod.network.packets");
 
+    public static final String MODID = "rcmod";
+
 	public static AchievementPage rcAchievementPage;
 	
 	public static Achievement achievement_VendorCraft, achievement_HelipackCraft;
+	public static IResourceManager rcResourceManager;
 	
 	@EventHandler
 	public void PreInit(FMLPreInitializationEvent event) {
@@ -98,8 +101,9 @@ public class RcMod {
 	}
 
 	@EventHandler
-	public void Init(FMLInitializationEvent event) {
-
+	public void Init(FMLInitializationEvent event)
+	{
+	    rcResourceManager = new RcSimpleResourceManager();
 		/* -----Packet channels-----*/
 		rcModPacketHandler.initialise("RCMD|bolt");
 		rcModPacketHandler.initialise("RCMD|vend");
@@ -120,18 +124,18 @@ public class RcMod {
 		
 		/* -----Blocks----- */
 		tntCrate = new BlockTNTCrate(Material.tnt).setBlockName("tntCrate")
-				.setBlockTextureName("rcmod:tntcrate");
+				.setBlockTextureName(MODID+":tntcrate");
 		GameRegistry.registerBlock(tntCrate, "tntCrate");
 		crate = new BlockCrate(Material.wood).setBlockName("crate")
-				.setBlockTextureName("rcmod:crate").setHardness(0.0f).setStepSound(crateStepSound);
+				.setBlockTextureName(MODID+":crate").setHardness(0.0f).setStepSound(crateStepSound);
 		GameRegistry.registerBlock(crate, "crate");
 
 		vendor = new BlockVendor(Material.iron)
-				.setBlockName("vendor").setBlockTextureName("rcmod:vendor")
+				.setBlockName("vendor").setBlockTextureName(MODID+":vendor")
 				.setHardness(10.0f);
 		GameRegistry.registerBlock(vendor, "vendor");
 		
-		ship = new BlockShip(Material.iron).setBlockName("ship").setBlockTextureName("rcmod:ship").setHardness(5.0f);
+		ship = new BlockShip(Material.iron).setBlockName("ship").setBlockTextureName(MODID+":ship").setHardness(5.0f);
 //		GameRegistry.registerBlock(ship, "ship");
 
 		GameRegistry.registerTileEntity(TileEntityVendor.class, "vendor");
@@ -147,9 +151,9 @@ public class RcMod {
 				1).setUnlocalizedName("clankHeli").setTextureName(
 				"rcmod:clankheli");
 		GameRegistry.registerItem(clankBackpack, "clankHeli");
-		ratchetEars = new ItemRatchetEars(EnumArmorMaterialClank, 1, 0).setUnlocalizedName("ratchetEars").setTextureName("rcmod:ratchetears");
+		ratchetEars = new ItemRatchetEars(EnumArmorMaterialClank, 1, 0).setUnlocalizedName("ratchetEars").setTextureName(MODID+":ratchetears");
 		GameRegistry.registerItem(ratchetEars, "ratchetEars");
-		thrusterPack = new ItemThrusterPack(EnumArmorMaterialClank, 1, 1).setUnlocalizedName("thrusterpack").setTextureName("rcmod:thrusterpack");
+		thrusterPack = new ItemThrusterPack(EnumArmorMaterialClank, 1, 1).setUnlocalizedName("thrusterpack").setTextureName(MODID+":thrusterpack");
 		GameRegistry.registerItem(thrusterPack, "thrusterpack");
 		
 		/* -----Other----- */
