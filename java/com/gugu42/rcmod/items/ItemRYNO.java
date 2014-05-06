@@ -11,10 +11,6 @@ import net.minecraft.world.World;
 
 public class ItemRYNO extends ItemRcWeap {
 
-	private boolean hasFired = false;
-	private int fireCount = 0;
-	private int cooldown;
-
 	public ItemRYNO() {
 		super();
 		this.ammoPrice = 20;
@@ -31,10 +27,12 @@ public class ItemRYNO extends ItemRcWeap {
 				0.4F / (Item.itemRand.nextFloat() * 0.4F + 0.8F));
 
 		if (!par2World.isRemote) {
-			if (cooldown <= 0) {
-				fireCount = 27;
-				hasFired = true;
-				cooldown = 120;
+			if (par3EntityPlayer.getEntityData().getInteger("rynoCooldown") <= 0) {
+				par3EntityPlayer.getEntityData()
+						.setInteger("rynoFireCount", 27);
+				par3EntityPlayer.getEntityData().setBoolean("rynoFired", true);
+				par3EntityPlayer.getEntityData()
+						.setInteger("rynoCooldown", 120);
 				if (!par3EntityPlayer.capabilities.isCreativeMode) {
 					if (maxAmmo - par1ItemStack.getItemDamage() > 0) {
 						par1ItemStack.damageItem(1, par3EntityPlayer);
@@ -48,38 +46,43 @@ public class ItemRYNO extends ItemRcWeap {
 
 	public void onUpdate(ItemStack par1ItemStack, World par2World,
 			Entity par3Entity, int par4, boolean par5) {
-		if (cooldown >= 1) {
-			cooldown--;
+		if (par3Entity.getEntityData().getInteger("rynoCooldown") >= 1) {
+			par3Entity.getEntityData().setInteger("rynoCooldown",
+					par3Entity.getEntityData().getInteger("rynoCooldown") - 1);
 		}
 
-		if (hasFired) {
+		if (par3Entity.getEntityData().getBoolean("rynoFired")) {
 			EntityPlayer par3EntityPlayer = (EntityPlayer) par3Entity;
-			if (fireCount >= 1) {
-
-				fireCount--;
-				if (fireCount == 27) {
+			if (par3EntityPlayer.getEntityData().getInteger("rynoFireCount") >= 1) {
+				int playerFireCount = par3EntityPlayer.getEntityData()
+						.getInteger("rynoFireCount");
+				par3EntityPlayer.getEntityData().setInteger("rynoFireCount",
+						playerFireCount - 1);
+				if (playerFireCount == 27) {
 					fireRocket(par2World, par3EntityPlayer); // 1
-				} else if (fireCount == 24) {
+				} else if (playerFireCount == 24) {
 					fireRocket(par2World, par3EntityPlayer); // 2
-				} else if (fireCount == 21) {
+				} else if (playerFireCount == 21) {
 					fireRocket(par2World, par3EntityPlayer); // 3
-				} else if (fireCount == 18) {
+				} else if (playerFireCount == 18) {
 					fireRocket(par2World, par3EntityPlayer); // 4
-				} else if (fireCount == 15) {
+				} else if (playerFireCount == 15) {
 					fireRocket(par2World, par3EntityPlayer); // 5
-				} else if (fireCount == 12) {
+				} else if (playerFireCount == 12) {
 					fireRocket(par2World, par3EntityPlayer); // 6
-				} else if (fireCount == 9) {
+				} else if (playerFireCount == 9) {
 					fireRocket(par2World, par3EntityPlayer); // 7
-				} else if (fireCount == 6) {
+				} else if (playerFireCount == 6) {
 					fireRocket(par2World, par3EntityPlayer); // 8
-				} else if (fireCount == 3) {
+				} else if (playerFireCount == 3) {
 					fireRocket(par2World, par3EntityPlayer); // 9
 				}
 
-				if (fireCount == 0) {
-					hasFired = false;
+				if (playerFireCount == 0) {
+					par3EntityPlayer.getEntityData().setBoolean("rynoFired",
+							false);
 				}
+				
 			}
 
 		}

@@ -13,27 +13,27 @@ import net.minecraftforge.client.model.IModelCustom;
 public class TileEntityShipSpecialRenderer extends TileEntitySpecialRenderer
 		implements IInventoryRenderer {
 
-	// private TessellatorModel model;
+	 private TessellatorModel model;
 
-	private IModelCustom model;
-	public static final ResourceLocation textureLocation = new ResourceLocation(
-			"rcmod:models/RatchetShip.png");
+//	private IModelCustom model;
+//	public static final ResourceLocation textureLocation = new ResourceLocation(
+//			"rcmod:models/RatchetShip.png");
 
 	public TileEntityShipSpecialRenderer() {
-		// model = new TessellatorModel("/assets/rcmod/models/RatchetShip.obj");
-		// model.regenerateNormals();
-		model = AdvancedModelLoader.loadModel(new ResourceLocation(
-				"rcmod:models/" + "RatchetShip.obj"));
+		 model = new TessellatorModel("/assets/rcmod/models/RatchetShip.obj");
+		 model.regenerateNormals();
+//		model = AdvancedModelLoader.loadModel(new ResourceLocation(
+//				"rcmod:models/" + "RatchetShip.obj"));
 	}
 
 	@Override
 	public void renderInventory(double x, double y, double z) {
 		GL11.glPushMatrix();
 		GL11.glTranslated(x - 0.15f, y - 0.5d, z + 0.15f);
-		this.bindTexture(textureLocation);
+//		this.bindTexture(textureLocation);
 		GL11.glScalef(0.021f, 0.021f, 0.021f);
-//		GL11.glShadeModel(GL11.GL_SMOOTH);
-		model.renderAll();
+		GL11.glShadeModel(GL11.GL_SMOOTH);
+		model.render();
 		GL11.glPopMatrix();
 	}
 
@@ -42,10 +42,10 @@ public class TileEntityShipSpecialRenderer extends TileEntitySpecialRenderer
 			float tick) {
 		GL11.glPushMatrix();
 		GL11.glTranslated(x, y, z);
-		this.bindTexture(textureLocation);
+//		this.bindTexture(textureLocation);
 		GL11.glScalef(0.046f, 0.046f, 0.046f);
-//		GL11.glShadeModel(GL11.GL_SMOOTH);
-		model.renderAll();
+		GL11.glShadeModel(GL11.GL_SMOOTH);
+		model.render();
 		GL11.glPopMatrix();
 	}
 

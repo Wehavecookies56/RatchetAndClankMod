@@ -19,6 +19,8 @@ public class EntityRYNOAmmo extends EntityThrowable {
 	private int ticksAlive = 0;
 	protected EntityLiving target;
 	protected EntityPlayer shootingEntity;
+	protected Entity predefTarget;
+	public boolean shouldUpdateTarget = true;
 
 	public EntityRYNOAmmo(World par1World) {
 		super(par1World);
@@ -32,6 +34,14 @@ public class EntityRYNOAmmo extends EntityThrowable {
 	public EntityRYNOAmmo(World par1World, EntityPlayer par3EntityPlayer) {
 		super(par1World, par3EntityPlayer);
 		this.shootingEntity = par3EntityPlayer;
+	}
+
+	public EntityRYNOAmmo(World par1World, EntityPlayer par3EntityPlayer,
+			Entity target) {
+		super(par1World, par3EntityPlayer);
+		this.shootingEntity = par3EntityPlayer;
+		this.predefTarget = target;
+		this.shouldUpdateTarget = false;
 	}
 
 	protected void entityInit() {
@@ -56,6 +66,11 @@ public class EntityRYNOAmmo extends EntityThrowable {
 			setDead();
 			this.ticksAlive = 0;
 		}
+
+		if (predefTarget != null) {
+			this.target = (EntityLiving) predefTarget;
+		}
+
 		this.worldObj.spawnParticle("smoke", this.posX, this.posY, this.posZ,
 				0.0D, 0.0D, 0.0D);
 		this.worldObj.spawnParticle("flame", this.posX, this.posY, this.posZ,
@@ -65,9 +80,10 @@ public class EntityRYNOAmmo extends EntityThrowable {
 				|| (this.target.velocityChanged)
 				|| (!this.target.canEntityBeSeen(this))
 				|| this.target.isDead
-				|| this.target.getEntityData().getInteger("missilesTargeting") != this.hashCode()) {
-
-			this.target = this.getNearestEntity();
+				|| this.target.getEntityData().getInteger("missilesTargeting") != this
+						.hashCode()) {
+			if (shouldUpdateTarget)
+				this.target = this.getNearestEntity();
 		}
 
 		if (this.target != null) {
