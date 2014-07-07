@@ -1,9 +1,5 @@
 package com.gugu42.rcmod.testing;
 
-import com.gugu42.rcmod.RcMod;
-import com.gugu42.rcmod.entity.projectiles.EntityVisibombAmmo;
-
-import cpw.mods.fml.common.ObfuscationReflectionHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.renderer.EntityRenderer;
@@ -14,6 +10,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+
+import com.gugu42.rcmod.ClientProxy;
+import com.gugu42.rcmod.entity.projectiles.EntityVisibombAmmo;
+
+import cpw.mods.fml.common.ObfuscationReflectionHelper;
 
 /**
  * TODO: Add controls, hint: Mouse.getDX/getDY might be useful 
@@ -100,7 +101,7 @@ public class EntityVisibombCamera extends EntityLiving {
     	    ShaderGroup theShaderGroup;
             try
             {
-                theShaderGroup = new ShaderGroup(RcMod.rcResourceManager, Minecraft.getMinecraft().getFramebuffer(), shaderLocation);
+                theShaderGroup = new ShaderGroup(ClientProxy.rcResourceManager, Minecraft.getMinecraft().getFramebuffer(), shaderLocation);
                 theShaderGroup.createBindFramebuffers(Minecraft.getMinecraft().displayWidth, Minecraft.getMinecraft().displayHeight);
                 ObfuscationReflectionHelper.setPrivateValue(EntityRenderer.class, Minecraft.getMinecraft().entityRenderer, theShaderGroup, 42);
             }

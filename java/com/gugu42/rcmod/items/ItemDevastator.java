@@ -15,9 +15,10 @@ public class ItemDevastator extends ItemRcWeap {
 
 	public ItemDevastator() {
 		super();
-		this.useTargetingSystem = true;
+//		this.useTargetingSystem = true;
 		this.useAmmo = true;
-		this.maxAmmo = 15;
+		this.maxAmmo = 20;
+		this.ammoPrice = 50;
 		this.setMaxDamage(this.maxAmmo);
 	}
 
@@ -45,14 +46,13 @@ public class ItemDevastator extends ItemRcWeap {
 	@Override
 	public void onUpdate(ItemStack par1ItemStack, World par2World,
 			Entity par3Entity, int par4, boolean par5) {
-		// Targeting thingy
 		if (par5 && par3Entity instanceof EntityPlayer && !par2World.isRemote) {
 			if (par3Entity.getEntityData().getBoolean("devastatorFired")) {
 				EntityPlayer player = (EntityPlayer) par3Entity;
 				Entity target = null;
 				List entityTagetList = par2World.getEntitiesWithinAABB(
 						Entity.class,
-						player.boundingBox.expand(32.0D, 32.0D, 32.0D));
+						player.boundingBox.expand(48.0D, 48.0D, 48.0D));
 				for (int i = 0; i < entityTagetList.size(); i++) {
 					Entity entityTarget = (Entity) entityTagetList.get(i);
 					if (entityTarget != player

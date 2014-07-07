@@ -1,5 +1,6 @@
 package com.gugu42.rcmod;
 
+import net.minecraft.client.resources.IResourceManager;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -43,13 +44,18 @@ import com.gugu42.rcmod.render.TileEntityShipSpecialRenderer;
 import com.gugu42.rcmod.render.TileEntityVendorSpecialRenderer;
 import com.gugu42.rcmod.render.VisibombRender;
 import com.gugu42.rcmod.render.WalloperRender;
+import com.gugu42.rcmod.tileentity.TileEntityShip;
 import com.gugu42.rcmod.tileentity.TileEntityVendor;
+import com.gugu42.rcmod.utils.RcSimpleResourceManager;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
 public class ClientProxy extends CommonProxy {
 
+	
+	//THIS NEEDS TO BE CLIENT SIDE ONLY !
+	public static IResourceManager rcResourceManager = new RcSimpleResourceManager();
     public static int renderInventoryTESRId;
 
     @Override
@@ -119,6 +125,8 @@ public class ClientProxy extends CommonProxy {
     public void registerTileEntityRender() {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityVendor.class,
                 new TileEntityVendorSpecialRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityShip.class,
+                new TileEntityShipSpecialRenderer());
     }
 
 

@@ -9,14 +9,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.gugu42.rcmod.RcMod;
-
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.SimpleResource;
 import net.minecraft.client.resources.data.IMetadataSerializer;
 import net.minecraft.util.ResourceLocation;
 
+import com.gugu42.rcmod.RcMod;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
+@SideOnly(Side.CLIENT)
 public class RcSimpleResourceManager implements IResourceManager
 {
 
