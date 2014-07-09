@@ -1,6 +1,9 @@
 package com.gugu42.rcmod;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResourceManager;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -128,6 +131,6 @@ public class ClientProxy extends CommonProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityShip.class,
                 new TileEntityShipSpecialRenderer());
     }
-
+    
 
 }

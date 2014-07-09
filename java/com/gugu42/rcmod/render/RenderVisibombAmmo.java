@@ -33,8 +33,8 @@ public class RenderVisibombAmmo extends Render
         GL11.glScalef(0.5F, 0.5F, 0.5F);
         GL11.glScalef(0.5F, 0.5F, 0.5F);
         GL11.glRotatef(0.0F, 0.0F, 360.0F, 0.0F);
-        GL11.glRotatef(0.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-        GL11.glRotatef(this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+        GL11.glRotatef(par1EntityVisibombAmmo.rotationPitch, -1.0F, 0.0F, 0.0F);
+        GL11.glRotatef(par1EntityVisibombAmmo.rotationYaw, 0.0F, 1.0F, 0.0F);
         engine.bindTexture(textureLocation);
         this.model1.renderAll();
         GL11.glPopMatrix();

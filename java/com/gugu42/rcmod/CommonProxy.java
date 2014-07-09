@@ -50,4 +50,5 @@ public class CommonProxy implements IGuiHandler {
 	{
 		
 	}
+
 }

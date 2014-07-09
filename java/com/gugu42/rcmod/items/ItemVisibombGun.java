@@ -21,6 +21,7 @@ public class ItemVisibombGun extends ItemRcWeap
 		this.maxAmmo = 20;
 		this.weaponName = "visibomb";
 		this.hasAmmoImage = true;
+		this.hideCrosshair = true;
 		this.heldType = 1;
 		this.setMaxDamage(maxAmmo);
 	}
@@ -30,10 +31,9 @@ public class ItemVisibombGun extends ItemRcWeap
 		if (maxAmmo - par1ItemStack.getItemDamage() > 0) {
 			if (!par2World.isRemote) {
 				if (cooldown <= 0) {
-					EntityVisibombAmmo rocket = new EntityVisibombAmmo(par2World, par3EntityPlayer);
-					par2World.spawnEntityInWorld(rocket);
+					par2World.spawnEntityInWorld(new EntityVisibombAmmo(par2World, par3EntityPlayer));
 					par1ItemStack.damageItem(1, par3EntityPlayer);
-					cooldown = 120;
+					cooldown = 200;
 					par3EntityPlayer.swingItem();
 				}
 			}

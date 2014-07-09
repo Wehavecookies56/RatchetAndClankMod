@@ -34,6 +34,10 @@ public class EntityVisibombCamera extends EntityLiving {
     private double oldPosY;
     private double oldPosZ;
     
+    private float oldRotYaw;
+    private float oldRotYawHead;
+    private float oldRotPitch;
+    
     private static final long maxReturnTime = 500;
 	private static final int positionSmoother = 5;
 	private static final int rotationSmoother = 5;
@@ -59,7 +63,7 @@ public class EntityVisibombCamera extends EntityLiving {
 	}
 
 	public void startCam(Entity target, boolean invert) {
-		startCam(target, invert, 120);
+		startCam(target, invert, 150);
 	}
 
 	public void startCam(Entity target, boolean invert, int maxLife) {
@@ -87,7 +91,11 @@ public class EntityVisibombCamera extends EntityLiving {
 		this.isDead = false;
 		worldObj = target.worldObj;
 		worldObj.spawnEntityInWorld(this);
-
+		this.oldRotYaw = mc.thePlayer.rotationYaw;
+		this.oldRotYawHead = mc.thePlayer.rotationYawHead;
+		this.oldRotPitch = mc.thePlayer.rotationPitch;
+		
+		
 		setPosition(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ);
 		setRotation(mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch);
 		activateGreenScreenShader();
@@ -131,6 +139,9 @@ public class EntityVisibombCamera extends EntityLiving {
 		mc.gameSettings.fovSetting = fovSetting;
 		mc.gameSettings.thirdPersonView = thirdPersonView;
 		mc.renderViewEntity = mc.thePlayer;
+		mc.thePlayer.rotationPitch = oldRotPitch;
+		mc.thePlayer.rotationYaw = oldRotYaw;
+		mc.thePlayer.rotationYawHead = oldRotYawHead;
 	}
 
 	private void doCameraMove() {
