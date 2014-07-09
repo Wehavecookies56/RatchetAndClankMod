@@ -1,6 +1,7 @@
 package com.gugu42.rcmod.handler;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.EntityLivingBase;
@@ -254,9 +255,12 @@ public class RcEventHandler {
 				.getItem() instanceof ItemRcWeap) {
 			ItemRcWeap item = (ItemRcWeap) Minecraft.getMinecraft().thePlayer
 					.getCurrentEquippedItem().getItem();
-			if (item.hasCrosshair || item.hideCrosshair) {
-				if (event.type == RenderGameOverlayEvent.ElementType.CROSSHAIRS) {
+			if (item.hasCrosshair || item.hideCrosshair)
+			{
+				if (event.type == RenderGameOverlayEvent.ElementType.CROSSHAIRS)
+				{
 					event.setCanceled(true);
+					Minecraft.getMinecraft().getTextureManager().bindTexture(Gui.icons);
 				}
 			}
 		}

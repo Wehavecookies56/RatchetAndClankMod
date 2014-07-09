@@ -16,10 +16,6 @@ import com.gugu42.rcmod.entity.projectiles.EntityVisibombAmmo;
 
 import cpw.mods.fml.common.ObfuscationReflectionHelper;
 
-/**
- * TODO: Add controls, hint: Mouse.getDX/getDY might be useful 
- *
- */
 public class EntityVisibombCamera extends EntityLiving {
 	private static EntityVisibombCamera instance;
 	private Entity target;

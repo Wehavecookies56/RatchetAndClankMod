@@ -42,7 +42,6 @@ public class GuiBolt extends Gui {
 
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public void onRenderExperienceBar(RenderGameOverlayEvent event) {
-
 		if (event.isCancelable() || event.type != ElementType.EXPERIENCE) {
 			return;
 		}
@@ -138,6 +137,8 @@ public class GuiBolt extends Gui {
 
 			}
 		}
+		
+		this.mc.getTextureManager().bindTexture(icons);
 	}
 
 	@SideOnly(Side.CLIENT)
