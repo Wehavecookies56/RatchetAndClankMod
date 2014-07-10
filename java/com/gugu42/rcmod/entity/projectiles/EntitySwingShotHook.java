@@ -4,11 +4,15 @@ import java.util.List;
 
 import com.gugu42.rcmod.RcMod;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.network.play.server.S12PacketEntityVelocity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
@@ -48,7 +52,24 @@ public class EntitySwingShotHook extends EntityThrowable {
 		}
 		if (shouldPullPlayer) {
 
-			pullPlayer(thrower);
+			if (thrower instanceof EntityPlayerMP) {
+
+				EntityPlayerMP throwerMP = (EntityPlayerMP) thrower;
+
+				Vec3 playerPos = throwerMP.getPosition(1.0f);
+				Vec3 entPos = this.getPosition(1.0f);
+
+				Vec3 a = playerPos.subtract(entPos);
+
+				Vec3 b = Vec3.createVectorHelper(a.xCoord, a.yCoord, a.zCoord);
+				double suckingPower = 5;
+				customKnockBack(throwerMP, 0, b.xCoord * suckingPower, b.yCoord
+						* suckingPower, b.zCoord * suckingPower);
+
+				throwerMP.playerNetServerHandler
+						.sendPacket(new S12PacketEntityVelocity(throwerMP));
+
+			}
 
 			List entityTagetList = this.worldObj.getEntitiesWithinAABB(
 					Entity.class, this.boundingBox.expand(0.3D, 0.3D, 0.3D));
@@ -56,10 +77,21 @@ public class EntitySwingShotHook extends EntityThrowable {
 				Entity entityTarget = (Entity) entityTagetList.get(i);
 				if (entityTarget != null && entityTarget == thrower) {
 					this.setDead();
+					if (thrower instanceof EntityPlayerMP) {
+
+						EntityPlayerMP throwerMP = (EntityPlayerMP) thrower;
+						
+						throwerMP.motionX = 0;
+						throwerMP.motionZ = 0;
+						throwerMP.motionY = 0;
+						
+						throwerMP.playerNetServerHandler
+						.sendPacket(new S12PacketEntityVelocity(throwerMP));
+					}
+					
+					
 					thrower.getEntityData()
 							.setBoolean("canFireSwingshot", true);
-					System.out
-							.println("SWGSHT : Died because I pulled the player");
 				}
 			}
 		}
@@ -74,8 +106,6 @@ public class EntitySwingShotHook extends EntityThrowable {
 					this.setDead();
 					thrower.getEntityData()
 							.setBoolean("canFireSwingshot", true);
-					System.out
-							.println("SWGSHT : Died because I returned the player");
 				}
 			}
 
@@ -84,13 +114,11 @@ public class EntitySwingShotHook extends EntityThrowable {
 		if (timeLived >= 70 && !shouldPullPlayer) {
 			this.setDead();
 			thrower.getEntityData().setBoolean("canFireSwingshot", true);
-			System.out.println("SWGSHT : Died because I was old");
 		}
 
 		if (timeLived >= 120) {
 			this.setDead();
 			thrower.getEntityData().setBoolean("canFireSwingshot", true);
-			System.out.println("SWGSHT : Died because I was very old");
 		}
 
 	}
@@ -121,49 +149,7 @@ public class EntitySwingShotHook extends EntityThrowable {
 	}
 
 	public void pullPlayer(EntityPlayer player) {
-		// Vec3 playerHookVec = Vec3.createVectorHelper(posX - player.posX, posY
-		// - player.posY, posZ - player.posZ);
-		//
-		// playerHookVec.normalize();
-		//
-		// player.addVelocity(-player.motionX * 0.5, -player.motionY * 0.5,
-		// -player.motionZ * 0.5);
-		// player.addVelocity(playerHookVec.xCoord * 0.5,
-		// playerHookVec.yCoord * 0.5, playerHookVec.zCoord * 0.5);
 
-		if (player instanceof EntityPlayerMP) {
-			EntityPlayerMP playerMP = (EntityPlayerMP)player;
-			
-			double par1 = this.posX - thrower.posX;
-			double par3 = this.posY - thrower.posY;
-			double par5 = this.posZ - thrower.posZ;
-			float par7 = 0.5f;
-			float par8 = 0.0f;
-
-			float f2 = MathHelper.sqrt_double(par1 * par1 + par3 * par3 + par5
-					* par5);
-			par1 /= (double) f2;
-			par3 /= (double) f2;
-			par5 /= (double) f2;
-			par1 += this.rand.nextGaussian() * 0.007499999832361937D
-					* (double) par8;
-			par3 += this.rand.nextGaussian() * 0.007499999832361937D
-					* (double) par8;
-			par5 += this.rand.nextGaussian() * 0.007499999832361937D
-					* (double) par8;
-			par1 *= (double) par7;
-			par3 *= (double) par7;
-			par5 *= (double) par7;
-			playerMP.motionX = par1;
-			playerMP.motionY = par3;
-			playerMP.motionZ = par5;
-			float f3 = MathHelper.sqrt_double(par1 * par1 + par5 * par5);
-			playerMP.prevRotationYaw = this.rotationYaw = (float) (Math.atan2(
-					par1, par5) * 180.0D / Math.PI);
-			playerMP.prevRotationPitch = this.rotationPitch = (float) (Math
-					.atan2(par3, (double) f3) * 180.0D / Math.PI);
-		}
-		// this.ticksInGround = 0;
 	}
 
 	protected void returnToThrower() {
@@ -174,13 +160,50 @@ public class EntitySwingShotHook extends EntityThrowable {
 			double newX = thrower.posX - this.posX;
 			double newY = thrower.posY - this.posY;
 			double newZ = thrower.posZ - this.posZ;
-			setThrowableHeading(newX, newY, newZ, this.func_70182_d(), 0.0F);
+			setThrowableHeading(newX, newY + 0.5d, newZ, this.func_70182_d(), 0.0F);
 		}
 
 	}
 
+	public void customKnockBack(EntityLivingBase par1Entity, float par2,
+			double par3, double par4, double par5) {
+		// if (par1Entity.worldObj.rand.nextDouble() >=
+		// par1Entity.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).getAttributeValue())
+		// {
+		par1Entity.isAirBorne = true;
+		float f1 = MathHelper.sqrt_double(par3 * par3 + par5 * par5);
+		float f2 = 0.4F;
+		par1Entity.motionX /= 2.0D;
+		par1Entity.motionY /= 2.0D;
+		par1Entity.motionZ /= 2.0D;
+		par1Entity.motionX += par3 / (double) f1 * (double) f2;
+		par1Entity.motionY += par4 / (double) f1 * (double) f2;
+		par1Entity.motionZ += par5 / (double) f1 * (double) f2;
+
+		if (par1Entity.motionY > 0.4000000059604645D) {
+			par1Entity.motionY = 0.4000000059604645D;
+		}
+		// }
+	}
+
 	protected float getGravityVelocity() {
 		return 0.00F;
+	}
+
+	@SideOnly(Side.CLIENT)
+	public Vec3 getPosition(float par1) {
+		if (par1 == 1.0F) {
+			return this.worldObj.getWorldVec3Pool().getVecFromPool(this.posX,
+					this.posY, this.posZ);
+		} else {
+			double d0 = this.prevPosX + (this.posX - this.prevPosX)
+					* (double) par1;
+			double d1 = this.prevPosY + (this.posY - this.prevPosY)
+					* (double) par1;
+			double d2 = this.prevPosZ + (this.posZ - this.prevPosZ)
+					* (double) par1;
+			return this.worldObj.getWorldVec3Pool().getVecFromPool(d0, d1, d2);
+		}
 	}
 
 }

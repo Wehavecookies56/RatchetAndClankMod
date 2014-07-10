@@ -2,9 +2,14 @@ package com.gugu42.rcmod.handler;
 
 import java.util.List;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.network.play.server.S12PacketEntityVelocity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 import com.gugu42.rcmod.RcMod;
@@ -70,15 +75,17 @@ public class RcTickHandler {
 						player.getCurrentArmor(2).setItemDamage(1);
 					}
 				}
-				
-				if(canThrusterpack(player)){
-					if((!player.onGround) && (player.motionY < 0.0D)){
+
+				if (canThrusterpack(player)) {
+					if ((!player.onGround) && (player.motionY < 0.0D)) {
 						player.motionY *= 0.7D;
 						player.motionY *= 0.7D;
 						player.fallDistance = 0.0F;
 					}
 				}
+
 			}
+
 		}
 	}
 
@@ -110,7 +117,7 @@ public class RcTickHandler {
 										"clankCooldown") - 1);
 						player.getCurrentArmor(2).setItemDamage(0);
 					}
-					
+
 					return true;
 				} else {
 					player.getEntityData().setBoolean("clankJumped", false);
@@ -123,7 +130,7 @@ public class RcTickHandler {
 		}
 		return false;
 	}
-	
+
 	private boolean canThrusterpack(EntityPlayer player) {
 		if (player.motionY < 0.0f
 				&& player.inventory.armorItemInSlot(2) != null
@@ -136,7 +143,7 @@ public class RcTickHandler {
 								player.getEntityData().getInteger(
 										"clankCooldown") - 1);
 					}
-					
+
 					return true;
 				} else {
 					player.getEntityData().setBoolean("clankJumped", false);
@@ -171,5 +178,4 @@ public class RcTickHandler {
 			}
 		}
 	}
-
 }
