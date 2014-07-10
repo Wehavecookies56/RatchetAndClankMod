@@ -7,6 +7,7 @@ import com.gugu42.rcmod.entity.projectiles.EntityDecoyGloveAmmo;
 import com.gugu42.rcmod.entity.projectiles.EntityMineGloveAmmo;
 import com.gugu42.rcmod.entity.projectiles.EntityPyrocitorAmmo;
 import com.gugu42.rcmod.entity.projectiles.EntityRYNOAmmo;
+import com.gugu42.rcmod.entity.projectiles.EntitySuckCannonProj;
 import com.gugu42.rcmod.entity.projectiles.EntitySwingShotHook;
 import com.gugu42.rcmod.entity.projectiles.EntityVisibombAmmo;
 import com.gugu42.rcmod.entity.projectiles.EntityWrenchThrown;
@@ -71,6 +72,11 @@ public class RcEntities {
 				"swingshothook", EntityRegistry.findGlobalUniqueEntityId());
 		EntityRegistry.registerModEntity(EntitySwingShotHook.class,
 				"swingshothook", 60, RcMod.instance, 256, 1, false);
+		
+		EntityRegistry.registerGlobalEntityID(EntitySuckCannonProj.class,
+				"suckcannonproj", EntityRegistry.findGlobalUniqueEntityId());
+		EntityRegistry.registerModEntity(EntitySuckCannonProj.class,
+				"suckcannonproj", 61, RcMod.instance, 256, 1, false);
 	}
 
 }

@@ -25,12 +25,29 @@ public class ItemSuckCannon extends ItemRcWeap
 	public ItemSuckCannon()
 	{
 		super();
+		this.maxAmmo = 8;
+		this.setMaxDamage(maxAmmo);
 		this.heldType = 1;
+		this.maxStackSize = 1;
+	}
+	
+	public void onUpdate(ItemStack stack, World w, Entity owner, int i, boolean held)
+	{
+		if(owner instanceof EntityPlayer)
+		{
+			EntityPlayer player = (EntityPlayer)owner;
+			ExtendedPropsSuckCannon props = ExtendedPropsSuckCannon.get(player);
+			int loaded = props.getStack().size();
+			if(loaded != maxAmmo - stack.getItemDamage())
+				stack.setItemDamage(maxAmmo - loaded);
+		}
 	}
 	
 	@SuppressWarnings("unchecked")
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer owner)
 	{
+		if(stack.getItemDamage() == 0)
+			return stack;
 		double radius = 10;
 		List<EntityLiving> entities = world.getEntitiesWithinAABB(EntityLiving.class, owner.boundingBox.expand(radius,radius,radius));
 		
@@ -58,6 +75,7 @@ public class ItemSuckCannon extends ItemRcWeap
 					else
 					{
 						entity.setDead();
+						stack.damageItem(-1, owner);
 						if(!world.isRemote)
 						{
 							ExtendedPropsSuckCannon props = ExtendedPropsSuckCannon.get(owner);
@@ -82,8 +100,9 @@ public class ItemSuckCannon extends ItemRcWeap
 			if(data == null)
 				return false;
 			
+			stack.damageItem(1, owner);
 			if(owner.worldObj.isRemote)
-				return false;
+				return true;
 			try
 			{
 				props.sync();
@@ -93,8 +112,11 @@ public class ItemSuckCannon extends ItemRcWeap
 				{
 					EntitySuckCannonProj proj = new EntitySuckCannonProj(player.worldObj, player);
 					e.mountEntity(proj);
-					proj.setPosition(player.posX, player.posY, player.posZ);
+					proj.setPosition(player.posX, player.posY+1, player.posZ);
+					e.setPosition(player.posX, player.posY+1, player.posZ);
 					owner.worldObj.spawnEntityInWorld(proj);
+					owner.worldObj.spawnEntityInWorld(e);
+					proj.setOwnerID(owner.getEntityId());
 				}
 			}
 			catch(NBTException e)

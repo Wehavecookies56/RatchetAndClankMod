@@ -69,6 +69,8 @@ public class ExtendedPropsSuckCannon implements IExtendedEntityProperties
 	private void createStackFromJsonArrayString(String string)
 	{
 		nbtStack.clear();
+		if(string == null || string.equals(""))
+			return;
 		JSONArray compound = new JSONArray(string);
 		for(int i = 0;i<compound.length();i++)
 		{
