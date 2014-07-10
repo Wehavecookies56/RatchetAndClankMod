@@ -32,6 +32,10 @@ public class RcItems {
 	public static Item suckCannon;
 	public static Item taunter;
 	public static Item teslaClaw;
+	
+	// All gadgets from RC1 goes there
+	
+	public static Item swingShot;
 
 	public RcItems(){
 		
@@ -113,6 +117,11 @@ public class RcItems {
 				.setTextureName("rcmod:teslaClaw")
 				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
 		GameRegistry.registerItem(teslaClaw, "teslaClaw");
+		
+		/*  GADGETS  */
+		
+		swingShot = new ItemSwingShot().setUnlocalizedName("swingShot").setTextureName("rcmod:swingShot").setCreativeTab(RcMod.rcGadgTab).setFull3D();
+		GameRegistry.registerItem(swingShot, "swingShot");
 	}
 	
 	public static void initModItems(){

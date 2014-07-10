@@ -24,6 +24,8 @@ item.suckCannon.name=Suck Cannon
 item.taunter.name=Taunter
 item.teslaClaw.name=Tesla Claw
 
+item.swingShot.name=Swing Shot
+
 item.vendorCore.name=Vendor Core
 item.clankCore.name=Clank Core
 item.clank.name=Clank (Empty)
@@ -32,6 +34,7 @@ item.clankHeli.helipack.name=Clank (Helipack)
 item.clankHeli.helipack-deployed.name=Clank (Helipack)
 
 item.clankHeli.name=Clank (Helipack)
+item.thrusterpack.name=Clank (Thrusterpack)
 
 achievement.vendor=Becoming a Lombax
 achievement.vendor.desc=You crafted a Vendor !
@@ -47,3 +50,4 @@ item.metropolisRecord.desc=Metropolis - Kerwan
 
 itemGroup.rcTab=Ratchet & Clank Mod
 itemGroup.rcWeapTab=Ratchet & Clank Weapons
+itemGroup.rcGadgTab=Ratchet & Clank Gadgets

@@ -1,10 +1,25 @@
 package com.gugu42.rcmod;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.Block.SoundType;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraft.stats.Achievement;
+import net.minecraftforge.common.AchievementPage;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.util.EnumHelper;
+
+import org.apache.logging.log4j.Logger;
+
 import com.gugu42.rcmod.blocks.BlockCrate;
 import com.gugu42.rcmod.blocks.BlockShip;
 import com.gugu42.rcmod.blocks.BlockShipFiller;
 import com.gugu42.rcmod.blocks.BlockTNTCrate;
 import com.gugu42.rcmod.blocks.BlockVendor;
+import com.gugu42.rcmod.blocks.BlockVersaTargetGreen;
 import com.gugu42.rcmod.entity.RcEntities;
 import com.gugu42.rcmod.gui.GuiBolt;
 import com.gugu42.rcmod.handler.RcAchievementEventHandler;
@@ -19,7 +34,7 @@ import com.gugu42.rcmod.network.GuiHandler;
 import com.gugu42.rcmod.tileentity.TileEntityShip;
 import com.gugu42.rcmod.tileentity.TileEntityShipFiller;
 import com.gugu42.rcmod.tileentity.TileEntityVendor;
-import com.gugu42.rcmod.utils.RcSimpleResourceManager;
+import com.gugu42.rcmod.tileentity.TileEntityVersaTargetG;
 import com.gugu42.rcmod.utils.ffmtutils.FFMTPacketHandler;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -35,20 +50,6 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
-import net.minecraft.block.Block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.IResourceManager;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
-import net.minecraft.stats.Achievement;
-import net.minecraftforge.common.AchievementPage;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.common.util.EnumHelper;
-
-import org.apache.logging.log4j.Logger;
 
 @Mod(modid = RcMod.MODID, version = "0.4.6", name = "RcMod")
 public class RcMod {
@@ -62,6 +63,7 @@ public class RcMod {
 	//Creative tabs
 	public static RcCreativeTab rcTab;
 	public static RcCreativeTab rcWeapTab;
+	public static RcCreativeTab rcGadgTab;
 	
 	//Blocks
 	public static Block tntCrate;
@@ -69,6 +71,7 @@ public class RcMod {
 	public static Block vendor;
 	public static Block ship;
 	public static Block shipFiller;
+	public static Block versaTargetGreen;
 	
 	public static SoundType crateStepSound;
 
@@ -97,6 +100,7 @@ public class RcMod {
 	public void PreInit(FMLPreInitializationEvent event) {
 		rcTab = new RcCreativeTab("rcTab");
 		rcWeapTab = new RcCreativeTab("rcWeapTab");
+		rcGadgTab = new RcCreativeTab("rcGadgTab");
 		Configuration config = new Configuration(
 				event.getSuggestedConfigurationFile());
 
@@ -145,11 +149,15 @@ public class RcMod {
 		
 		shipFiller = new BlockShipFiller(Material.iron).setBlockName("shipFiller");
 		GameRegistry.registerBlock(shipFiller, "shipFiller");
+		
+		versaTargetGreen = new BlockVersaTargetGreen(Material.iron).setBlockName("versaTargetGreen");
+		GameRegistry.registerBlock(versaTargetGreen, "versaTargetGreen");
 
 		GameRegistry.registerTileEntity(TileEntityVendor.class, "vendor");
 		GameRegistry.registerTileEntity(TileEntityShip.class, "ship");
 		GameRegistry.registerTileEntity(TileEntityShipFiller.class, "shipFiller");
-
+		GameRegistry.registerTileEntity(TileEntityVersaTargetG.class, "versaTargetG");
+		
 		/* -----Items----- */
 
 		RcItems.initModItems();
@@ -192,6 +200,7 @@ public class RcMod {
 	public void setCreativeTabsIcon() {
 		rcTab.setTabIconItem(RcItems.bolt);
 		rcWeapTab.setTabIconItem(RcItems.blaster);
+		rcGadgTab.setTabIconItem(RcItems.swingShot);
 	}
 
 	@EventHandler

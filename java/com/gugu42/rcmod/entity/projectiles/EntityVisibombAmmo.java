@@ -33,6 +33,7 @@ public class EntityVisibombAmmo extends EntityThrowable {
 		this.motionZ *= speed;
 		this.setThrowableHeading(this.motionX, this.motionY, this.motionZ,
 				0.0001f, 0.05F);
+		
 	}
 
 	public EntityVisibombAmmo(World par1World, EntityPlayer par2EntityLivingBase) {
@@ -43,6 +44,11 @@ public class EntityVisibombAmmo extends EntityThrowable {
 		this.motionZ *= speed;
 		this.entityFiring = (EntityPlayer) par2EntityLivingBase;
 		this.firingEntityName = entityFiring.getDisplayName();
+		if (entityFiring instanceof EntityPlayerMP) {
+			EntityPlayerMP targetRot = (EntityPlayerMP) entityFiring;
+
+			setRotation(-targetRot.rotationYaw, -targetRot.rotationPitch);
+		}
 	}
 
 	/*
