@@ -11,6 +11,7 @@ import com.gugu42.rcmod.entity.projectiles.EntityDecoyGloveAmmo;
 import com.gugu42.rcmod.entity.projectiles.EntityMineGloveAmmo;
 import com.gugu42.rcmod.entity.projectiles.EntityPyrocitorAmmo;
 import com.gugu42.rcmod.entity.projectiles.EntityRYNOAmmo;
+import com.gugu42.rcmod.entity.projectiles.EntitySuckCannonProj;
 import com.gugu42.rcmod.entity.projectiles.EntitySwingShotHook;
 import com.gugu42.rcmod.entity.projectiles.EntityVisibombAmmo;
 import com.gugu42.rcmod.entity.projectiles.EntityWrenchThrown;
@@ -33,6 +34,7 @@ import com.gugu42.rcmod.render.RenderDecoyGloveAmmo;
 import com.gugu42.rcmod.render.RenderMineGloveAmmo;
 import com.gugu42.rcmod.render.RenderPyrocitorAmmo;
 import com.gugu42.rcmod.render.RenderRYNOAmmo;
+import com.gugu42.rcmod.render.RenderSuckCannonProj;
 import com.gugu42.rcmod.render.RenderSwingShotHook;
 import com.gugu42.rcmod.render.RenderTNTCrate;
 import com.gugu42.rcmod.render.RenderThrownWrench;
@@ -85,6 +87,9 @@ public class ClientProxy extends CommonProxy {
 
 		RenderingRegistry.registerEntityRenderingHandler(
 				EntitySwingShotHook.class, new RenderSwingShotHook(0.5f));
+		
+		RenderingRegistry.registerEntityRenderingHandler(
+				EntitySuckCannonProj.class, new RenderSuckCannonProj());
 
 		MinecraftForgeClient.registerItemRenderer(RcItems.blaster,
 				new BlasterRender());

@@ -47,7 +47,7 @@ public class ExtendedPropsSuckCannon implements IExtendedEntityProperties
 	{
 		StringBuilder builder = new StringBuilder();
 		builder.append("[");
-		ArrayList<String> list = stackAsList();
+		ArrayList<String> list = getStackAsList();
 		for(int i =0;i<list.size();i++)
 		{
 			String s = list.get(i);
@@ -112,7 +112,7 @@ public class ExtendedPropsSuckCannon implements IExtendedEntityProperties
 	
 	public void sync()
 	{
-		ArrayList<String> list = stackAsList();
+		ArrayList<String> list = getStackAsList();
 		
 		if(!owner.worldObj.isRemote)
 		{
@@ -120,7 +120,7 @@ public class ExtendedPropsSuckCannon implements IExtendedEntityProperties
 		}
 	}
 	
-	private ArrayList<String> stackAsList()
+	public ArrayList<String> getStackAsList()
 	{
 		Enumeration<String> elements = nbtStack.elements();
 		ArrayList<String> list = new ArrayList<String>();

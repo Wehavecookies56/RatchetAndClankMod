@@ -22,6 +22,7 @@ import com.gugu42.rcmod.blocks.BlockVendor;
 import com.gugu42.rcmod.blocks.BlockVersaTargetGreen;
 import com.gugu42.rcmod.entity.RcEntities;
 import com.gugu42.rcmod.gui.GuiBolt;
+import com.gugu42.rcmod.gui.GuiSuckCannon;
 import com.gugu42.rcmod.handler.RcAchievementEventHandler;
 import com.gugu42.rcmod.handler.RcEventHandler;
 import com.gugu42.rcmod.handler.RcTickHandler;
@@ -211,6 +212,9 @@ public class RcMod {
 
 		if (FMLCommonHandler.instance().getEffectiveSide().isClient()) {
 			MinecraftForge.EVENT_BUS.register(new GuiBolt(Minecraft
+					.getMinecraft()));
+			
+			MinecraftForge.EVENT_BUS.register(new GuiSuckCannon(Minecraft
 					.getMinecraft()));
 		}
 	} 
