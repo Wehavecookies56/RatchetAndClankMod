@@ -53,8 +53,16 @@ public class RcEventHandler {
 			event.entity.registerExtendedProperties(
 					ExtendedPlayerBolt.EXT_PROP_NAME, new ExtendedPlayerBolt(
 							(EntityPlayer) event.entity));
+			
 		}
-
+		if(event.entity instanceof EntityPlayer
+				&& event.entity
+						.getExtendedProperties(ExtendedPropsSuckCannon.IDENTIFIER) == null)
+		{
+			event.entity.registerExtendedProperties(
+					ExtendedPropsSuckCannon.IDENTIFIER,
+					new ExtendedPropsSuckCannon((EntityPlayer)event.entity));
+		}
 		if (event.entity instanceof EntityPlayer
 				&& ExtendedEntityLivingBaseTarget
 						.get((EntityPlayer) event.entity) == null) {
@@ -150,6 +158,7 @@ public class RcEventHandler {
 			proxy.storeEntityData(
 					((EntityPlayer) event.entity).getDisplayName(), playerData);
 			ExtendedPlayerBolt.saveProxyData((EntityPlayer) event.entity);
+			ExtendedPropsSuckCannon.saveProxyData((EntityPlayer) event.entity);
 		} else {
 
 		}
@@ -166,11 +175,16 @@ public class RcEventHandler {
 				((ExtendedPlayerBolt) (event.entity
 						.getExtendedProperties(ExtendedPlayerBolt.EXT_PROP_NAME)))
 						.loadNBTData(playerData);
+				
+				((ExtendedPropsSuckCannon) (event.entity
+						.getExtendedProperties(ExtendedPropsSuckCannon.IDENTIFIER)))
+						.loadNBTData(playerData);
 			}
 
 			((ExtendedPlayerBolt) (event.entity
 					.getExtendedProperties(ExtendedPlayerBolt.EXT_PROP_NAME)))
 					.sync();
+			ExtendedPropsSuckCannon.get((EntityPlayer)event.entity).sync();
 		}
 
 		if (event.entity instanceof EntityLivingBase) {
