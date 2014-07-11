@@ -60,11 +60,12 @@ public class ItemSuckCannon extends ItemRcWeap
 				Vec3 playerPos = owner.getPosition(1.0f);
 				Vec3 entPos = entity.getPosition(1.0f);
 				
-				Vec3 a = playerPos.subtract(entPos);
+				Vec3 a = playerPos.subtract(entPos).normalize();
 				
 				double dotProduct = a.dotProduct(look);
+				double angle = Math.acos(dotProduct);
 				
-				if(dotProduct > 1.25)
+				if(angle < 0.25*Math.PI && angle > -0.25*Math.PI)
 				{
 					if(entity.getDistanceToEntity(owner) >= 2.5)
 					{

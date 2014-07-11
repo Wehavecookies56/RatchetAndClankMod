@@ -7,6 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.stats.Achievement;
+import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.AchievementPage;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
@@ -214,8 +215,10 @@ public class RcMod {
 			MinecraftForge.EVENT_BUS.register(new GuiBolt(Minecraft
 					.getMinecraft()));
 			
-			MinecraftForge.EVENT_BUS.register(new GuiSuckCannon(Minecraft
-					.getMinecraft()));
+			GuiSuckCannon suckCannonGui = new GuiSuckCannon(Minecraft
+					.getMinecraft());
+			MinecraftForge.EVENT_BUS.register(suckCannonGui);
+			FMLCommonHandler.instance().bus().register(suckCannonGui);
 		}
 	} 
 
