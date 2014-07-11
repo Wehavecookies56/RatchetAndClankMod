@@ -62,7 +62,7 @@ public class GuiSuckCannon extends Gui
 					break;
 				try
 				{
-					((Entity)array[i]).onUpdate();
+				//	((Entity)array[i]).onUpdate();
 				}
 				catch(Exception e1)
 				{

@@ -76,6 +76,7 @@ public class ItemSuckCannon extends ItemRcWeap
 					else
 					{
 						entity.setDead();
+						entity.worldObj.removeEntity(entity);
 						stack.damageItem(-1, owner);
 						if(!world.isRemote)
 						{
