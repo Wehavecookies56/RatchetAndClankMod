@@ -1,5 +1,7 @@
 package com.gugu42.rcmod.gui;
 
+import static org.lwjgl.opengl.GL11.*;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -38,7 +40,7 @@ public class GuiSuckCannon extends Gui
 {
 
 	private Minecraft mc;
-	private HashMap<String, Entity> loadedEntities = new HashMap<String, Entity>();
+	private HashMap<Integer, Entity> loadedEntities = new HashMap<Integer, Entity>();
 	private HashMap<Integer, Float> rotations = new HashMap<Integer, Float>();
 
 	public GuiSuckCannon(Minecraft mc)
@@ -53,8 +55,20 @@ public class GuiSuckCannon extends Gui
 		if(event.type == Type.WORLD && event.phase == Phase.END)
 		{
 			Collection<Entity> entities = loadedEntities.values();
-			for(Entity e : entities)
-				e.onUpdate();
+			Object[] array = entities.toArray();
+			for(int i = 0;i<entities.size();i++)
+			{
+				if(i >= array.length)
+					break;
+				try
+				{
+					((Entity)array[i]).onUpdate();
+				}
+				catch(Exception e1)
+				{
+					entities.remove(((Entity)array[i]));
+				}
+			}
 		}
 	}
 	
@@ -66,6 +80,7 @@ public class GuiSuckCannon extends Gui
 			return;
 		}
 
+		glColor4f(1, 1, 1, 1);
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 		if(player != null)
 		{
@@ -77,32 +92,34 @@ public class GuiSuckCannon extends Gui
 				float v = 0f;
 				if(rotations.containsKey(i))
 					v = rotations.get(i);
+				
+				if(!loadedEntities.containsKey(i) || loadedEntities.get(i) == null)
+				{
+					try
+					{
+						Entity e = EntityList.createEntityFromNBT((NBTTagCompound)JsonToNBT.func_150315_a(list.get(i)), player.worldObj);
+						loadedEntities.put(i, e);
+					}
+					catch(NBTException e1)
+					{
+						e1.printStackTrace();
+					}
+				}
 				rotations.put(i, v+2.5f);
 			}
-			for(int i = 0;i<8-list.size();i++)
+			for(int i = 0;i<=8-list.size();i++)
 			{
 				rotations.put(8-i, 0f);
+				loadedEntities.put(8-i, null);
 			}
 			int index = 0;
 			for(String data : list)
 			{
-				NBTTagCompound compound;
-				try
+				if(loadedEntities.get(index) != null)
 				{
-					compound = (NBTTagCompound)JsonToNBT.func_150315_a(data);
-					String entityID = compound.getString("id");
-					if(!loadedEntities.containsKey(entityID))
-					{
-						Entity e = EntityList.createEntityFromNBT(compound, player.worldObj);
-						loadedEntities.put(entityID, e);
-					}
-					Entity e = loadedEntities.get(entityID);
+					Entity e = loadedEntities.get(index);
 					ScaledResolution res = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
-					drawEntity(res.getScaledWidth()-25-(index % 2 == 0 ? 20 : 0), res.getScaledHeight()-1-(index/2*40), 15, rotations.get(index), -10, (EntityLivingBase)e);
-				}
-				catch(NBTException e)
-				{
-					e.printStackTrace();
+					drawEntity(res.getScaledWidth()-25-(index % 2 == 0 ? 20 : 0), res.getScaledHeight()-5-(index/2*35), 15, rotations.get(index), -10, (EntityLivingBase)e);
 				}
 				index++;
 			}
@@ -149,6 +166,8 @@ public class GuiSuckCannon extends Gui
         OpenGlHelper.setActiveTexture(OpenGlHelper.lightmapTexUnit);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         OpenGlHelper.setActiveTexture(OpenGlHelper.defaultTexUnit);
+        
+        glColor4f(1, 1, 1, 1);
     }
 	
 	@SideOnly(Side.CLIENT)
