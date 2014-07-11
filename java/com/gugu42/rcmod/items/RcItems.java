@@ -36,6 +36,9 @@ public class RcItems {
 	// All gadgets from RC1 goes there
 	
 	public static Item swingShot;
+	//Not really a gadget from the game, but still something, so yeah
+	public static Item gadgetronHelper;
+	
 
 	public RcItems(){
 		
@@ -122,6 +125,10 @@ public class RcItems {
 		
 		swingShot = new ItemSwingShot().setUnlocalizedName("swingShot").setTextureName("rcmod:swingShot").setCreativeTab(RcMod.rcGadgTab).setFull3D();
 		GameRegistry.registerItem(swingShot, "swingShot");
+		
+		gadgetronHelper = new ItemGadgetronHelper().setUnlocalizedName("gadgetronHelper").setTextureName("rcmod:gadgetronHelper").setCreativeTab(RcMod.rcGadgTab).setFull3D();
+		GameRegistry.registerItem(gadgetronHelper, "gadgetronHelper");
+		
 	}
 	
 	public static void initModItems(){

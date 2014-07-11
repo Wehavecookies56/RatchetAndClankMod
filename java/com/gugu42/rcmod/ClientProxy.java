@@ -22,6 +22,7 @@ import com.gugu42.rcmod.render.BombGloveRender;
 import com.gugu42.rcmod.render.DecoyGloveRender;
 import com.gugu42.rcmod.render.DevastatorRender;
 import com.gugu42.rcmod.render.DroneDeviceRender;
+import com.gugu42.rcmod.render.GadgetronPDARender;
 import com.gugu42.rcmod.render.GloveOfDoomRender;
 import com.gugu42.rcmod.render.MineGloveRender;
 import com.gugu42.rcmod.render.MorphORayRender;
@@ -87,7 +88,7 @@ public class ClientProxy extends CommonProxy {
 
 		RenderingRegistry.registerEntityRenderingHandler(
 				EntitySwingShotHook.class, new RenderSwingShotHook(0.5f));
-		
+
 		RenderingRegistry.registerEntityRenderingHandler(
 				EntitySuckCannonProj.class, new RenderSuckCannonProj());
 
@@ -128,6 +129,8 @@ public class ClientProxy extends CommonProxy {
 
 		MinecraftForgeClient.registerItemRenderer(RcItems.swingShot,
 				new SwingShotRender());
+		MinecraftForgeClient.registerItemRenderer(RcItems.gadgetronHelper,
+				new GadgetronPDARender());
 
 		renderInventoryTESRId = RenderingRegistry.getNextAvailableRenderId();
 		RenderingRegistry.registerBlockHandler(new TESRInventoryRenderer());

@@ -1,6 +1,7 @@
 package com.gugu42.rcmod.network;
 
 import com.gugu42.rcmod.ContainerVendor;
+import com.gugu42.rcmod.gui.GuiGadgetronHelper;
 import com.gugu42.rcmod.gui.GuiShip;
 import com.gugu42.rcmod.gui.GuiVendor;
 import com.gugu42.rcmod.tileentity.TileEntityShip;
@@ -27,6 +28,10 @@ public class GuiHandler implements IGuiHandler {
 			return null;
 		}
 
+		if(id == 3){
+			return null;
+		}
+		
 		return null;
 	}
 
@@ -45,6 +50,10 @@ public class GuiHandler implements IGuiHandler {
 			return new GuiShip(tileEntity, player);
 		}
 
+		if(id == 3){
+			return new GuiGadgetronHelper(player);
+		}
+		
 		return null;
 
 	}
