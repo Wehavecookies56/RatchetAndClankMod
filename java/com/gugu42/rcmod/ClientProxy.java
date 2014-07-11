@@ -87,7 +87,7 @@ public class ClientProxy extends CommonProxy {
 				EntityDecoyGloveAmmo.class, new RenderDecoyGloveAmmo(0.5f));
 
 		RenderingRegistry.registerEntityRenderingHandler(
-				EntitySwingShotHook.class, new RenderSwingShotHook(0.5f));
+				EntitySwingShotHook.class, new RenderSwingShotHook());
 
 		RenderingRegistry.registerEntityRenderingHandler(
 				EntitySuckCannonProj.class, new RenderSuckCannonProj());

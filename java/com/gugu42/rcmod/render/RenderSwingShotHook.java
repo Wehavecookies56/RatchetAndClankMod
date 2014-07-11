@@ -2,84 +2,248 @@ package com.gugu42.rcmod.render;
 
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
-import net.minecraft.init.Items;
-import net.minecraft.util.IIcon;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Vec3;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 
 import com.gugu42.rcmod.entity.projectiles.EntitySwingShotHook;
 
 public class RenderSwingShotHook extends Render {
-	private float field_77002_a;
 
-	public RenderSwingShotHook(float par1) {
-		this.field_77002_a = par1;
+	float f;
+	float f1;
+	final float f2;
+	final float f3;
+	final double thickness;
+	final Tessellator tessellator;
+
+	double xGuess;
+	double yGuess;
+	double zGuess;
+
+	double x;
+	double y;
+	double z;
+	double prevX;
+	double prevY;
+	double prevZ;
+
+	double ptx;
+	double pty;
+	double ptz;
+
+	private ResourceLocation tex = new ResourceLocation("rcmod:textures/items/swingshotRope.png");
+
+	public RenderSwingShotHook() {
+		f = 0.0F;
+		f1 = 1.0F;
+		f2 = 0;
+		f3 = 0.25F;
+		thickness = .05D;
+		tessellator = Tessellator.instance;
 	}
 
-	public void doRenderSwingShotHook(
-			EntitySwingShotHook par1EntitySwingShotHook, double par2,
-			double par4, double par6, float par8, float par9) {
+	public void renderRope(EntitySwingShotHook rope, double posX, double posY,
+			double posZ, float partialTick) {
+		EntityPlayer player = (EntityPlayer) renderManager.livingPlayer;
+		Vec3 look = player.getLook(partialTick);
+		xGuess = player.prevPosX + (player.posX - player.prevPosX)
+				* partialTick - look.xCoord;
+		yGuess = player.prevPosY + (player.posY - player.prevPosY)
+				* partialTick - look.yCoord;
+		zGuess = player.prevPosZ + (player.posZ - player.prevPosZ)
+				* partialTick - look.zCoord;
+
+		this.bindEntityTexture(rope);
 		GL11.glPushMatrix();
-		this.bindEntityTexture(par1EntitySwingShotHook);
-		GL11.glTranslatef((float) par2, (float) par4, (float) par6);
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		float f2 = this.field_77002_a;
-		GL11.glScalef(f2 / 1.0F, f2 / 1.0F, f2 / 1.0F);
-		IIcon icon = Items.fire_charge.getIconFromDamage(0);
-		Tessellator tessellator = Tessellator.instance;
-		float f3 = icon.getMinU();
-		float f4 = icon.getMaxU();
-		float f5 = icon.getMinV();
-		float f6 = icon.getMaxV();
-		float f7 = 1.0F;
-		float f8 = 0.5F;
-		float f9 = 0.25F;
-		GL11.glRotatef(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F,
-				0.0F);
-		GL11.glRotatef(-this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
-		tessellator.startDrawingQuads();
-		tessellator.setNormal(0.0F, 1.0F, 0.0F);
-		tessellator.addVertexWithUV((double) (0.0F - f8), (double) (0.0F - f9),
-				0.0D, (double) f3, (double) f6);
-		tessellator.addVertexWithUV((double) (f7 - f8), (double) (0.0F - f9),
-				0.0D, (double) f4, (double) f6);
-		tessellator.addVertexWithUV((double) (f7 - f8), (double) (1.0F - f9),
-				0.0D, (double) f4, (double) f5);
-		tessellator.addVertexWithUV((double) (0.0F - f8), (double) (1.0F - f9),
-				0.0D, (double) f3, (double) f5);
-		tessellator.draw();
-		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+
+		double[] startCoords = rope.getCoordsAtRelativeLength(1F);
+		prevX = startCoords[0];
+		prevY = startCoords[1];
+		prevZ = startCoords[2];
+
+		double rX = rope.prevPosX + (rope.posX - rope.prevPosX)
+				* (double) partialTick;
+		double rY = rope.prevPosY + (rope.posY - rope.prevPosY)
+				* (double) partialTick;
+		double rZ = rope.prevPosZ + (rope.posZ - rope.prevPosZ)
+				* (double) partialTick;
+		GL11.glTranslatef((float) (posX - rX), (float) (posY - rY),
+				(float) (posZ - rZ));
+
+		int segCount = rope.getSegmentCount();
+		float jointInterval = 1F / segCount;
+		GL11.glDisable(GL11.GL_CULL_FACE);
+		for (float i = jointInterval*(segCount-1); i >= 0; i-=jointInterval)
+        {
+            renderRopeJoint(rope, i);
+        }
+		GL11.glEnable(GL11.GL_CULL_FACE);
+
+		x = 0;
+		y = 0;
+		z = 0;
+
 		GL11.glPopMatrix();
+		f = 0.0f;
+		f1 = 0.0f;
+	}
+	
+	public void renderRopeJoint(EntitySwingShotHook rope, float relativeLength)
+    {
+        double[] coords = rope.getCoordsAtRelativeLength(relativeLength);
+        
+        // get quad end coordinates
+        x = coords[0];
+        y = coords[1];
+        z = coords[2];
+        
+        // get vector of segment, from start to end of it
+        double segmentX = prevX - x;
+        double segmentY = prevY - y;
+        double segmentZ = prevZ - z;
+        
+        // get vector from player to quad end
+        double lookX = x - xGuess;
+        double lookY = y - yGuess;
+        double lookZ = z - zGuess;
+        
+        // now cross look with segment vector for an orthogonal width vector
+        double widthX = lookX*segmentZ-lookZ*segmentY;
+        double widthY = lookZ*segmentX-lookX*segmentZ;
+        double widthZ = lookX*segmentY-lookY*segmentX;
+        
+        // get the length of the resulting vector
+        double widthLength = Math.sqrt(widthX * widthX + widthY * widthY + widthZ * widthZ);
+        // compute relative rope thickness from viewpoint
+        double factor = thickness/widthLength;
+        
+        // apply relative thickness
+        widthX *= factor;
+        widthY *= factor;
+        widthZ *= factor;
+        
+        // invert resulting translated quad start values
+        double tx = -widthX;
+        double ty = -widthY;
+        double tz = -widthZ;
+        
+        // Math.random() here creates a cool moving effect
+        double t = 0.2D; //-joint.twist + joint.prevJoint.twist;
+        if(t/(2*Math.PI) < -0.9)
+        {
+            f = f1 + 1.0F - 0.9f; 
+        }
+        else
+        {
+            f = f1 + 1.0F + (float)(t/(2*Math.PI)); 
+        }
+        
+        double[] p1 = { -tx + x, y - ty, z - tz };
+        double[] p2 = { -ptx + prevX, prevY - pty, prevZ - ptz };
+        double[] p3 = { ptx + prevX, prevY + pty, prevZ + ptz };
+        double[] p4 = { tx + x, y + ty, z + tz };
+        
+        double[] normal = calculateNormal(p1, p2, p3);
+        double[] v = subtractVectors(p2, p1);
+        double[] u = subtractVectors(p4, p1);
+        
+        double[] u1 = divideVector(u, 2d);
+        double[] sideBounds1 = addVectors(p1, u1);
+        double[] sideBounds2 = addVectors(sideBounds1, v);
+        
+        double length = getMagnitude(u) / 2d;
+        
+        double[] q1 = addVectors(sideBounds1, multiplyVector(normal, length));
+        double[] q2 = addVectors(sideBounds2, multiplyVector(normal, length));
+        double[] q3 = addVectors(sideBounds2, multiplyVector(normal, -length));
+        double[] q4 = addVectors(sideBounds1, multiplyVector(normal, -length));
+        
+        GL11.glNormal3f(0.0F, 0.0F, 1F);
+        tessellator.startDrawingQuads();
+        addVertex(p1, f, f3);
+        addVertex(p2, f1, f3);
+        addVertex(p3, f1, f2);
+        addVertex(p4, f, f2);
+        tessellator.draw();
+        
+        GL11.glNormal3f(0.0F, 0.0F, 1F);
+        tessellator.startDrawingQuads();
+        addVertex(q1, f, f3);
+        addVertex(q2, f1, f3);
+        addVertex(q3, f1, f2);
+        addVertex(q4, f, f2);
+        tessellator.draw();
+        
+        prevX = x;
+        prevY = y;
+        prevZ = z;
+        
+        ptx = tx;
+        pty = ty;
+        ptz = tz;
+        
+        f1 = f;
+    }
+
+	private void addVertex(double[] vertex, double u, double v) {
+		tessellator.addVertexWithUV(vertex[0], vertex[1], vertex[2], u, v);
 	}
 
-	protected ResourceLocation getSwingShotHookTextures(
-			EntitySwingShotHook par1EntitySwingShotHook) {
-		return TextureMap.locationItemsTexture;
+	private double[] normalize(double[] v) {
+		return divideVector(v, getMagnitude(v));
+	}
+
+	private double getMagnitude(double[] v) {
+		return Math.sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+	}
+
+	private double[] multiplyVector(double[] v, double value) {
+		return new double[] { v[0] * value, v[1] * value, v[2] * value };
+	}
+
+	private double[] divideVector(double[] v, double value) {
+		return multiplyVector(v, 1d / value);
+	}
+
+	private double[] addVectors(double[] u, double[] v) {
+		return new double[] { u[0] + v[0], u[1] + v[1], u[2] + v[2] };
+	}
+
+	private double[] subtractVectors(double[] u, double[] v) {
+		return addVectors(u, multiplyVector(v, -1d));
 	}
 
 	/**
-	 * Returns the location of an entity's texture. Doesn't seem to be called
-	 * unless you call Render.bindEntityTexture.
+	 * Computes the normal vector of a surface given by 3 points
 	 */
-	protected ResourceLocation getEntityTexture(Entity par1Entity) {
-		return this.getSwingShotHookTextures((EntitySwingShotHook) par1Entity);
+	private double[] calculateNormal(double[] p1, double[] p2, double[] p3) {
+		double[] u = getVector(p1, p2);
+		double[] v = getVector(p1, p3);
+		return normalize(crossProduct(u, v));
 	}
 
-	/**
-	 * Actually renders the given argument. This is a synthetic bridge method,
-	 * always casting down its argument and then handing it off to a worker
-	 * function which does the actual work. In all probabilty, the class Render
-	 * is generic (Render<T extends Entity) and this method has signature public
-	 * void doRender(T entity, double d, double d1, double d2, float f, float
-	 * f1). But JAD is pre 1.5 so doesn't do that.
-	 */
-	public void doRender(Entity par1Entity, double par2, double par4,
-			double par6, float par8, float par9) {
-		this.doRenderSwingShotHook((EntitySwingShotHook) par1Entity, par2,
-				par4, par6, par8, par9);
+	private double[] crossProduct(double[] u, double[] v) {
+		return new double[] { u[1] * v[2] - v[1] * u[2],
+				v[0] * u[2] - u[0] * v[2], u[0] * v[1] - v[0] * u[1] };
 	}
+
+	private double[] getVector(double[] p1, double[] p2) {
+		return new double[] { p2[0] - p1[0], p2[1] - p1[1], p2[2] - p1[2] };
+	}
+
+	@Override
+	public void doRender(Entity ent, double posX, double posY, double posZ,
+			float yaw, float partialTickTime) {
+		renderRope((EntitySwingShotHook) ent, posX, posY, posZ, partialTickTime);
+	}
+
+	@Override
+	protected ResourceLocation getEntityTexture(Entity entity) {
+		return tex;
+	}
+
 }

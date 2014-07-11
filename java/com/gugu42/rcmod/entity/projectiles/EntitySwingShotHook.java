@@ -12,6 +12,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.S12PacketEntityVelocity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -25,6 +26,10 @@ public class EntitySwingShotHook extends EntityThrowable {
 
 	public int returnTime = 30;
 	public int timeLived;
+
+	public double startX;
+	public double startY;
+	public double startZ;
 
 	public EntitySwingShotHook(World par1World) {
 		super(par1World);
@@ -45,11 +50,29 @@ public class EntitySwingShotHook extends EntityThrowable {
 	}
 
 	@Override
+	protected void entityInit() {
+		dataWatcher.addObject(10, "1"); // powValue
+		dataWatcher.addObject(11, "0"); // startX
+		dataWatcher.addObject(12, "0"); // startY
+		dataWatcher.addObject(13, "0"); // startZ
+
+	}
+
+	@Override
 	public void onUpdate() {
 		super.onUpdate();
 		if (!this.worldObj.isRemote) {
 			timeLived++;
 		}
+
+		if (getPowValue() < 2D) {
+			setPowValue(getPowValue() + 0.05);
+		}
+
+		if (thrower != null && !thrower.isDead) {
+			setStartPosition();
+		}
+
 		if (shouldPullPlayer) {
 
 			if (thrower instanceof EntityPlayerMP) {
@@ -80,16 +103,16 @@ public class EntitySwingShotHook extends EntityThrowable {
 					if (thrower instanceof EntityPlayerMP) {
 
 						EntityPlayerMP throwerMP = (EntityPlayerMP) thrower;
-						
+
 						throwerMP.motionX = 0;
 						throwerMP.motionZ = 0;
 						throwerMP.motionY = 0;
-						
+
 						throwerMP.playerNetServerHandler
-						.sendPacket(new S12PacketEntityVelocity(throwerMP));
+								.sendPacket(new S12PacketEntityVelocity(
+										throwerMP));
 					}
-					
-					
+
 					thrower.getEntityData()
 							.setBoolean("canFireSwingshot", true);
 				}
@@ -148,8 +171,21 @@ public class EntitySwingShotHook extends EntityThrowable {
 
 	}
 
-	public void pullPlayer(EntityPlayer player) {
+	protected void setStartPosition() {
+		setStartCoordinates(thrower.posX, thrower.posY + 1, thrower.posZ);
+	}
 
+	public void setStartCoordinates(double x, double y, double z) {
+		setStartX(x);
+		setStartY(y);
+		setStartZ(z);
+		updateEntPos();
+	}
+
+	private void updateEntPos() {
+		posX = getStartX() + (getEndX() - getStartX());
+		posY = getStartY() + (getEndY() - getStartY());
+		posZ = getStartZ() + (getEndZ() - getStartZ());
 	}
 
 	protected void returnToThrower() {
@@ -160,7 +196,8 @@ public class EntitySwingShotHook extends EntityThrowable {
 			double newX = thrower.posX - this.posX;
 			double newY = thrower.posY - this.posY;
 			double newZ = thrower.posZ - this.posZ;
-			setThrowableHeading(newX, newY + 0.5d, newZ, this.func_70182_d(), 0.0F);
+			setThrowableHeading(newX, newY + 0.5d, newZ, this.func_70182_d(),
+					0.0F);
 		}
 
 	}
@@ -204,6 +241,104 @@ public class EntitySwingShotHook extends EntityThrowable {
 					* (double) par1;
 			return this.worldObj.getWorldVec3Pool().getVecFromPool(d0, d1, d2);
 		}
+	}
+
+	public double getRopeAbsLength() {
+		return Math.sqrt((getEndX() - getStartX()) * (getEndX() - getStartX())
+				+ (getEndY() - getStartY()) * (getEndY() - getStartY())
+				+ (getEndZ() - getStartZ()) * (getEndZ() - getStartZ()));
+	}
+
+	public int getSegmentCount() {
+		return (int) Math.rint(getRopeAbsLength() / 0.5D);
+	}
+
+	public void setStartX(double input) {
+		if (!worldObj.isRemote)
+			dataWatcher.updateObject(11, "" + input);
+	}
+
+	public void setStartY(double input) {
+		if (!worldObj.isRemote)
+			dataWatcher.updateObject(12, "" + input);
+	}
+
+	public void setStartZ(double input) {
+		if (!worldObj.isRemote)
+			dataWatcher.updateObject(13, "" + input);
+	}
+
+	public double getStartX() {
+		return Double.valueOf(dataWatcher.getWatchableObjectString(11));
+	}
+
+	public double getStartY() {
+		return Double.valueOf(dataWatcher.getWatchableObjectString(12));
+	}
+
+	public double getStartZ() {
+		return Double.valueOf(dataWatcher.getWatchableObjectString(13));
+	}
+
+	private double getEndZ() {
+
+		return this.posZ;
+	}
+
+	private double getEndY() {
+
+		return this.posY;
+	}
+
+	private double getEndX() {
+
+		return this.posX;
+	}
+
+	public double getPowValue() {
+		return Double.valueOf(dataWatcher.getWatchableObjectString(10));
+	}
+
+	public void setPowValue(double input) {
+		if (!worldObj.isRemote)
+			dataWatcher.updateObject(10, "" + input);
+	}
+
+	public double[] getCoordsAtRelativeLength(float relativeDistance) {
+		double[] result = new double[3];
+		result[0] = getStartX()
+				+ ((getEndX() - getStartX()) * relativeDistance);
+		result[2] = getStartZ()
+				+ ((getEndZ() - getStartZ()) * relativeDistance);
+
+		if ((relativeDistance *= 2) < 1) {
+			result[1] = getStartY()
+					+ ((getEndY() - getStartY()) * (0.5 * Math.pow(
+							relativeDistance, getPowValue())));
+		} else {
+			result[1] = getStartY()
+					+ ((getEndY() - getStartY()) * (1 - 0.5 * Math.abs(Math
+							.pow(2 - relativeDistance, getPowValue()))));
+		}
+
+		return result;
+	}
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		setStartX(compound.getDouble("startX"));
+		setStartY(compound.getDouble("startY"));
+		setStartZ(compound.getDouble("startZ"));
+		setPowValue(compound.getDouble("ropePOWvalue"));
+
+	}
+
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		compound.setDouble("startX", getStartX());
+		compound.setDouble("startY", getStartY());
+		compound.setDouble("startZ", getStartZ());
+		compound.setDouble("ropePOWvalue", getPowValue());
 	}
 
 }
