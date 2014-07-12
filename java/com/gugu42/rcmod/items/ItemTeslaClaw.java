@@ -6,6 +6,7 @@ public class ItemTeslaClaw extends ItemRcWeap{
 		super();
 		this.weaponName = "teslaClaw";
 		this.hasAmmoImage = true;
+		this.heldType = 1;
 	}
 
 }
