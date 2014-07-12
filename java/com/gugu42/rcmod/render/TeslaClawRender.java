@@ -2,8 +2,6 @@ package com.gugu42.rcmod.render;
 
 import static org.lwjgl.opengl.GL11.*;
 
-import java.util.ArrayList;
-
 import com.gugu42.rcmod.utils.glutils.TessellatorModel;
 
 import net.minecraft.entity.Entity;
@@ -11,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.Point;
 
 public class TeslaClawRender implements IItemRenderer {
 
@@ -117,31 +114,22 @@ public class TeslaClawRender implements IItemRenderer {
 		glDisable(GL_TEXTURE_2D);
 		glDisable(GL_LIGHTING);
 		
-		ArrayList<Point> points = new ArrayList<Point>();
-		for(int i = 0;i<60;i++)
-		{
-			int y = (int)(Math.sin(i*(Math.PI/4) - entity.ticksExisted*2.05f)*2.5f);
-			points.add(new Point(i*2, y));
-		}
 		glColor3f(0, 0.6f, 1);
 		glBegin(GL_QUADS);
 		int lastX = 0;
 		int lastY = 0;
-		for(int i = 0;i<points.size();i++)
+		for(int i = 0;i<60;i++)
 		{
-			if(i == points.size()-1)
-				break;
-			Point p = points.get(i);
-			int x = p.getX();
-			int y = p.getY();
+			int x = i*2;
+			int y = (int)(Math.sin(i*(Math.PI/4) - entity.ticksExisted*2.05f)*2.5f);
 			
-			glColor3f(0, 0.6f, 1);
+			glColor3f(1, 1f, 1);
 			glVertex3d(x+0, y+0, 0);
 			glVertex3d(x+0, y+1, 0);			
 			glVertex3d(lastX, lastY+1, 0);
 			glVertex3d(lastX, lastY, 0);
 			
-			glColor3f(0, 0.9f, 1);
+			glColor3f(0, 0.6f, 1);
 			glVertex3d(x+0, y+1, 0);
 			glVertex3d(x+0, y+1.25, 0);			
 			glVertex3d(lastX, lastY+1.25, 0);
