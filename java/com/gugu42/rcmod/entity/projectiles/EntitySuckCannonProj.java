@@ -52,23 +52,16 @@ public class EntitySuckCannonProj extends EntityThrowable implements OwnableEnti
 		{
     		if(movingobjectposition.entityHit != null && movingobjectposition.entityHit != this.riddenByEntity && movingobjectposition.entityHit.getEntityId() != ownerID)
     		{
-    			System.out.println(movingobjectposition.entityHit.getEntityId()+ ":" + ownerID);
     			if(!this.worldObj.isRemote)
     			{
     				setDead();
     				if(worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing"))
     					worldObj.newExplosion(this, posX, posY, posZ, 1f, false, true);
-    				else
-    					movingobjectposition.entityHit.attackEntityFrom(DamageSource.generic, 5);
+    				movingobjectposition.entityHit.attackEntityFrom(DamageSource.generic, 10);
     			}
     		}
-    		return;
-		}
-
-		for(int i = 0; i < 8; i++ )
-		{
-			this.worldObj.spawnParticle("snowballpoof", this.posX, this.posY,
-					this.posZ, 0.0D, 0.0D, 0.0D);
+    		else
+    			return;
 		}
 
 		if(!this.worldObj.isRemote)
@@ -76,12 +69,10 @@ public class EntitySuckCannonProj extends EntityThrowable implements OwnableEnti
 			setDead();
 			if(worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing"))
 				worldObj.newExplosion(this, posX, posY, posZ, 1f, false, true);
+			
+			if(this.riddenByEntity != null)
+				riddenByEntity.attackEntityFrom(DamageSource.generic, 0xDEADBEEF);
 		}
-
-		if((!this.isDead)
-				&& (movingobjectposition.typeOfHit == MovingObjectType.BLOCK)
-				&& (!this.worldObj.isRemote))
-			setDead();
 	}
 
 	@Override

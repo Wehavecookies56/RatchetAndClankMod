@@ -87,41 +87,37 @@ public class GuiSuckCannon extends Gui
 			ExtendedPropsSuckCannon props = ExtendedPropsSuckCannon.get(player);
 			
 			ArrayList<String> list = props.getStackAsList();
-			for(int i = 0;i<list.size();i++)
+			for(int i = 0;i<=8-list.size();i++)
+			{
+				rotations.put(8-i, 0f);
+				loadedEntities.put(8-i, null);
+			}
+			for(int index = 0;index < list.size();index++)
 			{
 				float v = 0f;
-				if(rotations.containsKey(i))
-					v = rotations.get(i);
+				if(rotations.containsKey(index))
+					v = rotations.get(index);
 				
-				if(!loadedEntities.containsKey(i) || loadedEntities.get(i) == null)
+				if(!loadedEntities.containsKey(index) || loadedEntities.get(index) == null)
 				{
 					try
 					{
-						Entity e = EntityList.createEntityFromNBT((NBTTagCompound)JsonToNBT.func_150315_a(list.get(i)), player.worldObj);
-						loadedEntities.put(i, e);
+						Entity e = EntityList.createEntityFromNBT((NBTTagCompound)JsonToNBT.func_150315_a(list.get(index)), player.worldObj);
+						loadedEntities.put(index, e);
 					}
 					catch(NBTException e1)
 					{
 						e1.printStackTrace();
 					}
 				}
-				rotations.put(i, v+2.5f);
-			}
-			for(int i = 0;i<=8-list.size();i++)
-			{
-				rotations.put(8-i, 0f);
-				loadedEntities.put(8-i, null);
-			}
-			int index = 0;
-			for(String data : list)
-			{
+				rotations.put(index, v+2.5f);
+				
 				if(loadedEntities.get(index) != null)
 				{
 					Entity e = loadedEntities.get(index);
 					ScaledResolution res = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
 					drawEntity(res.getScaledWidth()-25-(index % 2 == 0 ? 20 : 0), res.getScaledHeight()-5-(index/2*35), 15, rotations.get(index), -10, (EntityLivingBase)e);
 				}
-				index++;
 			}
 		}
 		this.mc.getTextureManager().bindTexture(icons);
