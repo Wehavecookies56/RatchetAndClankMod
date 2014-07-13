@@ -125,7 +125,7 @@ public class TeslaClawRender implements IItemRenderer {
 			
 			glColor3f(1, 1f, 1);
 			glVertex3d(x+0, y+0, 0);
-			glVertex3d(x+0, y+1, 0);			
+			glVertex3d(x+0, y+1, 0);
 			glVertex3d(lastX, lastY+1, 0);
 			glVertex3d(lastX, lastY, 0);
 			

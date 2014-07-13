@@ -10,6 +10,8 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.boss.EntityDragon;
+import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.JsonToNBT;
@@ -55,6 +57,8 @@ public class ItemSuckCannon extends ItemRcWeap
 		{
 			Vec3 look = owner.getLookVec();
 			EntityLiving entity = entities.get(i);
+			if(entity instanceof EntityDragon || entity instanceof EntityWither)
+				continue;
 			if(entity.canEntityBeSeen(owner))
 			{
 				Vec3 playerPos = owner.getPosition(1.0f);
@@ -109,9 +113,11 @@ public class ItemSuckCannon extends ItemRcWeap
 			{
 				props.sync();
 				NBTTagCompound compound = (NBTTagCompound)JsonToNBT.func_150315_a(data);
-				Entity e = EntityList.createEntityFromNBT(compound, owner.worldObj);
+				EntityLiving e = (EntityLiving)EntityList.createEntityFromNBT(compound, owner.worldObj);
 				if(e != null)
 				{
+					if(!compound.getBoolean("hadCustomTagName"))
+						e.setCustomNameTag("");
 					EntitySuckCannonProj proj = new EntitySuckCannonProj(player.worldObj, player);
 					e.mountEntity(proj);
 					proj.setPosition(player.posX, player.posY+1, player.posZ);
