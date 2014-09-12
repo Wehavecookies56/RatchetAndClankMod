@@ -244,7 +244,7 @@ public class RcEventHandler {
 	public void preRenderPlayer(RenderPlayerEvent.Pre event) {
 		EntityPlayer player = event.entityPlayer;
 		ItemStack is = player.getCurrentEquippedItem();
-		if ((is != null) && ((is.getItem() instanceof ItemRcWeap))) {
+		if ((is != null) && (is.getItem() instanceof ItemRcWeap)) {
 			ItemRcWeap itemInHand = (ItemRcWeap) is.getItem();
 			if (itemInHand.getHeldType() == 1) {
 				ModelBiped modelMain = ObfuscationReflectionHelper
@@ -254,10 +254,12 @@ public class RcEventHandler {
 				ModelBiped modelArmor = ObfuscationReflectionHelper
 						.getPrivateValue(RenderPlayer.class, event.renderer, 3);
 				modelMain.aimedBow = modelArmorChestplate.aimedBow = modelArmor.aimedBow = true;
+				
 			}
 		}
 
 	}
+
 
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent

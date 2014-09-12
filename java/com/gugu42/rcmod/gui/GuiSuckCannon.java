@@ -115,7 +115,7 @@ public class GuiSuckCannon extends Gui
 				if(loadedEntities.get(index) != null)
 				{
 					Entity e = loadedEntities.get(index);
-					ScaledResolution res = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
+					ScaledResolution res = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
 					drawEntity(res.getScaledWidth()-25-(index % 2 == 0 ? 20 : 0), res.getScaledHeight()-5-(index/2*35), 15, rotations.get(index), -10, (EntityLivingBase)e);
 				}
 			}

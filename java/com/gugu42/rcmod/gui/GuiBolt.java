@@ -127,7 +127,7 @@ public class GuiBolt extends Gui {
 				GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 				GL11.glDisable(GL11.GL_ALPHA_TEST);
 				ScaledResolution sr = new ScaledResolution(
-						this.mc.gameSettings, this.mc.displayWidth,
+						this.mc, this.mc.displayWidth,
 						this.mc.displayHeight);
 				drawTexturedQuadFit((sr.getScaledWidth() / 2) - 16,
 						(sr.getScaledHeight() / 2) - 16, 32, 32, 0);

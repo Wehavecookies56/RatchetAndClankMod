@@ -85,7 +85,7 @@ public class TileEntityVendor extends TileEntity implements IInventory {
 	
 	public boolean isPlayerStandingNear() {
 
-        AxisAlignedBB axisalignedbb = AxisAlignedBB.getAABBPool().getAABB((double)this.xCoord, (double)this.yCoord, (double)this.zCoord, (double)(this.xCoord + 1), (double)(this.yCoord + 1), (double)(this.zCoord + 1)).expand(2, 2, 2);
+        AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox((double)this.xCoord, (double)this.yCoord, (double)this.zCoord, (double)(this.xCoord + 1), (double)(this.yCoord + 1), (double)(this.zCoord + 1)).expand(2, 2, 2);
         axisalignedbb.maxY = (double)this.worldObj.getHeight();
         List list = this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
         Iterator iterator = list.iterator();

@@ -155,10 +155,9 @@ public class TNTCrateExplosion {
 				+ (double) this.explosionSize + 1.0D);
 		List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(
 				this.exploder,
-				AxisAlignedBB.getAABBPool().getAABB((double) i, (double) k,
+				AxisAlignedBB.getBoundingBox((double) i, (double) k,
 						(double) i2, (double) j, (double) l1, (double) j2));
-		Vec3 vec3 = this.worldObj.getWorldVec3Pool().getVecFromPool(
-				this.explosionX, this.explosionY, this.explosionZ);
+		 Vec3 vec3 = Vec3.createVectorHelper(this.explosionX, this.explosionY, this.explosionZ);
 
 		for (int k2 = 0; k2 < list.size(); ++k2) {
 			Entity entity = (Entity) list.get(k2);
@@ -205,9 +204,7 @@ public class TNTCrateExplosion {
 						if (thrower != null && entity != thrower) {
 							this.field_77288_k.put(
 									(EntityPlayer) entity,
-									this.worldObj.getWorldVec3Pool()
-											.getVecFromPool(d0 * d10, d1 * d10,
-													d2 * d10));
+									Vec3.createVectorHelper(d0 * d11, d1 * d11, d2 * d11));
 						}
 
 					}

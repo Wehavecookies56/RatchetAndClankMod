@@ -105,7 +105,7 @@ public class EntityVisibombCamera extends EntityLiving {
     	    ShaderGroup theShaderGroup;
             try
             {
-                theShaderGroup = new ShaderGroup(ClientProxy.rcResourceManager, Minecraft.getMinecraft().getFramebuffer(), shaderLocation);
+                theShaderGroup = new ShaderGroup(null, ClientProxy.rcResourceManager, Minecraft.getMinecraft().getFramebuffer(), shaderLocation);
                 theShaderGroup.createBindFramebuffers(Minecraft.getMinecraft().displayWidth, Minecraft.getMinecraft().displayHeight);
                 ObfuscationReflectionHelper.setPrivateValue(EntityRenderer.class, Minecraft.getMinecraft().entityRenderer, theShaderGroup, 42);
             }

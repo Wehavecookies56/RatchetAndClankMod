@@ -79,8 +79,16 @@ public class EntitySwingShotHook extends EntityThrowable {
 
 				EntityPlayerMP throwerMP = (EntityPlayerMP) thrower;
 
-				Vec3 playerPos = throwerMP.getPosition(1.0f);
-				Vec3 entPos = this.getPosition(1.0f);
+				// Vec3 playerPos = throwerMP.getPosition(1.0f);
+				Vec3 playerPos =  Vec3.createVectorHelper(
+								throwerMP.posX,
+								throwerMP.posY
+										+ (throwerMP.getEyeHeight() - throwerMP
+												.getDefaultEyeHeight()),
+								throwerMP.posZ);
+				
+				Vec3 entPos =  Vec3.createVectorHelper(
+						this.posX, this.posY, this.posZ);
 
 				Vec3 a = playerPos.subtract(entPos);
 
@@ -230,7 +238,7 @@ public class EntitySwingShotHook extends EntityThrowable {
 	@SideOnly(Side.CLIENT)
 	public Vec3 getPosition(float par1) {
 		if (par1 == 1.0F) {
-			return this.worldObj.getWorldVec3Pool().getVecFromPool(this.posX,
+			return  Vec3.createVectorHelper(this.posX,
 					this.posY, this.posZ);
 		} else {
 			double d0 = this.prevPosX + (this.posX - this.prevPosX)
@@ -239,7 +247,7 @@ public class EntitySwingShotHook extends EntityThrowable {
 					* (double) par1;
 			double d2 = this.prevPosZ + (this.posZ - this.prevPosZ)
 					* (double) par1;
-			return this.worldObj.getWorldVec3Pool().getVecFromPool(d0, d1, d2);
+			return  Vec3.createVectorHelper(d0, d1, d2);
 		}
 	}
 

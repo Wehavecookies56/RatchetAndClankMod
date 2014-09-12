@@ -189,7 +189,7 @@ public class EntityRYNOAmmo extends EntityThrowable {
 		if (!this.worldObj.isRemote) {
 			List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(
 					getThrower(),
-					AxisAlignedBB.getAABBPool().getAABB(i, k, i2, j, l1, j2));
+					AxisAlignedBB.getBoundingBox(i, k, i2, j, l1, j2));
 
 			for (int k2 = 0; k2 < list.size(); k2++) {
 				Entity entity = (Entity) list.get(k2);

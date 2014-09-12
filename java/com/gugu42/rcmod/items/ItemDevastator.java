@@ -59,9 +59,7 @@ public class ItemDevastator extends ItemRcWeap {
 							&& entityTarget instanceof EntityLivingBase) {
 						EntityLivingBase entityLivingTarget = (EntityLivingBase) entityTarget;
 						Vec3 vec3 = player.getLook(1.0F).normalize();
-						Vec3 vec31 = entityLivingTarget.worldObj
-								.getWorldVec3Pool()
-								.getVecFromPool(
+						Vec3 vec31 = Vec3.createVectorHelper(
 										entityLivingTarget.posX - player.posX,
 										entityLivingTarget.boundingBox.minY
 												+ (double) (entityLivingTarget.height / 2.0F)

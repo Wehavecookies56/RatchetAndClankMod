@@ -53,7 +53,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@Mod(modid = RcMod.MODID, version = "0.4.6", name = "RcMod")
+@Mod(modid = RcMod.MODID, version = "0.4.8", name = "RcMod")
 public class RcMod {
 	@SidedProxy(clientSide = "com.gugu42.rcmod.ClientProxy", serverSide = "com.gugu42.rcmod.CommonProxy")
 	public static CommonProxy proxy;

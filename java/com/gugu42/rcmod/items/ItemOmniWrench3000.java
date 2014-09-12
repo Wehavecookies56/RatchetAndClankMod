@@ -38,11 +38,15 @@ public class ItemOmniWrench3000 extends ItemRcWeap {
 
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World,
 			EntityPlayer par3EntityPlayer) {
-		if (!par2World.isRemote) {
-			if (par3EntityPlayer.isSneaking()) {
-				par2World.spawnEntityInWorld(new EntityWrenchThrown(par2World,
-						par3EntityPlayer, par1ItemStack));
+		if (par3EntityPlayer.isSneaking()) {
+			if (!par2World.isRemote) {
+				EntityWrenchThrown wrench = new EntityWrenchThrown(par2World,
+						par3EntityPlayer, par1ItemStack);
+				par2World.spawnEntityInWorld(wrench);
 				par3EntityPlayer.swingItem();
+			}
+
+			if (!par3EntityPlayer.capabilities.isCreativeMode) {
 				--par1ItemStack.stackSize;
 			}
 		}
