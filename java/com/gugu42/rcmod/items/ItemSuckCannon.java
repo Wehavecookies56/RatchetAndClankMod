@@ -55,8 +55,7 @@ public class ItemSuckCannon extends ItemRcWeap {
 		for (int i = 0; i < entities.size(); i++) {
 			Vec3 look = owner.getLookVec();
 			EntityLiving entity = entities.get(i);
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 			if (entity.canEntityBeSeen(owner)) {
 				Vec3 playerPos = Vec3.createVectorHelper(
 								owner.posX,
@@ -66,17 +65,10 @@ public class ItemSuckCannon extends ItemRcWeap {
 								owner.posZ);
 				Vec3 entPos = Vec3.createVectorHelper(entity.posX, entity.posY, entity.posZ);
 
-=======
-=======
->>>>>>> origin/master
+
 			if(entity instanceof EntityDragon || entity instanceof EntityWither)
 				continue;
-			if(entity.canEntityBeSeen(owner))
-			{
-				Vec3 playerPos = owner.getPosition(1.0f);
-				Vec3 entPos = entity.getPosition(1.0f);
-				
->>>>>>> origin/master
+
 				Vec3 a = playerPos.subtract(entPos).normalize();
 
 				double dotProduct = a.dotProduct(look);
@@ -121,15 +113,7 @@ public class ItemSuckCannon extends ItemRcWeap {
 				return true;
 			try {
 				props.sync();
-<<<<<<< HEAD
-				NBTTagCompound compound = (NBTTagCompound) JsonToNBT
-						.func_150315_a(data);
-				Entity e = EntityList.createEntityFromNBT(compound,
-						owner.worldObj);
-				if (e != null) {
-					EntitySuckCannonProj proj = new EntitySuckCannonProj(
-							player.worldObj, player);
-=======
+
 				NBTTagCompound compound = (NBTTagCompound)JsonToNBT.func_150315_a(data);
 				EntityLiving e = (EntityLiving)EntityList.createEntityFromNBT(compound, owner.worldObj);
 				if(e != null)
@@ -137,7 +121,7 @@ public class ItemSuckCannon extends ItemRcWeap {
 					if(!compound.getBoolean("hadCustomTagName"))
 						e.setCustomNameTag("");
 					EntitySuckCannonProj proj = new EntitySuckCannonProj(player.worldObj, player);
->>>>>>> origin/master
+
 					e.mountEntity(proj);
 					proj.setPosition(player.posX, player.posY + 1, player.posZ);
 					e.setPosition(player.posX, player.posY + 1, player.posZ);
