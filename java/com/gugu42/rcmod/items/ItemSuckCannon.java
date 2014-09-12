@@ -56,6 +56,7 @@ public class ItemSuckCannon extends ItemRcWeap {
 			Vec3 look = owner.getLookVec();
 			EntityLiving entity = entities.get(i);
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if (entity.canEntityBeSeen(owner)) {
 				Vec3 playerPos = Vec3.createVectorHelper(
 								owner.posX,
@@ -66,6 +67,8 @@ public class ItemSuckCannon extends ItemRcWeap {
 				Vec3 entPos = Vec3.createVectorHelper(entity.posX, entity.posY, entity.posZ);
 
 =======
+=======
+>>>>>>> origin/master
 			if(entity instanceof EntityDragon || entity instanceof EntityWither)
 				continue;
 			if(entity.canEntityBeSeen(owner))
