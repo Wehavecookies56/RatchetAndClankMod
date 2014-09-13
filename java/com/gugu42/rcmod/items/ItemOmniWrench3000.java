@@ -23,8 +23,7 @@ public class ItemOmniWrench3000 extends ItemRcWeap {
 		this.weaponName = "wrench";
 		this.useAmmo = false;
 		this.hasCrosshair = true;
-		// this.crosshairPath = "textures/gui/wrenchCrosshair.png";
-		this.setCreativeTab(RcMod.rcTab);
+		this.setCreativeTab(RcMod.rcWeapTab);
 	}
 
 	public boolean hitEntity(ItemStack stack, EntityLivingBase entityTarget,

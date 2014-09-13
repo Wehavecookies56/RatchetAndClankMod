@@ -38,6 +38,7 @@ public class RenderThrownWrench extends Render {
 		GL11.glScalef(0.5F, 0.5F, 0.5F);
 		GL11.glScalef(0.5F, 0.5F, 0.5F);
 		GL11.glScalef(0.5F, 0.5F, 0.5F);
+//        GL11.glRotatef(par1EntityWrenchThrown.prevRotationPitch + (par1EntityWrenchThrown.rotationPitch - par1EntityWrenchThrown.prevRotationPitch) * partialRenderTick, 0.0F, 0.0F, 1.0F);
 		GL11.glRotatef(90, 0.0F, 0.0F, 1.0F);
 		GL11.glRotatef(90, 0.0f, 1.0f, 0.0f);
 		GL11.glRotated(d3 * 5 * 300, 0.0D, 0.0D, 1.0D);

@@ -170,7 +170,7 @@ public class RcMod {
 				1).setUnlocalizedName("clankHeli").setTextureName(
 				"rcmod:clankheli");
 		GameRegistry.registerItem(clankBackpack, "clankHeli");
-		ratchetEars = new ItemRatchetEars(EnumArmorMaterialClank, 1, 0).setUnlocalizedName("ratchetEars").setTextureName(MODID+":ratchetears");
+		ratchetEars = new ItemRatchetEars(EnumArmorMaterialClank, 1, 0).setUnlocalizedName("ratchetEars").setTextureName(MODID+":ratchetEars");
 		GameRegistry.registerItem(ratchetEars, "ratchetEars");
 		thrusterPack = new ItemThrusterPack(EnumArmorMaterialClank, 1, 1).setUnlocalizedName("thrusterpack").setTextureName(MODID+":thrusterpack");
 		GameRegistry.registerItem(thrusterPack, "thrusterpack");

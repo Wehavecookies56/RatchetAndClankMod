@@ -4,14 +4,17 @@ import java.util.List;
 
 import com.gugu42.rcmod.RcMod;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.registry.IThrowableEntity;
@@ -127,12 +130,42 @@ public class EntityWrenchThrown extends EntityThrowable implements
 				}
 			}
 		}
+		
+		if(!worldObj.isRemote)
+		{
+    		destroyBoltCrates();
+    		destroyTNTCrates();
+		}
 
 	}
 
 	@Override
 	protected float getGravityVelocity() {
 		return 0.00F;
+	}
+	
+	private void destroyBoltCrates() {
+		int x = MathHelper.floor_double(posX);
+		int y = MathHelper.floor_double(posY);
+		int z = MathHelper.floor_double(posZ);
+		Block block = worldObj.getBlock(x, y, z);
+		if (block == RcMod.crate) {
+			block.dropBlockAsItem(worldObj, x, y, z,
+					this.worldObj.getBlockMetadata(x, y, z), 0);
+			this.worldObj.setBlock(x, y, z, Blocks.air);
+		}
+	}
+
+	private void destroyTNTCrates() {
+		int x = MathHelper.floor_double(posX);
+		int y = MathHelper.floor_double(posY);
+		int z = MathHelper.floor_double(posZ);
+		Block block = worldObj.getBlock(x, y, z);
+		if (block == RcMod.tntCrate) {
+			block.dropBlockAsItem(worldObj, x, y, z,
+					this.worldObj.getBlockMetadata(x, y, z), 0);
+			this.worldObj.setBlock(x, y, z, Blocks.air);
+		}
 	}
 
 	public void returnToOwner() {

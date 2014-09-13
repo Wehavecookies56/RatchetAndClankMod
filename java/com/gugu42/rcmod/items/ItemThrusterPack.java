@@ -22,13 +22,13 @@ public class ItemThrusterPack extends ItemArmor {
 	public ItemThrusterPack(ArmorMaterial p_i45325_1_, int p_i45325_2_,
 			int p_i45325_3_) {
 		super(p_i45325_1_, p_i45325_2_, p_i45325_3_);
-		this.setCreativeTab(RcMod.rcTab);
+		this.setCreativeTab(RcMod.rcGadgTab);
 	}
 
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, int slot,
 			String type) {
-		return "rcmod:models/ThrusterPack.png";
+		return "rcmod:models/ThrusterPack0.png";
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -51,12 +51,13 @@ public class ItemThrusterPack extends ItemArmor {
 		if (player != null) {
 			if (player.getCurrentArmor(2).getItem() == this) {
 				if (player.getEntityData().getBoolean("clankJumped")) {
-					double x = player.posX -= 0.15d;
-
-					double z = player.posZ -= 0.15d;
+					double x = player.posX -= 1.0d * (Math
+							.cos(player.rotationYaw * Math.PI / 180));
+					double z = player.posZ -= 1.0d * (Math
+							.sin(player.rotationYaw * Math.PI / 180));
 					
-					world.spawnParticle("flame", x, player.posY, z,
-				0.0D, 0.0D, 0.0D);
+					world.spawnParticle("flame", x, player.posY, z, 0.0D, 0.0D,
+							0.0D);
 				}
 			}
 		}

@@ -96,6 +96,12 @@ public class EntityVisibombAmmo extends EntityThrowable {
 		this.lastTickPosZ = this.posZ;
 		super.onUpdate();
 		++this.ticksInAir;
+		
+		if(!this.worldObj.isRemote){
+			if(this.getThrower() == null || this.getThrower().isDead){
+				this.setDead();
+			}
+		}
 
 		if (entityFiring instanceof EntityPlayerMP) {
 			EntityPlayerMP targetRot = (EntityPlayerMP) entityFiring;

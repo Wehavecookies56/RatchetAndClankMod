@@ -153,7 +153,7 @@ public class RcItems {
 		helipackHelice = new ItemRcSimple().setUnlocalizedName("helipackHelice").setTextureName("rcmod:helipackhelice").setCreativeTab(RcMod.rcTab);
 		GameRegistry.registerItem(helipackHelice, "helipackHelice");
 		
-		DUMMY_pyrocitorFlame = new ItemRcSimple().setTextureName("rcmod:pyrocitorFlame").setCreativeTab(RcMod.rcTab);
+		DUMMY_pyrocitorFlame = new ItemRcSimple().setTextureName("rcmod:pyrocitorFlame");
 		GameRegistry.registerItem(DUMMY_pyrocitorFlame, "DUMMY_pyrocitorFlame");
 		
 		metropolisRecord = new ItemRcRecord("rcmod:recordmetropolis", "Metropolis - Kerwan", "metropolisRecord").setUnlocalizedName("metropolisRecord").setTextureName("rcmod:recordRc").setCreativeTab(RcMod.rcTab);

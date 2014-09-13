@@ -31,7 +31,7 @@ public class ItemClankBackpack extends ItemArmor {
 			int par3, int par4) {
 		super(par2EnumArmorMaterial, par3, par4);
 		this.setHasSubtypes(true);
-		this.setCreativeTab(RcMod.rcTab);
+		this.setCreativeTab(RcMod.rcGadgTab);
 	}
 
 	@Override

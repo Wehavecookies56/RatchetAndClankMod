@@ -1,4 +1,4 @@
-package com.gugu42.rcmod.testing;
+package com.gugu42.rcmod.entity.projectiles;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -12,7 +12,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 
 import com.gugu42.rcmod.ClientProxy;
-import com.gugu42.rcmod.entity.projectiles.EntityVisibombAmmo;
+import com.gugu42.rcmod.testing.MathHelper;
 
 import cpw.mods.fml.common.ObfuscationReflectionHelper;
 
@@ -215,10 +215,14 @@ public class EntityVisibombCamera extends EntityLiving {
 		if (!enabled)
 			return;
 
+		if (target.isDead){
+			this.desactivateGreenScreenShader();
+			this.stopCam();
+		}
+		
 		if (target.isDead && target instanceof EntityVisibombAmmo)
 		{
-//		    target.isDead = false;
-//		    setIsReturning();
+
 		}
 
 		/*

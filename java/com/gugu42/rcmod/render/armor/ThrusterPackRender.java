@@ -16,7 +16,7 @@ public class ThrusterPackRender extends ModelBiped {
 
 	public ThrusterPackRender() {
 		super();
-		model1 = new TessellatorModel("/assets/rcmod/models/ThrusterPack.obj");
+		model1 = new TessellatorModel("/assets/rcmod/models/Thrusterpack.obj");
 		model1.regenerateNormals();
 	}
 
