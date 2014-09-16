@@ -214,16 +214,12 @@ public class RcEventHandler {
 	}
 
 	@SideOnly(Side.CLIENT)
-	private boolean isEntityForThisClient(EntityVisibombAmmo arrow,
-			EntityPlayer arrowShooter) {
-		if (arrowShooter == FMLClientHandler.instance().getClientPlayerEntity()) {
+	private boolean isEntityForThisClient(EntityVisibombAmmo missile,
+			EntityPlayer shooter) {
+		if (shooter == FMLClientHandler.instance().getClientPlayerEntity()) {
 			return true;
 		}
 		return false;
-		// if(arrow.getFiringEntityID() == -1)
-		// System.out.println("-1!!");
-		// return arrow.getFiringEntityID() ==
-		// FMLClientHandler.instance().getClientPlayerEntity().getEntityId();
 	}
 
 	@SubscribeEvent

@@ -1897,6 +1897,7 @@ public class GLUtils
 	 * @param filename
 	 *            to open
 	 */
+	@SuppressWarnings("unused")
 	public static InputStream getInputStream(String filename)
 	{
 		InputStream in = null;
@@ -1915,6 +1916,7 @@ public class GLUtils
 					in.close();
 				} catch (Exception e)
 				{
+					e.printStackTrace();
 				}
 				in = null;
 			}

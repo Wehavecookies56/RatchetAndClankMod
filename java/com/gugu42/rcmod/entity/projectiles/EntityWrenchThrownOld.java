@@ -18,6 +18,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
+@Deprecated
 public class EntityWrenchThrownOld extends EntityThrowable implements
 		IThrowableEntity {
 
