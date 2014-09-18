@@ -1,5 +1,10 @@
 package com.gugu42.rcmod.gui;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.gugu42.rcmod.shipsys.ShipSystem;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiSlot;
 import net.minecraft.client.renderer.Tessellator;
@@ -10,7 +15,7 @@ public class GuiShipDestList extends GuiSlot {
 
 	protected int slotHeight;
 
-	private String[] strings;
+	private ArrayList strings = new ArrayList<String>();
 
 	private GuiShip gui;
 
@@ -20,15 +25,18 @@ public class GuiShipDestList extends GuiSlot {
 		this.mc = gui.mc;
 		this.gui = gui;
 
-		strings = new String[] { "one", "two", "three", "four", "five", "six",
-				"seven", "eight", "nine", "ten", "eleven" };
+//		strings = new String[] { "This", "is", "a", "work", "in", "progress",
+//				"GUI", "You", "should", "close", "it" };
+		
+		strings = ShipSystem.getWaypointsName();
+		
 	}
 
 	/**
 	 * Gets the size of the current slot list.
 	 */
 	protected int getSize() {
-		return this.strings.length;
+		return this.strings.size();
 	}
 
 	/**
@@ -36,10 +44,10 @@ public class GuiShipDestList extends GuiSlot {
 	 * double clicked or not
 	 */
 	protected void elementClicked(int index, boolean twice, int var3, int var4) {
-		if (twice) {
-			this.gui.setString(strings[index]);
+//		if (twice) {
+			this.gui.setString((String) strings.get(index));
 			this.mc.displayGuiScreen(gui);
-		}
+//		}
 	}
 
 	/**
@@ -59,7 +67,7 @@ public class GuiShipDestList extends GuiSlot {
 	protected void drawSlot(int var1, int var2, int var3, int var4,
 			Tessellator var5, int var6, int var7) {
 		this.gui.mc.fontRenderer.setBidiFlag(true);
-		this.gui.drawCenteredString(this.gui.mc.fontRenderer, strings[var1],
+		this.gui.drawCenteredString(this.gui.mc.fontRenderer, (String) strings.get(var1),
 				this.gui.width / 2, var3 + 1, 16777215);
 	}
 

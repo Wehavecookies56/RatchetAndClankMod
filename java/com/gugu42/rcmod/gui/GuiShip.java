@@ -67,7 +67,12 @@ public class GuiShip extends GuiScreen {
 		switch (button.id) {
 		case 0:
 			this.mc.displayGuiScreen(new GuiShipSelectDest(this));
+			break;
+		case 1:
+			
+			break;
 		default:
+			break;
 		}
 	}
 
@@ -77,13 +82,17 @@ public class GuiShip extends GuiScreen {
 		int posX = (this.width - xSizeOfTexture) / 2;
 		int posY = (this.height - ySizeOfTexture) / 2;
 
-		this.buttonList.add(new GuiButton(0, posX + 120, posY + 10, 90, 20,
-				"select String"));
+		this.buttonList.add(new GuiButton(0, posX + 120, posY + 10, 100, 20,
+				"Select destination"));
+		
+		this.buttonList.add(new GuiButton(1, posX + 120, posY + 32, 100, 20, "Go to destination"));
 
 	}
 
 	public void setString(String string) {
 		this.text = string;
 	}
+	
+	
 
 }

@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 
 import com.gugu42.rcmod.ClientProxy;
 import com.gugu42.rcmod.RcMod;
+import com.gugu42.rcmod.shipsys.RcWorldSavedData;
 import com.gugu42.rcmod.tileentity.TileEntityShip;
 
 import cpw.mods.fml.relauncher.Side;
@@ -33,7 +34,7 @@ public class BlockShip extends Block {
 		 if (tileEntity == null || par5EntityPlayer.isSneaking()) {
 			 return false;
 		 }
-
+		 
 		 par5EntityPlayer.openGui(RcMod.instance, 0, par1World, x, y, z);
 		 
 		return true;

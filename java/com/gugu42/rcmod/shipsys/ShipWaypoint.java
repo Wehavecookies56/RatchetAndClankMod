@@ -7,7 +7,7 @@ public class ShipWaypoint {
 	public String creatorName;
 	public boolean isPrivate;
 
-	public ShipWaypoint(int id, String name, int posX, int posY, int posZ,
+	public ShipWaypoint(String name, int posX, int posY, int posZ,
 			String creatorName, boolean isPrivate) {
 		this.name = name;
 		this.posX = posX;
@@ -31,8 +31,30 @@ public class ShipWaypoint {
 		}
 	}
 	
+	public String toString(){
+		return name + " " + posX + " " + posY + " " + posZ + " " + creatorName + " " + isPrivate;
+	}
+	
 	public ShipWaypoint getWaypointFromString(String text)
 	{
 		return new ShipWaypoint(text);
 	}
+	
+	public int getPosX(){
+		return this.posX;
+	}
+	
+	public int getPosY(){
+		return this.posY;
+	}
+	
+	public int getPosZ(){
+		return this.posZ;
+	}
+	
+	public static ShipWaypoint stringToWaypoint(String data){
+		return new ShipWaypoint(data);
+	}
+	
+
 }

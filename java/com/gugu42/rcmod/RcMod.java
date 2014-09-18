@@ -33,6 +33,8 @@ import com.gugu42.rcmod.items.ItemShip;
 import com.gugu42.rcmod.items.ItemThrusterPack;
 import com.gugu42.rcmod.items.RcItems;
 import com.gugu42.rcmod.network.GuiHandler;
+import com.gugu42.rcmod.shipsys.ShipWaypointCommand;
+import com.gugu42.rcmod.shipsys.ShipWaypointRemoveCommand;
 import com.gugu42.rcmod.tileentity.TileEntityShip;
 import com.gugu42.rcmod.tileentity.TileEntityShipFiller;
 import com.gugu42.rcmod.tileentity.TileEntityVendor;
@@ -119,10 +121,7 @@ public class RcMod {
 		rcModPacketHandler.initialise("RCMD|bolt");
 		rcModPacketHandler.initialise("RCMD|vend");
 		rcModPacketHandler.initialise("RCMD|refill");
-		
-//		rcModPacketHandler.registerPacket(PacketBolts.class);
-//		rcModPacketHandler.registerPacket(PacketVend.class);
-//		rcModPacketHandler.registerPacket(PacketRefill.class);
+
 		
 		/* -----Entity----- */
 
@@ -225,5 +224,7 @@ public class RcMod {
 	@EventHandler
 	public void serverLoad(FMLServerStartingEvent event) {
 		event.registerServerCommand(new BoltCommand());
+		event.registerServerCommand(new ShipWaypointCommand());
+		event.registerServerCommand(new ShipWaypointRemoveCommand());
 	}
 }

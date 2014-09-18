@@ -14,28 +14,35 @@ import net.minecraft.world.World;
 
 import com.gugu42.rcmod.RcMod;
 import com.gugu42.rcmod.items.RcItems;
+import com.gugu42.rcmod.shipsys.RcWorldSavedData;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent;
 
 public class RcTickHandler {
 
-	// @Override
-	// public void tickStart(EnumSet<TickType> type, Object... tickData) {
-	// // TODO Auto-generated method stub
-	// EntityPlayer player = (EntityPlayer) tickData[0];
-	// if (canHelipack(player)) {
-	// if ((!player.onGround) && (player.motionY < 0.0D)) {
-	// player.motionY *= 0.7D;
-	// player.fallDistance = 0.0F;
-	// }
-	// }
-	// }
+	RcWorldSavedData worldData = null;
 
 	@SubscribeEvent
 	public void onTick(TickEvent event) {
 
+	}
+
+	@SubscribeEvent
+	public void onWorldTick(WorldTickEvent event) {
+		if (event.phase != null && event.phase == TickEvent.Phase.START) {
+			World world = null;
+
+			world = event.world;
+			if (world == null) {
+				return;
+			}
+
+			worldData = RcWorldSavedData.forWorld(world);
+			worldData.markDirty();
+		}
 	}
 
 	@SubscribeEvent
