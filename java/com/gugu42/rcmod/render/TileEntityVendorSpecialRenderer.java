@@ -53,21 +53,21 @@ public class TileEntityVendorSpecialRenderer extends TileEntitySpecialRenderer
 
 	public TileEntityVendorSpecialRenderer() {
 		modelManager = new RcModelManager();
-		model = AdvancedModelLoader
-				.loadModel(new ResourceLocation("rcmod:models/Vendor0.obj"));
-		model2 = AdvancedModelLoader
-				.loadModel(new ResourceLocation("rcmod:models/Vendor1.obj"));
-		model3 = AdvancedModelLoader
-				.loadModel(new ResourceLocation("rcmod:models/Vendor2.obj"));
-		model4 = AdvancedModelLoader
-				.loadModel(new ResourceLocation("rcmod:models/Vendor3.obj"));
-		
+		model = AdvancedModelLoader.loadModel(new ResourceLocation(
+				"rcmod:models/Vendor0.obj"));
+		model2 = AdvancedModelLoader.loadModel(new ResourceLocation(
+				"rcmod:models/Vendor1.obj"));
+		model3 = AdvancedModelLoader.loadModel(new ResourceLocation(
+				"rcmod:models/Vendor2.obj"));
+		model4 = AdvancedModelLoader.loadModel(new ResourceLocation(
+				"rcmod:models/Vendor3.obj"));
+
 		model5 = new TessellatorModel("/assets/rcmod/models/Vendor4.obj");
 		model5.regenerateNormals();
-		
-		modelBlaster = AdvancedModelLoader
-				.loadModel(new ResourceLocation("rcmod:models/Blaster0.obj"));
-//		this.setTileEntityRenderer(TileEntityRenderer.instance);
+
+		modelBlaster = AdvancedModelLoader.loadModel(new ResourceLocation(
+				"rcmod:models/Blaster0.obj"));
+		//		this.setTileEntityRenderer(TileEntityRenderer.instance);
 		this.func_147497_a(TileEntityRendererDispatcher.instance);
 		changingRate = 600;
 		weapon = 0;
@@ -141,60 +141,15 @@ public class TileEntityVendorSpecialRenderer extends TileEntitySpecialRenderer
 		model4.renderAll();
 		GL11.glPopMatrix();
 
-		if (!vendor.isPlayerNear) {
-			GL11.glPushMatrix();
-			GL11.glTranslated(x + 0.5F, y - 0.4F, z + 0.5F);
-			GL11.glRotated(-d3 * 5 * 10, 0.0D, 1.0D, 0.0D);
-			GL11.glScalef(0.046f, 0.046f, 0.046f);
-			GL11.glShadeModel(GL11.GL_SMOOTH);
-			model5.render();
-			GL11.glPopMatrix();
-			vendor.setRenderCountdown(0);
-		} else {
-			
-			if (vendor.getRenderCountdown() <= 0) {
-				vendor.setRenderCountdown(610);
-				weapon = changeWeapon();
-			}
-			
-			if (weapon == 0) {
-				GL11.glPushMatrix();
-				Minecraft.getMinecraft().renderEngine
-						.bindTexture(textureLocationBlaster);
-				GL11.glTranslated(x + 0.5f, y + 1.7F, z + 0.5f);
-				GL11.glRotated(-d3 * 5 * 10, 0.0D, 1.0D, 0.0D);
-				GL11.glScalef(0.036f, 0.036f, 0.036f);
-				modelBlaster.renderAll();
-				GL11.glPopMatrix();
-			} else if (weapon == 1) {
-				GL11.glPushMatrix();
-				Minecraft.getMinecraft().renderEngine
-						.bindTexture(modelManager.textureLocationBombGlove);
-				GL11.glTranslated(x + 0.5f, y + 1.7F, z + 0.5f);
-				GL11.glRotated(-d3 * 5 * 10, 0.0D, 1.0D, 0.0D);
-				GL11.glScalef(0.036f, 0.036f, 0.036f);
-				modelManager.modelBombGlove.renderAll();
-				GL11.glPopMatrix();
-			} else if (weapon == 2) {
-				GL11.glPushMatrix();
-				Minecraft.getMinecraft().renderEngine
-						.bindTexture(modelManager.textureLocationPyrocitor);
-				GL11.glTranslated(x + 0.5f, y + 1.7F, z + 0.5f);
-				GL11.glRotated(-d3 * 5 * 10, 0.0D, 1.0D, 0.0D);
-				GL11.glScalef(0.036f, 0.036f, 0.036f);
-				modelManager.modelPyrocitor.renderAll();
-				GL11.glPopMatrix();
-			} else if (weapon == 3) {
-				GL11.glPushMatrix();
-				Minecraft.getMinecraft().renderEngine
-						.bindTexture(modelManager.textureLocationRYNO);
-				GL11.glTranslated(x + 0.5f, y + 1.7F, z + 0.5f);
-				GL11.glRotated(-d3 * 5 * 10, 0.0D, 1.0D, 0.0D);
-				GL11.glScalef(0.036f, 0.036f, 0.036f);
-				modelManager.modelRYNO.renderAll();
-				GL11.glPopMatrix();
-			}
-		}
+		GL11.glPushMatrix();
+		GL11.glTranslated(x + 0.5F, y - 0.4F, z + 0.5F);
+		GL11.glRotated(-d3 * 5 * 10, 0.0D, 1.0D, 0.0D);
+		GL11.glScalef(0.046f, 0.046f, 0.046f);
+		GL11.glShadeModel(GL11.GL_SMOOTH);
+		model5.render();
+		GL11.glPopMatrix();
+		vendor.setRenderCountdown(0);
+
 	}
 
 	public int getRandomWeapon() {
@@ -202,8 +157,8 @@ public class TileEntityVendorSpecialRenderer extends TileEntitySpecialRenderer
 		int toReturn = rand.nextInt(4);
 		return toReturn;
 	}
-	
-	public int changeWeapon(){
+
+	public int changeWeapon() {
 		int toReturn = getRandomWeapon();
 		return toReturn;
 	}

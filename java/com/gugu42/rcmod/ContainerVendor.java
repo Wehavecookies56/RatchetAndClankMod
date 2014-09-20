@@ -16,14 +16,20 @@ public class ContainerVendor extends Container {
 	public ContainerVendor(InventoryPlayer inventoryPlayer, TileEntityVendor te) {
 		tileEntity = te;
 
-		addSlotToContainer(new Slot(tileEntity, 1, 8, 18));
-		addSlotToContainer(new SlotVendor(tileEntity, 2, 80, 100));
-		addSlotToContainer(new SlotVendShow(tileEntity, 3, 80, 10));
-		addSlotToContainer(new SlotVendor(tileEntity, 4, 98, 100));
-		addSlotToContainer(new SlotVendor(tileEntity, 5, 116, 100));
-		addSlotToContainer(new SlotVendor(tileEntity, 6, 134, 100));
+//		addSlotToContainer(new Slot(tileEntity, 1, 8, 18));
 		
-		bindPlayerInventory(inventoryPlayer);
+//		addSlotToContainer(new SlotVendShow(tileEntity, 3, 80, 10));
+		addSlotToContainer(new SlotVendor(tileEntity, 1, 48, 173)); 
+		addSlotToContainer(new SlotVendor(tileEntity, 2, 66, 173)); 
+		addSlotToContainer(new SlotVendor(tileEntity, 3, 84, 173)); 
+		addSlotToContainer(new SlotVendor(tileEntity, 4, 102, 173)); 
+		addSlotToContainer(new SlotVendor(tileEntity, 5, 120, 173)); 
+		addSlotToContainer(new SlotVendor(tileEntity, 6, 138, 173)); 
+		addSlotToContainer(new SlotVendor(tileEntity, 7, 156, 173)); 
+		addSlotToContainer(new SlotVendor(tileEntity, 8, 174, 173)); 
+		addSlotToContainer(new SlotVendor(tileEntity, 9, 192, 173)); 
+		
+//		bindPlayerInventory(inventoryPlayer);
 	}
 
 	
@@ -33,18 +39,18 @@ public class ContainerVendor extends Container {
 		return tileEntity.isUseableByPlayer(player);
 	}
 
-	protected void bindPlayerInventory(InventoryPlayer inventoryPlayer) {
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 9; j++) {
-				addSlotToContainer(new Slot(inventoryPlayer, j + i * 9 + 9,
-						8 + j * 18, (84 + 56) + i * 18));
-			}
-		}
-
-		for (int i = 0; i < 9; i++) {
-			addSlotToContainer(new Slot(inventoryPlayer, i, 8 + i * 18, 198));
-		}
-	}
+//	protected void bindPlayerInventory(InventoryPlayer inventoryPlayer) {
+//		for (int i = 0; i < 3; i++) {
+//			for (int j = 0; j < 9; j++) {
+//				addSlotToContainer(new Slot(inventoryPlayer, j + i * 9 + 9,
+//						8 + j * 18, (84 + 56) + i * 18));
+//			}
+//		}
+//
+//		for (int i = 0; i < 9; i++) {
+//			addSlotToContainer(new Slot(inventoryPlayer, i, 8 + i * 18, 198));
+//		}
+//	}
 
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int slot) {

@@ -29,6 +29,7 @@ import com.gugu42.rcmod.render.MorphORayRender;
 import com.gugu42.rcmod.render.OmniWrench3000Render;
 import com.gugu42.rcmod.render.PyrocitorRender;
 import com.gugu42.rcmod.render.RYNORender;
+import com.gugu42.rcmod.render.RcModelManager;
 import com.gugu42.rcmod.render.RenderBlasterAmmo;
 import com.gugu42.rcmod.render.RenderBombGloveAmmo;
 import com.gugu42.rcmod.render.RenderDecoyGloveAmmo;
@@ -63,6 +64,7 @@ public class ClientProxy extends CommonProxy {
 
 	// THIS NEEDS TO BE CLIENT SIDE ONLY !
 	public static IResourceManager rcResourceManager = new RcSimpleResourceManager();
+//	public static RcModelManager rcModelManager = new RcModelManager();
 	public static int renderInventoryTESRId;
 
 	@Override

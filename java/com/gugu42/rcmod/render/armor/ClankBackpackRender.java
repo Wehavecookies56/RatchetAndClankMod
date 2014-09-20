@@ -7,11 +7,12 @@ import net.minecraft.entity.player.EntityPlayer;
 
 import org.lwjgl.opengl.GL11;
 
+import com.gugu42.rcmod.ClientProxy;
 import com.gugu42.rcmod.render.RcModelManager;
 
 public class ClankBackpackRender extends ModelBiped {
 
-	RcModelManager modelManager;
+	RcModelManager modelManager = new RcModelManager();
 
 	public EntityPlayer playerWearingTheArmor;
 	private long last;
@@ -19,7 +20,6 @@ public class ClankBackpackRender extends ModelBiped {
 
 	public ClankBackpackRender() {
 		super();
-		modelManager = new RcModelManager();
 	}
 
 	public void render(Entity par1Entity, float par2, float par3, float par4,
@@ -50,6 +50,7 @@ public class ClankBackpackRender extends ModelBiped {
 				GL11.glRotated(180, 0.0D, 0.0D, 1.0D);
 				GL11.glRotated(angle, -y, 0.0D, 0.0D);
 				GL11.glScalef(0.045f, 0.045f, 0.045f);
+//				modelManager.modelClankHeliBody.regenerateNormals();
 				modelManager.modelClankHeliBody.renderAll();
 
 				Minecraft.getMinecraft().renderEngine
@@ -57,6 +58,7 @@ public class ClankBackpackRender extends ModelBiped {
 
 				GL11.glTranslatef(0.0f, 35.0f, 3.5f);
 				GL11.glRotated(rotationHeli, 0.0d, 1.0d, 0.0d);
+//				modelManager.modelClankHeli.regenerateNormals();
 				modelManager.modelClankHeli.renderAll();
 				GL11.glPopMatrix();
 
@@ -71,6 +73,7 @@ public class ClankBackpackRender extends ModelBiped {
 				GL11.glRotatef(80, 1.0f, 0.0f, 0.0f);
 				GL11.glRotatef(-35, 0.0f, 0.0f, 1.0f);
 				GL11.glRotated(rotationHeli, 0.0d, 1.0d, 0.0d);
+//				modelManager.modelClankHeli2.regenerateNormals();
 				modelManager.modelClankHeli2.renderAll();
 				GL11.glPopMatrix();
 
@@ -86,6 +89,7 @@ public class ClankBackpackRender extends ModelBiped {
 				GL11.glRotatef(-90, 1.0f, 0.0f, 0.0f);
 				GL11.glRotatef(-35, 0.0f, 0.0f, 1.0f);
 				GL11.glRotated(rotationHeli, 0.0d, 1.0d, 0.0d);
+//				modelManager.modelClankHeli2.regenerateNormals();
 				modelManager.modelClankHeli2.renderAll();
 				GL11.glPopMatrix();
 			} else {
@@ -94,6 +98,7 @@ public class ClankBackpackRender extends ModelBiped {
 				GL11.glRotated(180, 0.0D, 0.0D, 1.0D);
 				GL11.glRotated(angle, -y, 0.0D, 0.0D);
 				GL11.glScalef(0.045f, 0.045f, 0.045f);
+//				modelManager.modelClankBackpack.regenerateNormals();
 				modelManager.modelClankBackpack.renderAll();
 				GL11.glPopMatrix();
 

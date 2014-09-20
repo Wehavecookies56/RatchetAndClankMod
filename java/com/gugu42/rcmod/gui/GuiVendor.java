@@ -1,6 +1,24 @@
 package com.gugu42.rcmod.gui;
 
-import java.util.Random;
+import org.lwjgl.opengl.GL11;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.IItemRenderer.ItemRenderType;
 
 import com.gugu42.rcmod.ContainerVendor;
 import com.gugu42.rcmod.RcMod;
@@ -9,515 +27,200 @@ import com.gugu42.rcmod.items.EnumRcWeapons;
 import com.gugu42.rcmod.items.ItemRcWeap;
 import com.gugu42.rcmod.network.packets.PacketRefill;
 import com.gugu42.rcmod.network.packets.PacketVend;
+import com.gugu42.rcmod.render.BlasterRender;
 import com.gugu42.rcmod.tileentity.TileEntityVendor;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
-
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class GuiVendor extends GuiContainer {
 
 	private static final ResourceLocation texturepath = new ResourceLocation(
-			"rcmod", "textures/gui/vendor.png");
+			"rcmod", "textures/gui/vendor_new.png");
 
-	private GuiButton ammoBtn;
+	private static final ResourceLocation boltTexturePath = new ResourceLocation(
+			"rcmod", "textures/gui/bolt.png");
+
 	private GuiButton buyBtn;
-	private GuiButton cancelBtn;
-	private GuiButton pageNextBtn;
-	private GuiButton pagePrevBtn;
+	private GuiButton exitBtn;
 
-	private EnumRcWeapons weaps;
+	private EnumRcWeapons weapons;
 
-	private TileEntityVendor tileEntity;
 	private EntityPlayer player;
-	private Minecraft mc;
+	private TileEntityVendor tileEntity;
 	private ContainerVendor container;
+	private Minecraft mc;
 
-	private int weapPage;
+	private int selectedWeapon = -1;
+	private int mouseX, mouseY;
 
-	private boolean isOverSlot1 = false;
-	private boolean hasSlot1BeenClicked = false;
+	private ItemStack selectedItem;
+	private ItemRcWeap selectedItemWeap;
+	private EntityItem selectedItemEntity;
 
-	private boolean isOverSlot2 = false;
-	private boolean hasSlot2BeenClicked = false;
-
-	private boolean isOverSlot3 = false;
-	private boolean hasSlot3BeenClicked = false;
-
-	private boolean isOverSlot4 = false;
-	private boolean hasSlot4BeenClicked = false;
-	
-	public int soundCooldown;
+	public float rotation;
 
 	public GuiVendor(InventoryPlayer inventoryPlayer,
 			TileEntityVendor tileEntity, EntityPlayer player,
 			ContainerVendor container) {
 		super(new ContainerVendor(inventoryPlayer, tileEntity));
-		this.tileEntity = tileEntity;
 		this.player = player;
-		this.xSize = 176;
-		this.ySize = 222;
-		this.mc = Minecraft.getMinecraft();
+		this.tileEntity = tileEntity;
 		this.container = container;
-		this.weapPage = 1;
+		this.mc = Minecraft.getMinecraft();
+
+		this.xSize = 256;
+		this.ySize = 190;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void initGui() {
 		super.initGui();
-		this.buttonList.clear();
 		int posX = (this.width - xSize) / 2;
 		int posY = (this.height - ySize) / 2;
-		this.buttonList.add(this.ammoBtn = new GuiButton(0, posX + 7,
-				posY + 40, 33, 20, "Refill"));
-		this.buttonList.add(this.buyBtn = new GuiButton(1, posX + 79,
-				posY + 75, 33, 20, "Buy"));
-		this.buttonList.add(this.cancelBtn = new GuiButton(2, posX + 112,
-				posY + 75, 43, 20, "Cancel"));
-		this.buttonList.add(this.pageNextBtn = new GuiButton(3, posX + 152,
-				posY + 98, 16, 20, ">"));
-		this.buttonList.add(this.pagePrevBtn = new GuiButton(4, posX + 62,
-				posY + 98, 16, 20, "<"));
+		this.buttonList.clear();
+		this.buttonList.add(this.buyBtn = new GuiButton(0, posX + 41,
+				posY + 137, 35, 20, "Buy"));
+		this.buttonList.add(this.exitBtn = new GuiButton(1, posX + 181,
+				posY + 137, 35, 20, "Exit"));
 	}
 
-
-
+	@Override
 	public void updateScreen() {
+		putItemsInSlot();
+	}
 
-		if (weapPage > 0) {
-			if (EnumRcWeapons.getItemForPageAndSlot(weapPage, 1) != null) {
-				container.putStackInSlot(1, new ItemStack(EnumRcWeapons
-						.getItemForPageAndSlot(weapPage, 1).getWeapon()));
+	public void handleSelectedWeapon() {
+
+		if (selectedItemEntity != null) {
+			selectedItemEntity.rotationYaw = 0;
+			selectedItemEntity.hoverStart = 0;
+
+			GL11.glPushMatrix();
+			GL11.glMatrixMode(GL11.GL_PROJECTION);
+			GL11.glMatrixMode(GL11.GL_MODELVIEW);
+
+			GL11.glTranslatef(xSize - 200, ySize - 92, 100);
+
+			GL11.glScalef(-60f, 60f, 60f);
+
+			GL11.glRotatef(180, 0, 0, 1);
+			GL11.glRotatef(rotation, 0, 1, 0);
+
+			RenderHelper.enableStandardItemLighting();
+
+			if (selectedWeapon >= 0 && selectedItem != null)
+				RenderManager.instance.renderEntityWithPosYaw(
+						selectedItemEntity, 0, 0, 0, 0, 0);
+
+			RenderHelper.disableStandardItemLighting();
+
+			GL11.glPopMatrix();
+
+			rotation -= 1f;
+
+			if (getItemInInventory(player.inventory, selectedItem.getItem()) == null) {
+				this.mc.fontRenderer.drawString(""
+						+ EnumRcWeapons.getItemFromID(selectedWeapon + 1)
+								.getPrice(), 30, 105, 0xFFFFFF);
+				this.buyBtn.displayString = "Buy";
 			} else {
-				container.putStackInSlot(1, null);
+				this.mc.fontRenderer.drawString(""
+						+ getItemInInventory(player.inventory, selectedItem.getItem()).getItemDamage() * selectedItemWeap.getPrice(), 30, 105, 0xFFFFFF);
+				this.buyBtn.displayString = "Refill";
 			}
-			if (EnumRcWeapons.getItemForPageAndSlot(weapPage, 2) != null) {
-				container.putStackInSlot(3, new ItemStack(EnumRcWeapons
-						.getItemForPageAndSlot(weapPage, 2).getWeapon()));
-			} else {
-				container.putStackInSlot(3, null);
-			}
-			if (EnumRcWeapons.getItemForPageAndSlot(weapPage, 3) != null) {
-				container.putStackInSlot(4, new ItemStack(EnumRcWeapons
-						.getItemForPageAndSlot(weapPage, 3).getWeapon()));
-			} else {
-				container.putStackInSlot(4, null);
-			}
-			if (EnumRcWeapons.getItemForPageAndSlot(weapPage, 4) != null) {
-				container.putStackInSlot(5, new ItemStack(EnumRcWeapons
-						.getItemForPageAndSlot(weapPage, 4).getWeapon()));
-			} else {
-				container.putStackInSlot(5, null);
-			}
-		}
-
-		if (hasNextPage(weapPage)) {
-			this.pageNextBtn.enabled = true;
-		} else {
-			this.pageNextBtn.enabled = false;
-		}
-
-		if (hasPrevPage(weapPage)) {
-			this.pagePrevBtn.enabled = true;
-		} else {
-			this.pagePrevBtn.enabled = false;
-		}
-
-		if (this.tileEntity.getStackInSlot(1) != null) {
-			this.ammoBtn.enabled = this.tileEntity.getStackInSlot(1).getItem() instanceof ItemRcWeap;
-			if (this.tileEntity.getStackInSlot(1).getItem() instanceof ItemRcWeap) {
-				ItemRcWeap itemInSlot1 = (ItemRcWeap) this.tileEntity
-						.getStackInSlot(1).getItem();
-				int price = this.tileEntity.getStackInSlot(1).getItemDamage()
-						* itemInSlot1.getPrice();
-			}
-		} else {
-			this.ammoBtn.enabled = false;
-		}
-
-		if (hasSlot1BeenClicked
-				&& EnumRcWeapons.getItemForPageAndSlot(weapPage, 1) != null) {
 			this.buyBtn.enabled = true;
-			this.cancelBtn.enabled = true;
-			this.container.putStackInSlot(2, new ItemStack(EnumRcWeapons
-					.getItemForPageAndSlot(weapPage, 1).getWeapon()));
-			hasSlot2BeenClicked = false;
-			hasSlot3BeenClicked = false;
-			hasSlot4BeenClicked = false;
-		} else if (hasSlot2BeenClicked
-				&& EnumRcWeapons.getItemForPageAndSlot(weapPage, 2) != null) {
-			this.buyBtn.enabled = true;
-			this.cancelBtn.enabled = true;
-			this.container.putStackInSlot(2, new ItemStack(EnumRcWeapons
-					.getItemForPageAndSlot(weapPage, 2).getWeapon()));
-			hasSlot1BeenClicked = false;
-			hasSlot3BeenClicked = false;
-			hasSlot4BeenClicked = false;
-		} else if (hasSlot3BeenClicked
-				&& EnumRcWeapons.getItemForPageAndSlot(weapPage, 3) != null) {
-			this.buyBtn.enabled = true;
-			this.cancelBtn.enabled = true;
-			this.container.putStackInSlot(2, new ItemStack(EnumRcWeapons
-					.getItemForPageAndSlot(weapPage, 3).getWeapon()));
-			hasSlot1BeenClicked = false;
-			hasSlot2BeenClicked = false;
-			hasSlot4BeenClicked = false;
-		} else if (hasSlot4BeenClicked
-				&& EnumRcWeapons.getItemForPageAndSlot(weapPage, 4) != null) {
-			this.buyBtn.enabled = true;
-			this.cancelBtn.enabled = true;
-			this.container.putStackInSlot(2, new ItemStack(EnumRcWeapons
-					.getItemForPageAndSlot(weapPage, 4).getWeapon()));
-			hasSlot1BeenClicked = false;
-			hasSlot2BeenClicked = false;
-			hasSlot3BeenClicked = false;
+
+			GL11.glPushMatrix();
+			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+			GL11.glDisable(GL11.GL_LIGHTING);
+			this.mc.getTextureManager().bindTexture(boltTexturePath);
+			GL11.glEnable(GL11.GL_BLEND);
+			GL11.glDisable(GL11.GL_DEPTH_TEST);
+			GL11.glDepthMask(false);
+			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+			GL11.glDisable(GL11.GL_ALPHA_TEST);
+			drawTexturedQuadFit(xSize - 185, ySize - 86, 8, 8, 0);
+			GL11.glEnable(GL11.GL_DEPTH_TEST);
+			GL11.glDepthMask(true);
+			GL11.glPopMatrix();
 		} else {
 			this.buyBtn.enabled = false;
-			this.cancelBtn.enabled = false;
-			this.container.putStackInSlot(2, null);
 		}
+	}
 
-		if (soundCooldown <= 30 * 20) {
-			soundCooldown++;
+	public void putItemsInSlot() {
+		for (int i = 1; i < 10; i++) {
+			if (EnumRcWeapons.getItemFromID(i) != null) {
+				this.container.putStackInSlot(i - 1, new ItemStack(
+						EnumRcWeapons.getItemFromID(i).getWeapon()));
+			} else {
+				this.container.putStackInSlot(i, null);
+			}
 		}
+	}
 
-		if (soundCooldown >= 30 * 20) {
-			soundCooldown = 0;
-//			mc.sndManager.playSoundFX(
-//					"rcmod:VendorSalesman.vendor_speech_wait", 1.0f, 1.0f);
-			mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("rcmod:vendor.speech.wait"), 1.0F));
+	@Override
+	public void mouseClicked(int par1, int par2, int par3) {
+		super.mouseClicked(par1, par2, par3);
+		for (int i = 0; i < 9; i++) {
+			if (isMouseOverSlot(container.getSlot(i), mouseX, mouseY)) {
+				selectedWeapon = i;
+				selectedItem = new ItemStack(EnumRcWeapons.getItemFromID(i + 1)
+						.getWeapon(), 1);
+				selectedItemEntity = new EntityItem(this.mc.theWorld, 0, 0, 0,
+						selectedItem);
+				selectedItemWeap = (ItemRcWeap)selectedItem.getItem();
+			}
 		}
+	}
 
+	@Override
+	public void actionPerformed(GuiButton button) {
+		switch (button.id) {
+		case 0:
+			if (!player.inventory.hasItem(selectedItem.getItem())) {
+				ExtendedPlayerBolt props = ExtendedPlayerBolt.get(player);
+				if (props.getCurrentBolt() > 0) {
+
+					try {
+						PacketVend packetVend = new PacketVend(
+								selectedWeapon + 1);
+						RcMod.rcModPacketHandler.sendToServer(packetVend);
+						mc.getSoundHandler().playSound(
+								PositionedSoundRecord
+										.func_147674_a(new ResourceLocation(
+												"rcmod:vendor.buy"), 1.0F));
+					} catch (Exception exception) {
+						exception.printStackTrace();
+					}
+				}
+			} else {
+				ItemRcWeap weap = (ItemRcWeap) selectedItem.getItem();
+				if (weap.useAmmo) {
+					PacketRefill packet = new PacketRefill(selectedWeapon + 1);
+					RcMod.rcModPacketHandler.sendToServer(packet);
+				}
+			}
+			break;
+		case 1:
+			player.closeScreen();
+			break;
+		default:
+			break;
+		}
 	}
 
 	public boolean doesGuiPauseGame() {
 		return false;
 	}
 
-	public boolean hasNextPage(int currentPage) {
-		if (EnumRcWeapons.getItemForPageAndSlot(currentPage + 1, 1) != null) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public boolean hasPrevPage(int currentPage) {
-		if (currentPage > 1) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public void actionPerformed(GuiButton button) {
-		switch (button.id) {
-		case 0:
-			this.soundCooldown = 0;
-			if (tileEntity.getStackInSlot(1) != null
-					&& tileEntity.getStackInSlot(1).getItem() instanceof ItemRcWeap) {
-				int damage = tileEntity.getStackInSlot(1).getItemDamage();
-				ExtendedPlayerBolt props = ExtendedPlayerBolt.get(player);
-				if (damage > 0) {
-					if (props.getCurrentBolt() > damage) {
-						try {
-
-							PacketRefill packet = new PacketRefill(tileEntity.getStackInSlot(1));
-							RcMod.rcModPacketHandler.sendToServer(packet);
-//							mc.sndManager
-//							.playSoundFX("rcmod:MenuVendorBuy", 1.0f, 1.0f);
-							mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("rcmod:vendor.buy"), 1.0F));
-						} catch (Exception exception) {
-							exception.printStackTrace();
-						}
-					} else {
-//						mc.sndManager
-//						.playSoundFX("rcmod:MenuVendorAmmoMaxedOut", 1.0f, 1.0f);
-						mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("rcmod:vendor.maxAmmo"), 1.0F));
-					}
-				} else {
-//					mc.sndManager
-//					.playSoundFX("rcmod:MenuVendorAmmoMaxedOut", 1.0f, 1.0f);
-					mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("rcmod:vendor.maxAmmo"), 1.0F));
-				}
-			}
-			break;
-		case 1:
-			this.soundCooldown = 0;
-			ExtendedPlayerBolt props = ExtendedPlayerBolt.get(player);
-			if (props.getCurrentBolt() > 0) {
-
-				try {
-					PacketVend packetVend = new PacketVend(getSlotClicked(), weapPage);
-					RcMod.rcModPacketHandler.sendToServer(packetVend); 
-					//Send a packet telling the server wich page and slot is the item in.
-					
-//					mc.sndManager
-//							.playSoundFX("rcmod:MenuVendorBuy", 1.0f, 1.0f);
-					mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("rcmod:vendor.buy"), 1.0F));
-				} catch (Exception exception) {
-					exception.printStackTrace();
-				}
-			}
-			break;
-		case 2:
-			this.soundCooldown = 0;
-			this.hasSlot1BeenClicked = false;
-			this.hasSlot2BeenClicked = false;
-			this.hasSlot3BeenClicked = false;
-			this.hasSlot4BeenClicked = false;
-			break;
-		case 3:
-			this.soundCooldown = 0;
-			this.weapPage += 1;
-			break;
-		case 4:
-			this.soundCooldown = 0;
-			this.weapPage -= 1;
-			break;
-		default:
-		}
-	}
-
-	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-		mc.fontRenderer.drawString("Vendor", 8, 6, 4210752);
-
-		if (isMouseOverSlot(container.getSlot(1), par1, par2)) {
-			isOverSlot1 = true;
-			isOverSlot2 = false;
-			isOverSlot3 = false;
-			isOverSlot4 = false;
-		} else if (isMouseOverSlot(container.getSlot(3), par1, par2)) {
-			isOverSlot1 = false;
-			isOverSlot2 = true;
-			isOverSlot3 = false;
-			isOverSlot4 = false;
-		} else if (isMouseOverSlot(container.getSlot(4), par1, par2)) {
-			isOverSlot1 = false;
-			isOverSlot2 = false;
-			isOverSlot3 = true;
-			isOverSlot4 = false;
-		} else if (isMouseOverSlot(container.getSlot(5), par1, par2)) {
-			isOverSlot1 = false;
-			isOverSlot2 = false;
-			isOverSlot3 = false;
-			isOverSlot4 = true;
-		} else {
-			isOverSlot1 = false;
-			isOverSlot2 = false;
-			isOverSlot3 = false;
-			isOverSlot4 = false;
-		}
-
-		if (this.tileEntity.getStackInSlot(1) != null
-				&& this.tileEntity.getStackInSlot(1).getItem() instanceof ItemRcWeap) {
-
-			ItemRcWeap itemInSlot1 = (ItemRcWeap) this.tileEntity
-					.getStackInSlot(1).getItem();
-			int price = this.tileEntity.getStackInSlot(1).getItemDamage()
-					* itemInSlot1.getPrice();
-			mc.fontRenderer.drawString("Buy "
-					+ this.tileEntity.getStackInSlot(1).getItemDamage()
-					+ " ammo", 7, 64, 0);
-			mc.fontRenderer.drawString("for " + price, 7, 74, 0);
-			mc.fontRenderer.drawString("bolts", 7, 84, 0);
-		}
-
-		if (hasSlot1BeenClicked
-				&& EnumRcWeapons.getItemForPageAndSlot(weapPage, 1) != null) {
-			mc.fontRenderer
-					.drawString(EnumRcWeapons
-							.getItemForPageAndSlot(weapPage, 1).getDesc()[0],
-							100, 10, 0);
-			mc.fontRenderer
-					.drawString(EnumRcWeapons
-							.getItemForPageAndSlot(weapPage, 1).getDesc()[1],
-							100, 20, 0);
-			mc.fontRenderer
-					.drawString(EnumRcWeapons
-							.getItemForPageAndSlot(weapPage, 1).getDesc()[2],
-							80, 30, 0);
-			mc.fontRenderer
-					.drawString(EnumRcWeapons
-							.getItemForPageAndSlot(weapPage, 1).getDesc()[3],
-							80, 40, 0);
-			mc.fontRenderer
-					.drawString(EnumRcWeapons
-							.getItemForPageAndSlot(weapPage, 1).getDesc()[4],
-							80, 50, 0);
-			mc.fontRenderer
-					.drawString(EnumRcWeapons
-							.getItemForPageAndSlot(weapPage, 1).getDesc()[5],
-							80, 60, 0);
-			mc.fontRenderer.drawString("Price : "
-					+ EnumRcWeapons.getItemForPageAndSlot(weapPage, 1)
-							.getPrice(), 160, 80, 0);
-		} else if (hasSlot2BeenClicked
-				&& EnumRcWeapons.getItemForPageAndSlot(weapPage, 2) != null) {
-			mc.fontRenderer
-					.drawString(EnumRcWeapons
-							.getItemForPageAndSlot(weapPage, 2).getDesc()[0],
-							100, 10, 0);
-			mc.fontRenderer
-					.drawString(EnumRcWeapons
-							.getItemForPageAndSlot(weapPage, 2).getDesc()[1],
-							100, 20, 0);
-			mc.fontRenderer
-					.drawString(EnumRcWeapons
-							.getItemForPageAndSlot(weapPage, 2).getDesc()[2],
-							80, 30, 0);
-			mc.fontRenderer
-					.drawString(EnumRcWeapons
-							.getItemForPageAndSlot(weapPage, 2).getDesc()[3],
-							80, 40, 0);
-			mc.fontRenderer
-					.drawString(EnumRcWeapons
-							.getItemForPageAndSlot(weapPage, 2).getDesc()[4],
-							80, 50, 0);
-			mc.fontRenderer
-					.drawString(EnumRcWeapons
-							.getItemForPageAndSlot(weapPage, 2).getDesc()[5],
-							80, 60, 0);
-			mc.fontRenderer.drawString("Price : "
-					+ EnumRcWeapons.getItemForPageAndSlot(weapPage, 2)
-							.getPrice(), 160, 80, 0);
-		} else if (hasSlot3BeenClicked
-				&& EnumRcWeapons.getItemForPageAndSlot(weapPage, 3) != null) {
-			mc.fontRenderer
-					.drawString(EnumRcWeapons
-							.getItemForPageAndSlot(weapPage, 3).getDesc()[0],
-							100, 10, 0);
-			mc.fontRenderer
-					.drawString(EnumRcWeapons
-							.getItemForPageAndSlot(weapPage, 3).getDesc()[1],
-							100, 20, 0);
-			mc.fontRenderer
-					.drawString(EnumRcWeapons
-							.getItemForPageAndSlot(weapPage, 3).getDesc()[2],
-							80, 30, 0);
-			mc.fontRenderer
-					.drawString(EnumRcWeapons
-							.getItemForPageAndSlot(weapPage, 3).getDesc()[3],
-							80, 40, 0);
-			mc.fontRenderer
-					.drawString(EnumRcWeapons
-							.getItemForPageAndSlot(weapPage, 3).getDesc()[4],
-							80, 50, 0);
-			mc.fontRenderer
-					.drawString(EnumRcWeapons
-							.getItemForPageAndSlot(weapPage, 3).getDesc()[5],
-							80, 60, 0);
-			mc.fontRenderer.drawString("Price : "
-					+ EnumRcWeapons.getItemForPageAndSlot(weapPage, 3)
-							.getPrice(), 160, 80, 0);
-		} else if (hasSlot4BeenClicked
-				&& EnumRcWeapons.getItemForPageAndSlot(weapPage, 4) != null) {
-			mc.fontRenderer
-					.drawString(EnumRcWeapons
-							.getItemForPageAndSlot(weapPage, 4).getDesc()[0],
-							100, 10, 0);
-			mc.fontRenderer
-					.drawString(EnumRcWeapons
-							.getItemForPageAndSlot(weapPage, 4).getDesc()[1],
-							100, 20, 0);
-			mc.fontRenderer
-					.drawString(EnumRcWeapons
-							.getItemForPageAndSlot(weapPage, 4).getDesc()[2],
-							80, 30, 0);
-			mc.fontRenderer
-					.drawString(EnumRcWeapons
-							.getItemForPageAndSlot(weapPage, 4).getDesc()[3],
-							80, 40, 0);
-			mc.fontRenderer
-					.drawString(EnumRcWeapons
-							.getItemForPageAndSlot(weapPage, 4).getDesc()[4],
-							80, 50, 0);
-			mc.fontRenderer
-					.drawString(EnumRcWeapons
-							.getItemForPageAndSlot(weapPage, 4).getDesc()[5],
-							80, 60, 0);
-			mc.fontRenderer.drawString("Price : "
-					+ EnumRcWeapons.getItemForPageAndSlot(weapPage, 4)
-							.getPrice(), 160, 80, 0);
-		}
-
-		mc.fontRenderer.drawString(
-				StatCollector.translateToLocal("container.inventory"), 8,
-				ySize - 96 + 2, 4210752);
-	}
-
-	@Override
-	public void mouseClicked(int par1, int par2, int par3) {
-		if (isOverSlot1) {
-			hasSlot1BeenClicked = true;
-			hasSlot2BeenClicked = false;
-			hasSlot3BeenClicked = false;
-			hasSlot4BeenClicked = false;
-//			mc.sndManager
-//			.playSoundFX("rcmod:MenuSelect", 1.0f, 1.0f);
-			mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("rcmod:MenuSelect"), 1.0F));
-			Random random = new Random();
-			int randomInt = random.nextInt(9);
-			if(randomInt == 5){
-				mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("rcmod:vendor.speech.weapClicked"), 1.0F));
-			}
-		} else if (isOverSlot2) {
-			hasSlot1BeenClicked = false;
-			hasSlot2BeenClicked = true;
-			hasSlot3BeenClicked = false;
-			hasSlot4BeenClicked = false;
-			mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("rcmod:MenuSelect"), 1.0F));
-			Random random = new Random();
-			int randomInt = random.nextInt(9);
-			if(randomInt == 5){
-				mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("rcmod:vendor.speech.weapClicked"), 1.0F));
-			}
-		} else if (isOverSlot3) {
-			hasSlot1BeenClicked = false;
-			hasSlot2BeenClicked = false;
-			hasSlot3BeenClicked = true;
-			hasSlot4BeenClicked = false;
-			mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("rcmod:MenuSelect"), 1.0F));
-			Random random = new Random();
-			int randomInt = random.nextInt(9);
-			if(randomInt == 5){
-				mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("rcmod:vendor.speech.weapClicked"), 1.0F));
-			}
-		} else if (isOverSlot4) {
-			hasSlot1BeenClicked = false;
-			hasSlot2BeenClicked = false;
-			hasSlot3BeenClicked = false;
-			hasSlot4BeenClicked = true;
-			mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("rcmod:MenuSelect"), 1.0F));
-			Random random = new Random();
-			int randomInt = random.nextInt(9);
-			if(randomInt == 5){
-				mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("rcmod:vendor.speech.weapClicked"), 1.0F));
-			}
-		} else {
-			super.mouseClicked(par1, par2, par3);
-		}
-	}
-
-	private boolean isMouseOverSlot(Slot par1Slot, int par2, int par3) {
-		return this.func_146978_c(par1Slot.xDisplayPosition,
-				par1Slot.yDisplayPosition, 16, 16, par2, par3);
-		
+		mouseX = par1;
+		mouseY = par2;
+		handleSelectedWeapon();
 	}
 
 	@Override
@@ -532,26 +235,6 @@ public class GuiVendor extends GuiContainer {
 		GL11.glDisable(GL11.GL_BLEND);
 	}
 
-	public int getSlotClicked() {
-
-		if (hasSlot1BeenClicked) {
-			return 1;
-		} else if (hasSlot2BeenClicked) {
-			return 2;
-		} else if (hasSlot3BeenClicked) {
-			return 3;
-		} else if (hasSlot4BeenClicked) {
-			return 4;
-		} else {
-			return 0;
-		}
-	}
-	
-	public void onGuiClosed() {
-		super.onGuiClosed();
-		mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("rcmod:vendor.exit"), 1.0F));
-	}
-
 	@SideOnly(Side.CLIENT)
 	public static void drawTexturedQuadFit(double x, double y, double width,
 			double height, double zLevel) {
@@ -562,6 +245,34 @@ public class GuiVendor extends GuiContainer {
 		tessellator.addVertexWithUV(x + width, y + 0, zLevel, 1, 0);
 		tessellator.addVertexWithUV(x + 0, y + 0, zLevel, 0, 0);
 		tessellator.draw();
+	}
+
+	private boolean isMouseOverSlot(Slot par1Slot, int par2, int par3) {
+		return this.func_146978_c(par1Slot.xDisplayPosition,
+				par1Slot.yDisplayPosition, 16, 16, par2, par3);
+
+	}
+
+	private int getSlotContainingItem(InventoryPlayer inventory, Item item) {
+		for (int i = 0; i < inventory.mainInventory.length; ++i) {
+			if (inventory.mainInventory[i] != null
+					&& inventory.mainInventory[i].getItem() == item) {
+				return i;
+			}
+		}
+
+		return -1;
+	}
+
+	public ItemStack getItemInInventory(InventoryPlayer inventory,
+			Item p_146026_1_) {
+		int i = this.getSlotContainingItem(inventory, p_146026_1_);
+
+		if (i < 0) {
+			return null;
+		} else {
+			return inventory.mainInventory[i];
+		}
 	}
 
 }

@@ -15,11 +15,11 @@ public class TileEntityVendor extends TileEntity implements IInventory {
 
 	
 	public boolean isPlayerNear = false;
-	private ItemStack[] inv;
+	public ItemStack[] inv;
 	public int renderCountdown;
 	
 	public TileEntityVendor() {
-		inv = new ItemStack[9];
+		inv = new ItemStack[12];
 		renderCountdown = 0;
 	}
 

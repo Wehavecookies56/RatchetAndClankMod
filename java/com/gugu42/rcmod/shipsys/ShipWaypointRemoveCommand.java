@@ -54,9 +54,7 @@ public class ShipWaypointRemoveCommand implements ICommand {
 			} else {
 				sender.addChatMessage(new ChatComponentText("Correct usage : /removeRcWaypoint <Name>"));
 			}
-
 		}
-
 	}
 
 	@Override

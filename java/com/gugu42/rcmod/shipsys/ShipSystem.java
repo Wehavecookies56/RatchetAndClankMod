@@ -29,7 +29,7 @@ public class ShipSystem {
 			}
 		}
 
-		data.substring(0, data.length() - 1);
+		//		data.substring(0, data.length() - 1);
 
 		System.out.println("Sent save data : " + data);
 
@@ -58,12 +58,13 @@ public class ShipSystem {
 
 	/**
 	 * 
-	 * @param name The name of the waypoint
+	 * @param name
+	 *            The name of the waypoint
 	 * @return true if the name is taken
 	 */
 	public static boolean isNameTaken(String name) {
 		for (ShipWaypoint wp : waypoints) {
-			if (wp.name.equals(name)) {
+			if (wp != null && wp.name != null && wp.name.equals(name)) {
 				return true;
 			}
 		}

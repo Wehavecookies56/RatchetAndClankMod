@@ -1,18 +1,16 @@
 package com.gugu42.rcmod.blocks;
 
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 import com.gugu42.rcmod.ClientProxy;
 import com.gugu42.rcmod.RcMod;
-import com.gugu42.rcmod.shipsys.RcWorldSavedData;
 import com.gugu42.rcmod.tileentity.TileEntityShip;
 
 import cpw.mods.fml.relauncher.Side;
@@ -26,20 +24,21 @@ public class BlockShip extends Block {
 		this.setBlockBounds(-3f, 0, -3f, 3f, 3f, 3f);
 	}
 
+
+
 	public boolean onBlockActivated(World par1World, int x, int y, int z,
 			EntityPlayer par5EntityPlayer, int par6, float par7, float par8,
 			float par9) {
 
-		 TileEntity tileEntity = par1World.getTileEntity(x, y, z);
-		 if (tileEntity == null || par5EntityPlayer.isSneaking()) {
-			 return false;
-		 }
-		 
-		 par5EntityPlayer.openGui(RcMod.instance, 0, par1World, x, y, z);
-		 
+		TileEntity tileEntity = par1World.getTileEntity(x, y, z);
+		if (tileEntity == null || par5EntityPlayer.isSneaking()) {
+			return false;
+		}
+
+		par5EntityPlayer.openGui(RcMod.instance, 0, par1World, x, y, z);
+
 		return true;
 	}
-
 
 	public TileEntity createTileEntity(World world, int metadata) {
 		return new TileEntityShip();
