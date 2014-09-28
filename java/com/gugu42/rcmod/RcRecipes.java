@@ -71,5 +71,23 @@ public class RcRecipes
 			" T ",
 			'T', Blocks.tnt, 'Y', new ItemStack(Items.dye, 1, 11)
 		});
+		
+		GameRegistry.addRecipe(new ItemStack(RcMod.ratchetEars, 1), new Object[]{
+			"Y Y",
+			"YTY",
+			'T', Items.string, 'Y', new ItemStack(Blocks.wool, 1, 4)
+		});
+		
+		GameRegistry.addRecipe(new ItemStack(RcMod.thrusterPack, 1), new Object[]{
+			"ICI",
+			"H H",
+			'I', Blocks.iron_bars, 'C', RcItems.clank, 'H', Items.flint_and_steel
+		});
+		
+		GameRegistry.addRecipe(new ItemStack(RcItems.swingShot, 1), new Object[]{
+			"ISI",
+			"  I",
+			'I', Items.iron_ingot, 'S', Items.string
+		});
 	}
 }
