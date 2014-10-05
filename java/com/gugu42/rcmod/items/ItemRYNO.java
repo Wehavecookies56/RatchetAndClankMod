@@ -1,7 +1,6 @@
 package com.gugu42.rcmod.items;
 
 import com.gugu42.rcmod.entity.projectiles.EntityRYNOAmmo;
-import com.gugu42.rcmod.handler.ExtendedEntityLivingBaseTarget;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;

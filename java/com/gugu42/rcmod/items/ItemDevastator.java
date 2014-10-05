@@ -3,6 +3,7 @@ package com.gugu42.rcmod.items;
 import java.util.List;
 
 import com.gugu42.rcmod.entity.projectiles.EntityRYNOAmmo;
+import com.gugu42.rcmod.handler.ExtendedPlayerTarget;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -47,38 +48,42 @@ public class ItemDevastator extends ItemRcWeap {
 	public void onUpdate(ItemStack par1ItemStack, World par2World,
 			Entity par3Entity, int par4, boolean par5) {
 		if (par5 && par3Entity instanceof EntityPlayer && !par2World.isRemote) {
-			if (par3Entity.getEntityData().getBoolean("devastatorFired")) {
-				EntityPlayer player = (EntityPlayer) par3Entity;
-				Entity target = null;
-				List entityTagetList = par2World.getEntitiesWithinAABB(
-						Entity.class,
-						player.boundingBox.expand(48.0D, 48.0D, 48.0D));
-				for (int i = 0; i < entityTagetList.size(); i++) {
-					Entity entityTarget = (Entity) entityTagetList.get(i);
-					if (entityTarget != player
-							&& entityTarget instanceof EntityLivingBase) {
-						EntityLivingBase entityLivingTarget = (EntityLivingBase) entityTarget;
-						Vec3 vec3 = player.getLook(1.0F).normalize();
-						Vec3 vec31 = Vec3.createVectorHelper(
-										entityLivingTarget.posX - player.posX,
-										entityLivingTarget.boundingBox.minY
-												+ (double) (entityLivingTarget.height / 2.0F)
-												- (player.posY + (double) player
-														.getEyeHeight()),
-										entityLivingTarget.posZ - player.posZ);
-						double d0 = vec31.lengthVector();
-						vec31 = vec31.normalize();
-						double d1 = vec3.dotProduct(vec31);
-						if (d1 > 1.0D - 0.025D / d0
-								&& player.canEntityBeSeen(entityLivingTarget)) {
-							target = entityLivingTarget;
-						} else {
-							target = null;
-						}
-
+			EntityPlayer player = (EntityPlayer) par3Entity;
+			ExtendedPlayerTarget props = ExtendedPlayerTarget.get(player);
+			Entity target = null;
+			List entityTagetList = par2World.getEntitiesWithinAABB(
+					Entity.class,
+					player.boundingBox.expand(48.0D, 48.0D, 48.0D));
+			for (int i = 0; i < entityTagetList.size(); i++) {
+				Entity entityTarget = (Entity) entityTagetList.get(i);
+				if (entityTarget != player
+						&& entityTarget instanceof EntityLivingBase) {
+					EntityLivingBase entityLivingTarget = (EntityLivingBase) entityTarget;
+					Vec3 vec3 = player.getLook(1.0F).normalize();
+					Vec3 vec31 = Vec3.createVectorHelper(
+									entityLivingTarget.posX - player.posX,
+									entityLivingTarget.boundingBox.minY
+											+ (double) (entityLivingTarget.height / 2.0F)
+											- (player.posY + (double) player
+													.getEyeHeight()),
+									entityLivingTarget.posZ - player.posZ);
+					double d0 = vec31.lengthVector();
+					vec31 = vec31.normalize();
+					double d1 = vec3.dotProduct(vec31);
+					if (d1 > 1.0D - 0.025D / d0
+							&& player.canEntityBeSeen(entityLivingTarget)) {
+						target = entityLivingTarget;
+						props.setDevastatorTarget(target);
+					} else {
+						target = null;
+						props.removeDevastatorTarget();
 					}
-				}
 
+				}
+			}
+
+//			if (par3Entity.getEntityData().getBoolean("devastatorFired")) {
+				
 				if (par3Entity.getEntityData().getBoolean("devastatorFired")) {
 					if (target != null) {
 						fireRocket(par2World, player, target);
@@ -89,7 +94,7 @@ public class ItemDevastator extends ItemRcWeap {
 						par3Entity.getEntityData().setBoolean(
 								"devastatorFired", false);
 					}
-				}
+//				}
 			}
 
 		}

@@ -1,17 +1,25 @@
 package com.gugu42.rcmod.handler;
 
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderPlayer;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.Item;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -28,10 +36,8 @@ import com.gugu42.rcmod.items.ItemRcWeap;
 import com.gugu42.rcmod.items.RcItems;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ObfuscationReflectionHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -63,16 +69,16 @@ public class RcEventHandler {
 					ExtendedPropsSuckCannon.IDENTIFIER,
 					new ExtendedPropsSuckCannon((EntityPlayer)event.entity));
 		}
-		if (event.entity instanceof EntityPlayer
-				&& ExtendedEntityLivingBaseTarget
-						.get((EntityPlayer) event.entity) == null) {
-			ExtendedEntityLivingBaseTarget
-					.register((EntityPlayer) event.entity);
+		
+		if(event.entity instanceof EntityPlayer
+				&& event.entity
+						.getExtendedProperties(ExtendedPlayerTarget.EXT_PROP_NAME) == null)
+		{
+			event.entity.registerExtendedProperties(
+					ExtendedPlayerTarget.EXT_PROP_NAME,
+					new ExtendedPlayerTarget((EntityPlayer)event.entity));
 		}
-		if (event.entity instanceof EntityLivingBase) {
-			ExtendedEntityLivingBaseTarget
-					.register((EntityLivingBase) event.entity);
-		}
+		
 
 		if (event.entity != null) {
 			event.entity.getEntityData().setInteger("missilesTargeting", 0);
@@ -185,12 +191,7 @@ public class RcEventHandler {
 					.getExtendedProperties(ExtendedPlayerBolt.EXT_PROP_NAME)))
 					.sync();
 			ExtendedPropsSuckCannon.get((EntityPlayer)event.entity).sync();
-		}
-
-		if (event.entity instanceof EntityLivingBase) {
-			ExtendedEntityLivingBaseTarget props2 = ExtendedEntityLivingBaseTarget
-					.get((EntityLivingBase) event.entity);
-			props2.setTargeted(false);
+			ExtendedPlayerTarget.get((EntityPlayer)event.entity).sync();
 		}
 
 		// EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
@@ -276,6 +277,18 @@ public class RcEventHandler {
 				}
 			}
 		}
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public void renderWorldLastEvent(RenderWorldLastEvent event){
+		final Minecraft mc = Minecraft.getMinecraft();
+		
+		ExtendedPlayerTarget props = ExtendedPlayerTarget.get(mc.thePlayer);
+		if(props.hasDevastatorTarget){
+			//TODO: Render an green circle on the target.
+		}
+		
 	}
 
 }
