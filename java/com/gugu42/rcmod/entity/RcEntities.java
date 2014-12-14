@@ -1,5 +1,7 @@
 package com.gugu42.rcmod.entity;
 
+import net.minecraftforge.fml.common.registry.EntityRegistry;
+
 import com.gugu42.rcmod.RcMod;
 import com.gugu42.rcmod.entity.projectiles.EntityBlasterAmmo;
 import com.gugu42.rcmod.entity.projectiles.EntityBombGloveAmmo;
@@ -11,8 +13,6 @@ import com.gugu42.rcmod.entity.projectiles.EntitySuckCannonProj;
 import com.gugu42.rcmod.entity.projectiles.EntitySwingShotHook;
 import com.gugu42.rcmod.entity.projectiles.EntityVisibombAmmo;
 import com.gugu42.rcmod.entity.projectiles.EntityWrenchThrown;
-
-import cpw.mods.fml.common.registry.EntityRegistry;
 
 public class RcEntities {
 

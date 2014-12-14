@@ -4,20 +4,23 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.model.AdvancedModelLoader;
-import net.minecraftforge.client.model.IModelCustom;
 
 import org.lwjgl.opengl.GL11;
 
+import com.gugu42.rcmod.utils.glutils.TessellatorModel;
+
 public class PyrocitorRender implements IItemRenderer {
 
-	private IModelCustom model1;
-	public static final ResourceLocation textureLocation = new ResourceLocation(
-			"rcmod:models/Pyrocitor.png");
+//	private IModelCustom model1;
+//	public static final ResourceLocation textureLocation = new ResourceLocation(
+//			"rcmod:models/Pyrocitor.png");
+	
+	private TessellatorModel pyrocitorModel;
 
 	public PyrocitorRender() {
-		model1 = AdvancedModelLoader
-				.loadModel(new ResourceLocation("rcmod:models/Pyrocitor.obj"));
+//		model1 = AdvancedModelLoader
+//				.loadModel(new ResourceLocation("rcmod:models/Pyrocitor.obj"));
+		pyrocitorModel = new TessellatorModel("/assets/rcmod/models/Pyrocitor.obj");
 	}
 
 	@Override
@@ -46,13 +49,14 @@ public class PyrocitorRender implements IItemRenderer {
 		switch (type) {
 		case EQUIPPED: {
 			GL11.glPushMatrix();
-			Minecraft.getMinecraft().renderEngine.bindTexture(textureLocation);
+//			Minecraft.getMinecraft().renderEngine.bindTexture(textureLocation);
 			GL11.glTranslatef(0.62f, 0.21f, 0.03f);
 			GL11.glRotatef(-5, 0.0f, 1.0f, 0.0f);
 			GL11.glRotatef(220, 0.0f, 0.0f, 1.0f);
 	//		GL11.glRotatef(-35, 1.0f, 0.0f, 0.0f);
 			GL11.glScalef(-0.04f, -0.04f, -0.04f);
-			model1.renderAll();
+			pyrocitorModel.regenerateNormals();
+			pyrocitorModel.render();
 
 			GL11.glTranslatef(-0.5F, 0.0F, 0.09F);
 			GL11.glPopMatrix();
@@ -60,22 +64,24 @@ public class PyrocitorRender implements IItemRenderer {
 		}
 		case EQUIPPED_FIRST_PERSON: {
 			GL11.glPushMatrix();
-			Minecraft.getMinecraft().renderEngine.bindTexture(textureLocation);
+//			Minecraft.getMinecraft().renderEngine.bindTexture(textureLocation);
 			GL11.glTranslatef(0.1f, 0f, -0.1f);
 			GL11.glRotatef(00, 0.0f, 1.0f, 0.0f);
 			GL11.glRotatef(0, 1.0f, 0.0f, 0.0f);
 			GL11.glRotatef(30, 0.0f, 0.0f, 1.0f);
 			GL11.glScalef(0.05f, 0.05f, 0.05f);
-			model1.renderAll();
+			pyrocitorModel.regenerateNormals();
+			pyrocitorModel.render();
 			GL11.glPopMatrix();
 			break;
 		}
 		case ENTITY: {
 			GL11.glPushMatrix();
-			Minecraft.getMinecraft().renderEngine.bindTexture(textureLocation);
+//			Minecraft.getMinecraft().renderEngine.bindTexture(textureLocation);
 			GL11.glScalef(0.04f, 0.04f, 0.04f);
 			GL11.glTranslatef(-14f, 6f, 0.0f);
-			model1.renderAll();
+			pyrocitorModel.regenerateNormals();
+			pyrocitorModel.render();
 			GL11.glPopMatrix();
 			break;
 		}

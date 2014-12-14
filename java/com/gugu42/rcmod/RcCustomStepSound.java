@@ -33,10 +33,10 @@ public class RcCustomStepSound extends SoundType {
 	/**
 	 * Used when a entity walks over, or otherwise interacts with the block.
 	 */
-	@Override
-	public String getStepResourcePath() {
-		return stepSound.getStepResourcePath();
-	}
+//	@Override
+//	public String getStepResourcePath() {
+//		return stepSound.getStepResourcePath();
+//	}
 
 	/**
 	 * Used when a player places a block.

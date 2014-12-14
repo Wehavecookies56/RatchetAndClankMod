@@ -14,11 +14,11 @@ import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.SimpleResource;
 import net.minecraft.client.resources.data.IMetadataSerializer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
 
 import com.gugu42.rcmod.RcMod;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RcSimpleResourceManager implements IResourceManager
@@ -75,7 +75,7 @@ public class RcSimpleResourceManager implements IResourceManager
         {
             InputStream in = getInputStream(domain, var1);
             if(in == null)continue;
-            SimpleResource resource = new SimpleResource(var1, in, null, new IMetadataSerializer());
+            SimpleResource resource = new SimpleResource("rcmod", var1, in, null, new IMetadataSerializer());
             location2resource.put(domain+"/"+var1.getResourcePath(), resource);
         }
     }

@@ -96,7 +96,7 @@ public class ExtendedPropsSuckCannon implements IExtendedEntityProperties
 	{
 		NBTTagCompound nbtData = new NBTTagCompound();
 		entity.writeEntityToNBT(nbtData);
-		nbtData.setBoolean("hadCustomTagName", entity.hasCustomNameTag());
+		nbtData.setBoolean("hadCustomTagName", entity.hasCustomName());
 		nbtData.setString("id", EntityList.getStringFromID(EntityList.getEntityID(entity)));
 		nbtStack.push(nbtData.toString());
 	}

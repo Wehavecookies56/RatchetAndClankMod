@@ -14,23 +14,24 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.reflect.ClassPath;
-import com.google.common.reflect.ClassPath.ClassInfo;
-import com.gugu42.rcmod.RcMod;
-
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.network.FMLEmbeddedChannel;
-import cpw.mods.fml.common.network.FMLOutboundHandler;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.internal.FMLProxyPacket;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.INetHandler;
 import net.minecraft.network.NetHandlerPlayServer;
+import net.minecraft.network.PacketBuffer;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.network.FMLEmbeddedChannel;
+import net.minecraftforge.fml.common.network.FMLOutboundHandler;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import com.google.common.collect.ImmutableSet;
+import com.google.common.reflect.ClassPath;
+import com.google.common.reflect.ClassPath.ClassInfo;
+import com.gugu42.rcmod.RcMod;
 
 @ChannelHandler.Sharable
 public class FFMTPacketHandler extends
@@ -118,7 +119,7 @@ public class FFMTPacketHandler extends
 		byte discriminator = (byte) this.packets.indexOf(clazz);
 		buffer.writeByte(discriminator);
 		msg.encodeInto(ctx, buffer);
-		FMLProxyPacket proxyPacket = new FMLProxyPacket(buffer.copy(), ctx
+		FMLProxyPacket proxyPacket = new FMLProxyPacket(new PacketBuffer(buffer.copy()), ctx
 				.channel().attr(NetworkRegistry.FML_CHANNEL).get());
 		out.add(proxyPacket);
 	}

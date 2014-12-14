@@ -2,8 +2,6 @@ package com.gugu42.rcmod.entity.projectiles;
 
 import java.util.List;
 
-import com.gugu42.rcmod.RcMod;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -13,11 +11,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-import cpw.mods.fml.common.registry.IThrowableEntity;
+import net.minecraftforge.fml.common.registry.IThrowableEntity;
+
+import com.gugu42.rcmod.RcMod;
 
 public class EntityWrenchThrown extends EntityThrowable implements
 		IThrowableEntity {
@@ -58,10 +59,9 @@ public class EntityWrenchThrown extends EntityThrowable implements
 						this.setReturningToOwner(true);
 					}
 				} else if (worldObj
-						.getBlock(mop.blockX, mop.blockY, mop.blockZ) != null) {
-					if (worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ) == RcMod.crate
-							|| worldObj.getBlock(mop.blockX, mop.blockY,
-									mop.blockZ) == RcMod.tntCrate) {
+						.getBlockState(mop.getBlockPos()).getBlock() != null) {
+					if (worldObj.getBlockState(mop.getBlockPos()).getBlock() == RcMod.crate
+							|| worldObj.getBlockState(mop.getBlockPos()).getBlock() == RcMod.tntCrate) {
 						//Continue
 					} else {
 						this.setReturningToOwner(true);
@@ -110,7 +110,7 @@ public class EntityWrenchThrown extends EntityThrowable implements
 
 		if (this.isReturningToOwner) {
 			List entityTagetList = this.worldObj.getEntitiesWithinAABB(
-					Entity.class, this.boundingBox.expand(1.0D, 1.0D, 1.0D));
+					Entity.class, this.getBoundingBox().expand(1.0D, 1.0D, 1.0D));
 			for (int i = 0; i < entityTagetList.size(); i++) {
 				Entity entityTarget = (Entity) entityTagetList.get(i);
 				if (entityTarget != null
@@ -148,11 +148,11 @@ public class EntityWrenchThrown extends EntityThrowable implements
 		int x = MathHelper.floor_double(posX);
 		int y = MathHelper.floor_double(posY);
 		int z = MathHelper.floor_double(posZ);
-		Block block = worldObj.getBlock(x, y, z);
+		Block block = worldObj.getBlockState(new BlockPos(x, y, z)).getBlock();
 		if (block == RcMod.crate) {
-			block.dropBlockAsItem(worldObj, x, y, z,
-					this.worldObj.getBlockMetadata(x, y, z), 0);
-			this.worldObj.setBlock(x, y, z, Blocks.air);
+			block.dropBlockAsItem(worldObj, new BlockPos(x, y, z),
+					this.worldObj.getBlockState(new BlockPos(x, y, z)), 0);
+			this.worldObj.setBlockState(new BlockPos(x, y, z), Blocks.air.getDefaultState());
 		}
 	}
 
@@ -160,11 +160,11 @@ public class EntityWrenchThrown extends EntityThrowable implements
 		int x = MathHelper.floor_double(posX);
 		int y = MathHelper.floor_double(posY);
 		int z = MathHelper.floor_double(posZ);
-		Block block = worldObj.getBlock(x, y, z);
+		Block block = worldObj.getBlockState(new BlockPos(x, y, z)).getBlock();
 		if (block == RcMod.tntCrate) {
-			block.dropBlockAsItem(worldObj, x, y, z,
-					this.worldObj.getBlockMetadata(x, y, z), 0);
-			this.worldObj.setBlock(x, y, z, Blocks.air);
+			block.dropBlockAsItem(worldObj, new BlockPos(x, y, z),
+					this.worldObj.getBlockState(new BlockPos(x, y, z)), 0);
+			this.worldObj.setBlockState(new BlockPos(x, y, z), Blocks.air.getDefaultState());
 		}
 	}
 
@@ -176,7 +176,7 @@ public class EntityWrenchThrown extends EntityThrowable implements
 				double newX = this.getThrower().posX - this.posX;
 				double newY = (this.getThrower().posY + 1) - this.posY;
 				double newZ = this.getThrower().posZ - this.posZ;
-				setThrowableHeading(newX, newY, newZ, this.func_70182_d(), 0.0F);
+				setThrowableHeading(newX, newY, newZ, 1.5F, 0.0F);
 			}
 		}
 	}

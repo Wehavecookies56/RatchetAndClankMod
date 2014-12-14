@@ -2,24 +2,18 @@ package com.gugu42.rcmod.handler;
 
 import java.util.List;
 
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.network.play.server.S12PacketEntityVelocity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
 
 import com.gugu42.rcmod.RcMod;
 import com.gugu42.rcmod.items.RcItems;
 import com.gugu42.rcmod.shipsys.RcWorldSavedData;
-
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent;
 
 public class RcTickHandler {
 
@@ -65,7 +59,7 @@ public class RcTickHandler {
 				World world = player.worldObj;
 
 				List entities = world.getEntitiesWithinAABB(EntityItem.class,
-						AxisAlignedBB.getBoundingBox(player.posX - 16.0D,
+						AxisAlignedBB.fromBounds(player.posX - 16.0D,
 								player.posY - 16.0D, player.posZ - 16.0D,
 								player.posX + 16.0D, player.posY + 16.0D,
 								player.posZ + 16.0D));

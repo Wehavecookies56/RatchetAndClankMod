@@ -2,13 +2,16 @@ package com.gugu42.rcmod.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import com.gugu42.rcmod.RcMod;
-import com.gugu42.rcmod.tileentity.TileEntityShip;
 import com.gugu42.rcmod.tileentity.TileEntityShipFiller;
 
 public class BlockShipFiller extends Block {
@@ -18,56 +21,52 @@ public class BlockShipFiller extends Block {
 		// TODO Auto-generated constructor stub
 	}
 
-	public boolean onBlockActivated(World par1World, int x, int y, int z,
-			EntityPlayer par5EntityPlayer, int par6, float par7, float par8,
-			float par9) {
+	@Override
+	public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ) {
 
-		TileEntity tileEntity = par1World.getTileEntity(x, y, z);
+		TileEntity tileEntity = par1World.getTileEntity(pos);
 
-		if (tileEntity == null || par5EntityPlayer.isSneaking()) {
+		if (tileEntity == null || player.isSneaking()) {
 			return false;
 		}
 
-		par5EntityPlayer.openGui(RcMod.instance, 0, par1World, x, y, z);
+		player.openGui(RcMod.instance, 0, par1World, pos.getX(), pos.getY(), pos.getZ());
 
 		return true;
 	}
 
 	@Override
-	public void breakBlock(World world, int i, int j, int k, Block p_149749_5_,
-			int p_149749_6_) {
-		if (world.getTileEntity(i, j, k) instanceof TileEntityShipFiller) {
+	public void breakBlock(World world, BlockPos pos, IBlockState state) {
+		if (world.getTileEntity(pos) instanceof TileEntityShipFiller) {
 			TileEntityShipFiller tileEntity = (TileEntityShipFiller) world
-					.getTileEntity(i, j, k);
+					.getTileEntity(pos);
 			if (tileEntity != null) {
-				world.setBlockToAir(tileEntity.primary_x, tileEntity.primary_y,
-						tileEntity.primary_z);
-				world.removeTileEntity(tileEntity.primary_x,
-						tileEntity.primary_y, tileEntity.primary_z);
+				world.setBlockState(new BlockPos(tileEntity.primary_x, tileEntity.primary_y,
+						tileEntity.primary_z), Blocks.air.getDefaultState());
+				world.removeTileEntity(new BlockPos(tileEntity.primary_x,
+						tileEntity.primary_y, tileEntity.primary_z));
 			}
 
-			world.removeTileEntity(i, j, k);
+			world.removeTileEntity(pos);
 		}
-		super.breakBlock(world, i, j, k, p_149749_5_, p_149749_6_);
+		super.breakBlock(world, pos, state);
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z,
-			Block block) {
+	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block neighborBlock) {
 		TileEntityShipFiller tileEntity = (TileEntityShipFiller) world
-				.getTileEntity(x, y, z);
+				.getTileEntity(pos);
 		if (tileEntity != null) {
-			if (world.getTileEntity(tileEntity.primary_x, tileEntity.primary_y,
-					tileEntity.primary_z) == null) {
-				world.setBlockToAir(x, y, z);
-				world.removeTileEntity(x, y, z);
+			if (world.getTileEntity(new BlockPos(tileEntity.primary_x, tileEntity.primary_y,
+					tileEntity.primary_z)) == null) {
+				world.setBlockToAir(pos);
+				world.removeTileEntity(pos);
 			}
 		}
 	}
 
 	@Override
-	public boolean shouldSideBeRendered(IBlockAccess iblockaccess, int i,
-			int j, int k, int l) {
+	public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
 		return false;
 		// return true;
 	}
@@ -82,7 +81,7 @@ public class BlockShipFiller extends Block {
 	}
 
 	@Override
-	public TileEntity createTileEntity(World world, int metadata) {
+	public TileEntity createTileEntity(World world, IBlockState state) {
 		return new TileEntityShipFiller();
 	}
 

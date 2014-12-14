@@ -30,7 +30,7 @@ public class RcWorldSavedData extends WorldSavedData {
 
 	public static RcWorldSavedData forWorld(World world) {
 		// Retrieves this class instance for the given world, creating it if necessary
-		MapStorage storage = world.mapStorage;
+		MapStorage storage = world.getMapStorage();
 		RcWorldSavedData result = (RcWorldSavedData) storage.loadData(
 				RcWorldSavedData.class, key);
 		if (result == null) {

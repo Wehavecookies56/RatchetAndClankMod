@@ -1,26 +1,18 @@
 package com.gugu42.rcmod.gui;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.glColor4f;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-import com.gugu42.rcmod.handler.ExtendedPropsSuckCannon;
-
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import cpw.mods.fml.common.gameevent.TickEvent.Type;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
@@ -31,9 +23,18 @@ import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
+import net.minecraftforge.fml.common.gameevent.TickEvent.Type;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+
+import com.gugu42.rcmod.handler.ExtendedPropsSuckCannon;
 
 @SideOnly(Side.CLIENT)
 public class GuiSuckCannon extends Gui
@@ -102,7 +103,7 @@ public class GuiSuckCannon extends Gui
 				{
 					try
 					{
-						Entity e = EntityList.createEntityFromNBT((NBTTagCompound)JsonToNBT.func_150315_a(list.get(index)), player.worldObj);
+						Entity e = EntityList.createEntityFromNBT((NBTTagCompound)JsonToNBT.func_180713_a(list.get(index)), player.worldObj);
 						loadedEntities.put(index, e);
 					}
 					catch(NBTException e1)
@@ -148,9 +149,9 @@ public class GuiSuckCannon extends Gui
         entity.rotationPitch = -((float)Math.atan((double)(pitch / 40.0F))) * 20.0F;
         entity.rotationYawHead = entity.rotationYaw;
         entity.prevRotationYawHead = entity.rotationYaw;
-        GL11.glTranslatef(0.0F, entity.yOffset, 0.0F);
-        RenderManager.instance.playerViewY = 180.0F;
-        RenderManager.instance.func_147939_a(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, true);
+        GL11.glTranslatef(0.0F, (float) entity.getYOffset(), 0.0F);
+        Minecraft.getMinecraft().getRenderManager().playerViewY = 180.0F;
+        Minecraft.getMinecraft().getRenderManager().doRenderEntity(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, true);
         entity.renderYawOffset = f2;
         entity.rotationYaw = f3;
         entity.rotationPitch = f4;
@@ -170,12 +171,12 @@ public class GuiSuckCannon extends Gui
 	public static void drawTexturedQuadFit(double x, double y, double width,
 			double height, double zLevel)
 	{
-		Tessellator tessellator = Tessellator.instance;
+		WorldRenderer tessellator = Tessellator.getInstance().getWorldRenderer();
 		tessellator.startDrawingQuads();
 		tessellator.addVertexWithUV(x + 0, y + height, zLevel, 0, 1);
 		tessellator.addVertexWithUV(x + width, y + height, zLevel, 1, 1);
 		tessellator.addVertexWithUV(x + width, y + 0, zLevel, 1, 0);
 		tessellator.addVertexWithUV(x + 0, y + 0, zLevel, 0, 0);
-		tessellator.draw();
+		tessellator.finishDrawing();
 	}
 }

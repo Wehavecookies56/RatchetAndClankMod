@@ -1,8 +1,12 @@
 package com.gugu42.rcmod;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
 import com.gugu42.rcmod.entity.EntityTNTCrate;
 import com.gugu42.rcmod.entity.projectiles.EntityBlasterAmmo;
@@ -29,7 +33,6 @@ import com.gugu42.rcmod.render.MorphORayRender;
 import com.gugu42.rcmod.render.OmniWrench3000Render;
 import com.gugu42.rcmod.render.PyrocitorRender;
 import com.gugu42.rcmod.render.RYNORender;
-import com.gugu42.rcmod.render.RcModelManager;
 import com.gugu42.rcmod.render.RenderBlasterAmmo;
 import com.gugu42.rcmod.render.RenderBombGloveAmmo;
 import com.gugu42.rcmod.render.RenderDecoyGloveAmmo;
@@ -57,9 +60,6 @@ import com.gugu42.rcmod.tileentity.TileEntityVendor;
 import com.gugu42.rcmod.tileentity.TileEntityVersaTargetG;
 import com.gugu42.rcmod.utils.RcSimpleResourceManager;
 
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.client.registry.RenderingRegistry;
-
 public class ClientProxy extends CommonProxy {
 
 	// THIS NEEDS TO BE CLIENT SIDE ONLY !
@@ -69,14 +69,15 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void registerRenderInformation() {
+		RenderManager renderManager = Minecraft.getMinecraft().getRenderManager();
 		RenderingRegistry.registerEntityRenderingHandler(EntityTNTCrate.class,
 				new RenderTNTCrate());
 		RenderingRegistry.registerEntityRenderingHandler(
-				EntityBlasterAmmo.class, new RenderBlasterAmmo(0.1f));
+				EntityBlasterAmmo.class, new RenderBlasterAmmo(renderManager, 0.1f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityRYNOAmmo.class,
 				new RenderRYNOAmmo(0.1f));
 		RenderingRegistry.registerEntityRenderingHandler(
-				EntityBombGloveAmmo.class, new RenderBombGloveAmmo(0.5f));
+				EntityBombGloveAmmo.class, new RenderBombGloveAmmo(renderManager, 0.5f));
 		RenderingRegistry.registerEntityRenderingHandler(
 				EntityPyrocitorAmmo.class, new RenderPyrocitorAmmo(0.5f));
 		RenderingRegistry.registerEntityRenderingHandler(
@@ -134,8 +135,8 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForgeClient.registerItemRenderer(RcItems.gadgetronHelper,
 				new GadgetronPDARender());
 
-		renderInventoryTESRId = RenderingRegistry.getNextAvailableRenderId();
-		RenderingRegistry.registerBlockHandler(new TESRInventoryRenderer());
+//		renderInventoryTESRId = RenderingRegistry.getNextAvailableRenderId();
+//		RenderingRegistry.registerBlockHandler(new TESRInventoryRenderer());
 		TESRInventoryRenderer.blockByTESR.put(new TESRIndex(RcMod.vendor, 0),
 				new TileEntityVendorSpecialRenderer());
 		TESRInventoryRenderer.blockByTESR.put(new TESRIndex(RcMod.ship, 0),

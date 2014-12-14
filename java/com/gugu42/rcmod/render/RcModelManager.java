@@ -3,48 +3,46 @@ package com.gugu42.rcmod.render;
 import com.gugu42.rcmod.utils.glutils.TessellatorModel;
 
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.AdvancedModelLoader;
-import net.minecraftforge.client.model.IModelCustom;
 
 public class RcModelManager {
 
-	// Future class where all models will go
-
-	public IModelCustom modelBombGlove;
-	public final ResourceLocation textureLocationBombGlove = new ResourceLocation(
-			"rcmod:models/BombGlove.png");
-
-	public IModelCustom modelPyrocitor;
-	public final ResourceLocation textureLocationPyrocitor = new ResourceLocation(
-			"rcmod:models/Pyrocitor.png");
-
-	public IModelCustom modelRYNO;
-	public final ResourceLocation textureLocationRYNO = new ResourceLocation(
-			"rcmod:models/RYNO.png");
-
-	public IModelCustom modelWalloper;
-	public final ResourceLocation textureLocationWalloper = new ResourceLocation(
-			"rcmod:models/Walloper.png");
-
-	public IModelCustom modelClankBackpack;
-	public final ResourceLocation textureLocationClankBackpack = new ResourceLocation(
-			"rcmod:models/ClankBackpack.png");
-	
-//	public TessellatorModel modelClankBackpack;
-
-	public IModelCustom modelClankHeliBody;
-	public final ResourceLocation textureLocationClankHeliBody = new ResourceLocation(
-			"rcmod:models/BodyHeli.png");
-	
-//	public TessellatorModel modelClankHeliBody;
-	
-	public IModelCustom modelClankHeli;
-	
-//	public TessellatorModel modelClankHeli;
-	
-	public IModelCustom modelClankHeli2;
-	public final ResourceLocation textureLocationClankHeli = new ResourceLocation(
-			"rcmod:models/Heli.png");
+//	// Future class where all models will go
+//
+//	public IModelCustom modelBombGlove;
+//	public final ResourceLocation textureLocationBombGlove = new ResourceLocation(
+//			"rcmod:models/BombGlove.png");
+//
+//	public IModelCustom modelPyrocitor;
+//	public final ResourceLocation textureLocationPyrocitor = new ResourceLocation(
+//			"rcmod:models/Pyrocitor.png");
+//
+//	public IModelCustom modelRYNO;
+//	public final ResourceLocation textureLocationRYNO = new ResourceLocation(
+//			"rcmod:models/RYNO.png");
+//
+//	public IModelCustom modelWalloper;
+//	public final ResourceLocation textureLocationWalloper = new ResourceLocation(
+//			"rcmod:models/Walloper.png");
+//
+//	public IModelCustom modelClankBackpack;
+//	public final ResourceLocation textureLocationClankBackpack = new ResourceLocation(
+//			"rcmod:models/ClankBackpack.png");
+//	
+////	public TessellatorModel modelClankBackpack;
+//
+//	public IModelCustom modelClankHeliBody;
+//	public final ResourceLocation textureLocationClankHeliBody = new ResourceLocation(
+//			"rcmod:models/BodyHeli.png");
+//	
+////	public TessellatorModel modelClankHeliBody;
+//	
+//	public IModelCustom modelClankHeli;
+//	
+////	public TessellatorModel modelClankHeli;
+//	
+//	public IModelCustom modelClankHeli2;
+//	public final ResourceLocation textureLocationClankHeli = new ResourceLocation(
+//			"rcmod:models/Heli.png");
 	
 //	public TessellatorModel modelClankHeli2;
 	
@@ -67,28 +65,28 @@ public class RcModelManager {
 	
 
 	public RcModelManager() {
-		modelBombGlove = AdvancedModelLoader
-				.loadModel(new ResourceLocation("rcmod:models/BombGlove.obj"));
-		modelPyrocitor = AdvancedModelLoader
-				.loadModel(new ResourceLocation("rcmod:models/Pyrocitor.obj"));
-		modelRYNO = AdvancedModelLoader
-				.loadModel(new ResourceLocation("rcmod:models/RYNO.obj"));
-		modelClankBackpack = AdvancedModelLoader
-				.loadModel(new ResourceLocation("rcmod:models/ClankBackpack.obj"));
-		modelWalloper = AdvancedModelLoader
-				.loadModel(new ResourceLocation("rcmod:models/Walloper.obj"));
-		modelClankHeliBody = AdvancedModelLoader
-				.loadModel(new ResourceLocation("rcmod:models/BodyHeli.obj"));
+//		modelBombGlove = AdvancedModelLoader
+//				.loadModel(new ResourceLocation("rcmod:models/BombGlove.obj"));
+//		modelPyrocitor = AdvancedModelLoader
+//				.loadModel(new ResourceLocation("rcmod:models/Pyrocitor.obj"));
+//		modelRYNO = AdvancedModelLoader
+//				.loadModel(new ResourceLocation("rcmod:models/RYNO.obj"));
+//		modelClankBackpack = AdvancedModelLoader
+//				.loadModel(new ResourceLocation("rcmod:models/ClankBackpack.obj"));
+//		modelWalloper = AdvancedModelLoader
+//				.loadModel(new ResourceLocation("rcmod:models/Walloper.obj"));
+//		modelClankHeliBody = AdvancedModelLoader
+//				.loadModel(new ResourceLocation("rcmod:models/BodyHeli.obj"));
 //		modelClankBackpack = new TessellatorModel("/assets/rcmod/models/ClankBackpack.obj");
 //		
 //		modelClankHeliBody = new TessellatorModel("/assets/rcmod/models/BodyHeli.obj");
 //		modelClankHeli = new TessellatorModel("/assets/rcmod/models/Heli.obj");
 //		modelClankHeli2 = new TessellatorModel("/assets/rcmod/models/Heli2.obj");
-		
-		modelClankHeli = AdvancedModelLoader
-				.loadModel(new ResourceLocation("rcmod:models/Heli.obj"));
-		modelClankHeli2 = AdvancedModelLoader
-				.loadModel(new ResourceLocation("rcmod:models/Heli2.obj"));
+//		
+//		modelClankHeli = AdvancedModelLoader
+//				.loadModel(new ResourceLocation("rcmod:models/Heli.obj"));
+//		modelClankHeli2 = AdvancedModelLoader
+//				.loadModel(new ResourceLocation("rcmod:models/Heli2.obj"));
 		
 //		modelBlaster = new TessellatorModel("/assets/rcmod/models/Blaster0.obj");
 //		modelBombGlove2 = new TessellatorModel("/assets/rcmod/models/BombGlove.obj");

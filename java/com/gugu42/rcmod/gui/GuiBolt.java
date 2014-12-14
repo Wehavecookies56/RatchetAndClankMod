@@ -7,20 +7,20 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.lwjgl.opengl.GL11;
 
 import com.gugu42.rcmod.handler.ExtendedPlayerBolt;
 import com.gugu42.rcmod.items.ItemRcWeap;
-
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class GuiBolt extends Gui {
@@ -76,7 +76,7 @@ public class GuiBolt extends Gui {
 			GL11.glDepthMask(true);
 			GL11.glPopMatrix();
 
-			mc.fontRenderer.drawString("" + props.getCurrentBolt(), 380, 8,
+			mc.fontRendererObj.drawString("" + props.getCurrentBolt(), 380, 8,
 					87 * 233 * 255);
 		}
 
@@ -103,7 +103,7 @@ public class GuiBolt extends Gui {
 					GL11.glDepthMask(true);
 					GL11.glPopMatrix();
 				}
-				mc.fontRenderer
+				mc.fontRendererObj
 						.drawString(
 								(itemInHand.getMaxDamage() - itemInHand
 										.getItemDamage())
@@ -144,12 +144,12 @@ public class GuiBolt extends Gui {
 	@SideOnly(Side.CLIENT)
 	public static void drawTexturedQuadFit(double x, double y, double width,
 			double height, double zLevel) {
-		Tessellator tessellator = Tessellator.instance;
+		WorldRenderer tessellator = Tessellator.getInstance().getWorldRenderer();
 		tessellator.startDrawingQuads();
 		tessellator.addVertexWithUV(x + 0, y + height, zLevel, 0, 1);
 		tessellator.addVertexWithUV(x + width, y + height, zLevel, 1, 1);
 		tessellator.addVertexWithUV(x + width, y + 0, zLevel, 1, 0);
 		tessellator.addVertexWithUV(x + 0, y + 0, zLevel, 0, 0);
-		tessellator.draw();
+		tessellator.finishDrawing();
 	}
 }

@@ -1,36 +1,37 @@
 package com.gugu42.rcmod.render;
 
-import org.lwjgl.opengl.GL11;
-
-import com.gugu42.rcmod.entity.projectiles.EntityDecoyGloveAmmo;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.AdvancedModelLoader;
-import net.minecraftforge.client.model.IModelCustom;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import org.lwjgl.opengl.GL11;
+
+import com.gugu42.rcmod.entity.projectiles.EntityDecoyGloveAmmo;
+import com.gugu42.rcmod.utils.glutils.TessellatorModel;
 
 @SideOnly(Side.CLIENT)
 public class RenderDecoyGloveAmmo extends Render {
 
 	private float field_77002_a;
 
-	private IModelCustom model1;
-	public static final ResourceLocation textureLocation = new ResourceLocation(
-			"rcmod:models/Decoy.png");
+//	private IModelCustom model1;
+//	public static final ResourceLocation textureLocation = new ResourceLocation(
+//			"rcmod:models/Decoy.png");
 
+	private TessellatorModel decoyModel;
 	
 	private float inflateSize;
 	private float orientationYaw;
 	
-	public RenderDecoyGloveAmmo(float par1) {
+	public RenderDecoyGloveAmmo(RenderManager rm, float par1) {
+		super(rm);
 		this.field_77002_a = par1;
-		model1 = AdvancedModelLoader
-				.loadModel(new ResourceLocation("rcmod:models/Decoy.obj"));
+		this.decoyModel = new TessellatorModel("/assets/rcmod/models/Decoy.obj");
 		this.inflateSize = 0.001f;
 	}
 
@@ -41,22 +42,19 @@ public class RenderDecoyGloveAmmo extends Render {
 		if(!par1EntityDecoyGloveAmmo.isActive){
 			this.orientationYaw = par1EntityDecoyGloveAmmo.getOrientationYaw();
 			GL11.glPushMatrix();
-			Minecraft.getMinecraft().renderEngine.bindTexture(textureLocation);
 			GL11.glTranslatef((float)par2, (float)par4, (float)par6);
 			GL11.glRotatef(this.orientationYaw, 0.0f, 1.0f, 0.0f);
 			GL11.glScalef(0.001f, 0.001f, 0.001f);
-			model1.renderAll();
+			decoyModel.render();
 			GL11.glPopMatrix();
 		} else {
 			this.inflateSize = par1EntityDecoyGloveAmmo.inflateSize;
 			this.orientationYaw = par1EntityDecoyGloveAmmo.getOrientationYaw();
 			GL11.glPushMatrix();
-			Minecraft.getMinecraft().renderEngine.bindTexture(textureLocation);
 			GL11.glTranslatef((float)par2, (float)par4, (float)par6);
 			GL11.glScalef(inflateSize, inflateSize, inflateSize);
 			GL11.glRotatef(this.orientationYaw, 0.0f, 1.0f, 0.0f);
-			model1.renderAll();
-
+			decoyModel.render();
 			GL11.glTranslatef(-0.5F, 0.0F, 0.09F);
 			GL11.glPopMatrix();
 			
@@ -66,7 +64,7 @@ public class RenderDecoyGloveAmmo extends Render {
 
 	protected ResourceLocation getDecoyGloveAmmoTextures(
 			EntityDecoyGloveAmmo par1EntityDecoyGloveAmmo) {
-		return TextureMap.locationItemsTexture;
+		return TextureMap.locationBlocksTexture;
 	}
 
 	/**

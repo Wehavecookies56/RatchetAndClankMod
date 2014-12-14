@@ -10,6 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.IChatComponent;
 
 public class TileEntityVendor extends TileEntity implements IInventory {
 
@@ -85,8 +86,9 @@ public class TileEntityVendor extends TileEntity implements IInventory {
 	
 	public boolean isPlayerStandingNear() {
 
-        AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox((double)this.xCoord, (double)this.yCoord, (double)this.zCoord, (double)(this.xCoord + 1), (double)(this.yCoord + 1), (double)(this.zCoord + 1)).expand(2, 2, 2);
-        axisalignedbb.maxY = (double)this.worldObj.getHeight();
+//        AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox((double)this.xCoord, (double)this.yCoord, (double)this.zCoord, (double)(this.xCoord + 1), (double)(this.yCoord + 1), (double)(this.zCoord + 1)).expand(2, 2, 2);
+        AxisAlignedBB axisalignedbb = AxisAlignedBB.fromBounds((double)this.getPos().getX(), (double)this.getPos().getY(), (double)this.getPos().getZ(), (double)(this.getPos().getX() + 1), (double)(this.getPos().getY() + 1), (double)(this.getPos().getZ() + 1)).expand(2, 2, 2);
+        axisalignedbb.expand(0, (double)this.worldObj.getHeight(), 0);
         List list = this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
         Iterator iterator = list.iterator();
         EntityPlayer entityplayer;
@@ -100,18 +102,6 @@ public class TileEntityVendor extends TileEntity implements IInventory {
 		
 	}
 
-//	@Override
-//	public String getInvName() {
-//		// TODO Auto-generated method stub
-//		return "rcmod.tileentityvendor";
-//	}
-//
-//	@Override
-//	public boolean isInvNameLocalized() {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
-
 	@Override
 	public int getInventoryStackLimit() {
 		return 1;
@@ -119,9 +109,9 @@ public class TileEntityVendor extends TileEntity implements IInventory {
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
-		return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this
-				&& entityplayer.getDistanceSq(xCoord + 0.5, yCoord + 0.5,
-						zCoord + 0.5) < 64;
+		return worldObj.getTileEntity(this.getPos()) == this
+				&& entityplayer.getDistanceSq(this.getPos().getX() + 0.5, this.getPos().getY() + 0.5,
+						this.getPos().getZ() + 0.5) < 64;
 	}
 
 
@@ -163,25 +153,55 @@ public class TileEntityVendor extends TileEntity implements IInventory {
 	}
 
 	@Override
-	public String getInventoryName() {
+	public String getName() {
 		// TODO Auto-generated method stub
-		return "rcmod.tileentityvendor";
+		return null;
 	}
 
 	@Override
-	public boolean hasCustomInventoryName() {
+	public boolean hasCustomName() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public void openInventory() {
+	public IChatComponent getDisplayName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void openInventory(EntityPlayer player) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void closeInventory() {
+	public void closeInventory(EntityPlayer player) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getField(int id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setField(int id, int value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getFieldCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void clear() {
 		// TODO Auto-generated method stub
 		
 	}

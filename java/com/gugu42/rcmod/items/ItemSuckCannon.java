@@ -50,20 +50,20 @@ public class ItemSuckCannon extends ItemRcWeap {
 		double radius = 10;
 		List<EntityLiving> entities = world.getEntitiesWithinAABB(
 				EntityLiving.class,
-				owner.boundingBox.expand(radius, radius, radius));
+				owner.getBoundingBox().expand(radius, radius, radius));
 
 		for (int i = 0; i < entities.size(); i++) {
 			Vec3 look = owner.getLookVec();
 			EntityLiving entity = entities.get(i);
 
 			if (entity.canEntityBeSeen(owner)) {
-				Vec3 playerPos = Vec3.createVectorHelper(
+				Vec3 playerPos =  new Vec3(
 								owner.posX,
 								owner.posY
 										+ (owner.getEyeHeight() - owner
 												.getDefaultEyeHeight()),
 								owner.posZ);
-				Vec3 entPos = Vec3.createVectorHelper(entity.posX, entity.posY, entity.posZ);
+				Vec3 entPos = new Vec3(entity.posX, entity.posY, entity.posZ);
 
 
 			if(entity instanceof EntityDragon || entity instanceof EntityWither)
@@ -76,7 +76,7 @@ public class ItemSuckCannon extends ItemRcWeap {
 
 				if (angle < 0.25 * Math.PI && angle > -0.25 * Math.PI) {
 					if (entity.getDistanceToEntity(owner) >= 2.5) {
-						Vec3 b = Vec3.createVectorHelper(a.xCoord, a.yCoord,
+						Vec3 b = new Vec3(a.xCoord, a.yCoord,
 								a.zCoord);
 						double suckingPower = 5;
 						customKnockBack(entity, 0, b.xCoord * suckingPower,
@@ -114,7 +114,7 @@ public class ItemSuckCannon extends ItemRcWeap {
 			try {
 				props.sync();
 
-				NBTTagCompound compound = (NBTTagCompound)JsonToNBT.func_150315_a(data);
+				NBTTagCompound compound = (NBTTagCompound)JsonToNBT.func_180713_a(data);
 				EntityLiving e = (EntityLiving)EntityList.createEntityFromNBT(compound, owner.worldObj);
 				if(e != null)
 				{

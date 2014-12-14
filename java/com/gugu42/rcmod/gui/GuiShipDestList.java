@@ -66,14 +66,21 @@ public class GuiShipDestList extends GuiSlot {
 
 	protected void drawSlot(int var1, int var2, int var3, int var4,
 			Tessellator var5, int var6, int var7) {
-		this.gui.mc.fontRenderer.setBidiFlag(true);
-		this.gui.drawCenteredString(this.gui.mc.fontRenderer, (String) strings.get(var1),
+		this.gui.mc.fontRendererObj.setBidiFlag(true);
+		this.gui.drawCenteredString(this.gui.mc.fontRendererObj, (String) strings.get(var1),
 				this.gui.width / 2, var3 + 1, 16777215);
 	}
 
 	@Override
 	protected void drawBackground() {
 		this.gui.drawDefaultBackground();
+	}
+
+	@Override
+	protected void drawSlot(int entryID, int p_180791_2_, int p_180791_3_,
+			int p_180791_4_, int p_180791_5_, int p_180791_6_) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

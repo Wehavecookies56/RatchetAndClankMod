@@ -2,13 +2,13 @@ package com.gugu42.rcmod.entity.projectiles;
 
 import java.util.List;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
@@ -71,9 +71,9 @@ public class EntityRYNOAmmo extends EntityThrowable {
 			this.target = (EntityLiving) predefTarget;
 		}
 
-		this.worldObj.spawnParticle("smoke", this.posX, this.posY, this.posZ,
+		this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX, this.posY, this.posZ,
 				0.0D, 0.0D, 0.0D);
-		this.worldObj.spawnParticle("flame", this.posX, this.posY, this.posZ,
+		this.worldObj.spawnParticle(EnumParticleTypes.FLAME, this.posX, this.posY, this.posZ,
 				0.0D, 0.0D, 0.0D);
 
 		if ((this.target == null)
@@ -87,14 +87,14 @@ public class EntityRYNOAmmo extends EntityThrowable {
 		}
 
 		if (this.target != null) {
-			double d = this.target.boundingBox.minX
-					+ (this.target.boundingBox.maxX - this.target.boundingBox.minX)
+			double d = this.target.getBoundingBox().minX
+					+ (this.target.getBoundingBox().maxX - this.target.getBoundingBox().minX)
 					/ 2.0D - this.posX;
-			double d1 = this.target.boundingBox.minY
-					+ (this.target.boundingBox.maxY - this.target.boundingBox.minY)
+			double d1 = this.target.getBoundingBox().minY
+					+ (this.target.getBoundingBox().maxY - this.target.getBoundingBox().minY)
 					/ 2.0D - this.posY;
-			double d2 = this.target.boundingBox.minZ
-					+ (this.target.boundingBox.maxZ - this.target.boundingBox.minZ)
+			double d2 = this.target.getBoundingBox().minZ
+					+ (this.target.getBoundingBox().maxZ - this.target.getBoundingBox().minZ)
 					/ 2.0D - this.posZ;
 			this.setThrowableHeading(d, d1, d2, 0.9F, 0.0F);
 		}
@@ -114,7 +114,7 @@ public class EntityRYNOAmmo extends EntityThrowable {
 		double d4 = -1.0D;
 		EntityLiving entityliving = null;
 		List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(
-				getThrower(), this.boundingBox.expand(16.0D, 16.0D, 16.0D));
+				getThrower(), this.getBoundingBox().expand(16.0D, 16.0D, 16.0D));
 
 		for (int i = 0; i < list.size(); i++) {
 			EntityLiving entityliving1 = (EntityLiving) list.get(i);
@@ -161,7 +161,7 @@ public class EntityRYNOAmmo extends EntityThrowable {
 		}
 
 		for (int i = 0; i < 8; i++) {
-			this.worldObj.spawnParticle("snowballpoof", this.posX, this.posY,
+			this.worldObj.spawnParticle(EnumParticleTypes.SNOWBALL, this.posX, this.posY,
 					this.posZ, 0.0D, 0.0D, 0.0D);
 		}
 
@@ -189,7 +189,7 @@ public class EntityRYNOAmmo extends EntityThrowable {
 		if (!this.worldObj.isRemote) {
 			List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(
 					getThrower(),
-					AxisAlignedBB.getBoundingBox(i, k, i2, j, l1, j2));
+					AxisAlignedBB.fromBounds(i, k, i2, j, l1, j2));
 
 			for (int k2 = 0; k2 < list.size(); k2++) {
 				Entity entity = (Entity) list.get(k2);

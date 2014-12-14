@@ -30,8 +30,8 @@ public class TileEntityVersaTargetGSpecialRenderer extends
 
 	@Override
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z,
-			float tick) {
-		float f2 = (float) te.getWorldObj().getTotalWorldTime();
+			float tick, int par6) {
+		float f2 = (float) te.getWorld().getTotalWorldTime();
 		byte b1 = 1;
 		double d3 = (double) f2 * 0.025D * (1.0D - (double) (b1 & 1) * 2.5D);
 		

@@ -1,6 +1,6 @@
 package com.gugu42.rcmod.gui;
 
-import org.lwjgl.opengl.GL11;
+import java.io.IOException;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -8,17 +8,18 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.IItemRenderer.ItemRenderType;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import org.lwjgl.opengl.GL11;
 
 import com.gugu42.rcmod.ContainerVendor;
 import com.gugu42.rcmod.RcMod;
@@ -27,11 +28,7 @@ import com.gugu42.rcmod.items.EnumRcWeapons;
 import com.gugu42.rcmod.items.ItemRcWeap;
 import com.gugu42.rcmod.network.packets.PacketRefill;
 import com.gugu42.rcmod.network.packets.PacketVend;
-import com.gugu42.rcmod.render.BlasterRender;
 import com.gugu42.rcmod.tileentity.TileEntityVendor;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class GuiVendor extends GuiContainer {
@@ -111,7 +108,7 @@ public class GuiVendor extends GuiContainer {
 			RenderHelper.enableStandardItemLighting();
 
 			if (selectedWeapon >= 0 && selectedItem != null)
-				RenderManager.instance.renderEntityWithPosYaw(
+				Minecraft.getMinecraft().getRenderManager().renderEntityWithPosYaw(
 						selectedItemEntity, 0, 0, 0, 0, 0);
 
 			RenderHelper.disableStandardItemLighting();
@@ -121,12 +118,12 @@ public class GuiVendor extends GuiContainer {
 			rotation -= 1f;
 
 			if (getItemInInventory(player.inventory, selectedItem.getItem()) == null) {
-				this.mc.fontRenderer.drawString(""
+				this.mc.fontRendererObj.drawString(""
 						+ EnumRcWeapons.getItemFromID(selectedWeapon + 1)
 								.getPrice(), 30, 105, 0xFFFFFF);
 				this.buyBtn.displayString = "Buy";
 			} else {
-				this.mc.fontRenderer.drawString(""
+				this.mc.fontRendererObj.drawString(""
 						+ getItemInInventory(player.inventory, selectedItem.getItem()).getItemDamage() * selectedItemWeap.getPrice(), 30, 105, 0xFFFFFF);
 				this.buyBtn.displayString = "Refill";
 			}
@@ -163,7 +160,7 @@ public class GuiVendor extends GuiContainer {
 	}
 
 	@Override
-	public void mouseClicked(int par1, int par2, int par3) {
+	public void mouseClicked(int par1, int par2, int par3) throws IOException {
 		super.mouseClicked(par1, par2, par3);
 		for (int i = 0; i < 9; i++) {
 			if (isMouseOverSlot(container.getSlot(i), mouseX, mouseY)) {
@@ -191,7 +188,7 @@ public class GuiVendor extends GuiContainer {
 						RcMod.rcModPacketHandler.sendToServer(packetVend);
 						mc.getSoundHandler().playSound(
 								PositionedSoundRecord
-										.func_147674_a(new ResourceLocation(
+										.create(new ResourceLocation(
 												"rcmod:vendor.buy"), 1.0F));
 					} catch (Exception exception) {
 						exception.printStackTrace();
@@ -238,18 +235,17 @@ public class GuiVendor extends GuiContainer {
 	@SideOnly(Side.CLIENT)
 	public static void drawTexturedQuadFit(double x, double y, double width,
 			double height, double zLevel) {
-		Tessellator tessellator = Tessellator.instance;
+		WorldRenderer tessellator = Tessellator.getInstance().getWorldRenderer();
 		tessellator.startDrawingQuads();
 		tessellator.addVertexWithUV(x + 0, y + height, zLevel, 0, 1);
 		tessellator.addVertexWithUV(x + width, y + height, zLevel, 1, 1);
 		tessellator.addVertexWithUV(x + width, y + 0, zLevel, 1, 0);
 		tessellator.addVertexWithUV(x + 0, y + 0, zLevel, 0, 0);
-		tessellator.draw();
+		tessellator.finishDrawing();
 	}
 
 	private boolean isMouseOverSlot(Slot par1Slot, int par2, int par3) {
-		return this.func_146978_c(par1Slot.xDisplayPosition,
-				par1Slot.yDisplayPosition, 16, 16, par2, par3);
+		return this.isMouseOverSlot(par1Slot, par2, par3);
 
 	}
 

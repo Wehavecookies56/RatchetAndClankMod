@@ -7,9 +7,6 @@ import org.lwjgl.opengl.GL11;
 
 import com.gugu42.rcmod.utils.glutils.TessellatorModel;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
 public class TileEntityShipSpecialRenderer extends TileEntitySpecialRenderer
 		implements IInventoryRenderer {
 
@@ -40,18 +37,18 @@ public class TileEntityShipSpecialRenderer extends TileEntitySpecialRenderer
 
 	@Override
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z,
-			float tick) {
+			float tickn, int par6) {
 		GL11.glPushMatrix();
 		GL11.glTranslated(x + 0.5d, y, z + 0.5d);
 		//		this.bindTexture(textureLocation);
 		GL11.glScalef(0.076f, 0.076f, 0.076f);
-		if (te.blockMetadata == 0) {
+		if (te.getBlockMetadata() == 0) {
 			GL11.glRotatef(0, 0.0f, 1.0f, 0.0f);
-		} else if (te.blockMetadata == 1) {
+		} else if (te.getBlockMetadata() == 1) {
 			GL11.glRotatef(-90, 0.0f, 1.0f, 0.0f);
-		} else if (te.blockMetadata == 2) {
+		} else if (te.getBlockMetadata() == 2) {
 			GL11.glRotatef(180, 0.0f, 1.0f, 0.0f);
-		} else if (te.blockMetadata == 3) {
+		} else if (te.getBlockMetadata() == 3) {
 			GL11.glRotatef(90, 0.0f, 1.0f, 0.0f);
 		}
 

@@ -3,7 +3,7 @@ package com.gugu42.rcmod.handler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class RcSoundHandler {
 	@SubscribeEvent

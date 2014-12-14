@@ -1,21 +1,14 @@
 package com.gugu42.rcmod.entity.projectiles;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.command.ICommandSender;
-import net.minecraft.command.PlayerNotFoundException;
-import net.minecraft.command.PlayerSelector;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class EntityVisibombAmmo extends EntityThrowable {
 	private int ticksInAir;
@@ -43,7 +36,7 @@ public class EntityVisibombAmmo extends EntityThrowable {
 		this.motionY *= speed;
 		this.motionZ *= speed;
 		this.entityFiring = (EntityPlayer) par2EntityLivingBase;
-		this.firingEntityName = entityFiring.getDisplayName();
+		this.firingEntityName = entityFiring.getDisplayNameString();
 		if (entityFiring instanceof EntityPlayerMP) {
 			EntityPlayerMP targetRot = (EntityPlayerMP) entityFiring;
 
@@ -70,7 +63,7 @@ public class EntityVisibombAmmo extends EntityThrowable {
 					DamageSource.causeThrownDamage(this, this.getThrower()),
 					12.0F);
 			// movingobjectposition.entityHit.setFire(5);
-			this.worldObj.spawnParticle("snowballpoof", this.posX, this.posY,
+			this.worldObj.spawnParticle(EnumParticleTypes.SNOWBALL, this.posX, this.posY,
 					this.posZ, 0.0D, 0.0D, 0.0D);
 			this.setDead();
 		} else {
@@ -119,8 +112,7 @@ public class EntityVisibombAmmo extends EntityThrowable {
 		this.motionZ = (double) (MathHelper.cos(this.rotationYaw / 180.0F
 				* (float) Math.PI)
 				* MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI) * 0.4f);
-		this.motionY = (double) (MathHelper.sin((this.rotationPitch + this
-				.func_70183_g()) / 180.0F * (float) Math.PI) * 0.4f);
+		this.motionY = (double) (MathHelper.sin((this.rotationPitch + 0.0f) / 180.0F * (float) Math.PI) * 0.4f);
 
 		if (this.ticksInAir == 200) {
 			this.setDead();

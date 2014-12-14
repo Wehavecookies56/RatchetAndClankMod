@@ -2,13 +2,8 @@ package com.gugu42.rcmod.entity.projectiles;
 
 import java.util.List;
 
-import com.gugu42.rcmod.RcMod;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -18,6 +13,10 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import com.gugu42.rcmod.RcMod;
 
 public class EntitySwingShotHook extends EntityThrowable {
 
@@ -80,19 +79,19 @@ public class EntitySwingShotHook extends EntityThrowable {
 				EntityPlayerMP throwerMP = (EntityPlayerMP) thrower;
 
 				// Vec3 playerPos = throwerMP.getPosition(1.0f);
-				Vec3 playerPos =  Vec3.createVectorHelper(
+				Vec3 playerPos =  new Vec3(
 								throwerMP.posX,
 								throwerMP.posY
 										+ (throwerMP.getEyeHeight() - throwerMP
 												.getDefaultEyeHeight()),
 								throwerMP.posZ);
 				
-				Vec3 entPos =  Vec3.createVectorHelper(
+				Vec3 entPos = new Vec3(
 						this.posX, this.posY, this.posZ);
 
 				Vec3 a = playerPos.subtract(entPos);
 
-				Vec3 b = Vec3.createVectorHelper(a.xCoord, a.yCoord, a.zCoord);
+				Vec3 b = new Vec3(a.xCoord, a.yCoord, a.zCoord);
 				double suckingPower = 5;
 				customKnockBack(throwerMP, 0, b.xCoord * suckingPower, b.yCoord
 						* suckingPower, b.zCoord * suckingPower);
@@ -103,7 +102,7 @@ public class EntitySwingShotHook extends EntityThrowable {
 			}
 
 			List entityTagetList = this.worldObj.getEntitiesWithinAABB(
-					Entity.class, this.boundingBox.expand(0.3D, 0.3D, 0.3D));
+					Entity.class, this.getBoundingBox().expand(0.3D, 0.3D, 0.3D));
 			for (int i = 0; i < entityTagetList.size(); i++) {
 				Entity entityTarget = (Entity) entityTagetList.get(i);
 				if (entityTarget != null && entityTarget == thrower) {
@@ -130,7 +129,7 @@ public class EntitySwingShotHook extends EntityThrowable {
 		if (timeLived >= returnTime && !shouldPullPlayer) {
 			returnToThrower();
 			List entityTagetList = this.worldObj.getEntitiesWithinAABB(
-					Entity.class, this.boundingBox.expand(0.3D, 0.3D, 0.3D));
+					Entity.class, this.getBoundingBox().expand(0.3D, 0.3D, 0.3D));
 			for (int i = 0; i < entityTagetList.size(); i++) {
 				Entity entityTarget = (Entity) entityTagetList.get(i);
 				if (entityTarget != null && entityTarget == thrower) {
@@ -159,9 +158,9 @@ public class EntitySwingShotHook extends EntityThrowable {
 		if (mop != null) {
 			if (mop.typeOfHit != null
 					&& mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-				if (worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ) != null
+				if (worldObj.getBlockState(mop.getBlockPos()).getBlock() != null
 						&& worldObj
-								.getBlock(mop.blockX, mop.blockY, mop.blockZ) == RcMod.versaTargetGreen) {
+								.getBlockState(mop.getBlockPos()).getBlock() == RcMod.versaTargetGreen) {
 					System.out.println("I should pull the player !");
 					shouldPullPlayer = true;
 					motionX = 0;
@@ -204,7 +203,7 @@ public class EntitySwingShotHook extends EntityThrowable {
 			double newX = thrower.posX - this.posX;
 			double newY = thrower.posY - this.posY;
 			double newZ = thrower.posZ - this.posZ;
-			setThrowableHeading(newX, newY + 0.5d, newZ, this.func_70182_d(),
+			setThrowableHeading(newX, newY + 0.5d, newZ, 1.5f,
 					0.0F);
 		}
 
@@ -238,7 +237,7 @@ public class EntitySwingShotHook extends EntityThrowable {
 	@SideOnly(Side.CLIENT)
 	public Vec3 getPosition(float par1) {
 		if (par1 == 1.0F) {
-			return  Vec3.createVectorHelper(this.posX,
+			return new Vec3(this.posX,
 					this.posY, this.posZ);
 		} else {
 			double d0 = this.prevPosX + (this.posX - this.prevPosX)
@@ -247,7 +246,7 @@ public class EntitySwingShotHook extends EntityThrowable {
 					* (double) par1;
 			double d2 = this.prevPosZ + (this.posZ - this.prevPosZ)
 					* (double) par1;
-			return  Vec3.createVectorHelper(d0, d1, d2);
+			return  new Vec3(d0, d1, d2);
 		}
 	}
 

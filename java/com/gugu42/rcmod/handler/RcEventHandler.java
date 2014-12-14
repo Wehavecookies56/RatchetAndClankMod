@@ -1,22 +1,12 @@
 package com.gugu42.rcmod.handler;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderPlayer;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -27,6 +17,11 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.gugu42.rcmod.CommonProxy;
 import com.gugu42.rcmod.RcMod;
@@ -34,12 +29,6 @@ import com.gugu42.rcmod.entity.projectiles.EntityVisibombAmmo;
 import com.gugu42.rcmod.entity.projectiles.EntityVisibombCamera;
 import com.gugu42.rcmod.items.ItemRcWeap;
 import com.gugu42.rcmod.items.RcItems;
-
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.ObfuscationReflectionHelper;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class RcEventHandler {
 
@@ -162,7 +151,7 @@ public class RcEventHandler {
 					.getExtendedProperties(ExtendedPlayerBolt.EXT_PROP_NAME)))
 					.saveNBTData(playerData);
 			proxy.storeEntityData(
-					((EntityPlayer) event.entity).getDisplayName(), playerData);
+					((EntityPlayer) event.entity).getDisplayNameString(), playerData);
 			ExtendedPlayerBolt.saveProxyData((EntityPlayer) event.entity);
 			ExtendedPropsSuckCannon.saveProxyData((EntityPlayer) event.entity);
 		} else {
@@ -176,7 +165,7 @@ public class RcEventHandler {
 				&& event.entity instanceof EntityPlayer) {
 			NBTTagCompound playerData = proxy
 					.getEntityData(((EntityPlayer) event.entity)
-							.getDisplayName());
+							.getDisplayNameString());
 			if (playerData != null) {
 				((ExtendedPlayerBolt) (event.entity
 						.getExtendedProperties(ExtendedPlayerBolt.EXT_PROP_NAME)))

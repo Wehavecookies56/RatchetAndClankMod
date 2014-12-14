@@ -3,8 +3,8 @@ package com.gugu42.rcmod.items;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemRcRecord extends ItemRecord {
 

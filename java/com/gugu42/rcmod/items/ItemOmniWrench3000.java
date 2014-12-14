@@ -1,19 +1,17 @@
 package com.gugu42.rcmod.items;
 
-import com.gugu42.rcmod.RcMod;
-import com.gugu42.rcmod.entity.projectiles.EntityWrenchThrown;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTool;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import com.gugu42.rcmod.RcMod;
+import com.gugu42.rcmod.entity.projectiles.EntityWrenchThrown;
 
 public class ItemOmniWrench3000 extends ItemRcWeap {
 

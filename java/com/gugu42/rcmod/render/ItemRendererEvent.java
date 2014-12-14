@@ -3,7 +3,7 @@ package com.gugu42.rcmod.render;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.item.ItemStack;
-import cpw.mods.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.eventhandler.Event;
 
 public class ItemRendererEvent extends Event{
 

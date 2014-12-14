@@ -4,6 +4,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
@@ -41,7 +42,7 @@ public class EntityBlasterAmmo extends EntityThrowable {
 		}
 
 		for (int i = 0; i < 8; i++) {
-			this.worldObj.spawnParticle("snowballpoof", this.posX, this.posY,
+			this.worldObj.spawnParticle(EnumParticleTypes.REDSTONE, this.posX, this.posY,
 					this.posZ, 0.0D, 0.0D, 0.0D);
 		}
 

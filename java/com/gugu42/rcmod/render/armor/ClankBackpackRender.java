@@ -9,10 +9,22 @@ import org.lwjgl.opengl.GL11;
 
 import com.gugu42.rcmod.ClientProxy;
 import com.gugu42.rcmod.render.RcModelManager;
+import com.gugu42.rcmod.utils.glutils.TessellatorModel;
 
 public class ClankBackpackRender extends ModelBiped {
-
-	RcModelManager modelManager = new RcModelManager();
+	
+	//Clank body with arms
+	public TessellatorModel heliBackpack;	
+	
+	//Clank body, without arms
+	public TessellatorModel heliBody;
+	
+	//Big heli
+	public TessellatorModel heli1;
+	
+	//Small heli, used two times
+	public TessellatorModel heli2;
+	
 
 	public EntityPlayer playerWearingTheArmor;
 	private long last;
@@ -20,6 +32,10 @@ public class ClankBackpackRender extends ModelBiped {
 
 	public ClankBackpackRender() {
 		super();
+		heliBackpack = new TessellatorModel("/assets/rcmod/models/ClankBackpack.obj");
+		heliBody = new TessellatorModel("/assets/rcmod/models/BodyHeli.obj");
+		heli1 = new TessellatorModel("/assets/rcmod/models/Heli.obj");
+		heli2 = new TessellatorModel("/assets/rcmod/models/Heli2.obj");
 	}
 
 	public void render(Entity par1Entity, float par2, float par3, float par4,
@@ -50,16 +66,16 @@ public class ClankBackpackRender extends ModelBiped {
 				GL11.glRotated(180, 0.0D, 0.0D, 1.0D);
 				GL11.glRotated(angle, -y, 0.0D, 0.0D);
 				GL11.glScalef(0.045f, 0.045f, 0.045f);
-//				modelManager.modelClankHeliBody.regenerateNormals();
-				modelManager.modelClankHeliBody.renderAll();
+				heliBody.regenerateNormals();
+				heliBody.render();
 
-				Minecraft.getMinecraft().renderEngine
-						.bindTexture(modelManager.textureLocationClankHeli);
+//				Minecraft.getMinecraft().renderEngine
+//						.bindTexture(modelManager.textureLocationClankHeli);
 
 				GL11.glTranslatef(0.0f, 35.0f, 3.5f);
 				GL11.glRotated(rotationHeli, 0.0d, 1.0d, 0.0d);
-//				modelManager.modelClankHeli.regenerateNormals();
-				modelManager.modelClankHeli.renderAll();
+				heli1.regenerateNormals();
+				heli1.render();
 				GL11.glPopMatrix();
 
 				GL11.glPushMatrix();
@@ -67,14 +83,14 @@ public class ClankBackpackRender extends ModelBiped {
 				GL11.glRotated(180, 0.0D, 0.0D, 1.0D);
 				GL11.glRotated(angle, -y, 0.0D, 0.0D);
 				GL11.glScalef(0.045f, 0.045f, 0.045f);
-				Minecraft.getMinecraft().renderEngine
-						.bindTexture(modelManager.textureLocationClankHeli);
+//				Minecraft.getMinecraft().renderEngine
+//						.bindTexture(modelManager.textureLocationClankHeli);
 				GL11.glTranslatef(9.0f, 8.5f, 8.0f);
 				GL11.glRotatef(80, 1.0f, 0.0f, 0.0f);
 				GL11.glRotatef(-35, 0.0f, 0.0f, 1.0f);
 				GL11.glRotated(rotationHeli, 0.0d, 1.0d, 0.0d);
-//				modelManager.modelClankHeli2.regenerateNormals();
-				modelManager.modelClankHeli2.renderAll();
+				heli2.regenerateNormals();
+				heli2.render();
 				GL11.glPopMatrix();
 
 				GL11.glPushMatrix();
@@ -82,15 +98,15 @@ public class ClankBackpackRender extends ModelBiped {
 				GL11.glRotated(180, 0.0D, 0.0D, 1.0D);
 				GL11.glRotated(angle, -y, 0.0D, 0.0D);
 				GL11.glScalef(0.045f, 0.045f, 0.045f);
-				Minecraft.getMinecraft().renderEngine
-						.bindTexture(modelManager.textureLocationClankHeli);
+//				Minecraft.getMinecraft().renderEngine
+//						.bindTexture(modelManager.textureLocationClankHeli);
 				GL11.glTranslatef(-9.0f, 8.5f, 8.0f);
 				GL11.glScalef(-1, -1, -1);
 				GL11.glRotatef(-90, 1.0f, 0.0f, 0.0f);
 				GL11.glRotatef(-35, 0.0f, 0.0f, 1.0f);
 				GL11.glRotated(rotationHeli, 0.0d, 1.0d, 0.0d);
-//				modelManager.modelClankHeli2.regenerateNormals();
-				modelManager.modelClankHeli2.renderAll();
+				heli2.regenerateNormals();
+				heli2.render();
 				GL11.glPopMatrix();
 			} else {
 				GL11.glPushMatrix();
@@ -98,8 +114,8 @@ public class ClankBackpackRender extends ModelBiped {
 				GL11.glRotated(180, 0.0D, 0.0D, 1.0D);
 				GL11.glRotated(angle, -y, 0.0D, 0.0D);
 				GL11.glScalef(0.045f, 0.045f, 0.045f);
-//				modelManager.modelClankBackpack.regenerateNormals();
-				modelManager.modelClankBackpack.renderAll();
+				heliBackpack.regenerateNormals();
+				heliBackpack.render();
 				GL11.glPopMatrix();
 
 			}

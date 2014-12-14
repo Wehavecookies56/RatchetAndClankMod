@@ -1,82 +1,80 @@
 package com.gugu42.rcmod.render;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Items;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import com.gugu42.rcmod.entity.projectiles.EntityBlasterAmmo;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
 @SideOnly(Side.CLIENT)
 public class RenderBlasterAmmo extends Render
 {
-    private float field_77002_a;
+	 private float scale;
+	    private static final String __OBFID = "CL_00000995";
 
-    public RenderBlasterAmmo(float par1)
-    {
-        this.field_77002_a = par1;
-    }
+	    public RenderBlasterAmmo(RenderManager p_i46176_1_, float p_i46176_2_)
+	    {
+	        super(p_i46176_1_);
+	        this.scale = p_i46176_2_;
+	    }
 
-    public void doRenderDualVipersAmmo(EntityBlasterAmmo par1EntityDualVipersAmmo, double par2, double par4, double par6, float par8, float par9)
-    {
-        GL11.glPushMatrix();
-        this.bindEntityTexture(par1EntityDualVipersAmmo);
-        GL11.glTranslatef((float)par2, (float)par4, (float)par6);
-        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-        float f2 = this.field_77002_a;
-        GL11.glScalef(f2 / 1.0F, f2 / 1.0F, f2 / 1.0F);
-        IIcon icon = Items.fire_charge.getIconFromDamage(0);
-        Tessellator tessellator = Tessellator.instance;
-        float f3 = icon.getMinU();
-        float f4 = icon.getMaxU();
-        float f5 = icon.getMinV();
-        float f6 = icon.getMaxV();
-        float f7 = 1.0F;
-        float f8 = 0.5F;
-        float f9 = 0.25F;
-        GL11.glRotatef(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-        GL11.glRotatef(-this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
-        tessellator.startDrawingQuads();
-        tessellator.setNormal(0.0F, 1.0F, 0.0F);
-        tessellator.addVertexWithUV((double)(0.0F - f8), (double)(0.0F - f9), 0.0D, (double)f3, (double)f6);
-        tessellator.addVertexWithUV((double)(f7 - f8), (double)(0.0F - f9), 0.0D, (double)f4, (double)f6);
-        tessellator.addVertexWithUV((double)(f7 - f8), (double)(1.0F - f9), 0.0D, (double)f4, (double)f5);
-        tessellator.addVertexWithUV((double)(0.0F - f8), (double)(1.0F - f9), 0.0D, (double)f3, (double)f5);
-        tessellator.draw();
-        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-        GL11.glPopMatrix();
-    }
+	    public void doRender(EntityBlasterAmmo entity, double x, double y, double z, float p_76986_8_, float partialTicks)
+	    {
+	        GlStateManager.pushMatrix();
+	        this.bindEntityTexture(entity);
+	        GlStateManager.translate((float)x, (float)y, (float)z);
+	        GlStateManager.enableRescaleNormal();
+	        float f2 = this.scale;
+	        GlStateManager.scale(f2 / 1.0F, f2 / 1.0F, f2 / 1.0F);
+	        TextureAtlasSprite textureatlassprite = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getParticleIcon(Items.fire_charge);
+	        Tessellator tessellator = Tessellator.getInstance();
+	        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+	        float f3 = textureatlassprite.getMinU();
+	        float f4 = textureatlassprite.getMaxU();
+	        float f5 = textureatlassprite.getMinV();
+	        float f6 = textureatlassprite.getMaxV();
+	        float f7 = 1.0F;
+	        float f8 = 0.5F;
+	        float f9 = 0.25F;
+	        GlStateManager.rotate(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+	        GlStateManager.rotate(-this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+	        worldrenderer.startDrawingQuads();
+	        worldrenderer.setNormal(0.0F, 1.0F, 0.0F);
+	        worldrenderer.addVertexWithUV((double)(0.0F - f8), (double)(0.0F - f9), 0.0D, (double)f3, (double)f6);
+	        worldrenderer.addVertexWithUV((double)(f7 - f8), (double)(0.0F - f9), 0.0D, (double)f4, (double)f6);
+	        worldrenderer.addVertexWithUV((double)(f7 - f8), (double)(1.0F - f9), 0.0D, (double)f4, (double)f5);
+	        worldrenderer.addVertexWithUV((double)(0.0F - f8), (double)(1.0F - f9), 0.0D, (double)f3, (double)f5);
+	        tessellator.draw();
+	        GlStateManager.disableRescaleNormal();
+	        GlStateManager.popMatrix();
+	        super.doRender(entity, x, y, z, p_76986_8_, partialTicks);
+	    }
 
-    protected ResourceLocation getDualVipersAmmoTextures(EntityBlasterAmmo par1EntityDualVipersAmmo)
-    {
-        return TextureMap.locationItemsTexture;
-    }
+	    protected ResourceLocation func_180556_a(EntityBlasterAmmo p_180556_1_)
+	    {
+	        return TextureMap.locationBlocksTexture;
+	    }
 
-    /**
-     * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
-     */
-    protected ResourceLocation getEntityTexture(Entity par1Entity)
-    {
-        return this.getDualVipersAmmoTextures((EntityBlasterAmmo)par1Entity);
-    }
+	    protected ResourceLocation getEntityTexture(Entity entity)
+	    {
+	        return this.func_180556_a((EntityBlasterAmmo)entity);
+	    }
 
-    /**
-     * Actually renders the given argument. This is a synthetic bridge method, always casting down its argument and then
-     * handing it off to a worker function which does the actual work. In all probabilty, the class Render is generic
-     * (Render<T extends Entity) and this method has signature public void doRender(T entity, double d, double d1,
-     * double d2, float f, float f1). But JAD is pre 1.5 so doesn't do that.
-     */
-    public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
-    {
-        this.doRenderDualVipersAmmo((EntityBlasterAmmo)par1Entity, par2, par4, par6, par8, par9);
-    }
+	    public void doRender(Entity entity, double x, double y, double z, float p_76986_8_, float partialTicks)
+	    {
+	        this.doRender((EntityBlasterAmmo)entity, x, y, z, p_76986_8_, partialTicks);
+	    }
 }

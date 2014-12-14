@@ -53,16 +53,16 @@ public class ItemDevastator extends ItemRcWeap {
 			Entity target = null;
 			List entityTagetList = par2World.getEntitiesWithinAABB(
 					Entity.class,
-					player.boundingBox.expand(48.0D, 48.0D, 48.0D));
+					player.getBoundingBox().expand(48.0D, 48.0D, 48.0D));
 			for (int i = 0; i < entityTagetList.size(); i++) {
 				Entity entityTarget = (Entity) entityTagetList.get(i);
 				if (entityTarget != player
 						&& entityTarget instanceof EntityLivingBase) {
 					EntityLivingBase entityLivingTarget = (EntityLivingBase) entityTarget;
 					Vec3 vec3 = player.getLook(1.0F).normalize();
-					Vec3 vec31 = Vec3.createVectorHelper(
+					Vec3 vec31 = new Vec3(
 									entityLivingTarget.posX - player.posX,
-									entityLivingTarget.boundingBox.minY
+									entityLivingTarget.getBoundingBox().minY
 											+ (double) (entityLivingTarget.height / 2.0F)
 											- (player.posY + (double) player
 													.getEyeHeight()),

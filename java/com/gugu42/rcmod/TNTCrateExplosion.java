@@ -16,10 +16,11 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
-import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
@@ -39,7 +40,7 @@ public class TNTCrateExplosion {
 	public EntityPlayer thrower;
 	public float explosionSize;
 	private Explosion TNT = new Explosion(worldObj, exploder, explosionX,
-			explosionX, explosionX, explosionSize);
+			explosionX, explosionX, explosionSize, false, true);
 
 	/** A list of ChunkPositions of blocks affected by this explosion */
 	public List affectedBlockPositions = new ArrayList();
@@ -105,26 +106,25 @@ public class TNTCrateExplosion {
 							int l = MathHelper.floor_double(d0);
 							int i1 = MathHelper.floor_double(d1);
 							int j1 = MathHelper.floor_double(d2);
-							Block k1 = this.worldObj.getBlock(l, i1, j1);
+							Block k1 = this.worldObj.getBlockState(new BlockPos(l, i1, j1)).getBlock();
 
 							if (k1 != null) {
 								Block block = RcMod.tntCrate;
 								float f3 = this.exploder != null ? this.exploder
-										.func_145772_a(this.TNT,
-												this.worldObj, l, i1, j1, block)
+										.getExplosionResistance(this.TNT,
+												this.worldObj, new BlockPos(l, i1, j1), block.getDefaultState())
 										: block.getExplosionResistance(
-												this.exploder, worldObj, l, i1,
-												j1, explosionX, explosionY,
-												explosionZ);
+												worldObj, new BlockPos(l, i1,
+												j1), this.exploder, TNT);
 								f1 -= (f3 + 0.3F) * f2;
 							}
 
 							if (f1 > 0.0F
 									&& (this.exploder == null || this.exploder
-											.func_145774_a(this.TNT,
-													this.worldObj, l, i1, j1,
-													k1, f1))) {
-								hashset.add(new ChunkPosition(l, i1, j1));
+											.func_174816_a(this.TNT,
+													this.worldObj, new BlockPos(l, i1, j1),
+													k1.getDefaultState(), f1))) {
+//								hashset.add(new ChunkPosition(l, i1, j1));
 							}
 
 							d0 += d3 * (double) f2;
@@ -136,7 +136,7 @@ public class TNTCrateExplosion {
 			}
 		}
 
-		this.worldObj.spawnParticle("largeexplode", this.explosionX,
+		this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_LARGE, this.explosionX,
 				this.explosionY, this.explosionZ, 1.0D, 0.0D, 0.0D);
 
 		this.affectedBlockPositions.addAll(hashset);
@@ -155,9 +155,9 @@ public class TNTCrateExplosion {
 				+ (double) this.explosionSize + 1.0D);
 		List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(
 				this.exploder,
-				AxisAlignedBB.getBoundingBox((double) i, (double) k,
+				AxisAlignedBB.fromBounds((double) i, (double) k,
 						(double) i2, (double) j, (double) l1, (double) j2));
-		 Vec3 vec3 = Vec3.createVectorHelper(this.explosionX, this.explosionY, this.explosionZ);
+		 Vec3 vec3 = new Vec3(this.explosionX, this.explosionY, this.explosionZ);
 
 		for (int k2 = 0; k2 < list.size(); ++k2) {
 			Entity entity = (Entity) list.get(k2);
@@ -177,7 +177,7 @@ public class TNTCrateExplosion {
 					d1 /= d8;
 					d2 /= d8;
 					double d9 = (double) this.worldObj.getBlockDensity(vec3,
-							entity.boundingBox);
+							entity.getBoundingBox());
 					double d10 = (1.0D - d7) * d9;
 					if (!(entity instanceof EntityItem)) {
 						if (thrower == null) {
@@ -204,7 +204,7 @@ public class TNTCrateExplosion {
 						if (thrower != null && entity != thrower) {
 							this.field_77288_k.put(
 									(EntityPlayer) entity,
-									Vec3.createVectorHelper(d0 * d11, d1 * d11, d2 * d11));
+									new Vec3(d0 * d11, d1 * d11, d2 * d11));
 						}
 
 					}
@@ -232,71 +232,57 @@ public class TNTCrateExplosion {
 					1.0f);
 
 		if ((this.explosionSize >= 2.0F) && (this.isSmoking)) {
-			this.worldObj.spawnParticle("hugeexplosion", this.explosionX,
+			this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, this.explosionX,
 					this.explosionY, this.explosionZ, 1.0D, 0.0D, 0.0D);
 		} else {
-			this.worldObj.spawnParticle("largeexplode", this.explosionX,
+			this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.explosionX,
 					this.explosionY, this.explosionZ, 1.0D, 0.0D, 0.0D);
 		}
 
-		Iterator iterator;
-		ChunkPosition chunkposition;
-		int i;
-		int j;
-		int k;
-		Block l;
+		 Iterator iterator;
+	        BlockPos blockpos;
 
-		if (this.isSmoking) {
-			iterator = this.affectedBlockPositions.iterator();
+	        if (this.isSmoking)
+	        {
+	            iterator = this.affectedBlockPositions.iterator();
 
-			while (iterator.hasNext()) {
-				chunkposition = (ChunkPosition) iterator.next();
-				i = chunkposition.chunkPosX;
-				j = chunkposition.chunkPosY;
-				k = chunkposition.chunkPosZ;
-				l = this.worldObj.getBlock(i, j, k);
+	            while (iterator.hasNext())
+	            {
+	                blockpos = (BlockPos)iterator.next();
+	                Block block = this.worldObj.getBlockState(blockpos).getBlock();
 
-				if (par1) {
-					double d0 = (double) ((float) i + this.worldObj.rand
-							.nextFloat());
-					double d1 = (double) ((float) j + this.worldObj.rand
-							.nextFloat());
-					double d2 = (double) ((float) k + this.worldObj.rand
-							.nextFloat());
-					double d3 = d0 - this.explosionX;
-					double d4 = d1 - this.explosionY;
-					double d5 = d2 - this.explosionZ;
-					double d6 = (double) MathHelper.sqrt_double(d3 * d3 + d4
-							* d4 + d5 * d5);
-					d3 /= d6;
-					d4 /= d6;
-					d5 /= d6;
-					double d7 = 0.5D / (d6 / (double) this.explosionSize + 0.1D);
-					d7 *= (double) (this.worldObj.rand.nextFloat()
-							* this.worldObj.rand.nextFloat() + 0.3F);
-					d3 *= d7;
-					d4 *= d7;
-					d5 *= d7;
-					this.worldObj.spawnParticle("explode",
-							(d0 + this.explosionX * 1.0D) / 2.0D,
-							(d1 + this.explosionY * 1.0D) / 2.0D,
-							(d2 + this.explosionZ * 1.0D) / 2.0D, d3, d4, d5);
-					this.worldObj
-							.spawnParticle("smoke", d0, d1, d2, d3, d4, d5);
-				}
+	                if (par1)
+	                {
+	                    double d0 = (double)((float)blockpos.getX() + this.worldObj.rand.nextFloat());
+	                    double d1 = (double)((float)blockpos.getY() + this.worldObj.rand.nextFloat());
+	                    double d2 = (double)((float)blockpos.getZ() + this.worldObj.rand.nextFloat());
+	                    double d3 = d0 - this.explosionX;
+	                    double d4 = d1 - this.explosionY;
+	                    double d5 = d2 - this.explosionZ;
+	                    double d6 = (double)MathHelper.sqrt_double(d3 * d3 + d4 * d4 + d5 * d5);
+	                    d3 /= d6;
+	                    d4 /= d6;
+	                    d5 /= d6;
+	                    double d7 = 0.5D / (d6 / (double)this.explosionSize + 0.1D);
+	                    d7 *= (double)(this.worldObj.rand.nextFloat() * this.worldObj.rand.nextFloat() + 0.3F);
+	                    d3 *= d7;
+	                    d4 *= d7;
+	                    d5 *= d7;
+	                    this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (d0 + this.explosionX * 1.0D) / 2.0D, (d1 + this.explosionY * 1.0D) / 2.0D, (d2 + this.explosionZ * 1.0D) / 2.0D, d3, d4, d5, new int[0]);
+	                    this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, d3, d4, d5, new int[0]);
+	                }
 
-				if (l == RcMod.tntCrate || l == RcMod.crate) {
-					Block block = l;
+				if (block == RcMod.tntCrate || block == RcMod.crate) {
+					Block block2 = block;
 
-					if (block.canDropFromExplosion(this.TNT)) {
+					if (block2.canDropFromExplosion(this.TNT)) {
 						// block.dropBlockAsItemWithChance(this.worldObj, i, j,
 						// k, this.worldObj.getBlockMetadata(i, j, k), 1.0F /
 						// this.explosionSize, 0);
-						block.dropBlockAsItem(this.worldObj, i, j, k,
-								this.worldObj.getBlockMetadata(i, j, k), 0);
+						block2.dropBlockAsItem(this.worldObj, blockpos, this.worldObj.getBlockState(blockpos), 0);
 					}
 
-					block.onBlockExploded(this.worldObj, i, j, k, this.TNT);
+					block2.onBlockExploded(this.worldObj, blockpos, this.TNT);
 				}
 			}
 		}

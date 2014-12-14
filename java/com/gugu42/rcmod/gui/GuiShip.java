@@ -6,13 +6,12 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.lwjgl.opengl.GL11;
 
 import com.gugu42.rcmod.RcMod;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class GuiShip extends GuiScreen {
@@ -46,7 +45,7 @@ public class GuiShip extends GuiScreen {
 
 		drawTexturedModalRect(posX, posY, 0, 0, xSizeOfTexture, ySizeOfTexture);
 
-		drawString(mc.fontRenderer, text, posX + 50, posY + 50, 0x000000);
+		drawString(mc.fontRendererObj, text, posX + 50, posY + 50, 0x000000);
 
 		super.drawScreen(x, y, f);
 	}

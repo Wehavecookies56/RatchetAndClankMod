@@ -1,8 +1,15 @@
 package com.gugu42.rcmod.utils.glutils;
 
 import com.gugu42.rcmod.utils.glutils.TessellatorModelEvent.RenderGroupEvent;
-import cpw.mods.fml.common.eventhandler.EventBus;
+
+
+
+
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
+//import net.minecraft.client.renderer.Tessellator;
+import net.minecraftforge.fml.common.eventhandler.EventBus;
 
 import org.lwjgl.opengl.GL11;
 
@@ -90,7 +97,7 @@ public class TessellatorModel extends GLModel
                 t = triangles[i];
                 
                 // draw triangles until material changes
-                Tessellator tess = Tessellator.instance;
+                WorldRenderer tess = Tessellator.getInstance().getWorldRenderer();
                 tess.startDrawing(GL11.GL_TRIANGLES);
 
                 // activate new material and texture
@@ -118,7 +125,7 @@ public class TessellatorModel extends GLModel
                     tess.addVertex((float) t.p3.pos.x, (float) t.p3.pos.y,
                             (float) t.p3.pos.z);
                 }
-                tess.draw();
+                tess.finishDrawing();
             }
 
             MODEL_RENDERING_BUS.post(new RenderGroupEvent.Post(groupName,
@@ -137,7 +144,7 @@ public class TessellatorModel extends GLModel
     public void renderTextured(int textureHandle)
     {
         GL_Triangle t;
-        Tessellator tess = Tessellator.instance;
+        WorldRenderer tess = Tessellator.getInstance().getWorldRenderer();
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureHandle);
         tess.startDrawing(GL11.GL_TRIANGLES);
         for (int j = 0; j < mesh.triangles.length; j++)
@@ -159,7 +166,7 @@ public class TessellatorModel extends GLModel
             tess.addVertex((float) t.p3.pos.x, (float) t.p3.pos.y,
                     (float) t.p3.pos.z);
         }
-        tess.draw();
+        tess.finishDrawing();
     }
 
     /**
@@ -183,7 +190,7 @@ public class TessellatorModel extends GLModel
         GL_Triangle t;
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glColor3f(0, 1, 0);
-        Tessellator tess = Tessellator.instance;
+        WorldRenderer tess = Tessellator.getInstance().getWorldRenderer();
         tess.startDrawing(GL11.GL_LINES);
         {
             for (int j = 0; j < mesh.triangles.length; j++)
@@ -212,7 +219,7 @@ public class TessellatorModel extends GLModel
                         (float) (t.p3.pos.z + t.norm3.z));
             }
         }
-        tess.draw();
+        tess.finishDrawing();
         GL11.glEnable(GL11.GL_LIGHTING);
     }
 }

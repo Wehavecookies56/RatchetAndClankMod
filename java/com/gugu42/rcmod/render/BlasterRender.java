@@ -1,25 +1,27 @@
 package com.gugu42.rcmod.render;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.model.AdvancedModelLoader;
-import net.minecraftforge.client.model.IModelCustom;
+
+import org.lwjgl.opengl.GL11;
+
+import com.gugu42.rcmod.utils.glutils.TessellatorModel;
 
 public class BlasterRender implements IItemRenderer {
 
 //	protected ModelDualVipers model;
-	private IModelCustom model1;
-    public static final ResourceLocation textureLocation = new ResourceLocation("rcmod:models/Blaster0.png");
+//	private IModelCustom model1;
+//    public static final ResourceLocation textureLocation = new ResourceLocation("rcmod:models/Blaster0.png");
 /*	protected static final ResourceLocation texture = new ResourceLocation(
 			"rcmod:textures/items/dualvipersm.png");*/
+    
+    private TessellatorModel blasterModel;
 
 	public BlasterRender() {
 		//model = new ModelDualVipers();
-		model1 = AdvancedModelLoader.loadModel(new ResourceLocation("rcmod:models/Blaster0.obj"));
+//		model1 = AdvancedModelLoader.loadModel(new ResourceLocation("rcmod:models/Blaster0.obj"));
+		blasterModel = new TessellatorModel("/assets/rcmod/models/Blaster0.obj");
 	}
 
 	@Override
@@ -48,13 +50,13 @@ public class BlasterRender implements IItemRenderer {
 		switch (type) {
 		case EQUIPPED: {
 			GL11.glPushMatrix();
-			Minecraft.getMinecraft().renderEngine.bindTexture(textureLocation);
+//			Minecraft.getMinecraft().renderEngine.bindTexture(textureLocation);
 			GL11.glTranslatef(0.5f, 0.12f, 0.0f);
 			GL11.glRotatef(85, 0.0f, 1.0f, 0.0f);
 			GL11.glRotatef(00, 0.0f, 0.0f, 1.0f);
 			GL11.glRotatef(-35, 1.0f, 0.0f, 0.0f);
 			GL11.glScalef(0.033f, 0.033f, 0.033f);
-			model1.renderAll();
+			blasterModel.render();
 			
 			GL11.glTranslatef(-0.5F, 0.0F, 0.09F);
 			GL11.glPopMatrix();
@@ -62,22 +64,22 @@ public class BlasterRender implements IItemRenderer {
 		}
 		case EQUIPPED_FIRST_PERSON: {
 			GL11.glPushMatrix();
-			Minecraft.getMinecraft().renderEngine.bindTexture(textureLocation);
+//			Minecraft.getMinecraft().renderEngine.bindTexture(textureLocation);
 			GL11.glTranslatef(0.2f, 0.0f, 0.0f);
 			GL11.glRotatef(100, 0.0f, 1.0f, 0.0f);
 			GL11.glRotatef(-30, 1.0f, 0.0f, 0.0f);
 			GL11.glScalef(0.046f, 0.046f, 0.046f);
-			model1.renderAll();
+			blasterModel.render();
 			GL11.glPopMatrix();
 			break;
 		}
 		case ENTITY: {
 			GL11.glPushMatrix();
-			Minecraft.getMinecraft().renderEngine.bindTexture(textureLocation);
+//			Minecraft.getMinecraft().renderEngine.bindTexture(textureLocation);
 			GL11.glScalef(0.04f, 0.04f, 0.04f);
 			GL11.glTranslatef(-10f, 5f, 0.0f);
 			GL11.glRotatef(90, 0.0f, 1.0f, 0.0f);
-			model1.renderAll();
+			blasterModel.render();
 			GL11.glPopMatrix();
 			break;
 		}

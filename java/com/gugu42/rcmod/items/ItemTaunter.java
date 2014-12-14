@@ -31,7 +31,7 @@ public class ItemTaunter extends ItemRcWeap
             float size = 32f;
             List<Entity> entities = par2World
                     .getEntitiesWithinAABBExcludingEntity(par3EntityPlayer,
-                            par3EntityPlayer.boundingBox.expand(size, size,
+                            par3EntityPlayer.getBoundingBox().expand(size, size,
                                     size));
             for (Entity e : entities)
             {
