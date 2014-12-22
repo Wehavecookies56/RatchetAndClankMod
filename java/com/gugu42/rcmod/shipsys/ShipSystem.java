@@ -25,7 +25,9 @@ public class ShipSystem {
 		for (ShipWaypoint wp : waypoints) {
 			if (wp != null && wp.name != null
 					&& wp.toString() != "null 0 0 0 null false") {
-				data += wp.toString() + ";";
+				if(!data.contains(wp.toString())){
+					data += wp.toString() + ";";
+				}
 			}
 		}
 
@@ -39,9 +41,14 @@ public class ShipSystem {
 	public static void fetchSaveData(String data) {
 		String[] waypoints = data.split(";");
 		for (int i = 0; i < waypoints.length; i++) {
-			if (!waypoints[i].contains("null 0 0 0 null false"))
-				addWaypoint(new ShipWaypoint(waypoints[i]));
-			else
+			if (!waypoints[i].contains("null 0 0 0 null false")) {
+				ShipWaypoint wp = new ShipWaypoint(waypoints[i]);
+				if (!getWaypointsName().contains(wp.name)) {
+					addWaypoint(wp);
+				} else {
+					System.out.println("This waypoint already exists !");
+				}
+			} else
 				System.out.println("Error : Null waypoint");
 		}
 	}

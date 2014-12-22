@@ -32,6 +32,7 @@ public class ItemSwingShot extends ItemRcWeap {
 					par2World.spawnEntityInWorld(hook);
 					cooldown = 90;
 					par3EntityPlayer.swingItem();
+					par3EntityPlayer.worldObj.playSoundAtEntity(par3EntityPlayer, "rcmod:SwingShotShoot", 1.0f, 1.0f);
 				}
 			}
 		return par1ItemStack;

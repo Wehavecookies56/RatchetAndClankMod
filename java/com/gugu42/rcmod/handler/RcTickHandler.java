@@ -2,17 +2,13 @@ package com.gugu42.rcmod.handler;
 
 import java.util.List;
 
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.network.play.server.S12PacketEntityVelocity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 import com.gugu42.rcmod.RcMod;
+import com.gugu42.rcmod.items.ItemRcWeap;
 import com.gugu42.rcmod.items.RcItems;
 import com.gugu42.rcmod.shipsys.RcWorldSavedData;
 
@@ -90,7 +86,6 @@ public class RcTickHandler {
 						player.fallDistance = 0.0F;
 					}
 				}
-
 			}
 
 		}

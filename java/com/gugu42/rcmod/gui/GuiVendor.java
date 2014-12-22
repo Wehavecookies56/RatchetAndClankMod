@@ -61,6 +61,11 @@ public class GuiVendor extends GuiContainer {
 
 	public float rotation;
 
+	public int weaponIndex = 1;
+
+	public int lastID = 0;
+	public int centerID = 1;
+
 	public GuiVendor(InventoryPlayer inventoryPlayer,
 			TileEntityVendor tileEntity, EntityPlayer player,
 			ContainerVendor container) {
@@ -121,13 +126,18 @@ public class GuiVendor extends GuiContainer {
 			rotation -= 1f;
 
 			if (getItemInInventory(player.inventory, selectedItem.getItem()) == null) {
-				this.mc.fontRenderer.drawString(""
-						+ EnumRcWeapons.getItemFromID(selectedWeapon + 1)
-								.getPrice(), 30, 105, 0xFFFFFF);
+				this.mc.fontRenderer.drawString(
+						""
+								+ EnumRcWeapons.getPriceFromItem(selectedItem
+										.getItem()), 30, 105, 0xFFFFFF);
 				this.buyBtn.displayString = "Buy";
 			} else {
-				this.mc.fontRenderer.drawString(""
-						+ getItemInInventory(player.inventory, selectedItem.getItem()).getItemDamage() * selectedItemWeap.getPrice(), 30, 105, 0xFFFFFF);
+				this.mc.fontRenderer.drawString(
+						""
+								+ getItemInInventory(player.inventory,
+										selectedItem.getItem()).getItemDamage()
+								* selectedItemWeap.getPrice(), 30, 105,
+						0xFFFFFF);
 				this.buyBtn.displayString = "Refill";
 			}
 			this.buyBtn.enabled = true;
@@ -152,12 +162,18 @@ public class GuiVendor extends GuiContainer {
 	}
 
 	public void putItemsInSlot() {
-		for (int i = 1; i < 10; i++) {
-			if (EnumRcWeapons.getItemFromID(i) != null) {
-				this.container.putStackInSlot(i - 1, new ItemStack(
-						EnumRcWeapons.getItemFromID(i).getWeapon()));
+		for (int i = 0; i < 9; i++) {
+			if (EnumRcWeapons.getItemFromID(centerID + i) != null) {
+				this.container.putStackInSlot(i, new ItemStack(EnumRcWeapons
+						.getItemFromID(centerID + i).getWeapon()));
+				lastID = i;
 			} else {
-				this.container.putStackInSlot(i, null);
+				if (EnumRcWeapons.getItemFromID(i - lastID) != null) {
+					this.container.putStackInSlot(
+							i,
+							new ItemStack(EnumRcWeapons.getItemFromID(
+									i - lastID).getWeapon()));
+				}
 			}
 		}
 	}
@@ -168,11 +184,23 @@ public class GuiVendor extends GuiContainer {
 		for (int i = 0; i < 9; i++) {
 			if (isMouseOverSlot(container.getSlot(i), mouseX, mouseY)) {
 				selectedWeapon = i;
-				selectedItem = new ItemStack(EnumRcWeapons.getItemFromID(i + 1)
-						.getWeapon(), 1);
+
+				selectedItem = container.getSlot(i).getStack();
+
 				selectedItemEntity = new EntityItem(this.mc.theWorld, 0, 0, 0,
 						selectedItem);
-				selectedItemWeap = (ItemRcWeap)selectedItem.getItem();
+
+				selectedItemWeap = (ItemRcWeap) selectedItem.getItem();
+				mc.getSoundHandler()
+						.playSound(
+								PositionedSoundRecord
+										.func_147674_a(new ResourceLocation(
+												"rcmod:MenuSelect"), 1.0F));
+
+				weaponIndex = weaponIndex + i;
+				centerID = EnumRcWeapons.getIDFromItem(selectedItemWeap);
+			} else {
+				//ok you can happen if you want, but not too much pls
 			}
 		}
 	}
@@ -189,10 +217,6 @@ public class GuiVendor extends GuiContainer {
 						PacketVend packetVend = new PacketVend(
 								selectedWeapon + 1);
 						RcMod.rcModPacketHandler.sendToServer(packetVend);
-						mc.getSoundHandler().playSound(
-								PositionedSoundRecord
-										.func_147674_a(new ResourceLocation(
-												"rcmod:vendor.buy"), 1.0F));
 					} catch (Exception exception) {
 						exception.printStackTrace();
 					}
@@ -206,6 +230,9 @@ public class GuiVendor extends GuiContainer {
 			}
 			break;
 		case 1:
+			mc.getSoundHandler().playSound(
+					PositionedSoundRecord.func_147674_a(new ResourceLocation(
+							"rcmod:vendor.exit"), 1.0F));
 			player.closeScreen();
 			break;
 		default:
@@ -221,6 +248,12 @@ public class GuiVendor extends GuiContainer {
 		mouseX = par1;
 		mouseY = par2;
 		handleSelectedWeapon();
+		if (selectedItemEntity != null) { //Using this check to be sure that there is an item selecred, cuz that works.
+			this.mc.fontRenderer.drawString(
+					EnumRcWeapons.getItemFromID(centerID).getName(), 108, 16,
+					0x00FF00);
+		}
+
 	}
 
 	@Override

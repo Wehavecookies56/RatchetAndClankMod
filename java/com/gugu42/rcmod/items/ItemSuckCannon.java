@@ -128,6 +128,7 @@ public class ItemSuckCannon extends ItemRcWeap {
 					owner.worldObj.spawnEntityInWorld(proj);
 					owner.worldObj.spawnEntityInWorld(e);
 					proj.setOwnerID(owner.getEntityId());
+					owner.worldObj.playSoundAtEntity(owner, "rcmod:SuckCannonShot", 1.0f, 1.0f);
 				}
 			} catch (NBTException e) {
 				e.printStackTrace();

@@ -24,8 +24,6 @@ public class BlockShip extends Block {
 		this.setBlockBounds(-3f, 0, -3f, 3f, 3f, 3f);
 	}
 
-
-
 	public boolean onBlockActivated(World par1World, int x, int y, int z,
 			EntityPlayer par5EntityPlayer, int par6, float par7, float par8,
 			float par9) {
@@ -54,6 +52,13 @@ public class BlockShip extends Block {
 
 	public boolean isOpaqueCube() {
 		return false;
+	}
+
+	public void onBlockPlacedBy(World world, int x, int y, int z,
+			EntityLivingBase living, ItemStack stack) {
+		int direction = MathHelper
+				.floor_double((double) (living.rotationYaw * 4.0F / 360.0F) + 2.5D) & 3;
+		world.setBlockMetadataWithNotify(x, y, z, direction, 2);
 	}
 
 	@SideOnly(Side.CLIENT)

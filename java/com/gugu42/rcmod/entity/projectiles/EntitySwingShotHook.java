@@ -162,7 +162,6 @@ public class EntitySwingShotHook extends EntityThrowable {
 				if (worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ) != null
 						&& worldObj
 								.getBlock(mop.blockX, mop.blockY, mop.blockZ) == RcMod.versaTargetGreen) {
-					System.out.println("I should pull the player !");
 					shouldPullPlayer = true;
 					motionX = 0;
 					motionY = 0;
@@ -171,6 +170,7 @@ public class EntitySwingShotHook extends EntityThrowable {
 					this.posX = mop.hitVec.xCoord;
 					this.posY = mop.hitVec.yCoord;
 					this.posZ = mop.hitVec.zCoord;
+					this.worldObj.playSoundAtEntity(this, "rcmod:SwingShotHook", 1.0f, 1.0f);
 				} else {
 					returnToThrower();
 				}

@@ -87,5 +87,41 @@
         "sounds": [
             "achievement"
         ]
+    },
+    "SuckCannonShot": {
+        "category": "block",
+        "sounds": [
+            "SuckCannonShot"
+        ]
+    },
+    "DevastatorShot": {
+        "category": "block",
+        "sounds": [
+            "DevastatorShot"
+        ]
+    },
+    "SwingShotShoot": {
+        "category": "block",
+        "sounds": [
+            "SwingShotShoot"
+        ]
+    },
+    "SwingShotPull": {
+        "category": "block",
+        "sounds": [
+            "SwingShotPull"
+        ]
+    },
+    "SwingShotHook": {
+        "category": "block",
+        "sounds": [
+            "SwingShotHook"
+        ]
+    },
+    "blasterEquip": {
+        "category": "block",
+        "sounds": [
+            "BlasterEquipStart"
+        ]
     }
 }

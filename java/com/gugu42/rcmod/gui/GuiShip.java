@@ -10,9 +10,11 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import com.gugu42.rcmod.RcMod;
+import com.gugu42.rcmod.shipsys.ShipSystem;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import com.gugu42.rcmod.network.packets.PacketShipTeleportation;
 
 @SideOnly(Side.CLIENT)
 public class GuiShip extends GuiScreen {
@@ -69,7 +71,9 @@ public class GuiShip extends GuiScreen {
 			this.mc.displayGuiScreen(new GuiShipSelectDest(this));
 			break;
 		case 1:
-			
+			String wpData = ShipSystem.getWaypointByName(text).toString();
+			PacketShipTeleportation packet = new PacketShipTeleportation(wpData);
+			RcMod.rcModPacketHandler.sendToServer(packet);
 			break;
 		default:
 			break;
@@ -84,15 +88,14 @@ public class GuiShip extends GuiScreen {
 
 		this.buttonList.add(new GuiButton(0, posX + 120, posY + 10, 100, 20,
 				"Select destination"));
-		
-		this.buttonList.add(new GuiButton(1, posX + 120, posY + 32, 100, 20, "Go to destination"));
+
+		this.buttonList.add(new GuiButton(1, posX + 120, posY + 32, 100, 20,
+				"Go to destination"));
 
 	}
 
 	public void setString(String string) {
 		this.text = string;
 	}
-	
-	
 
 }

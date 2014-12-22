@@ -176,7 +176,7 @@ public class EntityWrenchThrown extends EntityThrowable implements
 				double newX = this.getThrower().posX - this.posX;
 				double newY = (this.getThrower().posY + 1) - this.posY;
 				double newZ = this.getThrower().posZ - this.posZ;
-				setThrowableHeading(newX, newY, newZ, this.func_70182_d(), 0.0F);
+				setThrowableHeading(newX, newY, newZ, 1.5F, 0.0F);
 			}
 		}
 	}

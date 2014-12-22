@@ -28,6 +28,7 @@ public class ItemBlaster extends ItemRcWeap {
 		this.isInGold = false;
 		this.hasCrosshair = true;
 		this.hasAmmoImage = true;
+		this.hasEquipSound = true;
 //		this.crosshairPath = "textures/gui/blasterCrosshair.png";
 	}
 

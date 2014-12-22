@@ -112,8 +112,10 @@ public class PacketRefill extends AbstractPacket {
 			if(props.consumeBolts(item.getItemDamage() * itemWeap.getPrice())){
 				item.setItemDamage(0);
 				player.addChatMessage(new ChatComponentText("Your weapon has been refilled !"));
+				player.worldObj.playSoundAtEntity(player, "rcmod:vendor.buy", 1.0f, 1.0f);
 			} else {
 				player.addChatMessage(new ChatComponentText("You don't seem to have enough bolts to pay for the ammo !"));
+				player.worldObj.playSoundAtEntity(player, "rcmod:vendor.maxAmmo", 1.0f, 1.0f);
 			}
 		} else {
 			player.addChatMessage(new ChatComponentText("There was an error when trying to refill your weapon."));

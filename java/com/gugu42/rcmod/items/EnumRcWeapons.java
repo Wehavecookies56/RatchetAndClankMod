@@ -23,7 +23,9 @@ public enum EnumRcWeapons {
 	MINEGLOVE(7500, RcItems.mineGlove, "Mine Glove", 2, 4, new String[] {"Mine Glove!", "Be sneaky and set", "EXPLODING traps", "for your enemies!", "", ""}, 8),
 	
 	//PAGE 3
-	DEVASTATOR(10000, RcItems.devastator, "Devastator", 3, 1, new String[] {"The Devastator is the perfect", "combination of effectiveness", "and economy. Less expensive than some", "of Gadgetron's other long range weapons,", " the Devastator can bring down ", "flying enemies with ease."}, 9);
+	DEVASTATOR(10000, RcItems.devastator, "Devastator", 3, 1, new String[] {"The Devastator is the perfect", "combination of effectiveness", "and economy. Less expensive than some", "of Gadgetron's other long range weapons,", " the Devastator can bring down ", "flying enemies with ease."}, 9),
+	SUCK_CANNON(5000, RcItems.suckCannon, "Suck Cannon", 3, 2, new String[] {"", "", "", "", "", ""}, 10);
+	
 	
 	public int price;
 	public Item weapon;
@@ -91,4 +93,27 @@ public enum EnumRcWeapons {
 		
 		return null;
 	}
+	
+	public static int getIDFromItem(Item item){
+		EnumRcWeapons[] weaps = EnumRcWeapons.values();
+		for(int i = 0; i < weaps.length; i++ ){
+			if(weaps[i].getWeapon() == item){
+				return weaps[i].getId();
+			}
+		}
+		
+		return 0;
+	}
+	
+	public static int getPriceFromItem(Item item){
+		EnumRcWeapons[] weaps = EnumRcWeapons.values();
+		for(int i = 0; i < weaps.length; i++ ){
+			if(weaps[i].getWeapon() == item){
+				return weaps[i].getPrice();
+			}
+		}
+		
+		return 0;
+	}
+	
 }
