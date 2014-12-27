@@ -86,10 +86,14 @@ public class ItemRcWeap extends Item {
 
 		if (ent instanceof EntityPlayer) {
 			EntityPlayer pl = (EntityPlayer) ent;
-			if (pl.getHeldItem() != null && pl.getHeldItem().getItem() != this) {
+			if (pl.getHeldItem() != null){
+				if (pl.getHeldItem().getItem() != this) {
 				ent.getEntityData().setBoolean(
 						"firstTimeEquip" + this.weaponName, false);
-
+				}
+			} else {
+				ent.getEntityData().setBoolean(
+						"firstTimeEquip" + this.weaponName, false);
 			}
 		}
 	}
