@@ -101,6 +101,7 @@ public class FFMTPacketHandler extends
 			return false;
 		}
 
+		RcMod.rcLogger.info("Successfully registred packet "+clazz.getCanonicalName());
 		this.packets.add(clazz);
 		return true;
 	}

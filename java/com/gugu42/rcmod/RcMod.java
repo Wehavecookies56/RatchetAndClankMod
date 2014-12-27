@@ -92,7 +92,7 @@ public class RcMod {
 	/*
 	 * Packet Handler - Not that hard but yeah
 	 */
-	public static final FFMTPacketHandler rcModPacketHandler = new FFMTPacketHandler("com.gugu42.rcmod.network.packets");
+	public static FFMTPacketHandler rcModPacketHandler;
 
     public static final String MODID = "rcmod";
 
@@ -102,6 +102,8 @@ public class RcMod {
 	
 	@EventHandler
 	public void PreInit(FMLPreInitializationEvent event) {
+	    rcLogger = event.getModLog();
+	    rcModPacketHandler = new FFMTPacketHandler("com.gugu42.rcmod.network.packets");
 		rcTab = new RcCreativeTab("rcTab");
 		rcWeapTab = new RcCreativeTab("rcWeapTab");
 		rcGadgTab = new RcCreativeTab("rcGadgTab");
