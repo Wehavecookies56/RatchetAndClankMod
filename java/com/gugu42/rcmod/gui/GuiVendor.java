@@ -187,10 +187,12 @@ public class GuiVendor extends GuiContainer {
 
 				selectedItem = container.getSlot(i).getStack();
 
-				selectedItemEntity = new EntityItem(this.mc.theWorld, 0, 0, 0,
-						selectedItem);
+				if (selectedItem != null) {
+					selectedItemEntity = new EntityItem(this.mc.theWorld, 0, 0,
+							0, selectedItem);
 
-				selectedItemWeap = (ItemRcWeap) selectedItem.getItem();
+					selectedItemWeap = (ItemRcWeap) selectedItem.getItem();
+				}
 				mc.getSoundHandler()
 						.playSound(
 								PositionedSoundRecord
@@ -214,8 +216,7 @@ public class GuiVendor extends GuiContainer {
 				if (props.getCurrentBolt() > 0) {
 
 					try {
-						PacketVend packetVend = new PacketVend(
-								selectedWeapon + 1);
+						PacketVend packetVend = new PacketVend(centerID);
 						RcMod.rcModPacketHandler.sendToServer(packetVend);
 					} catch (Exception exception) {
 						exception.printStackTrace();
@@ -224,7 +225,7 @@ public class GuiVendor extends GuiContainer {
 			} else {
 				ItemRcWeap weap = (ItemRcWeap) selectedItem.getItem();
 				if (weap.useAmmo) {
-					PacketRefill packet = new PacketRefill(selectedWeapon + 1);
+					PacketRefill packet = new PacketRefill(centerID);
 					RcMod.rcModPacketHandler.sendToServer(packet);
 				}
 			}

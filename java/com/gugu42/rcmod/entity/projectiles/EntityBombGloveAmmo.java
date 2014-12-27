@@ -45,7 +45,7 @@ public class EntityBombGloveAmmo extends EntityThrowable implements IProjectile 
 
 	@Override
 	protected float getGravityVelocity() {
-		return 0.30F;
+		return 0.25F;
 	}
 
 	private void explode() {

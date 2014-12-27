@@ -1,6 +1,7 @@
 package com.gugu42.rcmod.items;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -21,6 +22,7 @@ public class ItemPyrocitor extends ItemRcWeap
 		this.setMaxDamage(maxAmmo);
 		this.hideCrosshair = true;
 		this.hasAmmoImage = true;
+		this.hasEquipSound = true;
 //		this.ammoTexturePath = "textures/gui/ammoImage_pyrocitor.png";
 	}
 
@@ -59,5 +61,11 @@ public class ItemPyrocitor extends ItemRcWeap
 
 	public void onPlayerStoppedUsing(ItemStack stack, World w, EntityPlayer player, int i) 
 	{
+	}
+	
+	@Override
+	public void onUpdate(ItemStack stack, World w, Entity ent, int i,
+			boolean flag) {
+		super.onUpdate(stack, w, ent, i, flag);
 	}
 }

@@ -123,5 +123,41 @@
         "sounds": [
             "BlasterEquipStart"
         ]
+    },
+    "devastatorEquip": {
+        "category": "block",
+        "sounds": [
+            "DevastatorEquipStart"
+        ]
+    },
+    "pyrocitorEquip": {
+        "category": "block",
+        "sounds": [
+            "PyrocitorEquipStart"
+        ]
+    },
+    "swingShotEquip": {
+        "category": "block",
+        "sounds": [
+            "SwingShotEquipStart"
+        ]
+    },
+    "taunterEquip": {
+        "category": "block",
+        "sounds": [
+            "TaunterEquipStart"
+        ]
+    },
+    "teslaClawEquip": {
+        "category": "block",
+        "sounds": [
+            "TeslaClawEquipStart"
+        ]
+    },
+    "visibombEquip": {
+        "category": "block",
+        "sounds": [
+            "VisiBombGunEquip"
+        ]
     }
 }

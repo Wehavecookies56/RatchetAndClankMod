@@ -49,12 +49,11 @@ public class RenderDecoyGloveAmmo extends Render {
 			GL11.glPopMatrix();
 		} else {
 			this.inflateSize = par1EntityDecoyGloveAmmo.inflateSize;
-			this.orientationYaw = par1EntityDecoyGloveAmmo.getOrientationYaw();
 			GL11.glPushMatrix();
 			Minecraft.getMinecraft().renderEngine.bindTexture(textureLocation);
 			GL11.glTranslatef((float)par2, (float)par4, (float)par6);
 			GL11.glScalef(inflateSize, inflateSize, inflateSize);
-			GL11.glRotatef(this.orientationYaw, 0.0f, 1.0f, 0.0f);
+			GL11.glRotatef(par1EntityDecoyGloveAmmo.getOrientationYaw(), 0.0f, 1.0f, 0.0f);
 			model1.renderAll();
 
 			GL11.glTranslatef(-0.5F, 0.0F, 0.09F);

@@ -21,6 +21,8 @@ public class ItemDevastator extends ItemRcWeap {
 		this.maxAmmo = 20;
 		this.ammoPrice = 50;
 		this.setMaxDamage(this.maxAmmo);
+		this.hasEquipSound = true;
+		this.weaponName = "devastator";
 	}
 
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World,
@@ -47,6 +49,8 @@ public class ItemDevastator extends ItemRcWeap {
 	@Override
 	public void onUpdate(ItemStack par1ItemStack, World par2World,
 			Entity par3Entity, int par4, boolean par5) {
+		super.onUpdate(par1ItemStack, par2World, par3Entity, par4, par5);
+		
 		if (par5 && par3Entity instanceof EntityPlayer && !par2World.isRemote) {
 			EntityPlayer player = (EntityPlayer) par3Entity;
 			ExtendedPlayerTarget props = ExtendedPlayerTarget.get(player);
@@ -112,11 +116,13 @@ public class ItemDevastator extends ItemRcWeap {
 	public void fireRocket(World world, EntityPlayer player) {
 		EntityRYNOAmmo rocket = new EntityRYNOAmmo(world, player);
 		world.spawnEntityInWorld(rocket);
+		player.worldObj.playSoundAtEntity(player, "rcmod:DevastatorShot", 1.0f, 1.0f);
 	}
 
 	public void fireRocket(World world, EntityPlayer player, Entity target) {
 		EntityRYNOAmmo rocket = new EntityRYNOAmmo(world, player, target);
 		world.spawnEntityInWorld(rocket);
+		player.worldObj.playSoundAtEntity(player, "rcmod:DevastatorShot", 1.0f, 1.0f);
 	}
 
 }

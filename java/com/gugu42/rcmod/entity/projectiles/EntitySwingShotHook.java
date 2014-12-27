@@ -49,6 +49,11 @@ public class EntitySwingShotHook extends EntityThrowable {
 		}
 	}
 
+	public EntitySwingShotHook(World par1World, double par2, double par4,
+			double par6) {
+		super(par1World, par2, par4, par6);
+	}
+	
 	@Override
 	protected void entityInit() {
 		dataWatcher.addObject(10, "1"); // powValue
@@ -170,7 +175,7 @@ public class EntitySwingShotHook extends EntityThrowable {
 					this.posX = mop.hitVec.xCoord;
 					this.posY = mop.hitVec.yCoord;
 					this.posZ = mop.hitVec.zCoord;
-					this.worldObj.playSoundAtEntity(this, "rcmod:SwingShotHook", 1.0f, 1.0f);
+					this.worldObj.playSoundAtEntity(this.thrower, "rcmod:SwingShotHook", 1.0f, 1.0f);
 				} else {
 					returnToThrower();
 				}

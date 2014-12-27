@@ -19,8 +19,8 @@ public class ItemSwingShot extends ItemRcWeap {
 		this.useAmmo = false;
 		this.hasCrosshair = true;
 		this.weaponName = "swingShot";
-		
 		this.setMaxStackSize(1);
+		this.hasEquipSound = true;
 	}
 	
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World,
@@ -40,6 +40,7 @@ public class ItemSwingShot extends ItemRcWeap {
 	
 	public void onUpdate(ItemStack stack, World w, Entity ent, int i,
 			boolean flag) {
+		super.onUpdate(stack, w, ent, i, flag);
 		if (cooldown > 0) {
 			cooldown--;
 		}

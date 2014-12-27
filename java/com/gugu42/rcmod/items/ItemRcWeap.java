@@ -35,7 +35,6 @@ public class ItemRcWeap extends Item {
 
 	public boolean hasEquipSound;
 
-	public boolean firstTimeEquipping = true;
 	public int soundCooldown;
 
 	public ItemRcWeap() {
@@ -67,26 +66,31 @@ public class ItemRcWeap extends Item {
 	public void onUpdate(ItemStack stack, World w, Entity ent, int i,
 			boolean flag) {
 		super.onUpdate(stack, w, ent, i, flag);
-		if (ent instanceof EntityPlayer) {
-			EntityPlayer pl = (EntityPlayer) ent;
-			if (pl.getHeldItem() != null) {
-				if (pl.getHeldItem().getItem() == this) {
-					if (firstTimeEquipping) {
+
+		if (!ent.getEntityData().getBoolean("firstTimeEquip" + this.weaponName)) {
+			if (this.hasEquipSound) {
+				if (ent instanceof EntityPlayer) {
+					EntityPlayer player = (EntityPlayer) ent;
+					if (player.getHeldItem() != null
+							&& player.getHeldItem().getItem() == this) {
+
 						w.playSoundAtEntity(ent, this.getEquiSoundName(), 1.0f,
 								1.0f);
-						this.firstTimeEquipping = false;
-						this.soundCooldown = 10;
-					}
-				} else {
-					if (this.soundCooldown <= 0) {
-						this.firstTimeEquipping = true;
+						ent.getEntityData().setBoolean(
+								"firstTimeEquip" + this.weaponName, true);
+
 					}
 				}
 			}
 		}
 
-		if (this.soundCooldown > 0) {
-			this.soundCooldown--;
+		if (ent instanceof EntityPlayer) {
+			EntityPlayer pl = (EntityPlayer) ent;
+			if (pl.getHeldItem() != null && pl.getHeldItem().getItem() != this) {
+				ent.getEntityData().setBoolean(
+						"firstTimeEquip" + this.weaponName, false);
+
+			}
 		}
 	}
 

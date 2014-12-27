@@ -16,6 +16,8 @@ public class ItemTaunter extends ItemRcWeap
     {
         super();
         this.useAmmo = false;
+        this.weaponName = "taunter";
+        this.hasEquipSound = true;
     }
 
     @SuppressWarnings("unchecked")
@@ -53,4 +55,10 @@ public class ItemTaunter extends ItemRcWeap
         }
         return par1ItemStack;
     }
+    
+    @Override
+	public void onUpdate(ItemStack stack, World w, Entity ent, int i,
+			boolean flag) {
+		super.onUpdate(stack, w, ent, i, flag);
+	}
 }
