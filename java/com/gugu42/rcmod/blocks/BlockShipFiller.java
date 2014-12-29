@@ -22,15 +22,18 @@ public class BlockShipFiller extends Block {
 			EntityPlayer par5EntityPlayer, int par6, float par7, float par8,
 			float par9) {
 
-		TileEntity tileEntity = par1World.getTileEntity(x, y, z);
-
+		TileEntityShipFiller tileEntity = (TileEntityShipFiller) par1World
+				.getTileEntity(x, y, z);
 		if (tileEntity == null || par5EntityPlayer.isSneaking()) {
 			return false;
 		}
 
-		par5EntityPlayer.openGui(RcMod.instance, 0, par1World, x, y, z);
+		par5EntityPlayer.openGui(RcMod.instance, 0, par1World,
+				tileEntity.primary_x, tileEntity.primary_y,
+				tileEntity.primary_z);
 
 		return true;
+
 	}
 
 	@Override

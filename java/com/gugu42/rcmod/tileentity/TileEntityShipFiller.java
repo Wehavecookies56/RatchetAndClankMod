@@ -30,4 +30,9 @@ public class TileEntityShipFiller extends TileEntity {
 		this.primary_z = par1NBTTagCompound.getInteger("pz");
 
 	}
+    
+    public TileEntity getOriginalTileEntity(){
+    	TileEntity te = this.worldObj.getTileEntity(primary_x, primary_y, primary_z);
+    	return te;
+    }
 }

@@ -10,18 +10,17 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import com.gugu42.rcmod.RcMod;
-import com.gugu42.rcmod.shipsys.ShipSystem;
+import com.gugu42.rcmod.tileentity.TileEntityShip;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import com.gugu42.rcmod.network.packets.PacketShipTeleportation;
 
 @SideOnly(Side.CLIENT)
 public class GuiShip extends GuiScreen {
 
 	private ResourceLocation texture = new ResourceLocation(RcMod.MODID
 			+ ":/textures/gui/shipGui.png");
-	private TileEntity tileEntity;
+	private TileEntityShip tileEntity;
 	private EntityPlayer player;
 	public final int xSizeOfTexture = 176;
 	public final int ySizeOfTexture = 88;
@@ -29,7 +28,7 @@ public class GuiShip extends GuiScreen {
 
 	public Minecraft mc;
 
-	public GuiShip(TileEntity te, EntityPlayer ep) {
+	public GuiShip(TileEntityShip te, EntityPlayer ep) {
 		super();
 		this.tileEntity = te;
 		this.player = ep;
@@ -71,9 +70,12 @@ public class GuiShip extends GuiScreen {
 			this.mc.displayGuiScreen(new GuiShipSelectDest(this));
 			break;
 		case 1:
-			String wpData = ShipSystem.getWaypointByName(text).toString();
-			PacketShipTeleportation packet = new PacketShipTeleportation(wpData);
-			RcMod.rcModPacketHandler.sendToServer(packet);
+			this.tileEntity.hasLaunched = true;
+			this.player.closeScreen();
+			
+//			String wpData = ShipSystem.getWaypointByName(text).toString();
+//			PacketShipTeleportation packet = new PacketShipTeleportation(wpData);
+//			RcMod.rcModPacketHandler.sendToServer(packet);
 			break;
 		default:
 			break;

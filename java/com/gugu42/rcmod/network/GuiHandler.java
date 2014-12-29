@@ -28,10 +28,10 @@ public class GuiHandler implements IGuiHandler {
 			return null;
 		}
 
-		if(id == 3){
+		if (id == 3) {
 			return null;
 		}
-		
+
 		return null;
 	}
 
@@ -46,14 +46,28 @@ public class GuiHandler implements IGuiHandler {
 							player.inventory, (TileEntityVendor) tileEntity));
 		}
 
-		if (tileEntity instanceof TileEntityShip || tileEntity instanceof TileEntityShipFiller) {
-			return new GuiShip(tileEntity, player);
+		if (tileEntity instanceof TileEntityShip
+				|| tileEntity instanceof TileEntityShipFiller) {
+			if (tileEntity instanceof TileEntityShip) {
+				TileEntityShip te = (TileEntityShip) tileEntity;
+				return new GuiShip(te, player);
+			} else {
+				TileEntityShipFiller te2 = (TileEntityShipFiller) tileEntity;
+				TileEntityShip te = (TileEntityShip) te2.getOriginalTileEntity();
+
+				if (te != null) {
+					return new GuiShip(te, player);
+				} else {
+					System.out.println("ERROR ! NULL TILEENTITY");
+					return new GuiShip(null, player);
+				}
+			}
 		}
 
-		if(id == 3){
+		if (id == 3) {
 			return new GuiGadgetronHelper(player);
 		}
-		
+
 		return null;
 
 	}
