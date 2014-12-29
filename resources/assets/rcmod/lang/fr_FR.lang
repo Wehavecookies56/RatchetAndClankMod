@@ -1,35 +1,77 @@
+# Traduit et ordonnée par: xXGugu42Xx, RatchetCinemaESP
+# Mod créé par: xXGugu42Xx
+########################Divers##############################
+#
 tile.tntCrate.name=Caisse de TNT
 tile.crate.name=Caisse de Boulons
 tile.vendor.name=Vendeur Gadgetron
-
-death.attack.rcweap=%1$s was shot to death.
-death.attack.rcweap.player=%1$s was shot to death by %2$s.
-death.attack.rcweap.item=%1$s was shot to death by %2$s using %3$s
-
-item.bolt.name=Boulon
-item.blaster.name=Plasmo-Mitrail
-item.bombglove.name=Gant a Bombe
-item.omwr3000.name=Super clé 3000
-item.ryno.name=T.E.L.T.
-item.pyrocitor.name=Pyrolanceur
-item.walloper.name=Repousseur
-item.visibombGun.name=Canon Visibombe
-item.decoyGlove.name=Gant a leurre
-item.devastator.name=Dévastateur
-item.droneDevice.name=Dronomatic
-item.gloveOfDoom.name=Gant a Ravageurs
-item.mineGlove.name=Gant a mines
-item.morphORay.name=Morpho-Rayon
-item.suckCannon.name=Aspiro-Cannon
-item.taunter.name=Attrape Nigaud
-item.teslaClaw.name=Griffeur Tesla
-
+tile.ship.name=Vaisseau de Ratchet
 item.vendorCore.name=Coeur du Vendeur
 item.clankCore.name=Coeur de Clank
 item.clank.name=Clank (Vide)
 item.helipackHelice.name=Helice d'Helipack
+item.clankHeli.helipack.name=Clank (Helipack)
+item.clankHeli.helipack-deployed.name=Clank (Helipack)
+item.metropolisRecord.name=R&C Mod - Disque
+item.metropolisRecord.desc=Metropolis - Kerwan
+item.ratchetEars.name=Oreilles de Ratchet
+#
+#####################Fin divers###########################
 
-item.clankHeli.name=Clank (Helipack)
+####################Armes#######################
+#
+item.blaster.name=Plasmo-Mitrail
+item.bombglove.name=Gant à Bombes
+item.omwr3000.name=Super Clé 8000
+item.ryno.name=T.E.L.T.
+item.pyrocitor.name=Pyrolanceur
+item.walloper.name=Repousseur
+item.visibombGun.name=Canon Visibombe
+item.decoyGlove.name=Gant à Leurres
+item.devastator.name=Dévastateur
+item.droneDevice.name=Dronomatic
+item.gloveOfDoom.name=Gant Ravageur
+item.mineGlove.name=Gant à Mines
+item.morphORay.name=Morpho-Rayon
+item.suckCannon.name=Aspiro-Canon
+item.taunter.name=Attrape-Nigaud
+item.teslaClaw.name=Griffeur Tesla
+#
+##################Fin d'Armes#######################
 
-itemGroup.rcTab=Ratchet & Clank Mod
-itemGroup.rcWeapTab=Ratchet & Clank Armes
+######################Gadgets#######################
+#
+item.swingShot.name=Swingueur
+item.clankHeli.name=Clank (Hélipack)
+item.thrusterpack.name=Clank (Propulsopack)
+item.gadgetronHelper.name=APL Gadgetron
+tile.versaTargetGreen.name=Versa Orbe ( Verte )
+#
+###################Fin d'Gadgets####################
+
+########################Succès#############################
+#
+achievement.vendor=Devenir un Lombax
+achievement.vendor.desc=Vous avez frabriqué un vendeur!
+#
+achievement.helipack=Le grand duo
+achievement.helipack.desc=Vous avez réussi à faire un Hélipack!
+#
+#####################Fin des sucès##########################
+
+########################Messages########################
+#
+death.attack.rcweap=%1$s a été tué par des coups de feu.
+death.attack.rcweap.player=%1$s a été assassiné par des coups de feu de %2$s.
+death.attack.rcweap.item=%1$s a été assassiné par des coups de feu de %2$s avec %3$s
+#
+#####################Fin d'Messages#####################
+
+######################Divers##########################
+#
+itemGroup.rcTab=Ratchet & Clank: Divers
+itemGroup.rcWeapTab=Ratchet & Clank: Armes
+itemGroup.rcGadgTab=Ratchet & Clank: Gadgets
+item.bolt.name=Boulon
+#
+###################Fin divers#######################

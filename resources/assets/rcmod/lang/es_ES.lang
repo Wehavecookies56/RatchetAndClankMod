@@ -1,0 +1,77 @@
+# Traducido y ordenado por: RatchetCinemaESP
+# Mod creado por: xXGugu42Xx
+########################Varios##############################
+#
+tile.tntCrate.name=Caja Explosiva
+tile.crate.name=Caja de Guitones
+tile.vendor.name=Expendedor Gadgetron
+tile.ship.name=Nave de Ratchet
+item.vendorCore.name=Núcleo del Expendedor
+item.clankCore.name=Núcleo de Clank
+item.clank.name=Clank (Vacío)
+item.helipackHelice.name=Hélice del Helipack
+item.clankHeli.helipack.name=Clank (Helipack)
+item.clankHeli.helipack-deployed.name=Clank (Helipack)
+item.metropolisRecord.name=R&C Mod - Disco de Música
+item.metropolisRecord.desc=Metrópolis - Kerwan
+item.ratchetEars.name=Orejas de Ratchet
+#
+#######################Fin Varios###########################
+
+################Armas#######################
+#
+item.blaster.name=Desintegrador
+item.bombglove.name=Guante Bombas
+item.omwr3000.name=Omnillave 8000
+item.ryno.name=T.A.U.N.
+item.pyrocitor.name=Piromátic
+item.walloper.name=Guantazo
+item.visibombGun.name=Visicañón
+item.decoyGlove.name=Guante Señuelo
+item.devastator.name=Devastador
+item.droneDevice.name=Guante Defensor
+item.gloveOfDoom.name=Guante Perdición
+item.mineGlove.name=Guante Minas
+item.morphORay.name=Rayo Mórfico
+item.suckCannon.name=Cañón de Succión
+item.taunter.name=Burlófono
+item.teslaClaw.name=Garra Tesla
+#
+#############Fin Armas######################
+
+##############Artilugios###################
+#
+item.swingShot.name=Balanceador
+item.clankHeli.name=Clank (Helipack)
+item.thrusterpack.name=Clank (Aviopack)
+item.gadgetronHelper.name=PDA Gadgetrón
+tile.versaTargetGreen.name=Swing Shot Point
+#
+############Fin Artilugios#################
+
+########################Logros#############################
+#
+achievement.vendor=Convirtiéndose en un Lombax
+achievement.vendor.desc=Has logrado hacer un Expendedor!
+#
+achievement.helipack=El gran dúo
+achievement.helipack.desc=Has logrado hacer el Helipack!
+#
+#####################Fin Logros############################
+
+#######################Mensajes#############################
+#
+death.attack.rcweap=%1$s fué asesinado a balazos.
+death.attack.rcweap.player=%1$s fué asesinado a balazos por %2$s.
+death.attack.rcweap.item=%1$s fué asesinado a balazos por %2$s usando %3$s
+#
+######################Fin Mensajes##########################
+
+##################Otros##################################
+#
+itemGroup.rcTab=Ratchet & Clank: Varios
+itemGroup.rcWeapTab=Ratchet & Clank: Armas
+itemGroup.rcGadgTab=Ratchet & Clank: Artilugios
+item.bolt.name=Guiton
+#
+#################Fin Otros###############################
