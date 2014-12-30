@@ -12,6 +12,8 @@ public class TileEntityVersaTargetGSpecialRenderer extends
 
 	private TessellatorModel model;
 
+	private long last;
+	private float rotation;
 
 	public TileEntityVersaTargetGSpecialRenderer() {
 		model = new TessellatorModel("/assets/rcmod/models/Versa-TargetGreen.obj");
@@ -31,14 +33,20 @@ public class TileEntityVersaTargetGSpecialRenderer extends
 	@Override
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z,
 			float tick) {
-		float f2 = (float) te.getWorldObj().getTotalWorldTime();
-		byte b1 = 1;
-		double d3 = (double) f2 * 0.025D * (1.0D - (double) (b1 & 1) * 2.5D);
+		
+		long deltaT = System.currentTimeMillis() - last;
+		last = System.currentTimeMillis();
+		float ratio = (deltaT / (1000 / 60));
+		rotation += 2.5f * ratio;
+
+		if (rotation >= 360f) {
+			rotation = 0;
+		}
 		
 		GL11.glPushMatrix();
 		GL11.glTranslated(x + 0.5d, y+0.5f, z + 0.5d);
 		GL11.glScalef(0.076f, 0.076f, 0.076f);
-		GL11.glRotated(d3 * 5 * 10, 0.0d, 1.0d, 0.0d);
+		GL11.glRotated(rotation, 0.0d, 1.0d, 0.0d);
 		GL11.glShadeModel(GL11.GL_SMOOTH);
 		model.render();
 		GL11.glPopMatrix();

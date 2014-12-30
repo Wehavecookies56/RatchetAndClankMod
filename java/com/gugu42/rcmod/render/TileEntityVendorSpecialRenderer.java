@@ -50,6 +50,8 @@ public class TileEntityVendorSpecialRenderer extends TileEntitySpecialRenderer
 	private IModelCustom modelBlaster;
 	public static final ResourceLocation textureLocationBlaster = new ResourceLocation(
 			"rcmod:models/Blaster0.png");
+	private long last;
+	private float rotation;
 
 	public TileEntityVendorSpecialRenderer() {
 		modelManager = new RcModelManager();
@@ -100,10 +102,19 @@ public class TileEntityVendorSpecialRenderer extends TileEntitySpecialRenderer
 	@Override
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z,
 			float tick) {
+//
+//		float f2 = (float) te.getWorldObj().getTotalWorldTime();
+//		byte b1 = 1;
+//		double d3 = (double) f2 * 0.025D * (1.0D - (double) (b1 & 1) * 2.5D);
+		
+		long deltaT = System.currentTimeMillis() - last;
+		last = System.currentTimeMillis();
+		float ratio = (deltaT / (1000 / 60));
+		rotation += 1.0f * ratio;
 
-		float f2 = (float) te.getWorldObj().getTotalWorldTime();
-		byte b1 = 1;
-		double d3 = (double) f2 * 0.025D * (1.0D - (double) (b1 & 1) * 2.5D);
+		if (rotation >= 360f) {
+			rotation = 0;
+		}
 
 		GL11.glPushMatrix();
 		GL11.glTranslated(x + 0.5F, y + 0.0F, z + 0.5F);
@@ -136,14 +147,14 @@ public class TileEntityVendorSpecialRenderer extends TileEntitySpecialRenderer
 		GL11.glPushMatrix();
 		GL11.glTranslated(x + 0.5F, y - 0.4F, z + 0.5F);
 		this.bindTexture(textureLocation4);
-		GL11.glRotated(d3 * 5 * 5, 0.0D, 1.0D, 0.0D);
+		GL11.glRotated(rotation, 0.0D, 1.0D, 0.0D);
 		GL11.glScalef(0.046f, 0.046f, 0.046f);
 		model4.renderAll();
 		GL11.glPopMatrix();
 
 		GL11.glPushMatrix();
 		GL11.glTranslated(x + 0.5F, y - 0.4F, z + 0.5F);
-		GL11.glRotated(-d3 * 5 * 10, 0.0D, 1.0D, 0.0D);
+		GL11.glRotated(-rotation, 0.0D, 1.0D, 0.0D);
 		GL11.glScalef(0.046f, 0.046f, 0.046f);
 		GL11.glShadeModel(GL11.GL_SMOOTH);
 		model5.render();
