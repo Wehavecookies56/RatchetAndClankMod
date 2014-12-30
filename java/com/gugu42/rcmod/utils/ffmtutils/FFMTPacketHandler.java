@@ -31,6 +31,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.INetHandler;
 import net.minecraft.network.NetHandlerPlayServer;
+import net.minecraft.network.Packet;
 
 @ChannelHandler.Sharable
 public class FFMTPacketHandler extends
@@ -197,6 +198,13 @@ public class FFMTPacketHandler extends
 				.attr(FMLOutboundHandler.FML_MESSAGETARGET)
 				.set(FMLOutboundHandler.OutboundTarget.ALL);
 		this.channels.get(Side.SERVER).writeAndFlush(message);
+	}
+	
+	public void sendToAll(Packet packet){
+		this.channels.get(Side.SERVER)
+		.attr(FMLOutboundHandler.FML_MESSAGETARGET)
+		.set(FMLOutboundHandler.OutboundTarget.ALL);
+		this.channels.get(Side.SERVER).writeAndFlush(packet);
 	}
 
 	public void sendTo(AbstractPacket message, EntityPlayerMP player) {
