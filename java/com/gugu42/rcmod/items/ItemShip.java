@@ -43,6 +43,7 @@ public class ItemShip extends Item {
 									teShipFiller.primary_x = x;
 									teShipFiller.primary_y = y;
 									teShipFiller.primary_z = z;
+									
 								} else {
 									System.out.println("TileEntity is null !");
 								}

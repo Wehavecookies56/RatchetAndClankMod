@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;
@@ -111,14 +112,14 @@ public class PacketRefill extends AbstractPacket {
 			ItemRcWeap itemWeap = (ItemRcWeap)item.getItem();
 			if(props.consumeBolts(item.getItemDamage() * itemWeap.getPrice())){
 				item.setItemDamage(0);
-				player.addChatMessage(new ChatComponentText("Your weapon has been refilled !"));
+				player.addChatMessage(new ChatComponentText(I18n.format("gui.vendor.refill.success")));
 				player.worldObj.playSoundAtEntity(player, "rcmod:vendor.buy", 1.0f, 1.0f);
 			} else {
-				player.addChatMessage(new ChatComponentText("You don't seem to have enough bolts to pay for the ammo !"));
+				player.addChatMessage(new ChatComponentText(I18n.format("gui.vendor.refill.bolt")));
 				player.worldObj.playSoundAtEntity(player, "rcmod:vendor.maxAmmo", 1.0f, 1.0f);
 			}
 		} else {
-			player.addChatMessage(new ChatComponentText("There was an error when trying to refill your weapon."));
+			player.addChatMessage(new ChatComponentText(I18n.format("gui.vendor.refill.error")));
 		}
 	}
 	

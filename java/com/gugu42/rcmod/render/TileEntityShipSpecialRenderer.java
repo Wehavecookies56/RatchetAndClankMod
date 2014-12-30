@@ -48,7 +48,7 @@ public class TileEntityShipSpecialRenderer extends TileEntitySpecialRenderer
                     GL11.glPushMatrix();
                     double x = 0;
                     double y = 40;
-                    double z = -10;
+                    double z = -11.5f;
                     GL11.glTranslated(x, y, z);
                     GL11.glRotatef(doorRot, 1.0f, 0.0f, 0.0f);
                     GL11.glTranslated(-x, -y, -z);

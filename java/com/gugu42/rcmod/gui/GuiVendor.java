@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -86,9 +87,9 @@ public class GuiVendor extends GuiContainer {
 		int posY = (this.height - ySize) / 2;
 		this.buttonList.clear();
 		this.buttonList.add(this.buyBtn = new GuiButton(0, posX + 41,
-				posY + 137, 35, 20, "Buy"));
+				posY + 137, 35, 20, I18n.format("gui.vendor.buy")));
 		this.buttonList.add(this.exitBtn = new GuiButton(1, posX + 181,
-				posY + 137, 35, 20, "Exit"));
+				posY + 137, 35, 20, I18n.format("gui.vendor.exit")));
 	}
 
 	@Override
@@ -130,7 +131,7 @@ public class GuiVendor extends GuiContainer {
 						""
 								+ EnumRcWeapons.getPriceFromItem(selectedItem
 										.getItem()), 30, 105, 0xFFFFFF);
-				this.buyBtn.displayString = "Buy";
+				this.buyBtn.displayString = I18n.format("gui.vendor.buy");
 			} else {
 				this.mc.fontRenderer.drawString(
 						""
@@ -138,7 +139,7 @@ public class GuiVendor extends GuiContainer {
 										selectedItem.getItem()).getItemDamage()
 								* selectedItemWeap.getPrice(), 30, 105,
 						0xFFFFFF);
-				this.buyBtn.displayString = "Refill";
+				this.buyBtn.displayString = I18n.format("gui.vendor.refill");
 			}
 			this.buyBtn.enabled = true;
 

@@ -1,10 +1,14 @@
 package com.gugu42.rcmod.tileentity;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+
+import com.gugu42.rcmod.RcMod;
+import com.gugu42.rcmod.network.packets.PacketShipTeleportation;
 
 public class TileEntityShip extends TileEntity {
 
@@ -15,6 +19,8 @@ public class TileEntityShip extends TileEntity {
 	public float renderY = 0;
 	public float renderAngle = 0;
 	public float renderDoorRot = 0;
+	
+	public String wpData;
 
 	public TileEntityShip() {
 		super();
@@ -31,10 +37,13 @@ public class TileEntityShip extends TileEntity {
 					renderY += 2.0f;
 				} else if (tickSinceLaunched >= 40 && tickSinceLaunched < 50) {
 					renderAngle -= 9.0f;
-				} else if (tickSinceLaunched > 50) {
+				} else if (tickSinceLaunched > 50 && tickSinceLaunched < 100) {
 					renderY += 10.0f;
-				} else {
-
+				} else if (tickSinceLaunched > 100)  {
+					PacketShipTeleportation packet = new PacketShipTeleportation(wpData);
+					RcMod.rcModPacketHandler.sendToServer(packet);
+					this.worldObj.setBlock(xCoord, yCoord, zCoord, Blocks.air, 0, 2);
+					this.worldObj.removeTileEntity(xCoord, yCoord, zCoord);
 				}
 			}
 		}

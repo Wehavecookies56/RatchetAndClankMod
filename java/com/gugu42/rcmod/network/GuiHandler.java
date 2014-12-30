@@ -40,6 +40,7 @@ public class GuiHandler implements IGuiHandler {
 	public Object getClientGuiElement(int id, EntityPlayer player, World world,
 			int x, int y, int z) {
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
+		System.out.println("Found TileEntity : " + tileEntity.toString());
 		if (tileEntity instanceof TileEntityVendor) {
 			return new GuiVendor(player.inventory,
 					(TileEntityVendor) tileEntity, player, new ContainerVendor(
@@ -54,7 +55,8 @@ public class GuiHandler implements IGuiHandler {
 			} else {
 				TileEntityShipFiller te2 = (TileEntityShipFiller) tileEntity;
 				TileEntityShip te = (TileEntityShip) te2.getOriginalTileEntity();
-
+				System.out.println("Received data for gui : " + x +" "+ y+" "+ z);
+				
 				if (te != null) {
 					return new GuiShip(te, player);
 				} else {

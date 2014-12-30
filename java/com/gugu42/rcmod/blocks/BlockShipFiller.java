@@ -28,9 +28,7 @@ public class BlockShipFiller extends Block {
 			return false;
 		}
 
-		par5EntityPlayer.openGui(RcMod.instance, 0, par1World,
-				tileEntity.primary_x, tileEntity.primary_y,
-				tileEntity.primary_z);
+		tileEntity.activated(par5EntityPlayer, par1World);
 
 		return true;
 

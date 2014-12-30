@@ -3,13 +3,17 @@ package com.gugu42.rcmod.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
 import com.gugu42.rcmod.RcMod;
+import com.gugu42.rcmod.network.packets.PacketShipTeleportation;
+import com.gugu42.rcmod.shipsys.ShipSystem;
 import com.gugu42.rcmod.tileentity.TileEntityShip;
 
 import cpw.mods.fml.relauncher.Side;
@@ -70,12 +74,16 @@ public class GuiShip extends GuiScreen {
 			this.mc.displayGuiScreen(new GuiShipSelectDest(this));
 			break;
 		case 1:
-			this.tileEntity.hasLaunched = true;
-			this.player.closeScreen();
-			
-//			String wpData = ShipSystem.getWaypointByName(text).toString();
-//			PacketShipTeleportation packet = new PacketShipTeleportation(wpData);
-//			RcMod.rcModPacketHandler.sendToServer(packet);
+			if (text != null && text != "") {
+				this.tileEntity.hasLaunched = true;
+
+				this.tileEntity.wpData = ShipSystem.getWaypointByName(text)
+						.toString();
+				this.player.closeScreen();
+			} else {
+				this.player.addChatMessage(new ChatComponentText(
+						I18n.format("gui.ship.nodest")));
+			}
 			break;
 		default:
 			break;
@@ -89,10 +97,10 @@ public class GuiShip extends GuiScreen {
 		int posY = (this.height - ySizeOfTexture) / 2;
 
 		this.buttonList.add(new GuiButton(0, posX + 120, posY + 10, 100, 20,
-				"Select destination"));
+				I18n.format("gui.ship.select")));
 
 		this.buttonList.add(new GuiButton(1, posX + 120, posY + 32, 100, 20,
-				"Go to destination"));
+				I18n.format("gui.ship.go")));
 
 	}
 

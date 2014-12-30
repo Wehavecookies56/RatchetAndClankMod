@@ -3,6 +3,7 @@ package com.gugu42.rcmod.network.packets;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
@@ -54,14 +55,14 @@ public class PacketVend extends AbstractPacket {
 					(EnumRcWeapons.getItemFromID(this.id).getWeapon()
 							.getMaxDamage() / 2))) && props.consumeBolts(EnumRcWeapons.getItemFromID(this.id)
 					.getPrice())) {
-				player.addChatMessage(new ChatComponentText("Your purchase has been added into your inventory !"));
+				player.addChatMessage(new ChatComponentText(I18n.format("gui.vendor.buy.success")));
 				player.worldObj.playSoundAtEntity(player, "rcmod:vendor.buy", 1.0f, 1.0f);
 			} else {
-				player.addChatMessage(new ChatComponentText("Your inventory is full, or you don't have enough money !"));
+				player.addChatMessage(new ChatComponentText(I18n.format("gui.vendor.buy.error")));
 				player.worldObj.playSoundAtEntity(player, "rcmod:vendor.maxAmmo", 1.0f, 1.0f);
 			}
 		} else {
-			player.addChatMessage(new ChatComponentText("You already own this weapon !"));
+			player.addChatMessage(new ChatComponentText(I18n.format("gui.vendor.buy.alreadyhave")));
 		}
 
 	}

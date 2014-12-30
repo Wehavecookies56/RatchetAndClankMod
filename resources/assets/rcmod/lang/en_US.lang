@@ -67,6 +67,31 @@ death.attack.rcweap.item=%1$s was shot to death by %2$s using %3$s
 #
 ######################End Messages##########################
 
+
+######################GUI text###########################
+#
+##Ship GUI##
+gui.ship.nodest=You must select a destination !
+gui.ship.select=Select destination
+gui.ship.go=Go to destination
+##End Ship GUI##
+
+##Vendor GUI##
+gui.vendor.buy=Buy
+gui.vendor.refill=Refill
+gui.vendor.exit=Exit
+
+gui.vendor.refill.success=Your weapon has been refilled !
+gui.vendor.refill.bolt=You don't seem to have enough bolts !
+gui.vendor.refill.error=There was an error when trying to refill your weapon.
+
+gui.vendor.buy.success=Your purchase has been added into your inventory !
+gui.vendor.buy.error=Your inventory is full, or you don't have enough bolts !
+gui.vendor.buy.alreadyhave=You already own this weapon !
+##End Vendor GUI##
+#
+######################End GUI text###############################
+
 #######################Others###############################
 #
 itemGroup.rcTab=Ratchet & Clank: Mod
