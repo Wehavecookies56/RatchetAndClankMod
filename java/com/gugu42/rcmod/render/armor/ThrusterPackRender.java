@@ -1,14 +1,11 @@
 package com.gugu42.rcmod.render.armor;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 
+import org.jglrxavpok.glutils.obj.mc.TessellatorModel;
 import org.lwjgl.opengl.GL11;
-
-import com.gugu42.rcmod.render.RcModelManager;
-import com.gugu42.rcmod.utils.glutils.TessellatorModel;
 
 public class ThrusterPackRender extends ModelBiped {
 	public EntityPlayer playerWearingTheArmor;

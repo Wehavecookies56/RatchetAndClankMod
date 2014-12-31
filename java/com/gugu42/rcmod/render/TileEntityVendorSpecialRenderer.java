@@ -2,7 +2,8 @@ package com.gugu42.rcmod.render;
 
 import java.util.Random;
 
-import net.minecraft.client.Minecraft;
+import com.gugu42.rcmod.tileentity.TileEntityVendor;
+
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
@@ -10,10 +11,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
 
+import org.jglrxavpok.glutils.obj.mc.TessellatorModel;
 import org.lwjgl.opengl.GL11;
-
-import com.gugu42.rcmod.tileentity.TileEntityVendor;
-import com.gugu42.rcmod.utils.glutils.TessellatorModel;
 
 public class TileEntityVendorSpecialRenderer extends TileEntitySpecialRenderer
 		implements IInventoryRenderer {

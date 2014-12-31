@@ -1,11 +1,11 @@
 
-package com.gugu42.rcmod.utils.glutils;
+package org.jglrxavpok.glutils;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-import com.gugu42.rcmod.utils.glutils.*;
+import org.jglrxavpok.glutils.*;
 
 /**
  *  Loads a library of materials from a .mtl file into an array of GLMaterial objects.

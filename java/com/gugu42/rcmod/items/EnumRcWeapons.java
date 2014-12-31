@@ -1,9 +1,5 @@
 package com.gugu42.rcmod.items;
 
-import com.gugu42.rcmod.ClientProxy;
-import com.gugu42.rcmod.RcMod;
-import com.gugu42.rcmod.utils.glutils.TessellatorModel;
-
 import net.minecraft.item.Item;
 
 public enum EnumRcWeapons {

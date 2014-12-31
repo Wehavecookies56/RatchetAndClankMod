@@ -1,4 +1,4 @@
-package com.gugu42.rcmod.utils.glutils;
+package org.jglrxavpok.glutils;
 
 import org.lwjgl.opengl.GL11;
 

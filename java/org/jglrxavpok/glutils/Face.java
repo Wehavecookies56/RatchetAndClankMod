@@ -1,4 +1,4 @@
-package com.gugu42.rcmod.utils.glutils;
+package org.jglrxavpok.glutils;
 
 /**
  * The Face class describes one triangle, quad or polygon in the model. For each

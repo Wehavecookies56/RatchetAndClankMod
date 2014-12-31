@@ -1,4 +1,4 @@
-package com.gugu42.rcmod.utils.glutils;
+package org.jglrxavpok.glutils;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-import com.gugu42.rcmod.utils.glutils.*;
+import org.jglrxavpok.glutils.*;
 
 /** 
  * Based on Object3D.java by Jeremy Adams (elias4444) august 2005

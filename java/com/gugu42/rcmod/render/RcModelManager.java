@@ -1,7 +1,5 @@
 package com.gugu42.rcmod.render;
 
-import com.gugu42.rcmod.utils.glutils.TessellatorModel;
-
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;

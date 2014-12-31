@@ -1,18 +1,14 @@
 package com.gugu42.rcmod.render;
 
-import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
-import static org.lwjgl.opengl.GL11.GL_FRONT_AND_BACK;
+import com.gugu42.rcmod.tileentity.TileEntityShip;
+
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 
+import org.jglrxavpok.glutils.TessellatorModelEvent.RenderGroupEvent;
+import org.jglrxavpok.glutils.obj.mc.TessellatorModel;
 import org.lwjgl.opengl.GL11;
-
-import com.gugu42.rcmod.tileentity.TileEntityShip;
-import com.gugu42.rcmod.utils.glutils.TessellatorModel;
-import com.gugu42.rcmod.utils.glutils.TessellatorModelEvent;
-import com.gugu42.rcmod.utils.glutils.TessellatorModelEvent.RenderGroupEvent;
-
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class TileEntityShipSpecialRenderer extends TileEntitySpecialRenderer
 		implements IInventoryRenderer {

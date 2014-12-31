@@ -1,6 +1,8 @@
-package com.gugu42.rcmod.utils.glutils;
+package org.jglrxavpok.glutils;
 
 import cpw.mods.fml.common.eventhandler.Event;
+
+import org.jglrxavpok.glutils.obj.mc.TessellatorModel;
 
 public class TessellatorModelEvent extends Event
 {

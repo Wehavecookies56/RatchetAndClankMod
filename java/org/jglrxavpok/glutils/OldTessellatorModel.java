@@ -1,9 +1,9 @@
-package com.gugu42.rcmod.utils.glutils;
+package org.jglrxavpok.glutils;
 
-import com.gugu42.rcmod.utils.glutils.TessellatorModelEvent.RenderGroupEvent;
 import cpw.mods.fml.common.eventhandler.EventBus;
 import net.minecraft.client.renderer.Tessellator;
 
+import org.jglrxavpok.glutils.TessellatorModelEvent.RenderGroupEvent;
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -17,12 +17,12 @@ import org.lwjgl.opengl.GL11;
  * materials. The entire mesh will be drawn as one group of triangles with one
  * texture.
  */
-public class TessellatorModel extends GLModel
+public class OldTessellatorModel extends GLModel
 {
 
     public static final EventBus MODEL_RENDERING_BUS = new EventBus();
     
-    public TessellatorModel(String filename)
+    public OldTessellatorModel(String filename)
     {
         super(filename);
     }
@@ -35,8 +35,8 @@ public class TessellatorModel extends GLModel
     {
         // if (displayListID == 0)
         // {
-        if(!MODEL_RENDERING_BUS.post(new TessellatorModelEvent.RenderPre(
-                this)))
+       /* if(!MODEL_RENDERING_BUS.post(new TessellatorModelEvent.RenderPre(
+                this)))*/
             render(mesh);
         // } else
         // {
@@ -53,8 +53,8 @@ public class TessellatorModel extends GLModel
      */
     public void renderGroup(String groupName)
     {
-        if(!MODEL_RENDERING_BUS.post(new RenderGroupEvent.Pre(groupName,
-                this)))
+       /* if(!MODEL_RENDERING_BUS.post(new RenderGroupEvent.Pre(groupName,
+                this)))*/
         {
             int GID = -1; // group id
 
@@ -121,8 +121,8 @@ public class TessellatorModel extends GLModel
                 tess.draw();
             }
 
-            MODEL_RENDERING_BUS.post(new RenderGroupEvent.Post(groupName,
-                    this));
+           /* MODEL_RENDERING_BUS.post(new RenderGroupEvent.Post(groupName,
+                    this));*/
         }
     }
 

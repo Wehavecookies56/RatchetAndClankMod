@@ -1,4 +1,4 @@
-package com.gugu42.rcmod.utils.glutils;
+package org.jglrxavpok.glutils;
 
 import java.awt.Graphics2D;
 import java.awt.Image;

@@ -2,12 +2,9 @@ package com.gugu42.rcmod.render;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.IItemRenderer.ItemRenderType;
-import net.minecraftforge.client.IItemRenderer.ItemRendererHelper;
 
+import org.jglrxavpok.glutils.obj.mc.TessellatorModel;
 import org.lwjgl.opengl.GL11;
-
-import com.gugu42.rcmod.utils.glutils.TessellatorModel;
 
 public class SwingShotRender implements IItemRenderer {
 

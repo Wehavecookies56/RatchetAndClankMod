@@ -3,9 +3,8 @@ package com.gugu42.rcmod.render;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 
+import org.jglrxavpok.glutils.obj.mc.TessellatorModel;
 import org.lwjgl.opengl.GL11;
-
-import com.gugu42.rcmod.utils.glutils.TessellatorModel;
 
 public class TileEntityVersaTargetGSpecialRenderer extends
 		TileEntitySpecialRenderer implements IInventoryRenderer {

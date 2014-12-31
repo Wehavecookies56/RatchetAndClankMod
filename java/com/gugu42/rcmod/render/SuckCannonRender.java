@@ -1,16 +1,13 @@
 package com.gugu42.rcmod.render;
 
-import static org.lwjgl.opengl.GL11.glColor3f;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 
+import org.jglrxavpok.glutils.TessellatorModelEvent.RenderGroupEvent;
+import org.jglrxavpok.glutils.obj.mc.TessellatorModel;
 import org.lwjgl.opengl.GL11;
-
-import com.gugu42.rcmod.utils.glutils.TessellatorModel;
-import com.gugu42.rcmod.utils.glutils.TessellatorModelEvent.RenderGroupEvent;
-
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class SuckCannonRender implements IItemRenderer {
 

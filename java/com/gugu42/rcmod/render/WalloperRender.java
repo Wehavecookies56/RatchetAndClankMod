@@ -1,13 +1,12 @@
 package com.gugu42.rcmod.render;
 
-import static org.lwjgl.opengl.GL11.*;
-
-import com.gugu42.rcmod.utils.glutils.TessellatorModel;
-
+import static org.lwjgl.opengl.GL11.glColor3f;
+import static org.lwjgl.opengl.GL11.glColor4f;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 
+import org.jglrxavpok.glutils.obj.mc.TessellatorModel;
 import org.lwjgl.opengl.GL11;
 
 public class WalloperRender implements IItemRenderer {
