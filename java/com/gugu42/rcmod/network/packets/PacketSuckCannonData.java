@@ -40,12 +40,12 @@ public class PacketSuckCannonData extends AbstractPacket
             PacketBuffer packBuff = new PacketBuffer(buffer);
             for(NBTTagCompound nbt : data)
             {
-                    packBuff.writeNBTTagCompoundToBuffer(nbt);
+                packBuff.writeNBTTagCompoundToBuffer(nbt);
             }
         }
         catch(Exception e)
         {
-            RcMod.rcLogger.error("Error while encoding packet", e);
+            RcMod.rcLogger.error("Error while encoding packet SuckCannonData", e);
         }
     }
 
@@ -60,9 +60,9 @@ public class PacketSuckCannonData extends AbstractPacket
             {
                 data.add(packBuff.readNBTTagCompoundFromBuffer());
             }
-            catch(IOException e)
+            catch(Exception e)
             {
-                e.printStackTrace();
+                RcMod.rcLogger.error("Error while decoding packet SuckCannonData", e);
             }
         }
     }

@@ -101,7 +101,7 @@ public class PacketShipTeleportation extends AbstractPacket {
 			TileEntityShip te = (TileEntityShip) world.getTileEntity(x, y, z);
 			te.isLanding = true;
 			te.renderY = 540;
-			te.renderAngle = 90.0f;
+			te.pitch = 90.0f;
 			te.renderDoorRot = 56.0f;
 			
 			NBTTagCompound tag = new NBTTagCompound();

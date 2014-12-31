@@ -1,5 +1,7 @@
 package com.gugu42.rcmod.render;
 
+import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
+import static org.lwjgl.opengl.GL11.GL_FRONT_AND_BACK;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 
@@ -102,6 +104,7 @@ public class TileEntityShipSpecialRenderer extends TileEntitySpecialRenderer
 			
 			//		this.bindTexture(textureLocation);
 			GL11.glScalef(0.076f, 0.076f, 0.076f);
+			GL11.glTranslatef(tileEntity.renderX, tileEntity.renderY, tileEntity.renderZ);
 			if (te.blockMetadata == 0) {
 				GL11.glRotatef(0, 0.0f, 1.0f, 0.0f);
 			} else if (te.blockMetadata == 1) {
@@ -111,11 +114,13 @@ public class TileEntityShipSpecialRenderer extends TileEntitySpecialRenderer
 			} else if (te.blockMetadata == 3) {
 				GL11.glRotatef(90, 0.0f, 1.0f, 0.0f);
 			}
-
-			GL11.glTranslatef(0.0f, tileEntity.renderY, 0.0f);
-			GL11.glRotatef(tileEntity.renderAngle, 1.0f, 0.0f, 0.0f);
+			GL11.glRotatef(tileEntity.pitch, 1.0f, 0.0f, 0.0f);
 			GL11.glShadeModel(GL11.GL_SMOOTH);
+			
+			GL11.glEnable(GL11.GL_BLEND);
+//			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE_MINUS_SRC_ALPHA); // Uncomment this line to make the glass more blue-ish
 			model.render();
+			GL11.glDisable(GL11.GL_BLEND);
 			GL11.glPopMatrix();
 		}
 	}
