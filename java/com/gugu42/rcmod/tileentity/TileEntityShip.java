@@ -103,6 +103,7 @@ public class TileEntityShip extends TileEntity {
 
 	public TileEntityShip() {
 		super();
+	
 	}
 
 	@Override

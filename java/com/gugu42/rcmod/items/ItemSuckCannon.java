@@ -40,6 +40,16 @@ public class ItemSuckCannon extends ItemRcWeap
             int loaded = props.getStack().size();
             if(loaded != maxAmmo - stack.getItemDamage())
                 stack.setItemDamage(maxAmmo - loaded);
+            
+            
+            if(owner.getEntityData().getInteger("suckCannonRotation") > 0){
+            	int cd = owner.getEntityData().getInteger("suckCannonRotation");
+            	owner.getEntityData().setInteger("suckCannonRotation", cd - 1);
+            	if(cd <= 3){
+            		player.getEntityData().setBoolean("isUsingSuckCannon", false);
+            	}
+            }
+            
         }
     }
 
@@ -51,6 +61,9 @@ public class ItemSuckCannon extends ItemRcWeap
         double radius = 10;
         List<EntityLiving> entities = world.getEntitiesWithinAABB(EntityLiving.class, owner.boundingBox.expand(radius, radius, radius));
 
+        owner.getEntityData().setBoolean("isUsingSuckCannon", true);
+        owner.getEntityData().setInteger("suckCannonRotation", 5);
+        
         for(int i = 0; i < entities.size(); i++)
         {
             Vec3 look = owner.getLookVec();
