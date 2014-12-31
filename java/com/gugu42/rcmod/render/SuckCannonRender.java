@@ -6,15 +6,79 @@ import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 
 import com.gugu42.rcmod.utils.glutils.TessellatorModel;
+import com.gugu42.rcmod.utils.glutils.TessellatorModelEvent.RenderGroupEvent;
+
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class SuckCannonRender implements IItemRenderer {
 
 	private TessellatorModel model1;
+	/**
+	 * Mesh0.001 = Muzzle
+	 * Mesh0 = Body
+	 * 
+	 */
+	
+	private long last;
+	private float rotation;
 	
 	public SuckCannonRender() {
-		model1 = new TessellatorModel("/assets/rcmod/models/SuckCannon.obj");
+		model1 = new TessellatorModel("/assets/rcmod/models/SuckCannon2.obj");
 		model1.regenerateNormals();
+		model1.setID("suckcannon");
+		TessellatorModel.MODEL_RENDERING_BUS.register(this);
 	}
+	
+	@SubscribeEvent
+    public void onPreRenderGroup(RenderGroupEvent.Pre event)
+    {
+        if(event.model.getID() != null)
+        {
+            if(event.model.getID().equals("suckcannon"))
+            {
+                if(event.group.equals("Mesh0.001"))
+                {
+                	long deltaT = System.currentTimeMillis() - last;
+            		last = System.currentTimeMillis();
+            		float ratio = (deltaT / (1000 / 60));
+            		rotation += 10.0f * ratio;
+
+            		if (rotation >= 360f) {
+            			rotation = 0;
+            		}
+                	
+                	
+                    GL11.glPushMatrix();
+                    double x = 0;
+                    double y = 6;
+                    double z = 0;
+//                    GL11.glTranslated(x, y, z);
+                    GL11.glRotatef(rotation, 0.0f, 1.0f, 0.0f);
+//                    GL11.glTranslated(-x, -y, -z);
+                }
+            }
+        }
+    }
+    
+    @SubscribeEvent
+    public void onPostRenderGroup(RenderGroupEvent.Post event)
+    {
+        if(event.model.getID() != null)
+        {
+            if(event.model.getID().equals("suckcannon"))
+            {
+                if(event.group.equals("Mesh0.001"))
+                {
+                    GL11.glPopMatrix();
+                }
+            }
+
+        }
+    }
+	
+	
+	
+	
 
 	@Override
 	public boolean handleRenderType(ItemStack item, ItemRenderType type) {
