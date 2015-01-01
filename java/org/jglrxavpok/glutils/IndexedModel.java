@@ -156,4 +156,21 @@ public class IndexedModel
     {
         return objindices;
     }
+
+    public org.lwjgl.util.vector.Vector3f computeCenter()
+    {
+        float x = 0;
+        float y = 0;
+        float z = 0;
+        for(Vector3f position : vertices)
+        {
+            x += position.x;
+            y += position.y;
+            z += position.z;
+        }
+        x /= vertices.size();
+        y /= vertices.size();
+        z /= vertices.size();
+        return new org.lwjgl.util.vector.Vector3f(x, y, z);
+    }
 }

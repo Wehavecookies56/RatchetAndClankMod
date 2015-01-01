@@ -1,5 +1,8 @@
 package com.gugu42.rcmod.render;
 
+import static org.lwjgl.opengl.GL11.GL_ALPHA_TEST;
+import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
+import static org.lwjgl.opengl.GL11.GL_LESS;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 
 import com.gugu42.rcmod.tileentity.TileEntityShip;
@@ -21,8 +24,6 @@ public class TileEntityShipSpecialRenderer extends TileEntitySpecialRenderer
 	
 	private float doorRot = 0.0f;
 
-    private ResourceLocation textureLocation;
-
 	/**
 	 * Model info :
 	 * Object01 = Main body
@@ -33,10 +34,8 @@ public class TileEntityShipSpecialRenderer extends TileEntitySpecialRenderer
 
 	public TileEntityShipSpecialRenderer() {
 		model = new TessellatorModel("/assets/rcmod/models/RatchetShip.obj");
-		model.regenerateNormals();
 		model.setID("ship");
 		TessellatorModel.MODEL_RENDERING_BUS.register(this);
-		this.textureLocation = new ResourceLocation("rcmod", "models/RatchetShip.png");
 	}
 	
 	
@@ -85,7 +84,6 @@ public class TileEntityShipSpecialRenderer extends TileEntitySpecialRenderer
 	public void renderInventory(double x, double y, double z) {
 		GL11.glPushMatrix();
 		GL11.glTranslated(x - 0.15f, y - 0.5d, z + 0.15f);
-		this.bind(textureLocation);
 		GL11.glScalef(0.021f, 0.021f, 0.021f);
 		GL11.glShadeModel(GL11.GL_SMOOTH);
 		model.render();
@@ -104,7 +102,6 @@ public class TileEntityShipSpecialRenderer extends TileEntitySpecialRenderer
 			GL11.glPushMatrix();
 			GL11.glTranslated(x + 0.5d, y, z + 0.5d);
 			
-			this.bind(textureLocation);
 			GL11.glScalef(0.076f, 0.076f, 0.076f);
 			GL11.glTranslatef(tileEntity.renderX, tileEntity.renderY, tileEntity.renderZ);
 			if (te.blockMetadata == 0) {
@@ -118,20 +115,12 @@ public class TileEntityShipSpecialRenderer extends TileEntitySpecialRenderer
 			}
 			GL11.glRotatef(tileEntity.pitch, 1.0f, 0.0f, 0.0f);
 			GL11.glShadeModel(GL11.GL_SMOOTH);
-			
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE_MINUS_SRC_ALPHA); // Uncomment this line to make the glass more blue-ish
+	        GL11.glEnable(GL11.GL_BLEND);
+	        GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE_MINUS_SRC_ALPHA); // Uncomment this line to make the glass more blue-ish
 			model.render();
-			GL11.glDisable(GL11.GL_BLEND);
+	        GL11.glDisable(GL11.GL_BLEND);
 			GL11.glPopMatrix();
 		}
 	}
-
-
-    private void bind(ResourceLocation loc)
-    {
-        Minecraft.getMinecraft().renderEngine.bindTexture(loc);
-//        GL11.glBindTexture(GL_TEXTURE_2D, 3);
-    }
 
 }

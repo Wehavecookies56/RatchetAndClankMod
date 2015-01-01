@@ -1,5 +1,7 @@
 package org.jglrxavpok.glutils;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -7,6 +9,8 @@ import java.util.List;
 
 import javax.vecmath.Vector2f;
 import javax.vecmath.Vector3f;
+
+import org.apache.commons.io.output.ByteArrayOutputStream;
 
 public class OBJLoader
 {
@@ -48,11 +52,13 @@ public class OBJLoader
     private static final String NORMAL = "vn";
     private static final String NEW_OBJECT = "o";
     private static final String NEW_GROUP = "g";
+    private static final String USE_MATERIAL = "usemtl";
+    private static final String NEW_MATERIAL = "mtllib";
 
     private boolean hasNormals = false;
     private boolean hasTexCoords = false;
 
-    public HashMap<ObjObject, IndexedModel> loadModel(String res) throws Exception
+    public HashMap<ObjObject, IndexedModel> loadModel(String startPath, String res) throws Exception
     {
         try
         {
@@ -70,6 +76,7 @@ public class OBJLoader
             ArrayList<Vector2f> texCoords = new ArrayList<Vector2f>();
             ArrayList<Vector3f> normals = new ArrayList<Vector3f>();
             ArrayList<OBJIndex> indices = new ArrayList<OBJIndex>();
+            ArrayList<Material> materials = new ArrayList<Material>();
             HashMapWithDefault<OBJIndex, Integer> resultIndexMap = new HashMapWithDefault<OBJIndex, Integer>();
             HashMapWithDefault<Integer, Integer> normalIndexMap = new HashMapWithDefault<Integer, Integer>();
             HashMapWithDefault<Integer, Integer> indexMap = new HashMapWithDefault<Integer, Integer>();
@@ -79,8 +86,9 @@ public class OBJLoader
             
             HashMap<ObjObject, IndexedModel> map = new HashMap<ObjObject, IndexedModel>();
             
+            ObjObject currentObject = null;
             HashMap<ObjObject, IndexedModel[]> objects = new HashMap<ObjObject, IndexedModel[]>();
-            objects.put(new ObjObject("main"), new IndexedModel[]{result, normalModel});
+            objects.put(currentObject = new ObjObject("main"), new IndexedModel[]{result, normalModel});
             for(String line : lines)
             {
                 if(line != null && !line.trim().equals(""))
@@ -113,6 +121,17 @@ public class OBJLoader
                     {
                         texCoords.add(new Vector2f(Float.parseFloat(parts[1]), Float.parseFloat(parts[2])));
                     }
+                    else if(parts[0].equals(NEW_MATERIAL))
+                    {
+                        String path = startPath+parts[1];
+                        MtlMaterialLib material = new MtlMaterialLib(path);
+                        material.parse(read(OBJLoader.class.getResourceAsStream(path)));
+                        materials.addAll(material.getMaterials());
+                    }
+                    else if(parts[0].equals(USE_MATERIAL))
+                    {
+                        currentObject.material = getMaterial(materials, parts[1]);
+                    }
                     else if(parts[0].equals(NEW_OBJECT) || parts[0].equals(NEW_GROUP))
                     {
                         result.getObjIndices().addAll(indices);
@@ -120,7 +139,7 @@ public class OBJLoader
                         result = new IndexedModel();
                         normalModel = new IndexedModel();
                         indices.clear();
-                        objects.put(new ObjObject(parts[1]), new IndexedModel[]{result, normalModel});
+                        objects.put(currentObject = new ObjObject(parts[1]), new IndexedModel[]{result, normalModel});
                     }
                 }
             }
@@ -135,6 +154,7 @@ public class OBJLoader
                 normalModel = objects.get(object)[1];
                 indices = result.getObjIndices();
                 map.put(object, result);
+                object.center = result.computeCenter();
                 for(int i = 0; i < indices.size(); i++)
                 {
                     OBJIndex current = indices.get(i);
@@ -213,6 +233,31 @@ public class OBJLoader
             throw new RuntimeException("Error while loading model", e);
         }
     }
+    
+    private Material getMaterial(ArrayList<Material> materials, String id)
+    {
+        for(Material mat : materials)
+        {
+            if(mat.getName().equals(id))
+                return mat;
+        }
+        return null;
+    }
+
+    protected String read(InputStream resource) throws IOException
+    {
+        int i;
+        byte[] buffer = new byte[65565];
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        while((i = resource.read(buffer, 0, buffer.length)) != -1)
+        {
+            out.write(buffer,0,i);
+        }
+        out.flush();
+        out.close();
+        return new String(out.toByteArray(), "UTF-8");
+    }
+
 
     public OBJIndex parseOBJIndex(String token, int posOffset, int texCoordsOffset, int normalOffset)
     {
