@@ -1,17 +1,10 @@
 package com.gugu42.rcmod.render;
 
-import static org.lwjgl.opengl.GL11.GL_ALPHA_TEST;
-import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
-import static org.lwjgl.opengl.GL11.GL_LESS;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-
 import com.gugu42.rcmod.tileentity.TileEntityShip;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
 
 import org.jglrxavpok.glutils.TessellatorModelEvent.RenderGroupEvent;
 import org.jglrxavpok.glutils.mc.TessellatorModel;
