@@ -1,6 +1,5 @@
 package org.jglrxavpok.glutils;
 
-import static org.lwjgl.opengl.GL11.GL_FALSE;
 import static org.lwjgl.opengl.GL11.GL_MODULATE;
 import static org.lwjgl.opengl.GL11.GL_NEAREST;
 import static org.lwjgl.opengl.GL11.GL_RGBA;
@@ -17,7 +16,6 @@ import static org.lwjgl.opengl.GL11.glTexEnvf;
 import static org.lwjgl.opengl.GL11.glTexImage2D;
 import static org.lwjgl.opengl.GL11.glTexParameterf;
 import static org.lwjgl.opengl.GL11.glTexParameteri;
-import static org.lwjgl.opengl.GL30.glClampColor;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -152,7 +150,6 @@ public class MtlMaterialLib
         glTexParameteri(target, GL12.GL_TEXTURE_BASE_LEVEL, 0);
         glTexParameteri(target, GL12.GL_TEXTURE_MAX_LEVEL, 0);
 
-        glClampColor(target, GL_FALSE);
         glTexImage2D(target, 0, GL_RGBA8, img.getWidth(), img.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, oglPixelBuf);
         GL11.glBindTexture(target, 0);
 
