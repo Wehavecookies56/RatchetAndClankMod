@@ -137,12 +137,6 @@ public class IndexedModel
 
 			Vector3f tangent = new Vector3f((float)(f * (deltaV2 * edge1.x - deltaV1 * edge2.x)), (float)(f * (deltaV2 * edge1.y - deltaV1 * edge2.y)), (float)(f * (deltaV2 * edge1.z - deltaV1 * edge2.z)));
 
-			// Bitangent example, in Java
-			// Vector3 bitangent = Vector3.get((float)(f * (-deltaU2 *
-			// edge1.getX() - deltaU1 * edge2.getX())), (float)(f * (-deltaU2 *
-			// edge1.getY() - deltaU1 * edge2.getY())), (float)(f * (-deltaU2 *
-			// edge1.getZ() - deltaU1 * edge2.getZ())));
-
 			v = (Vector3f)tangents.get(i0).clone();
 			v.add(tangent);
 			tangents.set(i0, v);
