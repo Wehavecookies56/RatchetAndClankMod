@@ -4,7 +4,7 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 
-import org.jglrxavpok.glutils.obj.mc.TessellatorModel;
+import org.jglrxavpok.glutils.mc.TessellatorModel;
 import org.lwjgl.opengl.GL11;
 
 public class RenderRatchetEars_Armor extends ModelBiped {

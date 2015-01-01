@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
 
-import org.jglrxavpok.glutils.obj.mc.TessellatorModel;
+import org.jglrxavpok.glutils.mc.TessellatorModel;
 import org.lwjgl.opengl.GL11;
 
 public class TileEntityVendorSpecialRenderer extends TileEntitySpecialRenderer

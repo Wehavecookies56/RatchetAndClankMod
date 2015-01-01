@@ -6,7 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 
-import org.jglrxavpok.glutils.obj.mc.TessellatorModel;
+import org.jglrxavpok.glutils.mc.TessellatorModel;
 import org.lwjgl.opengl.GL11;
 
 public class WalloperRender implements IItemRenderer {

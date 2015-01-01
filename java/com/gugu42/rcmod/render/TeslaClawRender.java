@@ -14,7 +14,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 
-import org.jglrxavpok.glutils.obj.mc.TessellatorModel;
+import org.jglrxavpok.glutils.mc.TessellatorModel;
 import org.lwjgl.opengl.GL11;
 
 public class TeslaClawRender implements IItemRenderer {

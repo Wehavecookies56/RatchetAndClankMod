@@ -1,13 +1,17 @@
 package com.gugu42.rcmod.render;
 
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+
 import com.gugu42.rcmod.tileentity.TileEntityShip;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 
 import org.jglrxavpok.glutils.TessellatorModelEvent.RenderGroupEvent;
-import org.jglrxavpok.glutils.obj.mc.TessellatorModel;
+import org.jglrxavpok.glutils.mc.TessellatorModel;
 import org.lwjgl.opengl.GL11;
 
 public class TileEntityShipSpecialRenderer extends TileEntitySpecialRenderer
@@ -16,6 +20,8 @@ public class TileEntityShipSpecialRenderer extends TileEntitySpecialRenderer
 	private TessellatorModel model;
 	
 	private float doorRot = 0.0f;
+
+    private ResourceLocation textureLocation;
 
 	/**
 	 * Model info :
@@ -30,7 +36,7 @@ public class TileEntityShipSpecialRenderer extends TileEntitySpecialRenderer
 		model.regenerateNormals();
 		model.setID("ship");
 		TessellatorModel.MODEL_RENDERING_BUS.register(this);
-
+		this.textureLocation = new ResourceLocation("rcmod", "models/RatchetShip.png");
 	}
 	
 	
@@ -79,7 +85,7 @@ public class TileEntityShipSpecialRenderer extends TileEntitySpecialRenderer
 	public void renderInventory(double x, double y, double z) {
 		GL11.glPushMatrix();
 		GL11.glTranslated(x - 0.15f, y - 0.5d, z + 0.15f);
-		//		this.bindTexture(textureLocation);
+		this.bind(textureLocation);
 		GL11.glScalef(0.021f, 0.021f, 0.021f);
 		GL11.glShadeModel(GL11.GL_SMOOTH);
 		model.render();
@@ -98,7 +104,7 @@ public class TileEntityShipSpecialRenderer extends TileEntitySpecialRenderer
 			GL11.glPushMatrix();
 			GL11.glTranslated(x + 0.5d, y, z + 0.5d);
 			
-			//		this.bindTexture(textureLocation);
+			this.bind(textureLocation);
 			GL11.glScalef(0.076f, 0.076f, 0.076f);
 			GL11.glTranslatef(tileEntity.renderX, tileEntity.renderY, tileEntity.renderZ);
 			if (te.blockMetadata == 0) {
@@ -114,11 +120,18 @@ public class TileEntityShipSpecialRenderer extends TileEntitySpecialRenderer
 			GL11.glShadeModel(GL11.GL_SMOOTH);
 			
 			GL11.glEnable(GL11.GL_BLEND);
-//			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE_MINUS_SRC_ALPHA); // Uncomment this line to make the glass more blue-ish
+			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE_MINUS_SRC_ALPHA); // Uncomment this line to make the glass more blue-ish
 			model.render();
 			GL11.glDisable(GL11.GL_BLEND);
 			GL11.glPopMatrix();
 		}
 	}
+
+
+    private void bind(ResourceLocation loc)
+    {
+        Minecraft.getMinecraft().renderEngine.bindTexture(loc);
+//        GL11.glBindTexture(GL_TEXTURE_2D, 3);
+    }
 
 }
