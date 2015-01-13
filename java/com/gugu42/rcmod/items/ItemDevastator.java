@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
-public class ItemDevastator extends ItemRcWeap {
+public class ItemDevastator extends ItemRcGun {
 
 	public ItemDevastator() {
 		super();

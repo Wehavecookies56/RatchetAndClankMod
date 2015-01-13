@@ -163,8 +163,10 @@ public class RcTickHandler {
 		double closeness = 16.0D;
 		EntityPlayer player = par1.worldObj.getClosestPlayerToEntity(par1,
 				closeness);
-
-		if ((player != null) && par1.getEntityItem().getItem() == RcItems.bolt) {
+		if(par1.age > 15)
+		{
+		if ((player != null) && par1.getEntityItem().getItem() == RcItems.bolt)
+		{
 			double var3 = (player.posX - par1.posX) / closeness;
 			double var5 = (player.posY + player.getEyeHeight() - par1.posY)
 					/ closeness;
@@ -178,6 +180,6 @@ public class RcTickHandler {
 				par1.motionY += var5 / var9 * var11 * 0.1D;
 				par1.motionZ += var7 / var9 * var11 * 0.1D;
 			}
-		}
+		}}
 	}
 }

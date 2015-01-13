@@ -16,6 +16,7 @@ import net.minecraftforge.common.util.EnumHelper;
 import org.apache.logging.log4j.Logger;
 
 import com.gugu42.rcmod.blocks.BlockCrate;
+import com.gugu42.rcmod.blocks.BlockGadgetronAmmo;
 import com.gugu42.rcmod.blocks.BlockShip;
 import com.gugu42.rcmod.blocks.BlockShipFiller;
 import com.gugu42.rcmod.blocks.BlockTNTCrate;
@@ -72,6 +73,7 @@ public class RcMod {
 	//Blocks
 	public static Block tntCrate;
 	public static Block crate;
+	public static Block ammoCrate;
 	public static Block vendor;
 	public static Block ship;
 	public static Block shipFiller;
@@ -141,6 +143,9 @@ public class RcMod {
 		crate = new BlockCrate(Material.wood).setBlockName("crate")
 				.setBlockTextureName(MODID+":crate").setHardness(0.0f).setStepSound(crateStepSound);
 		GameRegistry.registerBlock(crate, "crate");
+		ammoCrate = new BlockGadgetronAmmo(Material.wood).setBlockName("ammoCrate")
+				.setBlockTextureName(MODID+":ammocrate").setHardness(0.0f).setStepSound(crateStepSound);
+		GameRegistry.registerBlock(ammoCrate, "ammoCrate");
 
 		vendor = new BlockVendor(Material.iron)
 				.setBlockName("vendor").setBlockTextureName(MODID+":vendor")
@@ -165,6 +170,7 @@ public class RcMod {
 
 		RcItems.initModItems();
 		RcItems.initRc1Items();
+		RcItems.initAmmoItems();
 
 		/* -----Other Items----- */
 		clankBackpack = new ItemClankBackpack(EnumArmorMaterialClank, 1,
@@ -210,12 +216,12 @@ public class RcMod {
 	public void PostInit(FMLPostInitializationEvent event) {
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 		MinecraftForge.EVENT_BUS.register(new RcEventHandler());
+		FMLCommonHandler.instance().bus().register(new FurnaceEventHandler());
 		FMLCommonHandler.instance().bus().register(new RcAchievementEventHandler());
-
 		if (FMLCommonHandler.instance().getEffectiveSide().isClient()) {
 			MinecraftForge.EVENT_BUS.register(new GuiBolt(Minecraft
 					.getMinecraft()));
-			
+		    MinecraftForge.EVENT_BUS.register(new DropBolts());
 			GuiSuckCannon suckCannonGui = new GuiSuckCannon(Minecraft
 					.getMinecraft());
 			MinecraftForge.EVENT_BUS.register(suckCannonGui);

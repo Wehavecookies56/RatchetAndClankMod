@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 import com.gugu42.rcmod.RcMod;
 import com.gugu42.rcmod.entity.projectiles.EntityMineGloveAmmo;
 
-public class ItemMineGlove extends ItemRcWeap {
+public class ItemMineGlove extends ItemRcGun {
 
 	public int ammo;
 	public int maxAmmo;

@@ -63,6 +63,12 @@
             "BoltCollect3"
         ]
     },
+    "AmmoCollect": {
+        "category": "ammo",
+        "sounds": [
+            "AmmoPickup"
+        ]
+    },
     "TaunterSound": {
         "category": "block",
         "sounds": [

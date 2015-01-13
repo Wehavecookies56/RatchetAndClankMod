@@ -5,10 +5,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 
 import com.gugu42.rcmod.entity.projectiles.EntityBlasterAmmo;
 
-public class ItemBlaster extends ItemRcWeap {
+public class ItemBlaster extends ItemRcGun {
 
 	public int ammo;
 	public int maxAmmo;
@@ -46,7 +47,7 @@ public class ItemBlaster extends ItemRcWeap {
 		}
 		return par1ItemStack;
 	}
-
+	
 	@Override
 	public void onUpdate(ItemStack stack, World w, Entity ent, int i,
 			boolean flag) {

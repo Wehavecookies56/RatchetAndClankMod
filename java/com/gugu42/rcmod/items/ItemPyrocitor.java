@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 
 import com.gugu42.rcmod.entity.projectiles.EntityPyrocitorAmmo;
 
-public class ItemPyrocitor extends ItemRcWeap
+public class ItemPyrocitor extends ItemRcGun
 {
 
 	public ItemPyrocitor()

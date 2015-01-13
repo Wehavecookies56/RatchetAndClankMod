@@ -11,7 +11,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ItemVisibombGun extends ItemRcWeap
+public class ItemVisibombGun extends ItemRcGun
 {
 	private int cooldown;
 

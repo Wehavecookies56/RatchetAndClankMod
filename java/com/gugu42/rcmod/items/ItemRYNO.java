@@ -8,7 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ItemRYNO extends ItemRcWeap {
+public class ItemRYNO extends ItemRcGun {
 
 	public ItemRYNO() {
 		super();

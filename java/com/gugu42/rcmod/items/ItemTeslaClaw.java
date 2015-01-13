@@ -4,7 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ItemTeslaClaw extends ItemRcWeap{
+public class ItemTeslaClaw extends ItemRcGun{
 
 	public ItemTeslaClaw() {
 		super();

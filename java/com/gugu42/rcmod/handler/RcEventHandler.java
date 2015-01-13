@@ -1,5 +1,7 @@
 package com.gugu42.rcmod.handler;
 
+import java.util.List;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -32,6 +34,10 @@ import com.gugu42.rcmod.CommonProxy;
 import com.gugu42.rcmod.RcMod;
 import com.gugu42.rcmod.entity.projectiles.EntityVisibombAmmo;
 import com.gugu42.rcmod.entity.projectiles.EntityVisibombCamera;
+import com.gugu42.rcmod.items.EnumRcWeapons;
+import com.gugu42.rcmod.items.ItemAmmo;
+import com.gugu42.rcmod.items.ItemBlaster;
+import com.gugu42.rcmod.items.ItemRcGun;
 import com.gugu42.rcmod.items.ItemRcWeap;
 import com.gugu42.rcmod.items.RcItems;
 
@@ -222,7 +228,6 @@ public class RcEventHandler {
 		}
 		return false;
 	}
-
 	@SubscribeEvent
 	public void onItemPickup(EntityItemPickupEvent event) {
 		ItemStack item = event.item.getEntityItem();
@@ -234,7 +239,52 @@ public class RcEventHandler {
 			event.item.setDead();
 			event.setCanceled(true);
 		}
+		
+		//ItemStack weapon = this.getItemInInventory(player.inventory, EnumRcWeapons.getItemFromID(id).getWeapon());
+
+		if (item.getItem() != null && item.getItem() instanceof ItemAmmo)
+		{
+			ItemAmmo ammo = (ItemAmmo) item.getItem();
+			ItemStack[] inv = event.entityPlayer.inventory.mainInventory;
+			for(int i = 0; i < inv.length; i++)
+			{
+				if(inv[i] != null)
+				{
+					if(ammo.getGun() == inv[i].getItem())
+					{ 
+						ItemRcGun weapon = (ItemRcGun) inv[i].getItem();
+						if(!weapon.refill(inv[i], weapon, event, 10))
+						{
+							event.entityPlayer.worldObj.playSoundAtEntity(event.entityPlayer,
+								"rcmod:AmmoCollect", 0.3f, 1.0f);
+							event.item.setDead();
+							event.setCanceled(true);
+						}
+					}
+				}
+			}
+			event.setCanceled(true);
+		}
+		
+		
 	}
+	/*switch(p_149650_2_.nextInt(15))
+		{
+		case 0: return RcItems.ammoblaster;
+		case 1: return RcItems.ammobombGlove;
+		case 2: return RcItems.ammodecoyGlove;
+		case 3: return RcItems.ammodevastator;
+		case 4: return RcItems.ammodroneDevice;
+		case 5: return RcItems.ammogloveOfDoom;
+		case 6: return RcItems.ammomineGlove;
+		case 8: return RcItems.ammopyrocitor;
+		case 9: return RcItems.ammoryno;
+		case 12: return RcItems.ammoteslaClaw;
+		case 13: return RcItems.ammovisibombGun;
+		default: return RcItems.ammoblaster;
+		}
+	 
+	 */
 
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent

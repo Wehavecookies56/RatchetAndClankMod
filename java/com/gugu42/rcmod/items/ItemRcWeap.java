@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 
 public class ItemRcWeap extends Item {
 
@@ -49,7 +50,7 @@ public class ItemRcWeap extends Item {
 		this.hasAmmoImage = false;
 		this.hasEquipSound = false;
 	}
-
+	
 	public int getPrice() {
 		return ammoPrice;
 	}

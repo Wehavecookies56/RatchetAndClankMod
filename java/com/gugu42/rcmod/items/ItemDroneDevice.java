@@ -1,6 +1,6 @@
 package com.gugu42.rcmod.items;
 
-public class ItemDroneDevice extends ItemRcWeap{
+public class ItemDroneDevice extends ItemRcGun{
 
 	public ItemDroneDevice() {
 		super();

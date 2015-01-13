@@ -31,6 +31,12 @@ public class RcRecipes
 			"XXX",
 			'X', Blocks.planks, 'Z', Items.iron_ingot
 		});
+		GameRegistry.addRecipe(new ItemStack(RcMod.ammoCrate, 1), new Object[]{
+			"XXX",
+			"XZX",
+			"XXX",
+			'X', Blocks.cobblestone, 'Z', Items.iron_ingot
+		});
 		GameRegistry.addRecipe(new ItemStack(RcItems.vendorCore, 1), new Object[]{
 			"XXX",
 			"XZX",

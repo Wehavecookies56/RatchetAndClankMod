@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 import com.gugu42.rcmod.RcMod;
 import com.gugu42.rcmod.entity.projectiles.EntityDecoyGloveAmmo;
 
-public class ItemDecoyGlove extends ItemRcWeap{
+public class ItemDecoyGlove extends ItemRcGun{
 
     private int ammo;
     private int cooldown;
