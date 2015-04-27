@@ -85,7 +85,7 @@ public class PacketShipTeleportation extends AbstractPacket {
 		Block bl = player.worldObj.getBlock(originX, originY + 1, originZ);
 		bl.breakBlock(player.worldObj, originX, originY + 1, originZ, bl, 0);
 
-		player.setPositionAndUpdate(wp.posX, wp.posY + 5, wp.posZ);
+		player.setPositionAndUpdate(wp.posX + 5, wp.posY, wp.posZ);
 		World world = player.worldObj;
 		int x = wp.posX;
 		int y = wp.posY;

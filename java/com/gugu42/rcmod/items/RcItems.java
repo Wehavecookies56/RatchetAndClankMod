@@ -34,17 +34,17 @@ public class RcItems {
 	public static Item teslaClaw;
 	
 	// All items from RC1 goes there
-	public static Item ammoblaster;
-	public static Item ammobombGlove;
-	public static Item ammoryno;
-	public static Item ammopyrocitor;
-	public static Item ammovisibombGun;
-	public static Item ammodecoyGlove;
-	public static Item ammodevastator;
-	public static Item ammodroneDevice;
-	public static Item ammogloveOfDoom;
-	public static Item ammomineGlove;
-	public static Item ammoteslaClaw;
+	public static Item ammoBlaster;
+	public static Item ammoBombGlove;
+	public static Item ammoRyno;
+	public static Item ammoPyrocitor;
+	public static Item ammoVisibombGun;
+	public static Item ammoDecoyGlove;
+	public static Item ammoDevastator;
+	public static Item ammoDroneDevice;
+	public static Item ammoGloveOfDoom;
+	public static Item ammoMineGlove;
+	public static Item ammoTeslaClaw;
 	
 	// All gadgets from RC1 goes there
 	
@@ -166,7 +166,7 @@ public class RcItems {
 		helipackHelice = new ItemRcSimple().setUnlocalizedName("helipackHelice").setTextureName("rcmod:helipackhelice").setCreativeTab(RcMod.rcTab);
 		GameRegistry.registerItem(helipackHelice, "helipackHelice");
 		
-		DUMMY_pyrocitorFlame = new ItemRcSimple().setTextureName("rcmod:pyrocitorFlame");
+		DUMMY_pyrocitorFlame = new ItemRcSimple().setTextureName("rcmod:pyrocitorFlame").setUnlocalizedName("dummyItem");
 		GameRegistry.registerItem(DUMMY_pyrocitorFlame, "DUMMY_pyrocitorFlame");
 		
 		metropolisRecord = new ItemRcRecord("rcmod:recordmetropolis", "Metropolis - Kerwan", "metropolisRecord").setUnlocalizedName("metropolisRecord").setTextureName("rcmod:recordRc").setCreativeTab(RcMod.rcTab);
@@ -175,71 +175,65 @@ public class RcItems {
 	
 	public static void initAmmoItems()
 	{
-		ammoblaster = new ItemAmmo(blaster).setUnlocalizedName(
+		ammoBlaster = new ItemAmmo(blaster).setUnlocalizedName(
 				"ammoblaster").setTextureName("rcmod:ammoImage_blaster")
 				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
-		GameRegistry.registerItem(ammoblaster, "ammoblaster");
+		GameRegistry.registerItem(ammoBlaster, "ammoblaster");
 		
-		ammobombGlove = new ItemAmmo(bombGlove).setUnlocalizedName(
+		ammoBombGlove = new ItemAmmo(bombGlove).setUnlocalizedName(
 				"ammobombGlove").setTextureName("rcmod:ammoImage_bombGlove")
 				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
-		GameRegistry.registerItem(ammobombGlove, "ammobombGlove");
+		GameRegistry.registerItem(ammoBombGlove, "ammobombGlove");
 		
-		ammoryno = new ItemAmmo(ryno).setUnlocalizedName(
+		ammoRyno = new ItemAmmo(ryno).setUnlocalizedName(
 				"ammoryno").setTextureName("rcmod:ammoImage_ryno")
 				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
-		GameRegistry.registerItem(ammoryno, "ammoryno");
+		GameRegistry.registerItem(ammoRyno, "ammoryno");
 		
-		ammopyrocitor = new ItemAmmo(pyrocitor).setUnlocalizedName(
+		ammoPyrocitor = new ItemAmmo(pyrocitor).setUnlocalizedName(
 				"ammopyrocitor").setTextureName("rcmod:ammoImage_pyrocitor")
 				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
-		GameRegistry.registerItem(ammopyrocitor, "ammopyrocitor");
+		GameRegistry.registerItem(ammoPyrocitor, "ammopyrocitor");
 		
-		ammovisibombGun = new ItemAmmo(visibombGun).setUnlocalizedName(
+		ammoVisibombGun = new ItemAmmo(visibombGun).setUnlocalizedName(
 				"ammovisibombGun").setTextureName("rcmod:ammoImage_visibombGun")
 				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
-		GameRegistry.registerItem(ammovisibombGun, "ammovisibombGun");
+		GameRegistry.registerItem(ammoVisibombGun, "ammovisibombGun");
 		
-		ammodecoyGlove = new ItemAmmo(decoyGlove).setUnlocalizedName(
+		ammoDecoyGlove = new ItemAmmo(decoyGlove).setUnlocalizedName(
 				"ammodecoyGlove").setTextureName("rcmod:ammoImage_decoyGlove")
 				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
-		GameRegistry.registerItem(ammodecoyGlove, "ammodecoyGlove");
+		GameRegistry.registerItem(ammoDecoyGlove, "ammodecoyGlove");
 		
-		ammodevastator = new ItemAmmo(devastator).setUnlocalizedName(
+		ammoDevastator = new ItemAmmo(devastator).setUnlocalizedName(
 				"ammodevastator").setTextureName("rcmod:ammoImage_devastator")
 				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
-		GameRegistry.registerItem(ammodevastator, "ammodevastator");
+		GameRegistry.registerItem(ammoDevastator, "ammodevastator");
 		
-		ammodroneDevice = new ItemAmmo(droneDevice).setUnlocalizedName(
+		ammoDroneDevice = new ItemAmmo(droneDevice).setUnlocalizedName(
 				"ammodroneDevice").setTextureName("rcmod:ammoImage_droneDevice")
 				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
-		GameRegistry.registerItem(ammodroneDevice, "ammodroneDevice");
+		GameRegistry.registerItem(ammoDroneDevice, "ammodroneDevice");
 		
-		ammogloveOfDoom = new ItemAmmo(gloveOfDoom).setUnlocalizedName(
+		ammoGloveOfDoom = new ItemAmmo(gloveOfDoom).setUnlocalizedName(
 				"ammogloveOfDoom").setTextureName("rcmod:ammoImage_gloveOfDoom")
 				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
-		GameRegistry.registerItem(ammogloveOfDoom, "ammogloveOfDoom");
+		GameRegistry.registerItem(ammoGloveOfDoom, "ammogloveOfDoom");
 		
-		ammomineGlove = new ItemAmmo(mineGlove).setUnlocalizedName(
+		ammoMineGlove = new ItemAmmo(mineGlove).setUnlocalizedName(
 				"ammomineGlove").setTextureName("rcmod:ammoImage_mineGlove")
 				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
-		GameRegistry.registerItem(ammomineGlove, "ammomineGlove");
+		GameRegistry.registerItem(ammoMineGlove, "ammomineGlove");
 		
-		ammoteslaClaw = new ItemAmmo(teslaClaw).setUnlocalizedName(
+		ammoTeslaClaw = new ItemAmmo(teslaClaw).setUnlocalizedName(
 				"ammoteslaClaw").setTextureName("rcmod:ammoImage_teslaClaw")
 				.setCreativeTab(RcMod.rcWeapTab).setFull3D();
-		GameRegistry.registerItem(ammoteslaClaw, "ammoteslaClaw");
+		GameRegistry.registerItem(ammoTeslaClaw, "ammoteslaClaw");
 	}
 
 	public static boolean isAmmo(Item item)
 	{
 		return item instanceof ItemAmmo;
-		/*return  item == ammoblaster || item == ammobombGlove || 
-				item == ammoryno || item == ammopyrocitor || 
-				item == ammovisibombGun || item == ammodecoyGlove || 
-				item == ammodevastator || item == ammodroneDevice || 
-				item == ammogloveOfDoom || item == ammomineGlove || 
-				item == ammoteslaClaw;*/
 	}
 
 }

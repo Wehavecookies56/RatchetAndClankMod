@@ -29,7 +29,6 @@ import com.gugu42.rcmod.render.MorphORayRender;
 import com.gugu42.rcmod.render.OmniWrench3000Render;
 import com.gugu42.rcmod.render.PyrocitorRender;
 import com.gugu42.rcmod.render.RYNORender;
-import com.gugu42.rcmod.render.RcModelManager;
 import com.gugu42.rcmod.render.RenderBlasterAmmo;
 import com.gugu42.rcmod.render.RenderBombGloveAmmo;
 import com.gugu42.rcmod.render.RenderDecoyGloveAmmo;
@@ -52,6 +51,17 @@ import com.gugu42.rcmod.render.TileEntityVendorSpecialRenderer;
 import com.gugu42.rcmod.render.TileEntityVersaTargetGSpecialRenderer;
 import com.gugu42.rcmod.render.VisibombRender;
 import com.gugu42.rcmod.render.WalloperRender;
+import com.gugu42.rcmod.render.ammoItems.AmmoBlasterItem;
+import com.gugu42.rcmod.render.ammoItems.AmmoBombGlove;
+import com.gugu42.rcmod.render.ammoItems.AmmoDecoyGlove;
+import com.gugu42.rcmod.render.ammoItems.AmmoDevastator;
+import com.gugu42.rcmod.render.ammoItems.AmmoDroneDevice;
+import com.gugu42.rcmod.render.ammoItems.AmmoGloveofDoom;
+import com.gugu42.rcmod.render.ammoItems.AmmoMineGlove;
+import com.gugu42.rcmod.render.ammoItems.AmmoPyrocitor;
+import com.gugu42.rcmod.render.ammoItems.AmmoRYNO;
+import com.gugu42.rcmod.render.ammoItems.AmmoTeslaClaw;
+import com.gugu42.rcmod.render.ammoItems.AmmoVisibombGun;
 import com.gugu42.rcmod.tileentity.TileEntityShip;
 import com.gugu42.rcmod.tileentity.TileEntityVendor;
 import com.gugu42.rcmod.tileentity.TileEntityVersaTargetG;
@@ -88,12 +98,15 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(
 				EntityDecoyGloveAmmo.class, new RenderDecoyGloveAmmo(0.5f));
 
+
 		RenderingRegistry.registerEntityRenderingHandler(
 				EntitySwingShotHook.class, new RenderSwingShotHook());
 
 		RenderingRegistry.registerEntityRenderingHandler(
 				EntitySuckCannonProj.class, new RenderSuckCannonProj());
 
+		/* WEAPONS */
+		
 		MinecraftForgeClient.registerItemRenderer(RcItems.blaster,
 				new BlasterRender());
 		MinecraftForgeClient.registerItemRenderer(RcItems.bombGlove,
@@ -133,6 +146,21 @@ public class ClientProxy extends CommonProxy {
 				new SwingShotRender());
 		MinecraftForgeClient.registerItemRenderer(RcItems.gadgetronHelper,
 				new GadgetronPDARender());
+		
+		/* AMMO ITEMS */
+		
+		MinecraftForgeClient.registerItemRenderer(RcItems.ammoBlaster, new AmmoBlasterItem());
+		MinecraftForgeClient.registerItemRenderer(RcItems.ammoBombGlove, new AmmoBombGlove());
+		MinecraftForgeClient.registerItemRenderer(RcItems.ammoDecoyGlove, new AmmoDecoyGlove());
+		MinecraftForgeClient.registerItemRenderer(RcItems.ammoDevastator, new AmmoDevastator());
+		MinecraftForgeClient.registerItemRenderer(RcItems.ammoDroneDevice, new AmmoDroneDevice());
+		MinecraftForgeClient.registerItemRenderer(RcItems.ammoGloveOfDoom, new AmmoGloveofDoom());
+		MinecraftForgeClient.registerItemRenderer(RcItems.ammoMineGlove, new AmmoMineGlove());
+		MinecraftForgeClient.registerItemRenderer(RcItems.ammoPyrocitor, new AmmoPyrocitor());
+		MinecraftForgeClient.registerItemRenderer(RcItems.ammoRyno, new AmmoRYNO());
+		MinecraftForgeClient.registerItemRenderer(RcItems.ammoTeslaClaw, new AmmoTeslaClaw());
+		MinecraftForgeClient.registerItemRenderer(RcItems.ammoVisibombGun, new AmmoVisibombGun());
+		
 
 		renderInventoryTESRId = RenderingRegistry.getNextAvailableRenderId();
 		RenderingRegistry.registerBlockHandler(new TESRInventoryRenderer());

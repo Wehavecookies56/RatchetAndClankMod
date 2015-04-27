@@ -253,7 +253,7 @@ public class RcEventHandler {
 					if(ammo.getGun() == inv[i].getItem())
 					{ 
 						ItemRcGun weapon = (ItemRcGun) inv[i].getItem();
-						if(!weapon.refill(inv[i], weapon, event, 10))
+						if(weapon.refill(inv[i], weapon, event, ammo.getAmmount()))
 						{
 							event.entityPlayer.worldObj.playSoundAtEntity(event.entityPlayer,
 								"rcmod:AmmoCollect", 0.3f, 1.0f);

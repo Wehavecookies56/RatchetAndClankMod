@@ -3,10 +3,18 @@ package com.gugu42.rcmod.shipsys;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gugu42.rcmod.RcMod;
+import com.gugu42.rcmod.network.packets.PacketNewWaypoint;
+
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.IProgressUpdate;
+import net.minecraft.world.MinecraftException;
+import net.minecraft.world.WorldServer;
 
 public class ShipWaypointCommand implements ICommand {
 
@@ -50,14 +58,18 @@ public class ShipWaypointCommand implements ICommand {
 				int posZ = Integer.parseInt(args[3]);
 				boolean isPrivate = Boolean.parseBoolean(args[4]);
 
+				String wpData = new ShipWaypoint(name, posX, posY,
+						posZ, player.getDisplayName(), isPrivate).toString();
+				
 				if (!ShipSystem.isNameTaken(name)) {
-					ShipSystem.addWaypoint(new ShipWaypoint(name, posX, posY,
-							posZ, player.getDisplayName(), isPrivate));
+					RcMod.rcModPacketHandler.sendToAll(new PacketNewWaypoint(wpData));
 				} else {
-					sender.addChatMessage(new ChatComponentText("Name is already taken !"));
+					sender.addChatMessage(new ChatComponentText(
+							"Name is already taken !"));
 				}
 			} else {
-				sender.addChatMessage(new ChatComponentText("Correct usage : /addRcWaypoint <Name> <PosX> <PosY> <PosZ> <Is Private ( true / false )>"));
+				sender.addChatMessage(new ChatComponentText(
+						"Correct usage : /addRcWaypoint <Name> <PosX> <PosY> <PosZ> <Is Private ( true / false )>"));
 			}
 
 		}

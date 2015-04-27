@@ -5,6 +5,7 @@ import net.minecraft.item.Item;
 public class ItemAmmo extends Item{
 	
 	public Item gun;
+	public int ammoPerItem;
 	
 	public Item getGun()
 	{
@@ -19,9 +20,12 @@ public class ItemAmmo extends Item{
 		setGun(type);
 		this.setMaxDamage(10000);
 		this.maxStackSize = 1;
+		this.ammoPerItem = 10;
 	}
 	
-	
+	public int getAmmount(){
+		return ammoPerItem;
+	}
 	
 	
 }

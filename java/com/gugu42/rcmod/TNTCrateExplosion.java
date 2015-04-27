@@ -285,7 +285,7 @@ public class TNTCrateExplosion {
 							.spawnParticle("smoke", d0, d1, d2, d3, d4, d5);
 				}
 
-				if (l == RcMod.tntCrate || l == RcMod.crate) {
+				if (l == RcMod.tntCrate || l == RcMod.crate || l == RcMod.ammoCrate) {
 					Block block = l;
 
 					if (block.canDropFromExplosion(this.TNT)) {
