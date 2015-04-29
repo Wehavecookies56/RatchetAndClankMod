@@ -63,8 +63,8 @@
             "BoltCollect3"
         ]
     },
-    "AmmoCollect": {
-        "category": "ammo",
+    "AmmoPickup": {
+        "category": "block",
         "sounds": [
             "AmmoPickup"
         ]

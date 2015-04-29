@@ -56,7 +56,7 @@ public class BlockGadgetronAmmo extends BlockFalling {
 	@Override
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_,
 			int p_149650_3_) {
-		switch (p_149650_2_.nextInt(11)) {
+		switch (p_149650_2_.nextInt(8)) {  //This has to change once you implement more weapons
 		case 0:
 			return RcItems.ammoBlaster;
 		case 1:
@@ -65,19 +65,19 @@ public class BlockGadgetronAmmo extends BlockFalling {
 			return RcItems.ammoDecoyGlove;
 		case 3:
 			return RcItems.ammoDevastator;
+//		case 4:
+//			return RcItems.ammoDroneDevice;    These weapons are not yet implemented
+//		case 5:
+//			return RcItems.ammoGloveOfDoom;
 		case 4:
-			return RcItems.ammoDroneDevice;
-		case 5:
-			return RcItems.ammoGloveOfDoom;
-		case 6:
 			return RcItems.ammoMineGlove;
-		case 7:
+		case 5:
 			return RcItems.ammoPyrocitor;
-		case 8:
+		case 6:
 			return RcItems.ammoRyno;
-		case 9:
-			return RcItems.ammoTeslaClaw;
-		case 10:
+//		case 9:
+//			return RcItems.ammoTeslaClaw;      Not yet implemented, shouldn't drop ammo
+		case 7:
 			return RcItems.ammoVisibombGun;
 		default:
 			return RcItems.ammoBlaster;

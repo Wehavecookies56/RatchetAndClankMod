@@ -1,7 +1,8 @@
 package com.gugu42.rcmod.shipsys;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import net.minecraft.entity.player.EntityPlayer;
 
 public class ShipSystem {
 
@@ -23,9 +24,8 @@ public class ShipSystem {
 		String data = "";
 
 		for (ShipWaypoint wp : waypoints) {
-			if (wp != null && wp.name != null
-					&& wp.toString() != "null 0 0 0 null false") {
-				if(!data.contains(wp.toString())){
+			if (wp != null && wp.name != null && wp.toString() != "null 0 0 0 null false") {
+				if (!data.contains(wp.toString())) {
 					data += wp.toString() + ";";
 				}
 			}
@@ -53,8 +53,35 @@ public class ShipSystem {
 		}
 	}
 
-	public static ArrayList getWaypointsName() {
-		ArrayList waypointName = new ArrayList<String>();
+	/**
+	 * This methods returns all waypoints available to the PLAYER. ( Meaning private ones won't show )
+	 * 
+	 * @param player
+	 * @return Waypoint list
+	 */
+	public static ArrayList<String> getWaypointsName(EntityPlayer player) {
+		ArrayList<String> waypointName = new ArrayList<String>();
+
+		for (ShipWaypoint waypoint : waypoints) {
+			if (waypoint.isPrivate) {
+				if (player.getDisplayName().equals(waypoint.creatorName)) {
+					waypointName.add(waypoint.name);
+				}
+			} else {
+				waypointName.add(waypoint.name);
+			}
+		}
+
+		return waypointName;
+	}
+
+	/**
+	 * This methods returns all waypoints available. ( Ignoring privacy settings )
+	 * 
+	 * @return
+	 */
+	public static ArrayList<String> getWaypointsName() {
+		ArrayList<String> waypointName = new ArrayList<String>();
 
 		for (ShipWaypoint waypoint : waypoints) {
 			waypointName.add(waypoint.name);

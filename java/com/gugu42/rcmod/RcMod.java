@@ -7,7 +7,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.stats.Achievement;
-import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.AchievementPage;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
@@ -19,6 +18,7 @@ import com.gugu42.rcmod.blocks.BlockCrate;
 import com.gugu42.rcmod.blocks.BlockGadgetronAmmo;
 import com.gugu42.rcmod.blocks.BlockShip;
 import com.gugu42.rcmod.blocks.BlockShipFiller;
+import com.gugu42.rcmod.blocks.BlockShipPlatform;
 import com.gugu42.rcmod.blocks.BlockTNTCrate;
 import com.gugu42.rcmod.blocks.BlockVendor;
 import com.gugu42.rcmod.blocks.BlockVersaTargetGreen;
@@ -38,6 +38,7 @@ import com.gugu42.rcmod.shipsys.ShipWaypointCommand;
 import com.gugu42.rcmod.shipsys.ShipWaypointRemoveCommand;
 import com.gugu42.rcmod.tileentity.TileEntityShip;
 import com.gugu42.rcmod.tileentity.TileEntityShipFiller;
+import com.gugu42.rcmod.tileentity.TileEntityShipPlatform;
 import com.gugu42.rcmod.tileentity.TileEntityVendor;
 import com.gugu42.rcmod.tileentity.TileEntityVersaTargetG;
 import com.gugu42.rcmod.utils.ffmtutils.FFMTPacketHandler;
@@ -56,7 +57,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@Mod(modid = RcMod.MODID, version = "0.5.1", name = "RcMod")
+@Mod(modid = RcMod.MODID, version = "0.5.2", name = "RcMod")
 public class RcMod {
 	@SidedProxy(clientSide = "com.gugu42.rcmod.ClientProxy", serverSide = "com.gugu42.rcmod.CommonProxy")
 	public static CommonProxy proxy;
@@ -78,6 +79,7 @@ public class RcMod {
 	public static Block ship;
 	public static Block shipFiller;
 	public static Block versaTargetGreen;
+	public static Block shipPlatform;
 	
 	public static SoundType crateStepSound;
 
@@ -160,11 +162,15 @@ public class RcMod {
 		
 		versaTargetGreen = new BlockVersaTargetGreen(Material.iron).setBlockName("versaTargetGreen");
 		GameRegistry.registerBlock(versaTargetGreen, "versaTargetGreen");
+		
+		shipPlatform = new BlockShipPlatform().setBlockName("shipPlatform").setCreativeTab(rcTab);
+		GameRegistry.registerBlock(shipPlatform, "shipPlatform");
 
 		GameRegistry.registerTileEntity(TileEntityVendor.class, "vendor");
 		GameRegistry.registerTileEntity(TileEntityShip.class, "ship");
 		GameRegistry.registerTileEntity(TileEntityShipFiller.class, "shipFiller");
 		GameRegistry.registerTileEntity(TileEntityVersaTargetG.class, "versaTargetG");
+		GameRegistry.registerTileEntity(TileEntityShipPlatform.class, "shipPlatform");
 		
 		/* -----Items----- */
 

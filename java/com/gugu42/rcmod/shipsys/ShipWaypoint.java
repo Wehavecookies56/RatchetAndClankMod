@@ -27,7 +27,7 @@ public class ShipWaypoint {
 			this.creatorName = infos[4];
 			this.isPrivate = Boolean.parseBoolean(infos[5]);
 		} else {
-			System.err.println("WAYPOINT STRING ERROR. NOT ENOUGH ARGS. ENGAGING DERP MODE");
+			System.err.println("WAYPOINT STRING ERROR. NOT ENOUGH ARGS. ENGAGING DERP MODE !!! String : " + waypointInfo);
 		}
 	}
 	
