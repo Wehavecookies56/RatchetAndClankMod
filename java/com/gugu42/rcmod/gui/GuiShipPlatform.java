@@ -27,6 +27,8 @@ public class GuiShipPlatform extends GuiScreen {
 	private String                 ownerName;
 	private int                    posX, posY, posZ;
 	private String                 saveData       = "";
+	
+	private String warningMessage;
 
 	public Minecraft               mc;
 
@@ -34,6 +36,7 @@ public class GuiShipPlatform extends GuiScreen {
 		this.player = player;
 		this.tileEntity = te;
 		this.mc = Minecraft.getMinecraft();
+		this.warningMessage = "NAME MUST NOT CONTAIN SPACES OR BE EMPTY";
 	}
 
 	@Override
@@ -49,9 +52,10 @@ public class GuiShipPlatform extends GuiScreen {
 		drawTexturedModalRect(posX, posY, 0, 0, xSizeOfTexture, ySizeOfTexture);
 		drawString(mc.fontRenderer, "Waypoint info :", posX + 10, posY + 10, 0xFF5F1F);
 		drawString(mc.fontRenderer, "Name :", posX + 10, posY + 55, 0xFFFFFF);
-		drawString(mc.fontRenderer, "Position : " + this.posX + " " + this.posY + " " + this.posZ, posX + 10, posY + 80, 0xFFFFFF);
+		drawString(mc.fontRenderer, "Position : " + this.posX + " " + this.posY  + " " + this.posZ, posX + 10, posY + 80, 0xFFFFFF);
 		drawString(mc.fontRenderer, "Owner : " + this.ownerName, posX + 10, posY + 100, 0xFFFFFF);
 		drawString(mc.fontRenderer, "Private : ", posX + 10, posY + 125, 0xFFFFFF);
+		drawString(mc.fontRenderer, warningMessage, posX + 15, posY + 28, 0xFF0000);
 		this.textField.drawTextBox();
 
 		super.drawScreen(x, y, f);
@@ -161,7 +165,7 @@ public class GuiShipPlatform extends GuiScreen {
 			saveData += this.privateBtn.displayString + ";";
 //		}
 
-		saveData += this.tileEntity.xCoord + ";" + (this.tileEntity.yCoord + 1) + ";" + this.tileEntity.zCoord;
+		saveData += this.tileEntity.xCoord + ";" + this.tileEntity.yCoord + ";" + this.tileEntity.zCoord;
 	}
 
 	public void updateScreen() {
@@ -171,9 +175,11 @@ public class GuiShipPlatform extends GuiScreen {
 		if(this.textField.getText() == "" || this.textField.getText().contains(" ")){
 			GuiButton btn = (GuiButton) this.buttonList.get(0);
 			btn.enabled = false;
+			this.warningMessage = "NAME MUST NOT CONTAIN SPACES";
 		} else {
 			GuiButton btn = (GuiButton) this.buttonList.get(0);
 			btn.enabled = true;
+			this.warningMessage = "";
 		}
 	}
 }

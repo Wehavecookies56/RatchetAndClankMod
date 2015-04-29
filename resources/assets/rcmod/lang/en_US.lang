@@ -6,6 +6,8 @@ tile.tntCrate.name=TNT Crate
 tile.crate.name=Bolt Crate
 tile.vendor.name=Gadgetron Vendor
 tile.ship.name=Ratchet's Ship
+tile.ammoCrate.name=Ammo Crate
+tile.shipPlatform.name=Ship Beacon
 item.vendorCore.name=Vendor Core
 item.clankCore.name=Clank Core
 item.clank.name=Clank (Empty)
@@ -36,6 +38,18 @@ item.morphORay.name=Morph-O-Ray
 item.suckCannon.name=Suck Cannon
 item.taunter.name=Taunter
 item.teslaClaw.name=Tesla Claw
+
+item.ammoblaster.name=Blaster Ammo
+item.ammodecoyGlove.name=Decoy Glove Ammo
+item.ammodevastator.name=Devastator Ammo
+item.ammoryno.name=RYNO Ammo
+item.ammopyrocitor.name=Pyrocitor Ammo
+item.ammomineGlove.name=Mine Glove Ammo
+item.ammoteslaClaw.name=Tesla Claw Ammo
+item.ammogloveofDoom.name=Glove of Doom Ammo
+item.ammobombGlove.name=Bomb Glove Ammo
+item.ammodroneDevice.name=Drone Device Ammo
+item.ammovisibombGun.name=Visisomb Gun Ammo
 #
 #############End Weapons######################
 

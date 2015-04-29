@@ -51,13 +51,10 @@ public class PacketShipPlatform extends AbstractPacket {
 
 	@Override
 	public void handleClientSide(EntityPlayer player) {
-		System.out.println("[CLIENT] Received beacon data, processing ...");
 		String[] infos = saveData.split(";");
 		if (infos.length == 6) {
-			System.out.println("[CLIENT] Enough args ...");
 			TileEntity te = player.worldObj.getTileEntity(Integer.parseInt(infos[3]), Integer.parseInt(infos[4]), Integer.parseInt(infos[5]));
 			if (te instanceof TileEntityShipPlatform) {
-				System.out.println("[CLIENT] Tile Entity found ...");
 				TileEntityShipPlatform tileEntity = (TileEntityShipPlatform) te;
 				tileEntity.setWpName(infos[0]);
 				tileEntity.setOwnerName(infos[1]);
@@ -66,16 +63,14 @@ public class PacketShipPlatform extends AbstractPacket {
 				} else {
 					tileEntity.setPrivate(false);
 				}
-				String wpData = infos[0] + " " + infos[3] + " " + infos[4] + " " + infos[5] + " " + infos[1] + " " + infos[2].toLowerCase();
+				
+				int ypos = Integer.parseInt(infos[4]);
+				String wpData = infos[0] + " " + infos[3] + " " + (ypos += 1) + " " + infos[5] + " " + infos[1] + " " + infos[2].toLowerCase();
 				if (ShipSystem.isNameTaken(infos[0])) {
-					System.out.println("[CLIENT] Beacon name already taken.");
 				} else {
 					ShipWaypoint wp = new ShipWaypoint(wpData);
-					if(wp != null){
+					if (wp != null) {
 						ShipSystem.addWaypoint(wp);
-						System.out.println("[CLIENT] Beacon data successfully processed.");
-					} else {
-						System.out.println("[CLIENT] Error while processing data.");
 					}
 				}
 			}
@@ -97,12 +92,13 @@ public class PacketShipPlatform extends AbstractPacket {
 				} else {
 					tileEntity.setPrivate(false);
 				}
-				String wpData = infos[0] + " " + infos[3] + " " + infos[4] + " " + infos[5] + " " + infos[1] + " " + infos[2].toLowerCase();
+				int ypos = Integer.parseInt(infos[4]);
+				String wpData = infos[0] + " " + infos[3] + " " + (ypos += 1) + " " + infos[5] + " " + infos[1] + " " + infos[2].toLowerCase();
 				if (ShipSystem.isNameTaken(infos[0])) {
 					player.addChatMessage(new ChatComponentText("Name is already taken !"));
 				} else {
 					ShipWaypoint wp = new ShipWaypoint(wpData);
-					if(wp != null){
+					if (wp != null) {
 						ShipSystem.addWaypoint(wp);
 						player.addChatMessage(new ChatComponentText("You waypoint is now activated !"));
 					}
