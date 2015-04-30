@@ -7,6 +7,8 @@ tile.crate.name=Caisse de Boulons
 tile.vendor.name=Vendeur Gadgetron
 tile.ship.name=Vaisseau de Ratchet
 item.vendorCore.name=Coeur du Vendeur
+tile.ammoCrate.name=Caisse de munitions
+tile.shipPlatform.name=Plateforme pour vaisseau
 item.clankCore.name=Coeur de Clank
 item.clank.name=Clank (Vide)
 item.helipackHelice.name=Helice d'Helipack
@@ -21,21 +23,33 @@ item.ratchetEars.name=Oreilles de Ratchet
 ####################Armes#######################
 #
 item.blaster.name=Plasmo-Mitrail
-item.bombglove.name=Gant Ã  Bombes
-item.omwr3000.name=Super ClÃ© 8000
+item.bombglove.name=Gant à Bombes
+item.omwr3000.name=Super Cle 8000
 item.ryno.name=T.E.L.T.
 item.pyrocitor.name=Pyrolanceur
 item.walloper.name=Repousseur
 item.visibombGun.name=Canon Visibombe
-item.decoyGlove.name=Gant Ã  Leurres
-item.devastator.name=DÃ©vastateur
+item.decoyGlove.name=Gant à Leurres
+item.devastator.name=Devastateur
 item.droneDevice.name=Dronomatic
 item.gloveOfDoom.name=Gant Ravageur
-item.mineGlove.name=Gant Ã  Mines
+item.mineGlove.name=Gant à Mines
 item.morphORay.name=Morpho-Rayon
 item.suckCannon.name=Aspiro-Canon
 item.taunter.name=Attrape-Nigaud
 item.teslaClaw.name=Griffeur Tesla
+
+item.ammoblaster.name=Munitions de Plasmo-Mitrail
+item.ammodecoyGlove.name=Munitions de gant à leurres
+item.ammodevastator.name=Munitions de dévastateur
+item.ammoryno.name=Munitions de T.E.L.T.
+item.ammopyrocitor.name=Munitions de Pyrocitor
+item.ammomineGlove.name=Munitions de gant à mines
+item.ammoteslaClaw.name=Munitions de griffeur tesla
+item.ammogloveofDoom.name=Munitions de gant ravageur
+item.ammobombGlove.name=Munitions de gant à bombes
+item.ammodroneDevice.name=Munition de Dronomatic
+item.ammovisibombGun.name=Munition de canon à visibombe
 #
 ##################Fin d'Armes#######################
 

@@ -6,6 +6,8 @@ tile.tntCrate.name=Caja Explosiva
 tile.crate.name=Caja de Guitones
 tile.vendor.name=Expendedor Gadgetron
 tile.ship.name=Nave de Ratchet
+tile.ammoCrate.name=Caja de Munición
+tile.shipPlatform.name=Baliza de la Nave
 item.vendorCore.name=Núcleo del Expendedor
 item.clankCore.name=Núcleo de Clank
 item.clank.name=Clank (Vacío)
@@ -37,6 +39,20 @@ item.suckCannon.name=Cañón de Succión
 item.taunter.name=Burlófono
 item.teslaClaw.name=Garra Tesla
 #
+###Munición###
+#
+item.ammoblaster.name=Munición para el Desintegrador
+item.ammodecoyGlove.name=Munición para el Guante Señuelo
+item.ammodevastator.name=Munición para el Devastador
+item.ammoryno.name=Munición para el T.A.U.N.
+item.ammopyrocitor.name=Munición para el Piromátic
+item.ammomineGlove.name=Munición para el Guante Minas
+item.ammoteslaClaw.name=Munición para la Garra Tesla
+item.ammogloveofDoom.name=Munición para el Guante Perdición
+item.ammobombGlove.name=Munición para el Guante Bombas
+item.ammodroneDevice.name=Munición para el Guante Defensor
+item.ammovisibombGun.name=Munición para el Visicañón
+#
 #############Fin Armas######################
 
 ##############Artilugios###################
@@ -45,7 +61,7 @@ item.swingShot.name=Balanceador
 item.clankHeli.name=Clank (Helipack)
 item.thrusterpack.name=Clank (Aviopack)
 item.gadgetronHelper.name=PDA Gadgetrón
-tile.versaTargetGreen.name=Swing Shot Point
+tile.versaTargetGreen.name=Punto del Balanceador
 #
 ############Fin Artilugios#################
 
@@ -66,6 +82,30 @@ death.attack.rcweap.player=%1$s fué asesinado a balazos por %2$s.
 death.attack.rcweap.item=%1$s fué asesinado a balazos por %2$s usando %3$s
 #
 ######################Fin Mensajes##########################
+
+######################Texto de Interfaz###########################
+#
+##Interfaz de la Nave##
+gui.ship.nodest=Debes seleccionar un destino!
+gui.ship.select=Seleccionar destino
+gui.ship.go=Ir al destino
+##Fin Interfaz de la Nave##
+#
+##Interfaz del Punto de Venta##
+gui.vendor.buy=Comprar
+gui.vendor.refill=Recargar
+gui.vendor.exit=Salir
+
+gui.vendor.refill.success=Tu arma ha sido recargada!
+gui.vendor.refill.bolt=No tienes suficientes guitones!
+gui.vendor.refill.error=Se ha producido un error al intentar recargar tu arma.
+
+gui.vendor.buy.success=Tu compra se ha añadido a tu inventario!
+gui.vendor.buy.error=Tu inventario esta lleno, o no tienes suficientes guitones!
+gui.vendor.buy.alreadyhave=Ya tienes esa arma!
+##Fin Interfaz del Punto de Venta##
+#
+######################Fin Texto de Interfaz###############################
 
 ##################Otros##################################
 #
