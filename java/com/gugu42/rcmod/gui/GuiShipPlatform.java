@@ -15,7 +15,7 @@ import com.gugu42.rcmod.tileentity.TileEntityShipPlatform;
 
 public class GuiShipPlatform extends GuiScreen {
 
-	private ResourceLocation       texture        = new ResourceLocation(RcMod.MODID + ":/textures/gui/gadgetron_helper.png");
+	private ResourceLocation       texture        = new ResourceLocation("rcmod", "textures/gui/gadgetron_helper.png");
 	private TileEntityShipPlatform tileEntity;
 	private EntityPlayer           player;
 	public final int               xSizeOfTexture = 192;
