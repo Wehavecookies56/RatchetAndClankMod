@@ -103,6 +103,13 @@ gui.vendor.buy.success=Your purchase has been added into your inventory !
 gui.vendor.buy.error=Your inventory is full, or you don't have enough bolts !
 gui.vendor.buy.alreadyhave=You already own this weapon !
 ##End Vendor GUI##
+
+##Tooltips GUI##
+gui.tooltip.blaster.1=The §e§lblaster§r is a small, powerful
+gui.tooltip.blaster.2=mid-range weapon.
+gui.tooltip.blaster.3=Use §6right-click§r to fire it.
+gui.tooltip.blaster.4=
+##End Tooltips GUI##
 #
 ######################End GUI text###############################
 

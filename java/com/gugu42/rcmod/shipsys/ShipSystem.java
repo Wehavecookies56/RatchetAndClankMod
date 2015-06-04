@@ -120,5 +120,13 @@ public class ShipSystem {
 			waypoints.remove(getWaypointByName(name));
 		}
 	}
+	
+	public static void renameWaypoint(String oldName, String newName) {
+		for (ShipWaypoint wp : waypoints) {
+			if (wp.name.equals(oldName)) {
+				wp.name = newName;
+			}
+		}
+	}
 
 }

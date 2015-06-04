@@ -25,6 +25,7 @@ import com.gugu42.rcmod.blocks.BlockVersaTargetGreen;
 import com.gugu42.rcmod.entity.RcEntities;
 import com.gugu42.rcmod.gui.GuiBolt;
 import com.gugu42.rcmod.gui.GuiSuckCannon;
+import com.gugu42.rcmod.gui.GuiTooltips;
 import com.gugu42.rcmod.handler.RcAchievementEventHandler;
 import com.gugu42.rcmod.handler.RcEventHandler;
 import com.gugu42.rcmod.handler.RcTickHandler;
@@ -132,7 +133,7 @@ public class RcMod {
 
 		/* -----Others before blocks ( stepsound )----- */
 
-		crateStepSound = new RcCustomStepSound("CrateWoodBreak", 0.1f, 1.0f, Block.soundTypeWood, Block.soundTypeWood);
+		crateStepSound = new RcCustomStepSound("crate.break", 0.1f, 1.0f, Block.soundTypeWood, Block.soundTypeWood);
 
 		/* -----Blocks----- */
 		tntCrate = new BlockTNTCrate(Material.tnt).setBlockName("tntCrate").setBlockTextureName(MODID + ":tntcrate");
@@ -215,6 +216,7 @@ public class RcMod {
 		FMLCommonHandler.instance().bus().register(new RcAchievementEventHandler());
 		if (FMLCommonHandler.instance().getEffectiveSide().isClient()) {
 			MinecraftForge.EVENT_BUS.register(new GuiBolt(Minecraft.getMinecraft()));
+			MinecraftForge.EVENT_BUS.register(new GuiTooltips());
 			MinecraftForge.EVENT_BUS.register(new DropBolts());
 			GuiSuckCannon suckCannonGui = new GuiSuckCannon(Minecraft.getMinecraft());
 			MinecraftForge.EVENT_BUS.register(suckCannonGui);

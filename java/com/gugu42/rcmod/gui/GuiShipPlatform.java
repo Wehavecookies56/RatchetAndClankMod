@@ -10,7 +10,9 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import com.gugu42.rcmod.RcMod;
+import com.gugu42.rcmod.network.packets.PacketEditWaypoint;
 import com.gugu42.rcmod.network.packets.PacketShipPlatform;
+import com.gugu42.rcmod.shipsys.ShipSystem;
 import com.gugu42.rcmod.tileentity.TileEntityShipPlatform;
 
 public class GuiShipPlatform extends GuiScreen {
@@ -23,12 +25,14 @@ public class GuiShipPlatform extends GuiScreen {
 
 	private GuiTextField           textField;
 	private GuiButton              privateBtn;
+	private GuiButton              createBtn;
 
 	private String                 ownerName;
 	private int                    posX, posY, posZ;
 	private String                 saveData       = "";
-	
-	private String warningMessage;
+
+	private String                 warningMessage;
+	private boolean                isEditing;                                                                          // Used when the waypoint was saved once.
 
 	public Minecraft               mc;
 
@@ -52,7 +56,7 @@ public class GuiShipPlatform extends GuiScreen {
 		drawTexturedModalRect(posX, posY, 0, 0, xSizeOfTexture, ySizeOfTexture);
 		drawString(mc.fontRenderer, "Waypoint info :", posX + 10, posY + 10, 0xFF5F1F);
 		drawString(mc.fontRenderer, "Name :", posX + 10, posY + 55, 0xFFFFFF);
-		drawString(mc.fontRenderer, "Position : " + this.posX + " " + this.posY  + " " + this.posZ, posX + 10, posY + 80, 0xFFFFFF);
+		drawString(mc.fontRenderer, "Position : " + this.posX + " " + this.posY + " " + this.posZ, posX + 10, posY + 80, 0xFFFFFF);
 		drawString(mc.fontRenderer, "Owner : " + this.ownerName, posX + 10, posY + 100, 0xFFFFFF);
 		drawString(mc.fontRenderer, "Private : ", posX + 10, posY + 125, 0xFFFFFF);
 		drawString(mc.fontRenderer, warningMessage, posX + 15, posY + 28, 0xFF0000);
@@ -86,13 +90,22 @@ public class GuiShipPlatform extends GuiScreen {
 		switch (button.id) {
 		case 0:
 			this.saveData();
-			System.out.println(saveData);
-			try {
-				PacketShipPlatform packet = new PacketShipPlatform(saveData);
-				RcMod.rcModPacketHandler.sendToServer(packet);
-				RcMod.rcModPacketHandler.sendToAll(packet);
-			} catch (Exception exception) {
-				exception.printStackTrace();
+			if (!isEditing) {
+				try {
+					PacketShipPlatform packet = new PacketShipPlatform(saveData);
+					RcMod.rcModPacketHandler.sendToServer(packet);
+					RcMod.rcModPacketHandler.sendToAll(packet);
+				} catch (Exception exception) {
+					exception.printStackTrace();
+				}
+			} else {
+				try {
+					PacketEditWaypoint packet = new PacketEditWaypoint(this.tileEntity.wpName + " " + this.textField.getText() + " " + tileEntity.xCoord + " " + tileEntity.yCoord + " " + tileEntity.zCoord);
+					RcMod.rcModPacketHandler.sendToServer(packet);
+					RcMod.rcModPacketHandler.sendToAll(packet);
+				} catch (Exception exception) {
+					exception.printStackTrace();
+				}
 			}
 			break;
 		case 1:
@@ -113,12 +126,14 @@ public class GuiShipPlatform extends GuiScreen {
 		int posX = (this.width - xSizeOfTexture) / 2;
 		int posY = (this.height - ySizeOfTexture) / 2;
 
+		this.createBtn = new GuiButton(0, posX + 50, posY + 150, 100, 20, "Create waypoint");
 		this.privateBtn = new GuiButton(1, posX + 60, posY + 120, 90, 20, "False");
+
 		this.textField = new GuiTextField(this.fontRendererObj, this.width / 2 - 50, this.height / 2 - 46, 137, 20);
-		textField.setMaxStringLength(23);
+		this.textField.setMaxStringLength(23);
 		this.textField.setFocused(true);
 
-		this.buttonList.add(new GuiButton(0, posX + 50, posY + 150, 100, 20, "Create waypoint"));
+		this.buttonList.add(createBtn);
 		this.buttonList.add(privateBtn);
 
 		loadData();
@@ -129,6 +144,12 @@ public class GuiShipPlatform extends GuiScreen {
 			textField.setText(this.tileEntity.wpName);
 		} else {
 			textField.setText("Waypoint name");
+		}
+		
+		if(ShipSystem.isNameTaken(this.tileEntity.wpName)){
+			this.isEditing = true;
+		} else {
+			this.isEditing = false;
 		}
 
 		if (this.tileEntity.ownerName != null) {
@@ -149,30 +170,29 @@ public class GuiShipPlatform extends GuiScreen {
 	}
 
 	private void saveData() {
-
 		if (this.textField.getText() != null) {
-			//			this.tileEntity.setWpName(this.textField.getText());
 			saveData += this.textField.getText() + ";";
 		}
 
 		if (this.ownerName != null) {
-			//			this.tileEntity.setOwnerName(ownerName);
 			saveData += this.ownerName + ";";
 		}
 
-//		if (this.privateBtn.displayString.equals("True")) {
-			//			this.tileEntity.setPrivate(true);
-			saveData += this.privateBtn.displayString + ";";
-//		}
-
+		saveData += this.privateBtn.displayString + ";";
 		saveData += this.tileEntity.xCoord + ";" + this.tileEntity.yCoord + ";" + this.tileEntity.zCoord;
 	}
 
 	public void updateScreen() {
 		super.updateScreen();
 		this.textField.updateCursorCounter();
+
+		if(this.player.capabilities.isCreativeMode || this.tileEntity.ownerName.equals(this.player.getDisplayName())){
+			this.createBtn.enabled = true;
+		} else {
+			this.createBtn.enabled = false;
+		}
 		
-		if(this.textField.getText() == "" || this.textField.getText().contains(" ")){
+		if (this.textField.getText() == "" || this.textField.getText().contains(" ")) {
 			GuiButton btn = (GuiButton) this.buttonList.get(0);
 			btn.enabled = false;
 			this.warningMessage = "NAME MUST NOT CONTAIN SPACES";
@@ -181,5 +201,10 @@ public class GuiShipPlatform extends GuiScreen {
 			btn.enabled = true;
 			this.warningMessage = "";
 		}
+
+		if (isEditing)
+			createBtn.displayString = "Edit waypoint";
+		else
+			createBtn.displayString = "Create waypoint";
 	}
 }

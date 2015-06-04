@@ -25,6 +25,12 @@
             "ExplosiveCrateExplosion"
         ]
     },
+    "crate.break": {
+        "category": "block",
+        "sounds": [
+            "CrateWoodBreak"
+        ]
+    },
     "MenuOpen": {
         "category": "block",
         "sounds": [

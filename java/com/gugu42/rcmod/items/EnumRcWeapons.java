@@ -11,7 +11,7 @@ public enum EnumRcWeapons {
 	
 	
 	//PAGE 1
-	BLASTER(1000, RcItems.blaster, "Blaster", 1, 1 , new String[] {"The Blaster is a great", "all-purpose weapon", "Even though its range is limited,", "its high rate of fire makes it ideal", "for taking on tough enemies at ", "close and medium ranges"}, 1),
+	BLASTER(2500, RcItems.blaster, "Blaster", 1, 1 , new String[] {"The Blaster is a great", "all-purpose weapon", "Even though its range is limited,", "its high rate of fire makes it ideal", "for taking on tough enemies at ", "close and medium ranges"}, 1),
 	BOMBGLOVE(1000, RcItems.bombGlove, "BombGlove", 1, 2, new String[] {"Bomb Glove! ", "Throw bombs at your enemies!", "BOOM!", "", "", ""}, 2),
 	PYROCITOR(2500, RcItems.pyrocitor, "Pyrocitor", 1, 3, new String[] {"Pyrocitor!", "This fearsome weapon", "really shines at close range.", "", "Great for taking out", "those pesky small enemies."}, 3),
 	RYNO(150000, RcItems.ryno, "R.Y.N.O.", 1, 4, new String[] {"Rip ya ...", "A NEW ONE !", "The R.Y.NO. is the most powerful", "rocket launcher in the galaxy", "", "(It's in WIP)" }, 4),

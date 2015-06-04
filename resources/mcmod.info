@@ -5,15 +5,15 @@
     "name": "Ratchet and Clank Mod",
     "description": "A mod where you can use weapons, gadgets and objects of the legendary saga of Ratchet & Clank, make your world in the style of Ratchet & Clank..",
     "version": "0.5.2b",
-    "mcversion": "1.7.10",
+    "mcversion": "",
     "url": "http://minecraft.curseforge.com/mc-mods/220785-ratchet-clank-mod",
     "updateUrl": "",
     "authorList": ["xXGugu42Xx"],
     "logoFile": "assets/rcmod/textures/logos/rcmod.png",
     "screenshots": [],
     "dependants":[],
-    "dependencies": ["Forge@[10.13.0.1208,)"],
-    "requiredMods": ["Forge@[10.13.0.1208,)"],
+    "dependencies": [],
+    "requiredMods": [],
     "useDependencyInformation": true
   }]
 }
