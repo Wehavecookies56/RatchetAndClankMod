@@ -17,10 +17,9 @@ public class ItemGadgetronHelper extends Item {
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world,
-			EntityPlayer player) {
-		player.openGui(RcMod.instance, 3, player.worldObj, 0, 0, 0);
-
+	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+		if(!world.isRemote)
+			player.openGui(RcMod.instance, 5, player.worldObj, 0, 0, 0);
 		return stack;
 	}
 

@@ -13,11 +13,10 @@ import net.minecraft.util.AxisAlignedBB;
 
 public class TileEntityVendor extends TileEntity implements IInventory {
 
-	
-	public boolean isPlayerNear = false;
+	public boolean     isPlayerNear = false;
 	public ItemStack[] inv;
-	public int renderCountdown;
-	
+	public int         renderCountdown;
+
 	public TileEntityVendor() {
 		inv = new ItemStack[12];
 		renderCountdown = 0;
@@ -69,48 +68,35 @@ public class TileEntityVendor extends TileEntity implements IInventory {
 
 	public void updateEntity() {
 		this.isPlayerNear = this.isPlayerStandingNear();
-		
-		if(renderCountdown >= 1 && isPlayerNear){
-			 renderCountdown--;
+
+		if (renderCountdown >= 1 && isPlayerNear) {
+			renderCountdown--;
 		}
 	}
 
-	public void setRenderCountdown(int value){
+	public void setRenderCountdown(int value) {
 		this.renderCountdown = value;
 	}
-	
-	public int getRenderCountdown(){
+
+	public int getRenderCountdown() {
 		return renderCountdown;
 	}
-	
+
 	public boolean isPlayerStandingNear() {
 
-        AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox((double)this.xCoord, (double)this.yCoord, (double)this.zCoord, (double)(this.xCoord + 1), (double)(this.yCoord + 1), (double)(this.zCoord + 1)).expand(2, 2, 2);
-        axisalignedbb.maxY = (double)this.worldObj.getHeight();
-        List list = this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
-        Iterator iterator = list.iterator();
-        EntityPlayer entityplayer;
+		AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox((double) this.xCoord, (double) this.yCoord, (double) this.zCoord, (double) (this.xCoord + 1), (double) (this.yCoord + 1), (double) (this.zCoord + 1)).expand(2, 2, 2);
+		axisalignedbb.maxY = (double) this.worldObj.getHeight();
+		List list = this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
+		Iterator iterator = list.iterator();
+		EntityPlayer entityplayer;
 
-        while (iterator.hasNext())
-        {
-            return true;
-        }
-        
-        return false;
-		
+		while (iterator.hasNext()) {
+			return true;
+		}
+
+		return false;
+
 	}
-
-//	@Override
-//	public String getInvName() {
-//		// TODO Auto-generated method stub
-//		return "rcmod.tileentityvendor";
-//	}
-//
-//	@Override
-//	public boolean isInvNameLocalized() {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
 
 	@Override
 	public int getInventoryStackLimit() {
@@ -119,11 +105,8 @@ public class TileEntityVendor extends TileEntity implements IInventory {
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
-		return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this
-				&& entityplayer.getDistanceSq(xCoord + 0.5, yCoord + 0.5,
-						zCoord + 0.5) < 64;
+		return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this && entityplayer.getDistanceSq(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5) < 64;
 	}
-
 
 	@Override
 	public void readFromNBT(NBTTagCompound tagCompound) {
@@ -177,13 +160,13 @@ public class TileEntityVendor extends TileEntity implements IInventory {
 	@Override
 	public void openInventory() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void closeInventory() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

@@ -25,6 +25,7 @@ import com.gugu42.rcmod.ContainerVendor;
 import com.gugu42.rcmod.RcMod;
 import com.gugu42.rcmod.handler.ExtendedPlayerBolt;
 import com.gugu42.rcmod.items.EnumRcWeapons;
+import com.gugu42.rcmod.items.InventoryGadgetronPDA;
 import com.gugu42.rcmod.items.ItemRcWeap;
 import com.gugu42.rcmod.network.packets.PacketRefill;
 import com.gugu42.rcmod.network.packets.PacketVend;
@@ -69,8 +70,8 @@ public class GuiVendor extends GuiContainer {
 
 	public GuiVendor(InventoryPlayer inventoryPlayer,
 			TileEntityVendor tileEntity, EntityPlayer player,
-			ContainerVendor container) {
-		super(new ContainerVendor(inventoryPlayer, tileEntity));
+			ContainerVendor container, InventoryGadgetronPDA inv) {
+		super(new ContainerVendor(inventoryPlayer, tileEntity, inv));
 		this.player = player;
 		this.tileEntity = tileEntity;
 		this.container = container;

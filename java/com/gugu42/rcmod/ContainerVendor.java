@@ -6,37 +6,49 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-import com.gugu42.rcmod.gui.SlotVendShow;
 import com.gugu42.rcmod.gui.SlotVendor;
+import com.gugu42.rcmod.items.InventoryGadgetronPDA;
 import com.gugu42.rcmod.tileentity.TileEntityVendor;
 
 public class ContainerVendor extends Container {
 
 	protected TileEntityVendor tileEntity;
-	public ContainerVendor(InventoryPlayer inventoryPlayer, TileEntityVendor te) {
+	protected InventoryGadgetronPDA inv;
+	public ContainerVendor(InventoryPlayer inventoryPlayer, TileEntityVendor te, InventoryGadgetronPDA inv) {
 		tileEntity = te;
-
-//		addSlotToContainer(new Slot(tileEntity, 1, 8, 18));
-		
-//		addSlotToContainer(new SlotVendShow(tileEntity, 3, 80, 10));
-		addSlotToContainer(new SlotVendor(tileEntity, 1, 48, 173)); 
-		addSlotToContainer(new SlotVendor(tileEntity, 2, 66, 173)); 
-		addSlotToContainer(new SlotVendor(tileEntity, 3, 84, 173)); 
-		addSlotToContainer(new SlotVendor(tileEntity, 4, 102, 173)); 
-		addSlotToContainer(new SlotVendor(tileEntity, 5, 120, 173)); 
-		addSlotToContainer(new SlotVendor(tileEntity, 6, 138, 173)); 
-		addSlotToContainer(new SlotVendor(tileEntity, 7, 156, 173)); 
-		addSlotToContainer(new SlotVendor(tileEntity, 8, 174, 173)); 
-		addSlotToContainer(new SlotVendor(tileEntity, 9, 192, 173)); 
-		
-//		bindPlayerInventory(inventoryPlayer);
+		this.inv = inv;
+		if(inv != null){
+			addSlotToContainer(new SlotVendor(inv, 1, 48, 173)); 
+			addSlotToContainer(new SlotVendor(inv, 2, 66, 173)); 
+			addSlotToContainer(new SlotVendor(inv, 3, 84, 173)); 
+			addSlotToContainer(new SlotVendor(inv, 4, 102, 173)); 
+			addSlotToContainer(new SlotVendor(inv, 5, 120, 173)); 
+			addSlotToContainer(new SlotVendor(inv, 6, 138, 173)); 
+			addSlotToContainer(new SlotVendor(inv, 7, 156, 173)); 
+			addSlotToContainer(new SlotVendor(inv, 8, 174, 173)); 
+			addSlotToContainer(new SlotVendor(inv, 9, 192, 173)); 
+		} else {
+			addSlotToContainer(new SlotVendor(tileEntity, 1, 48, 173)); 
+			addSlotToContainer(new SlotVendor(tileEntity, 2, 66, 173)); 
+			addSlotToContainer(new SlotVendor(tileEntity, 3, 84, 173)); 
+			addSlotToContainer(new SlotVendor(tileEntity, 4, 102, 173)); 
+			addSlotToContainer(new SlotVendor(tileEntity, 5, 120, 173)); 
+			addSlotToContainer(new SlotVendor(tileEntity, 6, 138, 173)); 
+			addSlotToContainer(new SlotVendor(tileEntity, 7, 156, 173)); 
+			addSlotToContainer(new SlotVendor(tileEntity, 8, 174, 173)); 
+			addSlotToContainer(new SlotVendor(tileEntity, 9, 192, 173)); 
+		}
 	}
 
 	
 	
 	@Override
 	public boolean canInteractWith(EntityPlayer player) {
+		if(tileEntity != null){
 		return tileEntity.isUseableByPlayer(player);
+		} else {
+			return true;
+		}
 	}
 
 	@Override

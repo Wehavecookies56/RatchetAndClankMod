@@ -5,6 +5,7 @@ import com.gugu42.rcmod.gui.GuiGadgetronHelper;
 import com.gugu42.rcmod.gui.GuiShip;
 import com.gugu42.rcmod.gui.GuiShipPlatform;
 import com.gugu42.rcmod.gui.GuiVendor;
+import com.gugu42.rcmod.items.InventoryGadgetronPDA;
 import com.gugu42.rcmod.tileentity.TileEntityShip;
 import com.gugu42.rcmod.tileentity.TileEntityShipFiller;
 import com.gugu42.rcmod.tileentity.TileEntityShipPlatform;
@@ -21,7 +22,7 @@ public class GuiHandler implements IGuiHandler {
 	public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
 		if (tileEntity instanceof TileEntityVendor) {
-			return new ContainerVendor(player.inventory, (TileEntityVendor) tileEntity);
+			return new ContainerVendor(player.inventory, (TileEntityVendor) tileEntity, null);
 		}
 
 		if (tileEntity instanceof TileEntityShip) {
@@ -32,6 +33,9 @@ public class GuiHandler implements IGuiHandler {
 			return null;
 		}
 
+		if(id == 5){
+			return new ContainerVendor(player.inventory, null, new InventoryGadgetronPDA());
+		}
 		return null;
 	}
 
@@ -41,7 +45,7 @@ public class GuiHandler implements IGuiHandler {
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
 		
 		if (tileEntity instanceof TileEntityVendor) {
-			return new GuiVendor(player.inventory, (TileEntityVendor) tileEntity, player, new ContainerVendor(player.inventory, (TileEntityVendor) tileEntity));
+			return new GuiVendor(player.inventory, (TileEntityVendor) tileEntity, player, new ContainerVendor(player.inventory, (TileEntityVendor) tileEntity, null), null);
 		}
 
 		if (tileEntity instanceof TileEntityShip || tileEntity instanceof TileEntityShipFiller) {
@@ -71,6 +75,9 @@ public class GuiHandler implements IGuiHandler {
 			return new GuiShipPlatform(player, te);
 		}
 
+		if(id == 5) {
+			return new GuiVendor(player.inventory, (TileEntityVendor) tileEntity, player, new ContainerVendor(player.inventory, null, new InventoryGadgetronPDA()), new InventoryGadgetronPDA());
+		}
 		return null;
 
 	}
