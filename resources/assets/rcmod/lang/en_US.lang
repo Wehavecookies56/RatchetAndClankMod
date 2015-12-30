@@ -109,6 +109,26 @@ gui.tooltip.blaster.1=The §e§lblaster§r is a small, powerful
 gui.tooltip.blaster.2=mid-range weapon.
 gui.tooltip.blaster.3=Use §6right-click§r to fire it.
 gui.tooltip.blaster.4=
+
+gui.tooltip.bombGlove.1=The §e§lBomb-Glove§r is a devastating
+gui.tooltip.bombGlove.2=mid-range weapon. It holds bombs.
+gui.tooltip.bombGlove.3=Use §6right-click§r to throw a bomb.
+gui.tooltip.bombGlove.4=
+
+gui.tooltip.ryno.1=The §e§lR.Y.N.O§r is the
+gui.tooltip.ryno.2=most powerful rocket launcher. 
+gui.tooltip.ryno.3=Use §6right-click§r to fire
+gui.tooltip.ryno.4=9 deadly missiles.
+
+gui.tooltip.pyrocitor.1=The §e§lPyrocitor§r is a
+gui.tooltip.pyrocitor.2=simple but deadly flame-thrower. 
+gui.tooltip.pyrocitor.3=Use §6right-click§r to use it.
+gui.tooltip.pyrocitor.4=
+
+gui.tooltip.visibomb.1=The §e§lVisibomb§r is a
+gui.tooltip.visibomb.2=RC missile launcher. 
+gui.tooltip.visibomb.3=Use §6right-click§r to fire, and
+gui.tooltip.visibomb.4=your mouse to control the missile.
 ##End Tooltips GUI##
 #
 ######################End GUI text###############################

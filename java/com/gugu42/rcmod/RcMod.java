@@ -227,6 +227,7 @@ public class RcMod {
 	@EventHandler
 	public void serverLoad(FMLServerStartingEvent event) {
 		event.registerServerCommand(new BoltCommand());
+		event.registerServerCommand(new ResetTooltipsCommand());
 		event.registerServerCommand(new ShipWaypointCommand());
 		event.registerServerCommand(new ShipWaypointRemoveCommand());
 	}

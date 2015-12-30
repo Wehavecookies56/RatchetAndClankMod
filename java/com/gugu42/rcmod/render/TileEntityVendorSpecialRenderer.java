@@ -102,15 +102,7 @@ public class TileEntityVendorSpecialRenderer extends TileEntitySpecialRenderer
 	@Override
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z,
 			float tick) {
-//
-//		float f2 = (float) te.getWorldObj().getTotalWorldTime();
-//		byte b1 = 1;
-//		double d3 = (double) f2 * 0.025D * (1.0D - (double) (b1 & 1) * 2.5D);
-		
-		long deltaT = System.currentTimeMillis() - last;
-		last = System.currentTimeMillis();
-		float ratio = (deltaT / (1000 / 60));
-		rotation += 1.0f * ratio;
+		rotation += 1.0f * tick;
 
 		if (rotation >= 360f) {
 			rotation = 0;

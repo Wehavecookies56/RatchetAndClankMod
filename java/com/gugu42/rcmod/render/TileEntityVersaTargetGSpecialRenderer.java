@@ -33,12 +33,7 @@ public class TileEntityVersaTargetGSpecialRenderer extends
 	@Override
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z,
 			float tick) {
-		
-		long deltaT = System.currentTimeMillis() - last;
-		last = System.currentTimeMillis();
-		float ratio = (deltaT / (1000 / 60));
-		rotation += 2.5f * ratio;
-
+		rotation += 2.5f * tick;
 		if (rotation >= 360f) {
 			rotation = 0;
 		}

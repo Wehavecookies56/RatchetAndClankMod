@@ -112,5 +112,9 @@ public class ExtendedPlayerTooltips implements IExtendedEntityProperties {
 		}
 		return true;
 	}
+	
+	public void resetAllTips(){
+		this.seenTips.clear();
+	}
 
 }
