@@ -27,6 +27,7 @@ public class GuiTooltips extends GuiScreen {
 	public String            desc1, desc2, desc3, desc4;
 	private long             showTimer;
 	private long             maxShowTime    = 5000;
+	private boolean          mustSeeTip     = false;
 
 	public Minecraft         mc;
 
@@ -63,14 +64,19 @@ public class GuiTooltips extends GuiScreen {
 		ItemStack itemInHand = this.mc.thePlayer.inventory.getCurrentItem();
 		if (itemInHand != null && itemInHand.getItem() instanceof ItemRcWeap) {
 			ItemRcWeap weap = (ItemRcWeap) itemInHand.getItem();
-//			if (!props.hasSeenTip(weap.weaponName)) {
+			if (!props.hasSeenTip(weap.weaponName)) {
 				this.showTip(weap.weaponName);
 				props.setTipSeen(weap.weaponName);
-				if (System.currentTimeMillis() - showTimer < maxShowTime) {
-					ScaledResolution sr = new ScaledResolution(this.mc, this.mc.displayWidth, this.mc.displayHeight);
-					drawScreen(sr);
-					drawTooltip(sr);
-//				}
+				showTimer = System.currentTimeMillis();
+			}
+
+			if (System.currentTimeMillis() - showTimer < maxShowTime && mustSeeTip) {
+				ScaledResolution sr = new ScaledResolution(this.mc, this.mc.displayWidth, this.mc.displayHeight);
+				drawScreen(sr);
+				drawTooltip(sr);
+			}
+			if (System.currentTimeMillis() - showTimer > maxShowTime) {
+				this.mustSeeTip = false;
 			}
 		}
 	}
@@ -80,7 +86,6 @@ public class GuiTooltips extends GuiScreen {
 		this.desc2 = I18n.format("gui.tooltip." + tipName + ".2");
 		this.desc3 = I18n.format("gui.tooltip." + tipName + ".3");
 		this.desc4 = I18n.format("gui.tooltip." + tipName + ".4");
-
-		showTimer = System.currentTimeMillis();
+		this.mustSeeTip = true;
 	}
 }

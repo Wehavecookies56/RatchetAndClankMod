@@ -105,9 +105,9 @@ gui.vendor.buy.alreadyhave=You already own this weapon !
 ##End Vendor GUI##
 
 ##Tooltips GUI##
-gui.tooltip.blaster.1=The §e§lblaster§r is a small, powerful
+gui.tooltip.blaster.1=The Â§eÂ§lblasterÂ§r is a small, powerful
 gui.tooltip.blaster.2=mid-range weapon.
-gui.tooltip.blaster.3=Use §6right-click§r to fire it.
+gui.tooltip.blaster.3=Use Â§6right-clickÂ§r to fire it.
 gui.tooltip.blaster.4=
 ##End Tooltips GUI##
 #

@@ -1,10 +1,16 @@
 package com.gugu42.rcmod.handler;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.gugu42.rcmod.CommonProxy;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
 
@@ -16,6 +22,8 @@ public class ExtendedPlayerTooltips implements IExtendedEntityProperties {
 	private NBTTagCompound     tagCompound;
 	private boolean            blasterTip;
 	private boolean            bombGloveTip;
+
+	private List<String>       seenTips = new ArrayList<String>();
 
 	public ExtendedPlayerTooltips(EntityPlayer player) {
 		this.player = player;
@@ -34,8 +42,14 @@ public class ExtendedPlayerTooltips implements IExtendedEntityProperties {
 	public void saveNBTData(NBTTagCompound compound) {
 		NBTTagCompound properties = new NBTTagCompound();
 
-		properties.setBoolean("blasterTip", this.blasterTip);
-		properties.setBoolean("bombGloveTip", this.bombGloveTip);
+		NBTTagList list = new NBTTagList();
+		for (String s : seenTips) {
+			NBTTagString string = new NBTTagString(s);
+			list.appendTag(string);
+		}
+		//		properties.setBoolean("blasterTip", this.blasterTip);
+		//		properties.setBoolean("bombGloveTip", this.bombGloveTip);
+		properties.setTag("seenTips", list);
 
 		compound.setTag(EXT_PROP_NAME, properties);
 	}
@@ -44,8 +58,9 @@ public class ExtendedPlayerTooltips implements IExtendedEntityProperties {
 	public void loadNBTData(NBTTagCompound compound) {
 		NBTTagCompound properties = (NBTTagCompound) compound.getTag(EXT_PROP_NAME);
 		this.tagCompound = properties;
-		this.blasterTip = properties.getBoolean("blasterTip");
-		this.bombGloveTip = properties.getBoolean("bombGloveTip");
+		//		this.blasterTip = properties.getBoolean("blasterTip");
+		//		this.bombGloveTip = properties.getBoolean("bombGloveTip");
+		this.seenTips = (List<String>) properties.getTag("seenTips");
 	}
 
 	public static void saveProxyData(EntityPlayer player) {
@@ -81,28 +96,21 @@ public class ExtendedPlayerTooltips implements IExtendedEntityProperties {
 	}
 
 	public void setTipSeen(String name) {
-		switch (name) {
-		case "blaster":
-			this.blasterTip = true;
-			break;
-		case "bombGlove":
-			this.bombGloveTip = false;
-			break;
-		default:
-			break;
+		if (name != null) {
+			this.seenTips.add(new String(name));
 		}
 	}
 
 	public boolean hasSeenTip(String name) {
-		switch (name) {
-		case "blaster":
-			return this.blasterTip;
-		case "bombGlove":
-			return this.bombGloveTip;
-		default:
-			return false;
+		if (name != null) {
+			if (this
+					.seenTips
+					.contains(new String(name)))
+				return true;
+			else
+				return false;
 		}
-
+		return true;
 	}
 
 }
