@@ -129,6 +129,11 @@ gui.tooltip.visibomb.1=The §e§lVisibomb§r is a
 gui.tooltip.visibomb.2=RC missile launcher. 
 gui.tooltip.visibomb.3=Use §6right-click§r to fire, and
 gui.tooltip.visibomb.4=your mouse to control the missile.
+
+gui.tooltip.devastator.1=The §e§lDevastator§r is a
+gui.tooltip.devastator.2=guided rocket launcher. 
+gui.tooltip.devastator.3=Use §6right-click§r to fire it.
+gui.tooltip.devastator.4=
 ##End Tooltips GUI##
 #
 ######################End GUI text###############################

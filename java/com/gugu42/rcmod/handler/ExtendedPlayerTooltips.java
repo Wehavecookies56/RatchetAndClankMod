@@ -53,7 +53,7 @@ public class ExtendedPlayerTooltips implements IExtendedEntityProperties {
 
 		compound.setTag(EXT_PROP_NAME, properties);
 	}
-
+ 
 	@Override
 	public void loadNBTData(NBTTagCompound compound) {
 		NBTTagCompound properties = (NBTTagCompound) compound.getTag(EXT_PROP_NAME);

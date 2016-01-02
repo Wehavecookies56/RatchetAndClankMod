@@ -95,5 +95,19 @@ public class RcRecipes
 			"  I",
 			'I', Items.iron_ingot, 'S', Items.string
 		});
+		
+		GameRegistry.addRecipe(new ItemStack(RcMod.versaTargetGreen, 1), new Object[]{
+			"III",
+			"IGI",
+			"III",
+			'I', Items.iron_ingot, 'G', new ItemStack(Items.dye, 1, 10)
+		});
+		
+		GameRegistry.addRecipe(new ItemStack(RcMod.shipPlatform, 1), new Object[]{
+			"YPY",
+			"III",
+			"YIY",
+			'I', Items.iron_ingot, 'Y', new ItemStack(Items.dye, 1, 11), 'P', new ItemStack(Blocks.stone_pressure_plate)
+		});
 	}
 }

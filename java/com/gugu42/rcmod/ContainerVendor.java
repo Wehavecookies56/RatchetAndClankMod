@@ -18,6 +18,7 @@ public class ContainerVendor extends Container {
 		tileEntity = te;
 		this.inv = inv;
 		if(inv != null){
+			System.out.println("Item gui");
 			addSlotToContainer(new SlotVendor(inv, 1, 48, 173)); 
 			addSlotToContainer(new SlotVendor(inv, 2, 66, 173)); 
 			addSlotToContainer(new SlotVendor(inv, 3, 84, 173)); 
