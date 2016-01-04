@@ -120,10 +120,12 @@ public class EntityWrenchThrown extends EntityThrowable implements
 						int slot = owner.inventory.getFirstEmptyStack();
 						if(slot >= 0){
 							owner.inventory.mainInventory[slot] = itemThrown.copy();
+							this.setDead();
 						} else {
 							worldObj.spawnEntityInWorld(new EntityItem(
 							worldObj, this.posX, this.posY, this.posZ,
 							itemThrown));
+							this.setDead();
 						}
 					}
 					this.setDead();

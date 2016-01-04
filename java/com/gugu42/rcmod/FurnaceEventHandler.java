@@ -13,13 +13,13 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemSmeltedEvent;
 
 public class FurnaceEventHandler {
-	@SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
-	public void firePlayerSmeltedEvent(ItemSmeltedEvent event) {
-		if (event.smelting.getItem() == Items.iron_ingot) {
-			Random random = new Random();
-			ItemStack itemStackToDrop = new ItemStack(RcItems.bolt, random.nextInt(3) + 3);
-			event.player.worldObj.spawnEntityInWorld(new EntityItem(event.player.worldObj, event.player.posX, event.player.posY, event.player.posZ, itemStackToDrop));
-		} else {
-		}
-	}
+//	@SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
+//	public void firePlayerSmeltedEvent(ItemSmeltedEvent event) {
+//		if (event.smelting.getItem() == Items.iron_ingot) {
+//			Random random = new Random();
+//			ItemStack itemStackToDrop = new ItemStack(RcItems.bolt, random.nextInt(3) + 3);
+//			event.player.worldObj.spawnEntityInWorld(new EntityItem(event.player.worldObj, event.player.posX, event.player.posY, event.player.posZ, itemStackToDrop));
+//		} else {
+//		}
+//	}
 }
