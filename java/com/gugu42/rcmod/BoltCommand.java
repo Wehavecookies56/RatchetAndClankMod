@@ -22,7 +22,7 @@ public class BoltCommand implements ICommand {
 	}
 
 	@Override
-	public int compareTo(Object arg0) {
+	public int compareTo(ICommand o) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -41,19 +41,19 @@ public class BoltCommand implements ICommand {
 	}
 
 	@Override
-	public String getName() {
+	public String getCommandName() {
 		// TODO Auto-generated method stub
 		return "bolt";
 	}
 
 	@Override
-	public List getAliases() {
+	public List<String> getCommandAliases() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void execute(ICommandSender sender, String[] args)
+	public void processCommand(ICommandSender sender, String[] args)
 			throws CommandException {
 		if (sender instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) sender;
@@ -78,7 +78,7 @@ public class BoltCommand implements ICommand {
 	}
 
 	@Override
-	public boolean canCommandSenderUse(ICommandSender sender) {
+	public boolean canCommandSenderUseCommand(ICommandSender sender) {
 		// TODO Auto-generated method stub
 		return false;
 	}
