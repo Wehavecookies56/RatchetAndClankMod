@@ -9,6 +9,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -236,12 +237,12 @@ public class GuiVendor extends GuiContainer {
 	public static void drawTexturedQuadFit(double x, double y, double width,
 			double height, double zLevel) {
 		WorldRenderer tessellator = Tessellator.getInstance().getWorldRenderer();
-		tessellator.startDrawingQuads();
-		tessellator.addVertexWithUV(x + 0, y + height, zLevel, 0, 1);
-		tessellator.addVertexWithUV(x + width, y + height, zLevel, 1, 1);
-		tessellator.addVertexWithUV(x + width, y + 0, zLevel, 1, 0);
-		tessellator.addVertexWithUV(x + 0, y + 0, zLevel, 0, 0);
-		tessellator.finishDrawing();
+		tessellator.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+		tessellator.pos(x + 0, y + height, zLevel).tex(0, 1).endVertex();
+		tessellator.pos(x + width, y + height, zLevel).tex(1, 1).endVertex();
+		tessellator.pos(x + width, y + 0, zLevel).tex(1, 0).endVertex();
+		tessellator.pos(x + 0, y + 0, zLevel).tex(0, 0).endVertex();
+		Tessellator.getInstance().draw();
 	}
 
 	private boolean isMouseOverSlot(Slot par1Slot, int par2, int par3) {

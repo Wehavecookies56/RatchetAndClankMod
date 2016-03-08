@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
@@ -103,7 +104,7 @@ public class GuiSuckCannon extends Gui
 				{
 					try
 					{
-						Entity e = EntityList.createEntityFromNBT((NBTTagCompound)JsonToNBT.func_180713_a(list.get(index)), player.worldObj);
+						Entity e = EntityList.createEntityFromNBT((NBTTagCompound)JsonToNBT.getTagFromJson(list.get(index)), player.worldObj);
 						loadedEntities.put(index, e);
 					}
 					catch(NBTException e1)
@@ -116,7 +117,7 @@ public class GuiSuckCannon extends Gui
 				if(loadedEntities.get(index) != null)
 				{
 					Entity e = loadedEntities.get(index);
-					ScaledResolution res = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
+					ScaledResolution res = new ScaledResolution(mc);
 					drawEntity(res.getScaledWidth()-25-(index % 2 == 0 ? 20 : 0), res.getScaledHeight()-5-(index/2*35), 15, rotations.get(index), -10, (EntityLivingBase)e);
 				}
 			}
@@ -172,11 +173,11 @@ public class GuiSuckCannon extends Gui
 			double height, double zLevel)
 	{
 		WorldRenderer tessellator = Tessellator.getInstance().getWorldRenderer();
-		tessellator.startDrawingQuads();
-		tessellator.addVertexWithUV(x + 0, y + height, zLevel, 0, 1);
-		tessellator.addVertexWithUV(x + width, y + height, zLevel, 1, 1);
-		tessellator.addVertexWithUV(x + width, y + 0, zLevel, 1, 0);
-		tessellator.addVertexWithUV(x + 0, y + 0, zLevel, 0, 0);
-		tessellator.finishDrawing();
+		tessellator.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+		tessellator.pos(x + 0, y + height, zLevel).tex(0, 1).endVertex();
+		tessellator.pos(x + width, y + height, zLevel).tex(1, 1).endVertex();
+		tessellator.pos(x + width, y + 0, zLevel).tex(1, 0).endVertex();;
+		tessellator.pos(x + 0, y + 0, zLevel).tex(0, 0).endVertex();;
+		Tessellator.getInstance().draw();
 	}
 }
